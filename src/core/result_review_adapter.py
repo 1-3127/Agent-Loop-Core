@@ -20,6 +20,7 @@ REF = {"path", "sha256"}
 ARTIFACT = {"role", "path", "sha256", "media_type"}
 REQUEST = {"request_version", "review_id", "stage", "output_kind", "source_result", "previous_decision", "invocation", "state", "artifacts", "instruction_file", "context"}
 REQUEST_C2 = {"request_version", "run_id", "review_id", "stage", "output_kind", "source_result", "work_order", "worker_report", "artifacts", "instruction_file", "context"}
+REQUEST_C4 = REQUEST_C2 | {"bounded_contract", "worker_state"}
 RESULT = {"review_version", "review_id", "stage", "source_result", "artifacts", "verdict", "blocking_issues", "observations", "suggested_action"}
 
 
@@ -41,17 +42,20 @@ def validate_request(item):
     if not isinstance(item, dict):
         raise ValueError("review request fields differ")
     version = item.get("request_version")
-    if (version == "0.1" and set(item) != REQUEST) or (version == "0.2" and set(item) != REQUEST_C2) or version not in ("0.1", "0.2"):
+    if (version == "0.1" and set(item) != REQUEST) or (version == "0.2" and set(item) != REQUEST_C2) or (version == "0.3" and set(item) != REQUEST_C4) or version not in ("0.1", "0.2", "0.3"):
         raise ValueError("review request fields differ")
     if any(not isinstance(item[k], str) or not re.fullmatch(r"[A-Za-z0-9_-]{1,80}", item[k]) for k in ("review_id", "stage")):
         raise ValueError("review identity differs")
-    if version == "0.2" and (not isinstance(item["run_id"], str) or not re.fullmatch(r"[A-Za-z0-9_-]{1,80}", item["run_id"])):
+    if version in ("0.2", "0.3") and (not isinstance(item["run_id"], str) or not re.fullmatch(r"[A-Za-z0-9_-]{1,80}", item["run_id"])):
         raise ValueError("review run identity differs")
     if not isinstance(item["output_kind"], str) or not item["output_kind"]:
         raise ValueError("output kind missing")
     refs = ("source_result", "previous_decision", "invocation", "state", "instruction_file") if version == "0.1" else ("source_result", "work_order", "worker_report", "instruction_file")
     for key in refs:
         checked_ref(item[key])
+    if version == "0.3":
+        checked_ref(item["bounded_contract"])
+        checked_ref(item["worker_state"])
     if not isinstance(item["context"], dict) or not item["context"]:
         raise ValueError("review context missing")
     artifacts = item["artifacts"]
@@ -78,7 +82,7 @@ def validate_result(item, request):
     blockers, notes, action = item["blocking_issues"], item["observations"], item["suggested_action"]
     if not isinstance(blockers, list) or not isinstance(notes, list) or any(not isinstance(x, str) or not x.strip() for x in blockers + notes):
         raise ValueError("invalid review evidence")
-    if request["request_version"] == "0.2" and not notes:
+    if request["request_version"] in ("0.2", "0.3") and not notes:
         raise ValueError("C2 review needs visual observations")
     if not isinstance(action, dict) or set(action) != {"code", "target"} or not isinstance(action["code"], str) or not action["code"] or action["target"] is not None and (not isinstance(action["target"], str) or not action["target"]):
         raise ValueError("invalid suggested action")

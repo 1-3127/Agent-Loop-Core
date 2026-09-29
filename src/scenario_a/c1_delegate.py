@@ -44,7 +44,8 @@ def preflight(order_path):
               "requested_task", "iteration", "source", "workflow", "plan",
               "expected_output_kind", "worker_report_path", "execution_report_path",
               "usage_path", "worker_model"}
-    if not isinstance(order, dict) or set(order) != fields or order["version"] != "c1.0":
+    c4 = isinstance(order, dict) and order.get("version") == "c4.0"
+    if not isinstance(order, dict) or set(order) != (fields | {"bounded_contract"} if c4 else fields) or order["version"] not in ("c1.0", "c4.0"):
         raise ValueError("Work Order fields differ")
     run_id, work_order_id = order["run_id"], order["work_order_id"]
     if (not isinstance(run_id, str) or not re.fullmatch(r"[A-Za-z0-9_-]{1,64}", run_id)
@@ -56,6 +57,18 @@ def preflight(order_path):
         raise ValueError("unsupported C1 Work Order")
     source = checked_file(order["source"], COMFY / "work/input")
     workflow = checked_file(order["workflow"], COMFY)
+    if c4:
+        contract_path = checked_file(order["bounded_contract"], ROOT)
+        contract = json.loads(contract_path.read_text(encoding="utf-8"))
+        if (contract.get("run_id") != run_id or contract.get("version") != "c4.0"
+                or contract.get("state") != "SOURCE_READY" or contract.get("terminal") is not False
+                or contract.get("terminal_status") is not None
+                or contract.get("source") != order["source"]
+                or contract.get("workflow") != order["workflow"]
+                or contract.get("worker_budget") != {"limit": 1, "consumed": 0, "remaining": 1}
+                or contract.get("reviewer_budget") != {"limit": 1, "consumed": 0, "remaining": 1}
+                or (ROOT / "runs" / (run_id + "_terminal.json")).exists()):
+            raise ValueError("C4 initial budget or terminal gate differs")
     plan_path = checked_file(order["plan"], ROOT)
     plan = json.loads(plan_path.read_text(encoding="utf-8"))
     if (plan["task_id"] != work_order_id or plan["workflow"] != order["workflow"]["path"]
@@ -101,7 +114,7 @@ def run(order_path):
     if seconds < 0:
         raise ValueError("worker report time differs")
     evidence = {
-        "version": "c1.0", "run_id": order["run_id"], "work_order_id": order["work_order_id"],
+        "version": order["version"], "run_id": order["run_id"], "work_order_id": order["work_order_id"],
         "work_order": {"path": str(Path(order_path).resolve().relative_to(ROOT)).replace("\\", "/"),
                        "sha256": digest(order_path)},
         "plan": order["plan"], "source": order["source"], "workflow": order["workflow"],
@@ -113,6 +126,8 @@ def run(order_path):
         "artifact": {"path": str(artifact), "kind": "image", "bytes": size,
                      "sha256": digest(artifact), "width": output["width"], "height": output["height"]},
     }
+    if order["version"] == "c4.0":
+        evidence["bounded_contract"] = order["bounded_contract"]
     usage = {
         "run_id": order["run_id"],
         "frontier": {"provider": "OpenAI", "model": None, "invocations": None,

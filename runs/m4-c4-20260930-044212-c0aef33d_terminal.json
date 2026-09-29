@@ -1,0 +1,60 @@
+{
+  "version": "c4.0",
+  "run_id": "m4-c4-20260930-044212-c0aef33d",
+  "terminal": true,
+  "terminal_status": "DELIVERED",
+  "termination_reason": "INTERNAL_ACCEPT",
+  "initial_contract": {
+    "path": "runs/m4-c4-20260930-044212-c0aef33d_initial_budget.json",
+    "sha256": "04e16e0ffff0551f52a70b80a6c755ec6d46da3ca1a3ffa2fa37b9113b974ef9"
+  },
+  "work_order": {
+    "path": "work_orders/m4-c4-20260930-044212-c0aef33d.json",
+    "sha256": "46e6067a842c15ffe7ad25f1e15d926ce80f9ee579d07ae108e5481372561f38"
+  },
+  "execution_report": {
+    "path": "runs/m4-c4-20260930-044212-c0aef33d_execution.json",
+    "sha256": "8558e152607098c2e9ef6b7dd2ba3938bb4155c8c7fbf69f744608621fdc463d"
+  },
+  "artifact": {
+    "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\codex_to_comfy\\m4-c4-20260930-044212-c0aef33d_00001_.png",
+    "sha256": "e496e5fd021143e4cf4c9eb98a1440e8f2ced679bcaf30c3b7cfe56dbf4dff0e"
+  },
+  "worker_state": {
+    "path": "runs/m4-c4-20260930-044212-c0aef33d_worker_state.json",
+    "sha256": "1cd89fddf56e2301e7f2fe946f922a9a448d791bbc2dcd5e6418fd084245b551"
+  },
+  "review_request": {
+    "path": "reviewer_requests/m4-c4-20260930-044212-c0aef33d-review.json",
+    "sha256": "1926d8b15e7d0a6fe84064e3b4dbeb4372e793e42c4a7963e8923e4735b7d5cb"
+  },
+  "review_result": {
+    "path": "reviewer_results/m4-c4-20260930-044212-c0aef33d-review.json",
+    "sha256": "0cce7218815bcad356562d92dd43b1179c28c9b5abde500c21b14f3dc29dbf54"
+  },
+  "review_invocation_report": {
+    "path": "invocation_reports/m4-c4-20260930-044212-c0aef33d-review.json",
+    "sha256": "8d6cb3ba05597caa98062a65d83937fa8127f4352ad0e74ff67417ea5722d225"
+  },
+  "worker_budget": {
+    "limit": 1,
+    "consumed": 1,
+    "remaining": 0
+  },
+  "reviewer_budget": {
+    "limit": 1,
+    "consumed": 1,
+    "remaining": 0
+  },
+  "internal_accept": true,
+  "transitions": [
+    "INTERNAL_ACCEPT",
+    "DELIVERED"
+  ],
+  "delivered_artifact": {
+    "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\codex_to_comfy\\m4-c4-20260930-044212-c0aef33d_00001_.png",
+    "sha256": "e496e5fd021143e4cf4c9eb98a1440e8f2ced679bcaf30c3b7cfe56dbf4dff0e"
+  },
+  "delivery_channel": "final_response",
+  "terminal_at": "2026-09-29T19:48:50.469699+00:00"
+}

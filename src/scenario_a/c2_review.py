@@ -25,7 +25,7 @@ def read_ref(ref):
 
 def validate_c1_lineage(request, criteria=CRITERIA):
     reviewer.validate_request(request)
-    if (request["request_version"] != "0.2" or request["stage"] != "RIGHT_VIEW_REVIEW"
+    if (request["request_version"] not in ("0.2", "0.3") or request["stage"] != "RIGHT_VIEW_REVIEW"
             or request["output_kind"] != "image" or request["review_id"] == request["run_id"]
             or request["context"] != {
                 "requested_task": "Generate one right view from the source image",
