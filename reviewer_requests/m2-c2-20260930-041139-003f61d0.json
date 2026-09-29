@@ -1,0 +1,47 @@
+{
+    "request_version":  "0.2",
+    "run_id":  "m1-c1-20260930-035712-1ac20677",
+    "review_id":  "m2-c2-20260930-041139-003f61d0",
+    "stage":  "RIGHT_VIEW_REVIEW",
+    "output_kind":  "image",
+    "source_result":  {
+                          "sha256":  "006d8da2de168f6c21e72cb24b2b598e67dfc3fe13cc8512792450e2611b47c2",
+                          "path":  "runs/m1-c1-20260930-035712-1ac20677_c1_execution.json"
+                      },
+    "work_order":  {
+                       "sha256":  "c75d2aa38f98a657920c03ecdbd337b598e27e04ecfb97274f378d11b0bc07c6",
+                       "path":  "work_orders/m1-c1-20260930-035712-1ac20677.json"
+                   },
+    "worker_report":  {
+                          "sha256":  "a2cb77ee7426ed84d612ccb018b7f33daa0501e40a3314667f463aa6fc6f1256",
+                          "path":  "runs/m1-c1-20260930-035712-1ac20677_worker_report.json"
+                      },
+    "artifacts":  [
+                      {
+                          "path":  "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\codex_to_comfy\\m1-c1-20260930-035712-1ac20677_00001_.png",
+                          "sha256":  "516c0cbd228763d8ec194efb80d938299d80bff5cf9de1ebc06d69f6abec5eb1",
+                          "media_type":  "image/png",
+                          "role":  "generated_output"
+                      },
+                      {
+                          "path":  "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\input\\hunyuan-official-demo-padded.png",
+                          "sha256":  "8a6dd9ca3f8984b31c1243e7698cd5030b423464d80e0ad763609148e0ff4f51",
+                          "media_type":  "image/png",
+                          "role":  "source_reference"
+                      }
+                  ],
+    "instruction_file":  {
+                             "sha256":  "ce6659fc4fbe3fcb96599a3923053a559cc3cb939da4cea9ed2c6a76817cfb31",
+                             "path":  "reviewer_requests/c2_right_view_instructions.md"
+                         },
+    "context":  {
+                    "requested_task":  "Generate one right view from the source image",
+                    "acceptance_criteria":  [
+                                                "Preserve the source object\u0027s identity and structure.",
+                                                "Show a plausible right-side camera change.",
+                                                "Keep the whole object sufficiently visible without severe crop or zoom.",
+                                                "Avoid blocking structural distortion or floating elements.",
+                                                "Remain coherent enough for the next production step."
+                                            ]
+                }
+}

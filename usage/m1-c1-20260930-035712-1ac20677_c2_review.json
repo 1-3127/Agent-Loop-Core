@@ -1,0 +1,16 @@
+{
+  "run_id": "m1-c1-20260930-035712-1ac20677",
+  "review_id": "m2-c2-20260930-041139-003f61d0",
+  "frontier": {
+    "provider": "OpenAI",
+    "model": null,
+    "auth_mode": "CHATGPT_ACCOUNT",
+    "invocations": 1,
+    "input_tokens": null,
+    "cached_input_tokens": null,
+    "output_tokens": null,
+    "reasoning_tokens": null,
+    "reported_credits": null,
+    "review_duration_seconds": 15.6072506000055
+  }
+}

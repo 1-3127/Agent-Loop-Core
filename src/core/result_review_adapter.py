@@ -7,6 +7,8 @@ import os
 import re
 import subprocess
 import sys
+import time
+from datetime import datetime, timezone
 from pathlib import Path
 
 from reviewer_adapter import auth_mode
@@ -17,6 +19,7 @@ SCHEMA = ROOT / "result_review_schema.json"
 REF = {"path", "sha256"}
 ARTIFACT = {"role", "path", "sha256", "media_type"}
 REQUEST = {"request_version", "review_id", "stage", "output_kind", "source_result", "previous_decision", "invocation", "state", "artifacts", "instruction_file", "context"}
+REQUEST_C2 = {"request_version", "run_id", "review_id", "stage", "output_kind", "source_result", "work_order", "worker_report", "artifacts", "instruction_file", "context"}
 RESULT = {"review_version", "review_id", "stage", "source_result", "artifacts", "verdict", "blocking_issues", "observations", "suggested_action"}
 
 
@@ -35,13 +38,19 @@ def checked_ref(ref):
 
 
 def validate_request(item):
-    if not isinstance(item, dict) or set(item) != REQUEST or item["request_version"] != "0.1":
+    if not isinstance(item, dict):
+        raise ValueError("review request fields differ")
+    version = item.get("request_version")
+    if (version == "0.1" and set(item) != REQUEST) or (version == "0.2" and set(item) != REQUEST_C2) or version not in ("0.1", "0.2"):
         raise ValueError("review request fields differ")
     if any(not isinstance(item[k], str) or not re.fullmatch(r"[A-Za-z0-9_-]{1,80}", item[k]) for k in ("review_id", "stage")):
         raise ValueError("review identity differs")
+    if version == "0.2" and (not isinstance(item["run_id"], str) or not re.fullmatch(r"[A-Za-z0-9_-]{1,80}", item["run_id"])):
+        raise ValueError("review run identity differs")
     if not isinstance(item["output_kind"], str) or not item["output_kind"]:
         raise ValueError("output kind missing")
-    for key in ("source_result", "previous_decision", "invocation", "state", "instruction_file"):
+    refs = ("source_result", "previous_decision", "invocation", "state", "instruction_file") if version == "0.1" else ("source_result", "work_order", "worker_report", "instruction_file")
+    for key in refs:
         checked_ref(item[key])
     if not isinstance(item["context"], dict) or not item["context"]:
         raise ValueError("review context missing")
@@ -69,6 +78,8 @@ def validate_result(item, request):
     blockers, notes, action = item["blocking_issues"], item["observations"], item["suggested_action"]
     if not isinstance(blockers, list) or not isinstance(notes, list) or any(not isinstance(x, str) or not x.strip() for x in blockers + notes):
         raise ValueError("invalid review evidence")
+    if request["request_version"] == "0.2" and not notes:
+        raise ValueError("C2 review needs visual observations")
     if not isinstance(action, dict) or set(action) != {"code", "target"} or not isinstance(action["code"], str) or not action["code"] or action["target"] is not None and (not isinstance(action["target"], str) or not action["target"]):
         raise ValueError("invalid suggested action")
     if item["verdict"] == "PASS" and (blockers or action != {"code": "NONE", "target": None}):
@@ -127,12 +138,17 @@ def review_once(request_path, result_path, report_path, timeout=300, workspace=N
     if not cli_workspace.is_dir():
         raise ValueError("Reviewer workspace missing")
     args = ["codex", "exec", "--ephemeral", "--skip-git-repo-check", "--sandbox", "read-only", "--output-schema", str(SCHEMA), "-C", str(cli_workspace)]
+    attached_images = []
     for artifact in request["artifacts"]:
         if artifact["media_type"].startswith("image/"):
-            args += ["-i", str(checked_ref({k: artifact[k] for k in REF}))]
+            image_path = checked_ref({k: artifact[k] for k in REF})
+            args += ["-i", str(image_path)]
+            attached_images.append({"role": artifact["role"], "path": str(image_path), "sha256": artifact["sha256"]})
     args += ["-"]
-    report["reviewer_process_started"] = True
+    report.update(auth_mode=mode, attached_images=attached_images, reviewer_process_started=True,
+                  started_at=datetime.now(timezone.utc).isoformat())
     report_path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+    started = time.monotonic()
     try:
         proc = subprocess.run(args, input=prompt, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=timeout,
                               env=dict(os.environ, CODEX_HOME=os.environ.get("CODEX_HOME") or "C:/Users/Worker/.codex"))
@@ -152,6 +168,8 @@ def review_once(request_path, result_path, report_path, timeout=300, workspace=N
         report.update(invocation_status="FAILED", reviewer_process_started=False,
                       launch_error=f"{type(exc).__name__}: {exc}")
     finally:
+        report.update(finished_at=datetime.now(timezone.utc).isoformat(),
+                      duration_seconds=time.monotonic() - started)
         report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     return report
 
