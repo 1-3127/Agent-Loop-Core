@@ -8,7 +8,7 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
-import codex_to_comfy as worker
+from scenario_a import codex_to_comfy as worker
 
 
 ROOT = Path(__file__).resolve().parents[2]

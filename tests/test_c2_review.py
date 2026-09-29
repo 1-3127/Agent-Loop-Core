@@ -9,10 +9,9 @@ from pathlib import Path
 from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src/core"))
-sys.path.insert(0, str(ROOT / "src/scenario_a"))
-import c2_review  # noqa: E402
-import result_review_adapter as reviewer  # noqa: E402
+sys.path.insert(0, str(ROOT / "src"))
+from scenario_a import c2_review  # noqa: E402
+from core import result_review_adapter as reviewer  # noqa: E402
 
 REQUEST = ROOT / "reviewer_requests/m2-c2-20260930-041139-003f61d0.json"
 

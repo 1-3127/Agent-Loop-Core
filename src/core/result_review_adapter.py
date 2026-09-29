@@ -11,7 +11,7 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 
-from reviewer_adapter import auth_mode
+from core.reviewer_auth import auth_mode
 
 
 ROOT = Path(__file__).resolve().parents[2]

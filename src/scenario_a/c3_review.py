@@ -5,8 +5,8 @@ import json
 import sys
 from pathlib import Path
 
-import c2_review
-import result_review_adapter as reviewer
+from core import result_review_adapter as reviewer
+from scenario_a import c2_review
 
 
 CRITERIA = [

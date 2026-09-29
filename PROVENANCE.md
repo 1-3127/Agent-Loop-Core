@@ -46,3 +46,7 @@
 ## Evidence scope
 
 Historical PNG, GLB, plans, reports, reviews, and controller states remain in the source repository or ComfyUI workspace. None was migrated. M0 import and synthetic unit tests do not establish actual C1–C5 proof.
+
+## M6 refactor provenance
+
+Refactor baseline: `3129cf50e5c602f3e9e5bd0194cd46d42b9ddcee`. The M0 source identities above remain the historical copy record. M6 removed unused copied candidates from this Compact repository; the committed Research `Agent-Loop` at `7e1572a7e35866519b75b767398288396a27f9b0` remains their canonical historical source. The `auth_mode` function moved from the copied Scenario A `reviewer_adapter.py` to `src/core/reviewer_auth.py` without a behavior change. C1–C5 proof evidence was left unchanged.

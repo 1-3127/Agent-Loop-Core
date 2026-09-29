@@ -6,9 +6,9 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-import c1_delegate as delegate
-import c2_review
-import result_review_adapter as reviewer
+from core import result_review_adapter as reviewer
+from scenario_a import c1_delegate as delegate
+from scenario_a import c2_review
 
 
 ROOT = delegate.ROOT

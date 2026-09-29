@@ -9,8 +9,8 @@ from pathlib import Path
 from unittest import mock
 
 PROJECT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(PROJECT / "src/scenario_a"))
-import c1_delegate  # noqa: E402
+sys.path.insert(0, str(PROJECT / "src"))
+from scenario_a import c1_delegate  # noqa: E402
 
 
 def write_json(path, value):

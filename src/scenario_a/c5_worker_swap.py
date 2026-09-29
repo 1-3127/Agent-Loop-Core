@@ -3,16 +3,13 @@
 import argparse
 import hashlib
 import json
-import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT / "src/core"))
-sys.path.insert(0, str(ROOT / "tests/fixtures"))
 
-import worker_port
-from comfy_worker_adapter import ComfyWorkerAdapter
-from deterministic_worker import DeterministicTestWorker
+from core import worker_port
+from scenario_a.comfy_worker_adapter import ComfyWorkerAdapter
+from tests.fixtures.deterministic_worker import DeterministicTestWorker
 
 
 def digest(path):

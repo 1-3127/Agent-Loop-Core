@@ -7,8 +7,8 @@ from unittest import mock
 
 
 PROJECT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(PROJECT / "src/scenario_a"))
-import codex_to_comfy as execution  # noqa: E402
+sys.path.insert(0, str(PROJECT / "src"))
+from scenario_a import codex_to_comfy as execution  # noqa: E402
 
 
 class ExecutionTests(unittest.TestCase):

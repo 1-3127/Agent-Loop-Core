@@ -9,9 +9,8 @@ from unittest import mock
 
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src/core"))
-sys.path.insert(0, str(ROOT / "src/scenario_a"))
-import c4_bounded  # noqa: E402
+sys.path.insert(0, str(ROOT / "src"))
+from scenario_a import c4_bounded  # noqa: E402
 
 
 RUN = "m4-c4-20260930-044212-c0aef33d"

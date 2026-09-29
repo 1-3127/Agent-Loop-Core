@@ -2,7 +2,7 @@
 
 from datetime import datetime
 
-import c1_delegate as delegate
+from scenario_a import c1_delegate as delegate
 
 
 class ComfyWorkerAdapter:

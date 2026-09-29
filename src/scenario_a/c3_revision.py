@@ -7,10 +7,9 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
-import c1_delegate as delegate
-import c3_review
-import codex_to_comfy as worker
-import result_review_adapter as reviewer
+from core import result_review_adapter as reviewer
+from scenario_a import c1_delegate as delegate
+from scenario_a import c3_review, codex_to_comfy as worker
 
 
 ROOT = delegate.ROOT

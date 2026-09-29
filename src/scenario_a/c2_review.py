@@ -5,7 +5,7 @@ import json
 import sys
 from pathlib import Path
 
-import result_review_adapter as reviewer
+from core import result_review_adapter as reviewer
 
 
 ROOT = Path(__file__).resolve().parents[2]
