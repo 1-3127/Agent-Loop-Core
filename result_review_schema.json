@@ -1,0 +1,16 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["review_version", "review_id", "stage", "source_result", "artifacts", "verdict", "blocking_issues", "observations", "suggested_action"],
+  "properties": {
+    "review_version": {"type": "string", "enum": ["0.3"]},
+    "review_id": {"type": "string"},
+    "stage": {"type": "string"},
+    "source_result": {"type": "object", "additionalProperties": false, "required": ["path", "sha256"], "properties": {"path": {"type": "string"}, "sha256": {"type": "string"}}},
+    "artifacts": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["role", "path", "sha256", "media_type"], "properties": {"role": {"type": "string"}, "path": {"type": "string"}, "sha256": {"type": "string"}, "media_type": {"type": "string"}}}},
+    "verdict": {"type": "string", "enum": ["PASS", "REVISE", "HUMAN_REQUIRED"]},
+    "blocking_issues": {"type": "array", "items": {"type": "string"}},
+    "observations": {"type": "array", "items": {"type": "string"}},
+    "suggested_action": {"type": "object", "additionalProperties": false, "required": ["code", "target"], "properties": {"code": {"type": "string"}, "target": {"type": ["string", "null"]}}}
+  }
+}

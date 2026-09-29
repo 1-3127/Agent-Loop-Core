@@ -1,0 +1,35 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["review_version", "task_id", "stage", "artifacts", "decision", "blocking_issues", "controller_action", "observations"],
+  "properties": {
+    "review_version": {"type": "string", "enum": ["0.2"]},
+    "task_id": {"type": "string"},
+    "stage": {"type": "string", "enum": ["MULTIVIEW_REVIEW"]},
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["role", "path", "sha256"],
+        "properties": {
+          "role": {"type": "string"},
+          "path": {"type": "string"},
+          "sha256": {"type": "string"}
+        }
+      }
+    },
+    "decision": {"type": "string", "enum": ["PASS", "REVISE", "HUMAN_REQUIRED"]},
+    "blocking_issues": {"type": "array", "items": {"type": "string"}},
+    "controller_action": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "target"],
+      "properties": {
+        "code": {"type": "string", "enum": ["NONE", "ADD_VIEW", "REGENERATE_VIEW", "HUMAN_REQUIRED"]},
+        "target": {"type": ["string", "null"]}
+      }
+    },
+    "observations": {"type": "array", "items": {"type": "string"}}
+  }
+}
