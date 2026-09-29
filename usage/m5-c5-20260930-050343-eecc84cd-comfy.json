@@ -1,0 +1,22 @@
+{
+  "run_id": "m5-c5-20260930-050343-eecc84cd-comfy",
+  "frontier": {
+    "provider": "OpenAI",
+    "model": null,
+    "invocations": null,
+    "input_tokens": null,
+    "cached_input_tokens": null,
+    "output_tokens": null,
+    "reasoning_tokens": null,
+    "reported_credits": null
+  },
+  "workers": [
+    {
+      "worker_id": "scenario-a-qwen-right",
+      "backend": "ComfyUI",
+      "model": "Qwen-Image-Edit-2509-Q4_K_S.gguf",
+      "invocations": 1,
+      "execution_seconds": 2.075099
+    }
+  ]
+}

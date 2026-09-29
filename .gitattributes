@@ -1,1 +1,4 @@
 *.json -text
+src/core/worker_port.py -text
+tests/fixtures/c5_input.txt -text
+runs/*-deterministic.txt -text

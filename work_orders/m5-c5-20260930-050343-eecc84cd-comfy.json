@@ -1,0 +1,14 @@
+{
+  "version": "c5.0",
+  "run_id": "m5-c5-20260930-050343-eecc84cd-comfy",
+  "work_order_id": "m5-c5-20260930-050343-eecc84cd-comfy-initial-right",
+  "requested_task": "Generate one right view from the source image",
+  "expected_output_kind": "image",
+  "adapter_id": "scenario_a_comfy",
+  "payload": {
+    "delegate_work_order": {
+      "path": "work_orders/m5-c5-20260930-050343-eecc84cd-comfy-delegate.json",
+      "sha256": "cf3154fbd42d005e26e00e5721ddb210f8c7f74e329dca2592815e603845c6f4"
+    }
+  }
+}

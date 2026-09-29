@@ -1,0 +1,2 @@
+C5 deterministic worker output
+Worker boundary fixture for a fresh deterministic local artifact.
