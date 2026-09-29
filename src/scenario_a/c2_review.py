@@ -23,13 +23,13 @@ def read_ref(ref):
     return json.loads(reviewer.checked_ref(ref).read_text(encoding="utf-8"))
 
 
-def validate_c1_lineage(request):
+def validate_c1_lineage(request, criteria=CRITERIA):
     reviewer.validate_request(request)
     if (request["request_version"] != "0.2" or request["stage"] != "RIGHT_VIEW_REVIEW"
             or request["output_kind"] != "image" or request["review_id"] == request["run_id"]
             or request["context"] != {
                 "requested_task": "Generate one right view from the source image",
-                "acceptance_criteria": CRITERIA,
+                "acceptance_criteria": criteria,
             }):
         raise ValueError("C2 right-view request differs")
     order = read_ref(request["work_order"])

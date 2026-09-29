@@ -1,0 +1,36 @@
+{
+  "review_version": "0.3",
+  "review_id": "m3-c3-20260930-042431-1dfe5d99-review",
+  "stage": "RIGHT_VIEW_REVIEW",
+  "source_result": {
+    "path": "runs/m3-c3-20260930-042431-1dfe5d99_initial_execution.json",
+    "sha256": "458c49ef8a01ae5372fcd689e371832cb60148b3231d75e91f21bc4a5298c5cf"
+  },
+  "artifacts": [
+    {
+      "role": "generated_output",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\codex_to_comfy\\m3-c3-20260930-042431-1dfe5d99_00001_.png",
+      "sha256": "8761b3b3cf6f3186edc3c0855d477c853a06f46a77ba15783376c7508c7cd311",
+      "media_type": "image/png"
+    },
+    {
+      "role": "source_reference",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\input\\hunyuan-official-demo-padded.png",
+      "sha256": "8a6dd9ca3f8984b31c1243e7698cd5030b423464d80e0ad763609148e0ff4f51",
+      "media_type": "image/png"
+    }
+  ],
+  "verdict": "REVISE",
+  "blocking_issues": [
+    "The generated subject is clearly zoomed in relative to the source: it spans approximately y=84–680 on the 768-pixel canvas, versus y=167–596 in the source. This fails the requested approximately equal visible scale."
+  ],
+  "observations": [
+    "The sign shows a plausible angled view, and the penguin, sign lettering, posts, and feet remain recognizable.",
+    "The whole object remains visible without an obvious crop or detached element.",
+    "The generated subject occupies substantially more of the canvas in both height and width than the source."
+  ],
+  "suggested_action": {
+    "code": "REGENERATE_VIEW",
+    "target": "right"
+  }
+}

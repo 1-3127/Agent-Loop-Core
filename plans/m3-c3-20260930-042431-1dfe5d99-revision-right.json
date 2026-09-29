@@ -1,0 +1,20 @@
+{
+  "schema_version": "0.1",
+  "task_id": "m3-c3-20260930-042431-1dfe5d99-revision-right",
+  "workflow": "workflows/02_Image_to_Multiview/Qwen2509_Multiangle_RTX4060_api.json",
+  "patches": {
+    "1": {
+      "image": "hunyuan-official-demo-padded.png"
+    },
+    "8": {
+      "prompt": "Rotate the camera about 45 degrees to the right around the same penguin holding the HY3D sign. Preserve the complete sign, penguin, and feet. Keep the subject centered at approximately the original image scale on the 768 by 768 white canvas: about 275 pixels wide and 430 pixels high, with generous white margins above, below, and on both sides. Do not zoom in or crop."
+    },
+    "11": {
+      "seed": 29481
+    },
+    "13": {
+      "filename_prefix": "codex_to_comfy/m3-c3-20260930-042431-1dfe5d99-revision"
+    }
+  },
+  "output_node": "13"
+}

@@ -1,0 +1,54 @@
+{
+  "version": "c3.0",
+  "run_id": "m3-c3-20260930-042431-1dfe5d99",
+  "revision_work_order_id": "m3-c3-20260930-042431-1dfe5d99-revision-right",
+  "revision_work_order": {
+    "path": "work_orders/m3-c3-20260930-042431-1dfe5d99-revision-right.json",
+    "sha256": "e2a08862675ef2ee8ea595209427de710cbd8975c7c183264c6493c311ca983c"
+  },
+  "source_review": {
+    "kind": "RESULT_REVIEW",
+    "path": "reviewer_results/m3-c3-20260930-042431-1dfe5d99-review.json",
+    "sha256": "767b81e6e16401918800e95ebb246f7d6beed2b3aec64d4882a174a105e6575e",
+    "request_path": "reviewer_requests/m3-c3-20260930-042431-1dfe5d99-review.json",
+    "request_sha256": "91a4668e81f69ce7c4bbcccfb045960aa2abbf7e41ee39e5d3ffba046daec88d",
+    "invocation_report_path": "invocation_reports/m3-c3-20260930-042431-1dfe5d99-review.json",
+    "invocation_report_sha256": "6cd8f7ebf6b9e736b1a96934c14acf47fb01cae56cdbce7af2e8655e94ca1001"
+  },
+  "source_artifact": {
+    "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\codex_to_comfy\\m3-c3-20260930-042431-1dfe5d99_00001_.png",
+    "sha256": "8761b3b3cf6f3186edc3c0855d477c853a06f46a77ba15783376c7508c7cd311"
+  },
+  "blocking_issues": [
+    "The generated subject is clearly zoomed in relative to the source: it spans approximately y=84–680 on the 768-pixel canvas, versus y=167–596 in the source. This fails the requested approximately equal visible scale."
+  ],
+  "suggested_action": {
+    "code": "REGENERATE_VIEW",
+    "target": "right"
+  },
+  "plan": {
+    "path": "plans/m3-c3-20260930-042431-1dfe5d99-revision-right.json",
+    "sha256": "e5b62e5bde3bf38391f10b1450d77ed005959c3650b94343d67f8e35bf0adbb4"
+  },
+  "worker_type": "ComfyUI",
+  "adapter": "src/scenario_a/c3_revision.py",
+  "worker_model": "Qwen-Image-Edit-2509-Q4_K_S.gguf",
+  "worker_report": {
+    "path": "runs/m3-c3-20260930-042431-1dfe5d99_revision_worker_report.json",
+    "sha256": "0c8c870f39abc84cc3c053db0f3531564df6820348048495bddbcf2e9f5fc1d5"
+  },
+  "status": "SUCCESS",
+  "client_id": "19271b6d-636d-41dc-9388-06b5cc57eec2",
+  "prompt_id": "e2cc6bb2-9fb8-485f-b132-c22c55433e3c",
+  "started_at": "2026-09-29T19:31:04.648198+00:00",
+  "completed_at": "2026-09-29T19:33:18.930938+00:00",
+  "execution_seconds": 134.28274,
+  "artifact": {
+    "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\codex_to_comfy\\m3-c3-20260930-042431-1dfe5d99-revision_00001_.png",
+    "kind": "image",
+    "bytes": 239332,
+    "sha256": "b211190c910ce310665cc84cc49d5401b2a337a693970e06f24653271a8aa78d",
+    "width": 768,
+    "height": 768
+  }
+}
