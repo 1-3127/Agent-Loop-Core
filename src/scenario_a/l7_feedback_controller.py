@@ -111,15 +111,14 @@ def budgets(run_dir):
                 for stage, component in COMPONENT.items() if component == kind)} for kind, limit in LIMITS.items()}
 
 
-def guard(run_dir, *, check_source=True):
-    if check_source:
-        bound.effect_guard(run_dir)
-    if (run_dir / 'terminal.json').exists():
+def guard(run_dir, *, check_source=True, evidence=False):
+    child = bound.checked_child(run_dir, execution=not evidence) if check_source else None
+    evidence = evidence and child is not None  # Legacy terminal guard stays exact.
+    if (run_dir / 'terminal.json').exists() and not evidence:
         raise ValueError('ALREADY_TERMINAL')
     state = read(run_dir / 'state.json')
     initial = l6.read_ref(state['initial_contract'])
-    if state['terminal'] or state['state'] == 'UNRESOLVED':
-        raise ValueError('ALREADY_TERMINAL or UNRESOLVED')
+    if (state['terminal'] and not evidence) or state['state'] == 'UNRESOLVED': raise ValueError('ALREADY_TERMINAL or UNRESOLVED')
     if initial['run_id'] != run_dir.name or initial['terminal'] is not False or initial['limits'] != LIMITS:
         raise ValueError('initial run/budget differs')
     # Full source proof is validated at preflight. Check its frozen hashes here
@@ -176,7 +175,7 @@ def reserve(run_dir, stage, source_path):
 
 
 def current_images(run_dir):
-    initial = guard(run_dir)
+    initial = guard(run_dir, evidence=True)
     manifest = read(run_dir / 'multiview_manifest.json')
     images = manifest['references']
     if (manifest['run_id'] != run_dir.name or manifest['source_manifest'] != initial['source']['input']['multiview_manifest']
@@ -369,7 +368,7 @@ def validate_embedded_inputs(artifact, plan, images):
 
 
 def validate_geometry(run_dir):
-    initial = guard(run_dir)
+    initial = guard(run_dir, evidence=True)
     execution = read(run_dir / 'geometry_execution.json')
     order = read(run_dir / 'geometry_work_order.json')
     report = l6.read_ref(execution['worker_report'])
@@ -394,7 +393,7 @@ def render_command(run_dir):
 
 
 def validate_render_manifest(run_dir):
-    initial = guard(run_dir); validate_staging(run_dir)
+    initial = guard(run_dir, evidence=True); validate_staging(run_dir)
     execution = read(run_dir / 'geometry_execution.json'); request = read(run_dir / 'render_request.json')
     artifact = validate_geometry(run_dir)
     manifest = read(run_dir / 'render_manifest.json')
@@ -468,7 +467,7 @@ def review_artifacts(run_dir, kind):
 def prepare_review(run_dir, kind):
     initial = guard(run_dir)
     if kind == 'geometry':
-        instructions = l6.reviewer.checked_ref(initial['source']['instructions']).read_text(encoding='utf-8')
+        instructions = ('' if initial.get('session_binding') else l6.reviewer.checked_ref(initial['source']['instructions']).read_text(encoding='utf-8'))
         instructions = instructions.replace('References are the exact L6 generation inputs.', 'References are the exact CURRENT geometry generation inputs.')
         instructions += '\nReferences are the exact CURRENT geometry inputs. This review follows one correction; no second correction is permitted.\n'
         source_result, order, report = [ref(run_dir / (name + '.json')) for name in ('render_manifest','render_request','renderer_invocation')]
@@ -479,6 +478,7 @@ def prepare_review(run_dir, kind):
                         'HUMAN_REQUIRED uses HUMAN_REQUIRED/null. Do not favor any verdict; no further correction will execute. Return Result0.3 JSON.\n')
         source_result=ref(run_dir/'multiview_manifest.json'); order=ref(run_dir/'revision_action.json')
         target=initial['action']['target']; report=ref(run_dir/(target+'_execution.json'))
+    instructions = bound.review_instruction(run_dir, kind, instructions)
     prefix=kind+'_review'
     with (run_dir/(prefix+'_instructions.md')).open('x',encoding='utf-8',newline='\n') as stream: stream.write(instructions)
     request={'request_version':'0.2','run_id':run_dir.name,'review_id':run_dir.name+'-'+prefix,
@@ -488,6 +488,7 @@ def prepare_review(run_dir, kind):
              'artifacts':review_artifacts(run_dir,kind),'instruction_file':ref(run_dir/(prefix+'_instructions.md')),
              'context':{'initial_contract':ref(run_dir/'initial.json'),'current_manifest':ref(run_dir/'multiview_manifest.json'),
                         'revision_action':ref(run_dir/'revision_action.json'),'dispatch_allowed':False}}
+    request['context'] = bound.review_context(run_dir, kind, request['context'])
     l6.reviewer.validate_request(request);write_once(run_dir/(prefix+'_request.json'),request)
     return request
 
@@ -503,9 +504,10 @@ def validate_request(run_dir, kind):
             or request['source_result']!=expected_source or request['artifacts']!=review_artifacts(run_dir,kind)
             or request['work_order']!=expected_order or request['worker_report']!=expected_report
             or request['instruction_file']!=ref(run_dir/(kind+'_review_instructions.md'))
-            or request['context']!={'initial_contract':ref(run_dir/'initial.json'), 'current_manifest':ref(run_dir/'multiview_manifest.json'),
-                                   'revision_action':ref(run_dir/'revision_action.json'),'dispatch_allowed':False}):
+            or request['context']!=bound.review_context(run_dir, kind, {'initial_contract':ref(run_dir/'initial.json'), 'current_manifest':ref(run_dir/'multiview_manifest.json'),
+                                   'revision_action':ref(run_dir/'revision_action.json'),'dispatch_allowed':False})):
         raise ValueError('current Review lineage differs')
+    bound.check_request(run_dir, kind, request)
     return request
 
 
@@ -521,6 +523,7 @@ def checked_review(run_dir, kind):
             or reservation['source']!=ref(run_dir/(prefix+'_request.json'))
             or datetime.fromisoformat(report['started_at'])<datetime.fromisoformat(reservation['created_at'])):
         raise ValueError('Reviewer invocation differs')
+    bound.check_result(run_dir, kind, request, result, result_path, report_path)
     if kind=='geometry':bridge.validate_action(result)
     elif not ((result['verdict']=='PASS' and not result['blocking_issues'] and result['suggested_action']=={'code':'NONE','target':None})
               or (result['verdict']=='HUMAN_REQUIRED' and result['suggested_action']=={'code':'HUMAN_REQUIRED','target':None})

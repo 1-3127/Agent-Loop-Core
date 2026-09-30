@@ -61,6 +61,8 @@ def validate_l6(l6_dir=None, parent_ref=None):
     order = read(l6_dir / 'geometry_work_order.json')
     report = read(l6_dir / 'geometry_worker_report.json')
     l6.validate_worker_report(order, report)
+    for suffix in ('plan', 'work_order', 'execution'):
+        bound.check_record(l6_dir, l6_dir / ('geometry_' + suffix + '.json'))
     artifact = execution['artifact']
     if (artifact != terminal['artifact'] or artifact != report['outputs'][0]
             or execution['status'] != 'SUCCESS' or execution['run_id'] != source_run_id
@@ -275,6 +277,7 @@ def prepare_review(run_dir):
         'These are diagnostic suggestions, not causal proof; no action will execute. Original front is authoritative. '
         'If front is insufficient, orientation/defect origin is ambiguous or action confidence is insufficient, '
         'use HUMAN_REQUIRED with HUMAN_REQUIRED/null. Return only requested Result0.3 JSON with concrete visual observations.')
+    instructions = bound.review_instruction(run_dir, 'geometry', instructions)
     with (run_dir / 'review_instructions.md').open('x', encoding='utf-8', newline='\n') as stream:
         stream.write(instructions + '\n')
     request = {'request_version': '0.2', 'run_id': run_dir.name, 'review_id': run_dir.name + '-geometry-review',
@@ -285,6 +288,7 @@ def prepare_review(run_dir):
                'context': {'initial_contract': ref(run_dir / 'initial.json'),
                            'l6_input': read(run_dir / 'initial.json')['input'], 'diagnostic_config': diagnostic.CONFIG,
                            'dispatch_allowed': False}}
+    request['context'] = bound.review_context(run_dir, 'geometry', request['context'])
     l6.reviewer.validate_request(request)
     write_once(run_dir / 'review_request.json', request)
     return request
@@ -303,6 +307,7 @@ def validate_review_request(run_dir):
             or request['context']['l6_input'] != read(run_dir / 'initial.json')['input']
             or request['context']['dispatch_allowed'] is not False):
         raise ValueError('eight-image Review lineage differs')
+    bound.check_request(run_dir, 'geometry', request)
     return request
 
 
@@ -347,6 +352,7 @@ def checked_review(run_dir):
             or reservation['initial_contract'] != ref(run_dir / 'initial.json')
             or datetime.fromisoformat(report['started_at']) < datetime.fromisoformat(reservation['created_at'])):
         raise ValueError('actual Reviewer invocation/attachments differ')
+    bound.check_result(run_dir, 'geometry', request, result, run_dir / 'review_result.json', run_dir / 'review_invocation.json')
     validate_action(result)
     return result
 

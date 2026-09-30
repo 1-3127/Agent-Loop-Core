@@ -32,6 +32,7 @@ class SessionScenarioTests(unittest.TestCase):
         self.binding = self.session.create_binding(self.spec, "logical-loop")
         self.ids = {"l6": self.f.run_id, "bridge": "bound-bridge", "correction": "bound-correction"}
         self.parent = self.prepare()
+        self.f.review_after = self.tag_l6_review
         self.path = self.f.run_dir
 
     def prepare(self, boundary=None, binding=None, **overrides):
@@ -86,7 +87,7 @@ class SessionScenarioTests(unittest.TestCase):
             l6.run_pipeline("wrong-child", self.f.comfy, session_binding=self.parent)
         self.f.assert_calls(0, 0)
 
-    def geometry_fixture(self):
+    def geometry_fixture(self, execute=True):
         # Existing fixture Worker produces a GLB with exact current embedded inputs.
         import struct
         def embedded(role, report_path):
@@ -105,14 +106,15 @@ class SessionScenarioTests(unittest.TestCase):
             report["outputs"][0].update(bytes=len(data), sha256=l6.digest(path), declared_length=len(data))
             l6.worker.write_report(report_path, report)
         self.f.worker_after = embedded
-        self.assertEqual(self.execute_l6()["state"], "GEOMETRY_READY")
+        if execute:
+            self.assertEqual(self.execute_l6()["state"], "GEOMETRY_READY")
         self.g = bridge_tests.GeometryBridgeTests()
         self.g.fixture = self.f
         self.g.run_id = self.ids["bridge"]
         self.g.executable = self.f.root / "blender.exe"
         self.g.executable.write_bytes(b"SYNTHETIC_EXECUTABLE_NEVER_RUN")
         self.g.render_mutation = None
-        self.g.review_mutation = None
+        self.g.review_mutation = self.tag_bridge_review
         self.g.verdict = "PASS"
         self.g.action = None
         self.g.return_code = 0
@@ -156,7 +158,10 @@ class SessionScenarioTests(unittest.TestCase):
         alternate = self.f.root / "session-copy"
         alternate.mkdir()
         other = sb.SessionBoundary("session-test", alternate)
-        other_binding = other.create_binding(self.spec, "other-loop")
+        other_doc = self.f.root / "other_spec.md"
+        other_doc.write_text(self.doc.read_text(encoding="utf-8") + "\nDistinct Spec bytes.", encoding="utf-8")
+        other_spec = sb.freeze_specification(other_doc, self.spec.fields)
+        other_binding = other.create_binding(other_spec, "other-loop")
         parent = self.prepare(boundary=other, binding=other_binding)
         with self.assertRaises(ValueError):
             self.execute_bridge(parent)
@@ -166,3 +171,209 @@ class SessionScenarioTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             controller.run_feedback(self.ids["correction"], path, self.f.comfy, self.g.executable,
                                     execute=True, session_binding=parent)
+
+    def tagged_result(self, request, result):
+        reference = request["context"].get("specification_review")
+        if reference is None:
+            return result
+        criteria = l6.read_ref(reference)["criteria"]
+        result["observations"] = [
+            "[{criterion_id}@{authority_ref}] {status}: synthetic evidence".format(
+                **c, status="UNMET" if result["verdict"] == "REVISE" and c["blocking_when_unmet"] else
+                "UNCERTAIN" if result["verdict"] == "HUMAN_REQUIRED" else "SATISFIED")
+            for c in criteria]
+        result["blocking_issues"] = [t for t in result["observations"] if "] UNMET:" in t]
+        return result
+
+    def tag_l6_review(self, request_path, result_path, report_path):
+        result = self.tagged_result(l6.read_json(request_path), l6.read_json(result_path))
+        l6.worker.write_report(result_path, result)
+        report = l6.read_json(report_path)
+        report["result_sha256"] = l6.digest(result_path)
+        l6.worker.write_report(report_path, report)
+
+    def tag_bridge_review(self, request, result, report):
+        result = self.tagged_result(request, result)
+        if getattr(self, "review_mutator", None):
+            self.review_mutator(result)
+        l6.worker.write_report(Path(report["result_path"]), result)
+        report["result_sha256"] = l6.digest(report["result_path"])
+
+    def test_final_bridge_accept_candidate_no_delivery(self):
+        self.geometry_fixture()
+        self.review_mutator = lambda r: r["observations"].__setitem__(1, "[AC2@USER] UNMET: optional cosmetic preference")
+        self.assertEqual(self.execute_bridge()["state"], "GEOMETRY_REVIEWED")
+        path = self.f.repo / "runs/l7" / self.ids["bridge"]
+        evidence = bound.internal_accept_candidate(self.parent, path)
+        evidence.validate()
+        self.assertEqual(self.session.outcome.status, "INTERNAL_ACCEPT")
+        self.assertFalse(self.session.outcome.delivered)
+        self.assertFalse((self.session.directory / "delivery_package.json").exists())
+        with self.assertRaises(ValueError):
+            bound.checked_parent(self.parent, execution=True)
+        instructions = (path / "review_instructions.md").read_text(encoding="utf-8")
+        self.assertIn("preserve the object", instructions)
+        self.assertNotIn("Ignore texture", instructions)
+        request = l6.read_json(path / "review_request.json")
+        coverage = l6.read_json(path / "review_result_coverage.json")
+        self.assertEqual(coverage["coverage"], {"AC1": "SATISFIED", "AC2": "UNMET"})
+        self.assertEqual(coverage["request"], l6.reference(path / "review_request.json"))
+        self.assertEqual(set(l6.read_json(path / "review_result.json")),
+            {"review_version", "review_id", "stage", "source_result", "artifacts", "verdict",
+             "blocking_issues", "observations", "suggested_action"})
+
+    def unsupported_review(self, mutation):
+        self.geometry_fixture()
+        self.g.verdict = "REVISE"
+        self.review_mutator = mutation
+        state = self.execute_bridge()
+        self.assertEqual((state["state"], state["reason"]), ("FAILED", "REVIEW_CONTRACT_VIOLATION"))
+        path = self.f.repo / "runs/l7" / self.ids["bridge"]
+        result = l6.read_json(path / "review_result.json")
+        self.assertEqual(result["verdict"], "REVISE")  # raw verdict never coerced
+        with self.assertRaises(ValueError):
+            controller.run_feedback(self.ids["correction"], path, self.f.comfy, self.g.executable,
+                                    execute=True, session_binding=self.parent)
+        with self.assertRaises(ValueError):
+            bound.internal_accept_candidate(self.parent, path)
+        self.assertEqual((self.renderer.call_count, self.reviewer.call_count), (1, 1))
+        self.f.assert_calls(4, 1)  # original L6 mock remains separately counted
+
+    def test_unknown_criterion_blocks_correction_and_accept(self):
+        self.unsupported_review(lambda r: r["blocking_issues"].__setitem__(0, "[UNKNOWN@USER] UNMET: blocker"))
+
+    def test_review_undeclared_authority_blocks(self):
+        self.unsupported_review(lambda r: r["blocking_issues"].__setitem__(0, "[AC1@HIDDEN] UNMET: blocker"))
+
+    def test_nonblocking_criterion_cannot_be_blocker(self):
+        def mutation(result):
+            result["observations"][1] = "[AC2@USER] UNMET: cosmetic"
+            result["blocking_issues"].append("[AC2@USER] UNMET: cosmetic")
+        self.unsupported_review(mutation)
+
+    def test_malformed_unsupported_blocker_is_contract_failure(self):
+        self.unsupported_review(lambda r: r["blocking_issues"].__setitem__(0, "hidden invented quality goal"))
+
+    def test_unbound_historical_pass_not_accept(self):
+        legacy = bridge_tests.GeometryBridgeTests()
+        legacy.setUp()
+        self.addCleanup(legacy.doCleanups)
+        self.assertEqual(legacy.execute()["state"], "GEOMETRY_REVIEWED")
+        self.assertEqual(l6.read_json(legacy.run_dir / "review_result.json")["verdict"], "PASS")
+        with self.assertRaisesRegex(ValueError, "UNBOUND"):
+            bound.internal_accept_candidate(self.parent, legacy.run_dir)
+        self.assertEqual(self.session.outcome.status, "LOOP_READY")
+
+    def test_artifact_review_lineage_mismatch(self):
+        self.geometry_fixture()
+        self.execute_bridge()
+        path = self.f.repo / "runs/l7" / self.ids["bridge"]
+        manifest = l6.read_json(path / "render_manifest.json")
+        manifest["source_glb"]["sha256"] = "0" * 64
+        l6.worker.write_report(path / "render_manifest.json", manifest)
+        with self.assertRaises(ValueError):
+            bound.internal_accept_candidate(self.parent, path)
+        self.assertFalse((self.session.directory / "internal_accept.json").exists())
+
+    def test_terminal_session_prevents_registration_and_effect(self):
+        self.session.stop("ABORT", "local fixture stop")
+        with self.assertRaises(ValueError):
+            self.session.register_child_evidence("new", sb.file_identity(self.doc, "spec"))
+        with self.assertRaises(ValueError):
+            self.execute_l6()
+        self.f.assert_calls(0, 0)
+
+    def test_typed_ambiguity_stops_same_loop(self):
+        ambiguity = sb.SpecificationAmbiguity("relief or texture", "different geometry",
+            "frozen context does not choose", ("relief", "texture"))
+        bound.block_for_ambiguity(self.parent, ambiguity)
+        self.assertEqual(self.session.outcome.status, "BLOCKED_SPECIFICATION_AMBIGUITY")
+        with self.assertRaises(ValueError):
+            self.execute_l6()
+        with self.assertRaises(ValueError):
+            self.session.register_child_evidence("new", sb.file_identity(self.doc, "spec"))
+        self.f.assert_calls(0, 0)
+
+    def correction_fixture(self, target="geometry"):
+        import tests.test_l7_feedback_controller as feedback_tests
+        self.geometry_fixture()
+        self.g.verdict = "REVISE"
+        self.g.action = {"code": "REGENERATE_GEOMETRY" if target == "geometry" else "REGENERATE_VIEW", "target": target}
+        self.assertEqual(self.execute_bridge()["state"], "GEOMETRY_REVIEWED")
+        h = feedback_tests.FeedbackControllerTests()
+        h.fixture = self.g
+        h.source = self.f.repo / "runs/l7" / self.ids["bridge"]
+        h.comfy = self.f.comfy
+        h.final_verdict = "PASS"
+        h.multiview_verdict = "PASS"
+        for name in ("worker_error", "render_error", "review_error", "worker_after", "render_after", "review_after"):
+            setattr(h, name, None)
+        h.old_glb = h.invalid_glb = h.invalid_png = False
+        self.f.worker_mock.reset_mock()
+        self.f.worker_mock.side_effect = h.fake_worker
+        self.renderer.reset_mock()
+        def render(command, **kwargs):
+            value = h.fake_render(command, **kwargs)
+            request = l6.read_json(Path(command[-1]))
+            manifest = l6.read_json(request["manifest_path"])
+            manifest["source_l6_run_id"] = request["source_l6_run_id"]
+            l6.worker.write_report(Path(request["manifest_path"]), manifest)
+            return value
+        self.renderer.side_effect = render
+        self.reviewer.reset_mock()
+        self.reviewer.side_effect = h.fake_review
+        return h
+
+    def execute_correction(self, source):
+        return controller.run_feedback(self.ids["correction"], source, self.f.comfy,
+            self.g.executable, 1, 1, 1, execute=True, session_binding=self.parent)
+
+    def test_correction_geometry_same_spec_authority_and_final_gate(self):
+        h = self.correction_fixture()
+        result = self.execute_correction(h.source)
+        self.assertEqual(result["state"], "INTERNAL_ACCEPT", result)
+        path = self.f.repo / "runs/l7" / self.ids["correction"]
+        bound.internal_accept_candidate(self.parent, path).validate()
+        self.assertEqual(self.session.outcome.status, "INTERNAL_ACCEPT")
+        self.assertEqual((self.f.worker_mock.call_count, self.renderer.call_count, self.reviewer.call_count), (1, 1, 1))
+        self.assertEqual(l6.read_json(path / "geometry_criteria.json")["criteria"],
+            l6.read_json(h.source / "geometry_criteria.json")["criteria"])
+
+    def test_correction_view_preserves_spec_through_both_reviews(self):
+        h = self.correction_fixture("right")
+        result = self.execute_correction(h.source)
+        self.assertEqual(result["state"], "INTERNAL_ACCEPT", result)
+        path = self.f.repo / "runs/l7" / self.ids["correction"]
+        bound.internal_accept_candidate(self.parent, path).validate()
+        self.assertEqual((self.f.worker_mock.call_count, self.renderer.call_count, self.reviewer.call_count), (2, 1, 2))
+        self.assertEqual(l6.read_json(path / "multiview_criteria.json")["specification_identity_sha256"],
+                         l6.read_json(path / "geometry_criteria.json")["specification_identity_sha256"])
+
+    def test_fixed_session_entry_default_preflight_and_local_pass(self):
+        self.geometry_fixture(execute=False)
+        checks = bound.run_session(self.parent, comfy_root=self.f.comfy,
+                                    blender_executable=self.g.executable)
+        self.assertEqual(checks["effects"], 0)
+        self.f.worker_mock.assert_not_called()
+        self.renderer.assert_not_called()
+        self.reviewer.assert_not_called()
+        state = bound.run_session(self.parent, comfy_root=self.f.comfy,
+            blender_executable=self.g.executable, execute=True,
+            worker_timeout=1, review_timeout=1, render_timeout=1)
+        self.assertEqual(state["state"], "INTERNAL_ACCEPT", state)
+        self.assertFalse(state["delivered"])
+        self.assertEqual((self.f.worker_mock.call_count, self.renderer.call_count, self.reviewer.call_count), (4, 1, 2))
+        with self.assertRaises(ValueError):
+            bound.run_session(self.parent, comfy_root=self.f.comfy, blender_executable=self.g.executable, execute=True)
+
+    def test_whole_capability_missing_renderer_before_first_worker(self):
+        self.geometry_fixture(execute=False)
+        with self.assertRaises(FileNotFoundError):
+            bound.run_session(self.parent, comfy_root=self.f.comfy,
+                              blender_executable=self.f.root / "missing.exe", execute=True)
+        self.f.worker_mock.assert_not_called()
+        self.reviewer.assert_not_called()
+        self.renderer.assert_not_called()
+
+    def test_unsupported_action_is_deterministic_contract_failure(self):
+        self.unsupported_review(lambda r: r.update(suggested_action={"code": "REGENERATE_VIEW", "target": "front"}))

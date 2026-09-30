@@ -53,3 +53,42 @@ Actual Worker/Blender/Reviewer/revision/Delivery 금지. L7-M3 NOT PASSED 유지
 - Changed files: bridge/controller hooks, focused tests, this document.
 - Commit subject: feat(s3b): bind current L7 source and correction to session
 - Result: CHECKPOINT 2 LOCAL PASS.
+
+## Checkpoint 3 — Acceptance authority / final candidate
+- Starting commit: b61e6e9 (Checkpoint 2).
+- Inspected seams: all three prepare/checked Review paths, Result0.3 exact schema,
+  controller correction policy, S3A internal_accept/ambiguity contracts.
+- Implementation: frozen stage criterion selection → immutable criteria sidecar →
+  compiled instruction (replaces legacy quality prose in bound mode) → opaque Request context →
+  unchanged raw Result0.3 → immutable validated coverage → correction/final gate.
+  Format: [criterion_id@authority_ref] SATISFIED|UNMET|UNCERTAIN: evidence.
+  Each selected criterion requires exactly one observation; blockers must be selected
+  blocking=true + UNMET criteria with matching declared authority. Optional UNMET does not block PASS.
+  Existing role/schema/camera/hash/invocation checks remain technical contracts.
+- Unsupported ID/authority/blocker/action is FAILED / REVIEW_CONTRACT_VIOLATION;
+  raw Result/invocation retained, no verdict coercion, correction, accept or automatic retry.
+- Same Spec final artifact + geometry Request/Result/Invocation/coverage + child terminals
+  authorize INTERNAL_ACCEPT candidate via S3A; GEOMETRY_READY/unbound historical PASS alone cannot.
+  Current GLB is linked to exact rendered source_glb + diagnostic attachments.
+  Read-only terminal evidence validation is opt-in bound-only; legacy terminal guards retained.
+- Fixed run_session entry prevalidates parent/capability, L6 assets and renderer/script before
+  first effect; routes L6→bridge→optional one correction→candidate, default preflight only.
+  UNRESOLVED child evidence remains UNRESOLVED; outer Session stops FAILED with that explicit reason,
+  never relabels the uncertain child as a successful/normal ABORT proof.
+- Typed ambiguity helper requires two intent alternatives and records stop evidence;
+  HUMAN_REQUIRED is not automatically intent ambiguity. No ASK_USER→same Loop resume.
+- Positive: mocked bridge candidate; geometry + view correction with same authority through
+  both correction reviews; fixed entry preflight and local PASS; optional criterion UNMET allowed.
+- Negative: raw unknown ID, undeclared authority, nonblocking blocker, malformed blocker,
+  unsupported action, historical unbound geometry PASS, artifact/review mismatch,
+  terminal registration/effect, typed ambiguity continuation, missing renderer before Worker.
+- Focused validation: 22/22 PASS (93.996s), then changed action/optional-criterion cases
+  separately 2/2 PASS. All adapters mocked, network0/process0/import smoke0.
+  Final full regression covers the small bound-only terminal guard preservation change.
+- Limit: ID/hash/coverage checks prove structural traceability, not semantic correctness or
+  natural-language entailment. A valid tag can contain an incorrect semantic assertion.
+  Explicit finalized authority remains the Frontier's responsibility; seed-only policy unmodified,
+  no claim of correction quality. Fixed source/workflow capability only.
+- Files: binding module, three Scenario hooks, focused tests, cumulative document.
+- Commit subject: feat(s3b): propagate specification acceptance authority to final candidate
+- Result: CHECKPOINT 3 LOCAL PASS; full regression pending.

@@ -367,6 +367,8 @@ def validate_manifest(manifest, run_dir):
                 or execution["plan"] != order["plan"] or execution["workflow"] != order["workflow"]
                 or execution["initial_contract"] != reference(run_dir / "initial.json")):
             raise ValueError("view execution/run lineage differs")
+        for suffix in ("plan", "work_order", "execution"):
+            bound.check_record(run_dir, run_dir / (role + "_" + suffix + ".json"))
         report = read_ref(execution["worker_report"])
         validate_worker_report(order, report)
         if execution["prompt_id"] != report["prompt_id"] or report["outputs"][0]["path"] != item["path"]:
@@ -399,6 +401,7 @@ def prepare_review(run_dir, manifest):
         "Do not favor PASS or REVISE. PASS requires no blockers and NONE/null action. REVISE requires "
         "blockers and diagnostic MULTIVIEW_REVISE with target role or null; no correction will execute. "
         "Uncertain verdict HUMAN_REQUIRED uses HUMAN_REQUIRED/null. Return only the requested Result0.3 JSON.")
+    instruction = bound.review_instruction(run_dir, "multiview", instruction)
     with (run_dir / "review_instructions.md").open("x", encoding="utf-8") as stream:
         stream.write(instruction + "\n")
     request = {"request_version": "0.2", "run_id": run_dir.name,
@@ -413,6 +416,7 @@ def prepare_review(run_dir, manifest):
                "context": {"initial_contract": reference(run_dir / "initial.json"),
                            "asset_manifest": initial["asset_manifest"],
                            "fixed_role_order": list(ROLES), "requested_task": "Assess four-view geometry inputs"}}
+    request["context"] = bound.review_context(run_dir, "multiview", request["context"])
     reviewer.validate_request(request)
     write_once(run_dir / "review_request.json", request)
     update_state(run_dir, "MULTIVIEW_REVIEW_READY")
@@ -438,6 +442,7 @@ def validate_review_lineage(run_dir):
             or read_ref(request["worker_report"])["executions"] != executions
             or read_ref(request["worker_report"])["manifest"] != request["source_result"]):
         raise ValueError("multiview Review lineage differs")
+    bound.check_request(run_dir, "multiview", request)
     return request
 
 
@@ -478,6 +483,7 @@ def checked_review(run_dir):
             raise ValueError("Reviewer attachments/process lineage differs")
     except (ValueError, KeyError, TypeError) as exc:
         raise StageFailure("UNRESOLVED", "REVIEW_IDENTITY_UNCERTAIN") from exc
+    bound.check_result(run_dir, "multiview", request, result, result_path, report_path)
     return result
 
 
