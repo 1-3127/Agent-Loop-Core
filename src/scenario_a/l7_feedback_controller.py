@@ -15,6 +15,7 @@ import time
 
 from scenario_a import l6_pipeline as l6
 from scenario_a import l7_geometry_review as bridge
+from scenario_a import session_binding as bound
 from scenario_a import l7_blender_diagnostic as diagnostic
 
 ROOT = l6.ROOT
@@ -39,8 +40,11 @@ def resolve_action(result):
     return result['suggested_action'] if result['verdict'] == 'REVISE' else None
 
 
-def validate_source(source_dir):
+def validate_source(source_dir, parent_ref=None):
     source_dir = Path(source_dir).resolve()
+    child = bound.checked_child(source_dir, parent_ref=parent_ref)
+    if child is not None and child[0]['kind'] != 'bridge':
+        raise ValueError('source must be current bound geometry bridge')
     terminal = read(source_dir / 'terminal.json')
     if source_dir == SOURCE_DIR.resolve() and l6.digest(source_dir / 'terminal.json') != SOURCE_TERMINAL_SHA:
         raise ValueError('source terminal hash differs')
@@ -49,7 +53,9 @@ def validate_source(source_dir):
         raise ValueError('source terminal/run differs')
     required = {'initial', 'render_request', 'renderer_reservation', 'renderer_invocation', 'render_manifest',
                 'review_request', 'reviewer_reservation', 'review_result', 'review_invocation', 'usage', 'review_instructions'}
-    if set(terminal['records']) != required or read(source_dir / 'initial.json')['run_id'] != source_dir.name:
+    expected_records = ({p.stem for p in source_dir.iterdir() if p.is_file() and p.name not in ('state.json', 'terminal.json')}
+                        if child is not None else required)
+    if not required <= expected_records or set(terminal['records']) != expected_records or read(source_dir / 'initial.json')['run_id'] != source_dir.name:
         raise ValueError('source evidence set/run differs')
     for name, item in terminal['records'].items():
         expected = source_dir / (name + ('.md' if name == 'review_instructions' else '.json'))
@@ -60,7 +66,7 @@ def validate_source(source_dir):
     raw_result = l6.reviewer.validate_result(read(source_dir / 'review_result.json'), read(source_dir / 'review_request.json'))
     resolve_action(raw_result)
     result = bridge.checked_review(source_dir)
-    inputs = bridge.validate_l6()
+    inputs = bridge.validate_input(read(source_dir / 'initial.json'))
     if (terminal['l6_input'] != inputs or terminal['review_verdict'] != result['verdict']
             or terminal['initial_contract'] != ref(source_dir / 'initial.json')):
         raise ValueError('source geometry/review linkage differs')
@@ -77,8 +83,8 @@ def validate_source(source_dir):
             'previous_geometry_seed': geometry['patches']['14']['seed'], 'view_plans': views}
 
 
-def preflight(source_review_run=SOURCE_DIR, comfy_root=l6.worker.DEFAULT_COMFY_ROOT, blender_executable=bridge.BLENDER):
-    source = validate_source(source_review_run)
+def preflight(source_review_run=SOURCE_DIR, comfy_root=l6.worker.DEFAULT_COMFY_ROOT, blender_executable=bridge.BLENDER, *, session_binding=None):
+    source = validate_source(source_review_run, session_binding)
     assets = l6.preflight(comfy_root)
     prior = l6.read_ref(source['input']['geometry_plan'])
     if prior != l6.make_plan(source['input']['source_run_id'], 'geometry', assets, staged=True):
@@ -106,6 +112,8 @@ def budgets(run_dir):
 
 
 def guard(run_dir, *, check_source=True):
+    if check_source:
+        bound.effect_guard(run_dir)
     if (run_dir / 'terminal.json').exists():
         raise ValueError('ALREADY_TERMINAL')
     state = read(run_dir / 'state.json')
@@ -256,7 +264,7 @@ def publish_order(run_dir, role):
         inputs = {'artifacts': validate_staging(run_dir), 'staging': ref(run_dir / 'staging.json'),
                   'multiview': ref(run_dir / 'multiview_manifest.json'),
                   'approved_review': ref(run_dir / 'multiview_review_result.json') if initial['action']['code'] == 'REGENERATE_VIEW'
-                                     else ref(bridge.L6_DIR / 'review_result.json')}
+                                     else ref(Path(initial['source']['input']['multiview_manifest']['path']).parent / 'review_result.json')}
     write_once(run_dir / (role + '_plan.json'), revised_plan(run_dir, role))
     prior_plan = initial['source']['input']['geometry_plan'] if role == 'geometry' else initial['source']['view_plans'][role]
     seed_node = '14' if role == 'geometry' else '11'
@@ -275,7 +283,10 @@ def publish_order(run_dir, role):
              'worker_report_path': str(run_dir / (role + '_worker_report.json')),
              'execution_report_path': str(run_dir / (role + '_execution.json'))}
     write_once(run_dir / (role + '_work_order.json'), order)
-    return run_dir / (role + '_work_order.json')
+    path = run_dir / (role + '_work_order.json')
+    bound.bind_record(run_dir, run_dir / (role + '_plan.json'))
+    bound.bind_record(run_dir, path)
+    return path
 
 
 def run_worker(run_dir, role, timeout):
@@ -295,7 +306,7 @@ def run_worker(run_dir, role, timeout):
         expected_inputs = {'artifacts': validate_staging(run_dir), 'staging': ref(run_dir / 'staging.json'),
                            'multiview': ref(run_dir / 'multiview_manifest.json'),
                            'approved_review': ref(run_dir / 'multiview_review_result.json') if initial['action']['code'] == 'REGENERATE_VIEW'
-                                              else ref(bridge.L6_DIR / 'review_result.json')}
+                                              else ref(Path(initial['source']['input']['multiview_manifest']['path']).parent / 'review_result.json')}
     prior_plan = initial['source']['input']['geometry_plan'] if role == 'geometry' else initial['source']['view_plans'][role]
     prior_execution = initial['source']['input']['geometry_execution'] if role == 'geometry' else initial['source']['input']['references'][l6.ROLES.index(role)]['execution_report']
     seed_node = '14' if role == 'geometry' else '11'
@@ -311,6 +322,8 @@ def run_worker(run_dir, role, timeout):
     prefix = expected['patches']['17' if role == 'geometry' else '13']['filename_prefix']
     output_prefix = l6.worker.within(root / 'work/output', l6.worker.safe_relative(prefix, 'prefix'))
     if any(output_prefix.parent.glob(output_prefix.name + '_*')): raise ValueError('artifact namespace exists')
+    bound.check_record(run_dir, path)
+    bound.check_record(run_dir, run_dir / (role + '_plan.json'))
     reserve(run_dir, stage, path)
     try:
         l6.worker.run(run_dir / (role + '_plan.json'), report_path, root, timeout)
@@ -585,15 +598,20 @@ def reject_initial(run_dir, source_review_run, reason, error):
 
 
 def run_feedback(run_id='l7-feedback-preflight',source_review_run=SOURCE_DIR,comfy_root=l6.worker.DEFAULT_COMFY_ROOT,
-                 blender_executable=bridge.BLENDER,worker_timeout=600,review_timeout=600,render_timeout=600,*,execute=False):
+                 blender_executable=bridge.BLENDER,worker_timeout=600,review_timeout=600,render_timeout=600,*,execute=False,session_binding=None):
     if not re.fullmatch(r'[A-Za-z0-9_-]{1,48}',str(run_id)) or min(worker_timeout,review_timeout,render_timeout)<=0:
         raise ValueError('invalid run ID/timeouts')
     run_dir=ROOT/'runs/l7'/run_id
     if execute and run_dir.exists():
         if (run_dir/'terminal.json').exists():return {'status':'ALREADY_TERMINAL','terminal':ref(run_dir/'terminal.json')}
         raise ValueError('CONTROLLER_RUN_ALREADY_EXISTS: no automatic resume')
+    if session_binding is not None:
+        data, _, _ = bound.checked_parent(session_binding, execution=True)
+        if data['child_ids']['correction'] != run_id:
+            raise ValueError('current correction child identity mismatch')
+        validate_source(source_review_run, session_binding)
     try:
-        checks=preflight(source_review_run,comfy_root,blender_executable)
+        checks=preflight(source_review_run,comfy_root,blender_executable,session_binding=session_binding)
     except l6.StageFailure as exc:
         if not execute: raise
         return reject_initial(run_dir, source_review_run, exc.reason, exc)
@@ -610,6 +628,8 @@ def run_feedback(run_id='l7-feedback-preflight',source_review_run=SOURCE_DIR,com
     run_dir.parent.mkdir(parents=True,exist_ok=True);run_dir.mkdir()
     initial={k:v for k,v in checks.items() if k not in ('status','effects')}|{'preflight': {'status': 'PREFLIGHT_PASS', 'effects': checks['effects']}, 'version':'l7-feedback.0','run_id':run_id,'created_at':l6.now(),'state':'SOURCE_REVIEW_READY',
                    'terminal':False,'comfy_root':str(root),'budgets':budgets(run_dir)}
+    if session_binding is not None:
+        initial['session_binding'] = bound.child_binding(session_binding, 'correction', run_dir, source_review_run)
     write_once(run_dir/'initial.json',initial)
     l6.worker.write_report(run_dir/'state.json',initial|{'initial_contract':ref(run_dir/'initial.json')})
     if checks['source']['verdict']=='PASS':return finish(run_dir,'INTERNAL_ACCEPT','SOURCE_GEOMETRY_PASS')

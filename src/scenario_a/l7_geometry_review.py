@@ -13,6 +13,7 @@ import time
 
 from scenario_a import l6_pipeline as l6
 from scenario_a import l7_blender_diagnostic as diagnostic
+from scenario_a import session_binding as bound
 
 ROOT = l6.ROOT
 L6_RUN_ID = 'l6-m3-20260930-164920-8109160a'
@@ -35,34 +36,42 @@ ref = l6.reference
 write_once = l6.write_once
 
 
-def validate_l6():
-    if l6.digest(L6_DIR / 'terminal.json') != L6_TERMINAL_SHA:
+def validate_l6(l6_dir=None, parent_ref=None):
+    legacy = l6_dir is None
+    l6_dir = L6_DIR if legacy else Path(l6_dir)
+    source_run_id = L6_RUN_ID if legacy else l6_dir.name
+    if not legacy:
+        child = bound.checked_child(l6_dir, parent_ref=parent_ref)
+        if child is None or child[0]['kind'] != 'l6':
+            raise ValueError('UNBOUND_L6_SOURCE')
+    if legacy and l6.digest(l6_dir / 'terminal.json') != L6_TERMINAL_SHA:
         raise ValueError('L6 terminal identity mismatch')
-    terminal = read(L6_DIR / 'terminal.json')
+    terminal = read(l6_dir / 'terminal.json')
     if terminal['state'] != 'GEOMETRY_READY' or terminal['terminal'] is not True:
         raise ValueError('L6 not GEOMETRY_READY')
     for reference in terminal['records'].values():
         l6.reviewer.checked_ref(reference)
-    images = l6.validate_manifest(read(L6_DIR / 'multiview_manifest.json'), L6_DIR)
-    if tuple(a['sha256'] for a in images) != REFERENCE_SHAS:
+    images = l6.validate_manifest(read(l6_dir / 'multiview_manifest.json'), l6_dir)
+    if legacy and tuple(a['sha256'] for a in images) != REFERENCE_SHAS:
         raise ValueError('L6 reference identities differ')
-    if l6.checked_review(L6_DIR)['verdict'] != 'PASS':
+    if l6.checked_review(l6_dir)['verdict'] != 'PASS':
         raise ValueError('L6 multiview not PASS')
-    l6.validate_staging(L6_DIR)
-    execution = read(L6_DIR / 'geometry_execution.json')
-    order = read(L6_DIR / 'geometry_work_order.json')
-    report = read(L6_DIR / 'geometry_worker_report.json')
+    l6.validate_staging(l6_dir)
+    execution = read(l6_dir / 'geometry_execution.json')
+    order = read(l6_dir / 'geometry_work_order.json')
+    report = read(l6_dir / 'geometry_worker_report.json')
     l6.validate_worker_report(order, report)
     artifact = execution['artifact']
     if (artifact != terminal['artifact'] or artifact != report['outputs'][0]
-            or execution['status'] != 'SUCCESS' or execution['run_id'] != L6_RUN_ID
-            or execution['worker_report'] != ref(L6_DIR / 'geometry_worker_report.json')
-            or execution['plan'] != ref(L6_DIR / 'geometry_plan.json')
-            or execution['work_order'] != ref(L6_DIR / 'geometry_work_order.json')
+            or execution['status'] != 'SUCCESS' or execution['run_id'] != source_run_id
+            or execution['worker_report'] != ref(l6_dir / 'geometry_worker_report.json')
+            or execution['plan'] != ref(l6_dir / 'geometry_plan.json')
+            or execution['work_order'] != ref(l6_dir / 'geometry_work_order.json')
             or execution['prompt_id'] != report['prompt_id']):
         raise ValueError('L6 geometry linkage differs')
     data = Path(artifact['path']).read_bytes()
-    if len(data) != GLB_BYTES or hashlib.sha256(data).hexdigest() != GLB_SHA:
+    if ((legacy and (len(data) != GLB_BYTES or hashlib.sha256(data).hexdigest() != GLB_SHA))
+            or (not legacy and (len(data) != artifact['bytes'] or hashlib.sha256(data).hexdigest() != artifact['sha256']))):
         raise ValueError('L6 GLB identity mismatch')
     if struct.unpack_from('<4sII', data) != (b'glTF', 2, len(data)):
         raise ValueError('L6 GLB structural mismatch')
@@ -70,14 +79,14 @@ def validate_l6():
     if kind != b'JSON':
         raise ValueError('GLB JSON chunk missing')
     embedded = json.loads(json.loads(data[20:20 + length])['asset']['extras']['prompt'])
-    plan = read(L6_DIR / 'geometry_plan.json')
+    plan = read(l6_dir / 'geometry_plan.json')
     for image in images:
         node = l6.MAPPING[image['role']]
         if (embedded[node]['is_changed'] != [image['sha256']]
                 or embedded[node]['inputs']['image'] != plan['patches'][node]['image']):
             raise ValueError('GLB embedded input identity differs')
-    return {'source_run_id': L6_RUN_ID, 'artifact': artifact, 'references': images,
-            **{name: ref(L6_DIR / (name + '.json')) for name in
+    return {'source_run_id': source_run_id, 'artifact': artifact, 'references': images,
+            **{name: ref(l6_dir / (name + '.json')) for name in
                ('geometry_execution', 'geometry_plan', 'geometry_worker_report', 'multiview_manifest', 'terminal')}}
 
 
@@ -90,9 +99,21 @@ def blender_identity(executable):
             'bytes': stat.st_size, 'mtime_ns': stat.st_mtime_ns}
 
 
-def preflight(executable=BLENDER):
-    return {'status': 'PREFLIGHT_PASS', 'input': validate_l6(), 'renderer': blender_identity(executable),
+def preflight(executable=BLENDER, *, source_l6_run=None, session_binding=None):
+    if session_binding is None and source_l6_run is not None:
+        raise ValueError('current L6 source requires Session binding')
+    return {'status': 'PREFLIGHT_PASS', 'input': validate_l6(source_l6_run, session_binding), 'renderer': blender_identity(executable),
             'script': ref(SCRIPT), 'config': diagnostic.CONFIG, 'effects': 0}
+
+
+
+def validate_input(initial):
+    reference = initial.get('session_binding')
+    if reference is None:
+        return validate_l6()
+    child = l6.read_ref(reference)
+    source = l6.reviewer.checked_ref(child['source']).parent
+    return validate_l6(source, child['parent'])
 
 
 def budgets(run_dir):
@@ -102,6 +123,7 @@ def budgets(run_dir):
 
 
 def guard(run_dir):
+    bound.effect_guard(run_dir)
     if (run_dir / 'terminal.json').exists():
         raise ValueError('ALREADY_TERMINAL')
     state = read(run_dir / 'state.json')
@@ -139,7 +161,7 @@ def run_renderer(run_dir, timeout):
     initial = guard(run_dir)
     if (run_dir / 'renderer_reservation.json').exists():
         raise ValueError('RENDERER_ALREADY_RESERVED')
-    if validate_l6() != initial['input'] or ref(SCRIPT) != initial['script']:
+    if validate_input(initial) != initial['input'] or ref(SCRIPT) != initial['script']:
         raise ValueError('input/script changed before render')
     if blender_identity(initial['renderer']['executable']) != initial['renderer']:
         raise ValueError('Blender executable changed')
@@ -176,20 +198,20 @@ def run_renderer(run_dir, timeout):
 
 
 def make_render_request(run_dir, initial):
-    return {'version': 'l7-m1.0', 'run_id': run_dir.name, 'source_l6_run_id': L6_RUN_ID,
+    return {'version': 'l7-m1.0', 'run_id': run_dir.name, 'source_l6_run_id': initial['input']['source_run_id'],
             'source_glb': initial['input']['artifact'], 'blender_version': initial['renderer']['version'],
             'script': initial['script'], 'config': diagnostic.CONFIG,
-            'output_dir': str(OUTPUT_ROOT / run_dir.name / 'geometry_review'),
+            'output_dir': str(Path(initial.get('output_root', OUTPUT_ROOT)) / run_dir.name / 'geometry_review'),
             'manifest_path': str(run_dir / 'render_manifest.json')}
 
 
 def validate_render_manifest(run_dir):
     initial = read(run_dir / 'initial.json')
-    if validate_l6() != initial['input']:
+    if validate_input(initial) != initial['input']:
         raise ValueError('L6 changed after render')
     manifest = read(run_dir / 'render_manifest.json')
     if (manifest['version'] != 'l7-m1.0' or manifest['run_id'] != run_dir.name
-            or manifest['source_l6_run_id'] != L6_RUN_ID or manifest['source_glb'] != initial['input']['artifact']
+            or manifest['source_l6_run_id'] != initial['input']['source_run_id'] or manifest['source_glb'] != initial['input']['artifact']
             or manifest['render_request'] != ref(run_dir / 'render_request.json')
             or manifest['blender_executable'] != initial['renderer']['executable']
             or manifest['blender_version'] != initial['renderer']['version'] or manifest['config'] != diagnostic.CONFIG):
@@ -209,7 +231,7 @@ def validate_render_manifest(run_dir):
                        for c, a, b in zip(bounds['center'], bounds['min'], bounds['max']))):
         raise ValueError('bounds metadata differs')
     for angle, a in zip((0, 90, 180, 270), outputs):
-        expected = OUTPUT_ROOT / run_dir.name / 'geometry_review' / (a['role'] + '.png')
+        expected = Path(initial.get('output_root', OUTPUT_ROOT)) / run_dir.name / 'geometry_review' / (a['role'] + '.png')
         if (a['azimuth'] != angle or Path(a['path']) != expected
                 or not math.isclose(a['ortho_scale'], max(extents) * 1.2, rel_tol=1e-6)):
             raise ValueError('diagnostic camera/namespace differs')
@@ -230,7 +252,7 @@ def validate_render_manifest(run_dir):
 
 def artifacts(run_dir):
     initial = read(run_dir / 'initial.json')
-    if validate_l6() != initial['input']:
+    if validate_input(initial) != initial['input']:
         raise ValueError('references changed before Review')
     renders = validate_render_manifest(run_dir)['outputs']
     originals = [dict(a, role='source_' + a['role']) for a in initial['input']['references']]
@@ -359,11 +381,13 @@ def finish(run_dir, status, reason, result=None, error=None):
                  'review_request', 'reviewer_reservation', 'review_result', 'review_invocation', 'usage')
         records = {k: ref(run_dir / (k + '.json')) if (run_dir / (k + '.json')).exists() else None for k in names}
         records['review_instructions'] = ref(run_dir / 'review_instructions.md') if (run_dir / 'review_instructions.md').exists() else None
+        if initial.get('session_binding'):
+            records = {p.stem: ref(p) for p in run_dir.iterdir() if p.is_file() and p.name not in ('state.json', 'terminal.json')}
         write_once(run_dir / 'terminal.json', state | {'records': records, 'l6_input': initial['input']})
     return state
 
 
-def run_bridge(run_id, executable=BLENDER, render_timeout=600, review_timeout=600, *, execute=False):
+def run_bridge(run_id, executable=BLENDER, render_timeout=600, review_timeout=600, *, execute=False, session_binding=None, source_l6_run=None):
     if not re.fullmatch(r'[A-Za-z0-9_-]{1,48}', str(run_id)) or min(render_timeout, review_timeout) <= 0:
         raise ValueError('invalid run ID/timeouts')
     run_dir = ROOT / 'runs/l7' / run_id
@@ -371,16 +395,25 @@ def run_bridge(run_id, executable=BLENDER, render_timeout=600, review_timeout=60
         if (run_dir / 'terminal.json').exists():
             return {'status': 'ALREADY_TERMINAL', 'terminal': ref(run_dir / 'terminal.json')}
         raise ValueError('L7_RUN_ALREADY_EXISTS')
-    checks = preflight(executable)
+    if session_binding is not None:
+        data, _, _ = bound.checked_parent(session_binding, execution=True)
+        if data['child_ids']['bridge'] != run_id or source_l6_run is None:
+            raise ValueError('bound bridge child/source identity required')
+    checks = preflight(executable, source_l6_run=source_l6_run, session_binding=session_binding)
     if not execute:
         return checks
-    if (OUTPUT_ROOT / run_id).exists():
+    output_root = (Path(read(Path(source_l6_run) / 'initial.json')['comfy_root']) / 'work/output/l7'
+                   if session_binding is not None else OUTPUT_ROOT)
+    if (output_root / run_id).exists():
         raise ValueError('external namespace exists')
     run_dir.parent.mkdir(parents=True, exist_ok=True)
     run_dir.mkdir()
     initial = {'version': 'l7-m1.0', 'run_id': run_id, 'created_at': l6.now(), 'state': 'GEOMETRY_READY',
                'terminal': False, 'input': checks['input'], 'renderer': checks['renderer'], 'script': checks['script'],
                **budgets(run_dir)}
+    if session_binding is not None:
+        initial['session_binding'] = bound.child_binding(session_binding, 'bridge', run_dir, source_l6_run)
+        initial['output_root'] = str(Path(read(Path(source_l6_run) / 'initial.json')['comfy_root']) / 'work/output/l7')
     write_once(run_dir / 'initial.json', initial)
     l6.worker.write_report(run_dir / 'state.json', initial | {'initial_contract': ref(run_dir / 'initial.json')})
     stage = 'RENDER_STAGE'

@@ -85,3 +85,84 @@ class SessionScenarioTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             l6.run_pipeline("wrong-child", self.f.comfy, session_binding=self.parent)
         self.f.assert_calls(0, 0)
+
+    def geometry_fixture(self):
+        # Existing fixture Worker produces a GLB with exact current embedded inputs.
+        import struct
+        def embedded(role, report_path):
+            if role != "geometry":
+                return
+            report = l6.read_json(report_path)
+            plan = l6.read_json(report_path.parent / "geometry_plan.json")
+            graph = {node: {"inputs": plan["patches"][node],
+                           "is_changed": [l6.digest(self.f.comfy / "work/input" / plan["patches"][node]["image"])]}
+                     for node in l6.MAPPING.values()}
+            payload = json.dumps({"asset": {"version": "2.0", "extras": {"prompt": json.dumps(graph)}}}).encode()
+            payload += b" " * (-len(payload) % 4)
+            data = struct.pack("<4sII", b"glTF", 2, 20 + len(payload)) + struct.pack("<I4s", len(payload), b"JSON") + payload
+            path = Path(report["outputs"][0]["path"])
+            path.write_bytes(data)
+            report["outputs"][0].update(bytes=len(data), sha256=l6.digest(path), declared_length=len(data))
+            l6.worker.write_report(report_path, report)
+        self.f.worker_after = embedded
+        self.assertEqual(self.execute_l6()["state"], "GEOMETRY_READY")
+        self.g = bridge_tests.GeometryBridgeTests()
+        self.g.fixture = self.f
+        self.g.run_id = self.ids["bridge"]
+        self.g.executable = self.f.root / "blender.exe"
+        self.g.executable.write_bytes(b"SYNTHETIC_EXECUTABLE_NEVER_RUN")
+        self.g.render_mutation = None
+        self.g.review_mutation = None
+        self.g.verdict = "PASS"
+        self.g.action = None
+        self.g.return_code = 0
+        for module in (bridge, controller):
+            p = mock.patch.object(module, "ROOT", self.f.repo)
+            p.start()
+            self.addCleanup(p.stop)
+        def render(command, **kwargs):
+            result = self.g.fake_render(command, **kwargs)
+            request = l6.read_json(Path(command[-1]))
+            path = Path(request["manifest_path"])
+            manifest = l6.read_json(path)
+            manifest["source_l6_run_id"] = request["source_l6_run_id"]
+            l6.worker.write_report(path, manifest)
+            return result
+        self.renderer = mock.patch.object(bridge.subprocess, "run", side_effect=render).start()
+        self.reviewer = mock.patch.object(l6.reviewer, "review_once", side_effect=self.g.fake_review).start()
+        self.addCleanup(mock.patch.stopall)
+
+    def execute_bridge(self, parent=None):
+        return bridge.run_bridge(self.ids["bridge"], self.g.executable, 1, 1, execute=True,
+            session_binding=parent or self.parent, source_l6_run=self.path)
+
+    def test_bridge_current_bound_l6_without_global_pin_mutation(self):
+        self.geometry_fixture()
+        old = (bridge.L6_DIR, bridge.L6_RUN_ID, bridge.GLB_SHA)
+        self.assertEqual(self.execute_bridge()["state"], "GEOMETRY_REVIEWED")
+        path = self.f.repo / "runs/l7" / self.ids["bridge"]
+        self.assertEqual(controller.validate_source(path, self.parent)["input"]["source_run_id"], self.ids["l6"])
+        self.assertEqual(old, (bridge.L6_DIR, bridge.L6_RUN_ID, bridge.GLB_SHA))
+        self.assertEqual((self.renderer.call_count, self.reviewer.call_count), (1, 1))
+
+    def test_unbound_l6_rejected(self):
+        self.f.run_fixture()
+        with self.assertRaisesRegex(ValueError, "UNBOUND"):
+            bridge.validate_l6(self.path, self.parent)
+        self.f.network.assert_not_called()
+
+    def test_different_spec_l6_and_l7_rejected(self):
+        self.geometry_fixture()
+        alternate = self.f.root / "session-copy"
+        alternate.mkdir()
+        other = sb.SessionBoundary("session-test", alternate)
+        other_binding = other.create_binding(self.spec, "other-loop")
+        parent = self.prepare(boundary=other, binding=other_binding)
+        with self.assertRaises(ValueError):
+            self.execute_bridge(parent)
+        self.renderer.assert_not_called()
+        self.assertEqual(self.execute_bridge()["state"], "GEOMETRY_REVIEWED")
+        path = self.f.repo / "runs/l7" / self.ids["bridge"]
+        with self.assertRaises(ValueError):
+            controller.run_feedback(self.ids["correction"], path, self.f.comfy, self.g.executable,
+                                    execute=True, session_binding=parent)

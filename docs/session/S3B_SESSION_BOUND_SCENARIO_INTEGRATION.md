@@ -33,3 +33,23 @@ Actual Worker/Blender/Reviewer/revision/Delivery 금지. L7-M3 NOT PASSED 유지
 - Commit subject: feat(s3b): bind L6 records to frozen session specification
   (exact identity via git log; avoid self-referential commit hash).
 - Result: CHECKPOINT 1 LOCAL PASS.
+
+## Checkpoint 2 — L7 binding
+- Starting commit: 3e7d240 (Checkpoint 1).
+- Inspected seams: bridge validate_l6/input, render request/manifest, request/invocation;
+  controller validate_source/preflight/guard/publish_order.
+- Implementation: explicit source_l6_run + session_binding opt-in bridge;
+  current source derives from immutable source child ref, never global constant monkeypatch.
+  Legacy pinned defaults retained. Bound controller validates same parent before source/correction.
+  Correction geometry approved Review resolves current source's L6 manifest directory.
+  Bound bridge terminal includes sidecars; controller checks exact durable file set.
+- Invariants: current child map, same parent/Spec, hash checked source chain, existing bounds
+  and reservation guards. No inherited unbound source PASS becomes bound proof.
+- Positive: complete mocked L6→bridge and controller source validation.
+- Negative: unbound L6; different parent/Spec L6 or L7; no mock renderer effect on rejection.
+- Tests: same focused runner 9/9 PASS (8.817s), network0/process0/import smoke0.
+- Limit: Review authority compiler/final acceptance gate not yet completed.
+  New source selection is allowed only with Session binding; legacy defaults unchanged.
+- Changed files: bridge/controller hooks, focused tests, this document.
+- Commit subject: feat(s3b): bind current L7 source and correction to session
+- Result: CHECKPOINT 2 LOCAL PASS.
