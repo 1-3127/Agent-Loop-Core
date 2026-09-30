@@ -84,6 +84,8 @@ def validate_source(source_dir, parent_ref=None):
 
 
 def preflight(source_review_run=SOURCE_DIR, comfy_root=l6.worker.DEFAULT_COMFY_ROOT, blender_executable=bridge.BLENDER, *, session_binding=None):
+    if session_binding is None and read(Path(source_review_run) / 'initial.json').get('session_binding'):
+        raise ValueError('BOUND_SOURCE_REQUIRES_SESSION_BINDING')
     source = validate_source(source_review_run, session_binding)
     assets = l6.preflight(comfy_root)
     prior = l6.read_ref(source['input']['geometry_plan'])

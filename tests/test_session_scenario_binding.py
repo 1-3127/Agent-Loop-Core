@@ -377,3 +377,20 @@ class SessionScenarioTests(unittest.TestCase):
 
     def test_unsupported_action_is_deterministic_contract_failure(self):
         self.unsupported_review(lambda r: r.update(suggested_action={"code": "REGENERATE_VIEW", "target": "front"}))
+
+    def test_bound_source_cannot_fall_back_to_legacy_controller(self):
+        self.geometry_fixture()
+        self.g.verdict = "REVISE"
+        self.execute_bridge()
+        source = self.f.repo / "runs/l7" / self.ids["bridge"]
+        self.session.stop("ABORT", "explicit Session stop")
+        self.f.worker_mock.reset_mock()
+        self.renderer.reset_mock()
+        self.reviewer.reset_mock()
+        with self.assertRaisesRegex(ValueError, "BOUND_SOURCE_REQUIRES_SESSION_BINDING"):
+            controller.preflight(source, self.f.comfy, self.g.executable)
+        with self.assertRaisesRegex(ValueError, "BOUND_SOURCE_REQUIRES_SESSION_BINDING"):
+            controller.run_feedback("legacy-bypass", source, self.f.comfy, self.g.executable, execute=True)
+        self.f.worker_mock.assert_not_called()
+        self.renderer.assert_not_called()
+        self.reviewer.assert_not_called()

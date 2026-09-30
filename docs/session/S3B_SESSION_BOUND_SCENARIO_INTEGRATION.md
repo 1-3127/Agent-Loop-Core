@@ -92,3 +92,74 @@ Actual Worker/Blender/Reviewer/revision/Delivery 금지. L7-M3 NOT PASSED 유지
 - Files: binding module, three Scenario hooks, focused tests, cumulative document.
 - Commit subject: feat(s3b): propagate specification acceptance authority to final candidate
 - Result: CHECKPOINT 3 LOCAL PASS; full regression pending.
+
+## Checkpoint 4 — Required local regression
+- Starting commit: 566beb08acea98cdaaa4a3e9ef08a7e648e6d3d1.
+- Inspected seams: complete existing tests and new binding integration; final effect guard,
+  legacy controller preflight, source/terminal/coverage lineage.
+- Required repair: bound source cannot opt out through legacy controller when Session closes.
+  preflight rejects BOUND_SOURCE_REQUIRES_SESSION_BINDING before any reservation/effect.
+  A focused terminal-Session bypass probe passed (1/1, 7.360s, effects0).
+  Earlier full runs were interrupted to apply/check this concrete boundary fix and correct
+  its rejection assertion; no aborted run is counted as full regression PASS.
+- Invariants: requested 14 negative requirements plus malformed blocker/action, capability,
+  initial renderer gate, fixed entry and both correction routes; legacy tests retained.
+- Positive local proof: fixed L6→bridge→candidate and L6→bridge→view/geometry correction→candidate.
+- Negative mapping:
+  1. bytes mutation; 2. wrong Session; 3. wrong logical Loop;
+  4. unbound L6; 5–6. distinct Spec L6/L7; 7. unknown criterion;
+  8. undeclared authority; 9. nonblocking criterion blocker;
+  10. historical unbound geometry PASS; 11. artifact/final Review mismatch;
+  12. terminal child registration/effect; 13. typed ambiguity continuation;
+  14. unchanged legacy L6/L7 regression suites.
+- Final result: 196/196 PASS (356.264s), failures0/errors0/skipped0. S3B focused 24/24 within this full suite; existing 172/172 retained..
+- Effects: network0 / actual Comfy Worker0 / Blender production0 / semantic Reviewer0 /
+  actual correction dispatch0 / User delivery transport0.
+  Exact existing package import smoke1; all Scenario adapter invocations synthetic/mocked.
+- Protection: original tracked files changed only L6/bridge/controller seams.
+  Frozen Core, schemas, S3A, C1–C5, historical docs/runs/evidence/verdicts unchanged by SHA-256.
+  Research HEAD 7e1572a7e35866519b75b767398288396a27f9b0, 186 files incl F2B WIP unchanged;
+  sole Research untracked ac6_f2b_resume.py preserved.
+  18 external manifest references unchanged (small-file SHA/size/mtime; large-model size/mtime).
+  Protected local/live remote refs remain exact starting values.
+- Limits: fixtures prove local contract and routing only; no actual Session E2E,
+  delivery authenticity, fresh context reset, L7 quality proof or benchmark.
+- Files: two-line controller opt-out rejection, one required negative test, this document.
+- Commit subject: test(s3b): verify integration regression and block legacy opt-out
+- Result: CHECKPOINT 4 LOCAL PASS.
+
+### Reproducible local validation command
+Working directory: D:\VSCODE-WorkSpace\Others\Agent-Loop-Core.
+Use bundled Python -B with the following script on stdin (PowerShell literal here-string).
+TEMP is process-local under the repository and removed when the suite exits.
+Audit allowlist is exact original package import script; production effects stay forbidden.
+
+```python
+import ast,pathlib,subprocess,sys,tempfile,unittest
+root=pathlib.Path.cwd();sys.path.insert(0,str(root/'src'))
+effects={'network':0,'production_process':0,'import_smoke_process':0}
+tree=ast.parse((root/'tests/test_package_boundary.py').read_text(encoding='utf-8'))
+smoke_script=next(ast.literal_eval(n.value) for n in ast.walk(tree) if isinstance(n,ast.Assign) and any(isinstance(t,ast.Name) and t.id=='script' for t in n.targets))
+smoke_args=[sys.executable,'-c',smoke_script]
+smoke_command=subprocess.list2cmdline(smoke_args)
+def gate(event,args):
+ if event in ('socket.connect','socket.connect_ex','urllib.Request'):
+  effects['network']+=1
+  raise AssertionError('S3B actual network forbidden')
+ if event=='subprocess.Popen':
+  command=args[1]
+  if command==smoke_command or command==smoke_args:
+   effects['import_smoke_process']+=1
+  else:
+   effects['production_process']+=1
+   raise AssertionError('S3B actual production process forbidden')
+sys.addaudithook(gate)
+with tempfile.TemporaryDirectory(prefix='s3b-local-tests-',dir=root) as scratch:
+ tempfile.tempdir=scratch
+ suite=unittest.defaultTestLoader.discover('tests',pattern="test_*.py")
+ result=unittest.TextTestRunner(verbosity=2).run(suite)
+ print('EXTERNAL_EFFECT_TRIPWIRES',effects)
+ print('COUNTS',result.testsRun,len(result.failures),len(result.errors),len(result.skipped))
+ sys.exit(0 if result.wasSuccessful() and not effects['network'] and not effects['production_process'] else 1)
+
+```
