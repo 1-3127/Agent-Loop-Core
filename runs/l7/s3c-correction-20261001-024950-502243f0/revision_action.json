@@ -1,0 +1,19 @@
+{
+  "version": "l7-feedback.0",
+  "run_id": "s3c-correction-20261001-024950-502243f0",
+  "source_review": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\s3c-bridge-20261001-024950-502243f0\\review_result.json",
+    "sha256": "e9de8387b0c7f3dced32a84bc12f9b60c0209dbfba9561d3ed37093f6b727935"
+  },
+  "source_verdict": "REVISE",
+  "action_code": "REGENERATE_GEOMETRY",
+  "target": "geometry",
+  "revision_ordinal": 1,
+  "previous_seed": 528364197559477,
+  "revision_seed": 528364197559478,
+  "budget": {
+    "limit": 1,
+    "consumed": 0
+  },
+  "status": "REVISION_PLANNED"
+}

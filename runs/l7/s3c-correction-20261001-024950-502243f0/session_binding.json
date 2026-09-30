@@ -1,0 +1,14 @@
+{
+  "version": "s3b-child.0",
+  "kind": "correction",
+  "run_id": "s3c-correction-20261001-024950-502243f0",
+  "run_directory": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\s3c-correction-20261001-024950-502243f0",
+  "parent": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\session\\s3c-session-20261001-024950-502243f0\\scenario_a.json",
+    "sha256": "99250dfa962678268697fa585159c9be8612bb0db2a775777ee5742e2bad7d69"
+  },
+  "source": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\s3c-bridge-20261001-024950-502243f0\\session_binding.json",
+    "sha256": "84259d1b4938c969fbc9b326cf17e5dbcd55094227b6e5ed15a5cc8b60e1a46e"
+  }
+}

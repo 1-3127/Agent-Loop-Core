@@ -1,0 +1,10 @@
+{
+  "existing_tracked_unchanged": 242,
+  "research_tracked_unchanged": 185,
+  "research_wip_sha256": "2a58ab64e8838e8c3da6d8b4d62526e1a8d0d834bb26058d905d80d73dfd9369",
+  "external_unchanged": 14,
+  "large_model_full_hash": false,
+  "protected_local_refs_unchanged": true,
+  "runtime_source_diff": 0,
+  "proof_evidence_validation_unchanged": true
+}

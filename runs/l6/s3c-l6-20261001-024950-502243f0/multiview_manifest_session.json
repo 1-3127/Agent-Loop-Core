@@ -1,0 +1,10 @@
+{
+  "session_binding": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\s3c-l6-20261001-024950-502243f0\\session_binding.json",
+    "sha256": "844d9c48096bfecacae12b5c01c8b1f1be6738b2ee42cb3b512dd20b6d7845ac"
+  },
+  "record": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\s3c-l6-20261001-024950-502243f0\\multiview_manifest.json",
+    "sha256": "d81ca7d7718a3b98fe0699e28af82157d2d02ec2e704432b7ad96b7a44e56578"
+  }
+}

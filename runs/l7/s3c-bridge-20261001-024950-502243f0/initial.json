@@ -1,0 +1,110 @@
+{
+  "version": "l7-m1.0",
+  "run_id": "s3c-bridge-20261001-024950-502243f0",
+  "created_at": "2026-09-30T18:04:42.469065+00:00",
+  "state": "GEOMETRY_READY",
+  "terminal": false,
+  "input": {
+    "source_run_id": "s3c-l6-20261001-024950-502243f0",
+    "artifact": {
+      "type": "geometry",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\mesh\\l6\\s3c-l6-20261001-024950-502243f0\\geometry_00001_.glb",
+      "bytes": 1139020,
+      "sha256": "a8f9922bfb52c6bf6b856a76b3ea5876dedec9ddc826c0231484cea5d0785862",
+      "glb_version": 2,
+      "declared_length": 1139020
+    },
+    "references": [
+      {
+        "role": "front",
+        "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\input\\hunyuan-official-demo-padded.png",
+        "sha256": "8a6dd9ca3f8984b31c1243e7698cd5030b423464d80e0ad763609148e0ff4f51",
+        "bytes": 142572,
+        "width": 768,
+        "height": 768,
+        "execution_report": null
+      },
+      {
+        "role": "right",
+        "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l6\\s3c-l6-20261001-024950-502243f0\\right_00001_.png",
+        "sha256": "8e83596d98ce318043d70845dc5edec9309aa7f125f06e7b9aec0edf44eee4d3",
+        "bytes": 233501,
+        "width": 768,
+        "height": 768,
+        "execution_report": {
+          "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\s3c-l6-20261001-024950-502243f0\\right_execution.json",
+          "sha256": "db5eb2985d9e5dd25e40e05cf56d2854f39acb4d488e46c3f27c3455f9138f52"
+        }
+      },
+      {
+        "role": "left",
+        "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l6\\s3c-l6-20261001-024950-502243f0\\left_00001_.png",
+        "sha256": "306d8c96f44785ecc88ea1faa3226ff2b72a013519279cc6542a2145b4261da2",
+        "bytes": 223399,
+        "width": 768,
+        "height": 768,
+        "execution_report": {
+          "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\s3c-l6-20261001-024950-502243f0\\left_execution.json",
+          "sha256": "7f480776a94eb3408fddaa3d76b2ac01778dc983944f8c391c016916b0ada762"
+        }
+      },
+      {
+        "role": "back",
+        "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l6\\s3c-l6-20261001-024950-502243f0\\back_00001_.png",
+        "sha256": "20f65eb884aa917bf8a0b8a055e7d1ec8ad982d8bca9b983321091ca4dc16627",
+        "bytes": 232980,
+        "width": 768,
+        "height": 768,
+        "execution_report": {
+          "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\s3c-l6-20261001-024950-502243f0\\back_execution.json",
+          "sha256": "ad53eef10bbff95fc77e717a120314c79dd9cdcf42db96156b1b2611a3483a71"
+        }
+      }
+    ],
+    "geometry_execution": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\s3c-l6-20261001-024950-502243f0\\geometry_execution.json",
+      "sha256": "358eb99180fac5b31b683b425b1e7b97fcfb8b7fd993a8ceec9aeedb1190ad44"
+    },
+    "geometry_plan": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\s3c-l6-20261001-024950-502243f0\\geometry_plan.json",
+      "sha256": "3e669263717f2a054537d799fc19459755515622857637cb1b524ef3edd0fefe"
+    },
+    "geometry_worker_report": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\s3c-l6-20261001-024950-502243f0\\geometry_worker_report.json",
+      "sha256": "43d318f8745a2f60d3cc5e5c83493d155bd3d215650701554c6c61a906e5a67a"
+    },
+    "multiview_manifest": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\s3c-l6-20261001-024950-502243f0\\multiview_manifest.json",
+      "sha256": "d81ca7d7718a3b98fe0699e28af82157d2d02ec2e704432b7ad96b7a44e56578"
+    },
+    "terminal": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\s3c-l6-20261001-024950-502243f0\\terminal.json",
+      "sha256": "3ad9b751bf1940115208733d7a6ce0c046b9ac47d00e7c8464678432d1ffabb7"
+    }
+  },
+  "renderer": {
+    "executable": "D:\\Blender_5.2\\blender.exe",
+    "version": "5.2.0 LTS",
+    "bytes": 112975320,
+    "mtime_ns": 1783967930000000000
+  },
+  "script": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\src\\scenario_a\\l7_blender_diagnostic.py",
+    "sha256": "d71f932c5679d6e1ad453e1fa39d75c919fec5c1ff975d22c1114ed53f249cd1"
+  },
+  "renderer_budget": {
+    "limit": 1,
+    "consumed": 0,
+    "remaining": 1
+  },
+  "reviewer_budget": {
+    "limit": 1,
+    "consumed": 0,
+    "remaining": 1
+  },
+  "session_binding": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\s3c-bridge-20261001-024950-502243f0\\session_binding.json",
+    "sha256": "84259d1b4938c969fbc9b326cf17e5dbcd55094227b6e5ed15a5cc8b60e1a46e"
+  },
+  "output_root": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l7"
+}

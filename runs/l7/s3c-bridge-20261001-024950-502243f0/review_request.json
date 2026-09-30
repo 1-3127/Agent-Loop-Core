@@ -1,0 +1,182 @@
+{
+  "request_version": "0.2",
+  "run_id": "s3c-bridge-20261001-024950-502243f0",
+  "review_id": "s3c-bridge-20261001-024950-502243f0-geometry-review",
+  "stage": "GEOMETRY_REVIEW",
+  "output_kind": "geometry_diagnostic_images",
+  "source_result": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\s3c-bridge-20261001-024950-502243f0\\render_manifest.json",
+    "sha256": "108711dc9dec1d2b7a3748571a49e3e1651cc76bb36d9c42b4d571334417cc38"
+  },
+  "work_order": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\s3c-bridge-20261001-024950-502243f0\\render_request.json",
+    "sha256": "de6593293226f398989624872744a98954cbdca0488058c85eb74d603768cb95"
+  },
+  "worker_report": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\s3c-bridge-20261001-024950-502243f0\\renderer_invocation.json",
+    "sha256": "6408118a7ae2b551e3b84847ac9ce7e9fe8fc48c444162f0fcfc3760a00f1b14"
+  },
+  "artifacts": [
+    {
+      "role": "source_front",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\input\\hunyuan-official-demo-padded.png",
+      "sha256": "8a6dd9ca3f8984b31c1243e7698cd5030b423464d80e0ad763609148e0ff4f51",
+      "media_type": "image/png"
+    },
+    {
+      "role": "source_right",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l6\\s3c-l6-20261001-024950-502243f0\\right_00001_.png",
+      "sha256": "8e83596d98ce318043d70845dc5edec9309aa7f125f06e7b9aec0edf44eee4d3",
+      "media_type": "image/png"
+    },
+    {
+      "role": "source_left",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l6\\s3c-l6-20261001-024950-502243f0\\left_00001_.png",
+      "sha256": "306d8c96f44785ecc88ea1faa3226ff2b72a013519279cc6542a2145b4261da2",
+      "media_type": "image/png"
+    },
+    {
+      "role": "source_back",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l6\\s3c-l6-20261001-024950-502243f0\\back_00001_.png",
+      "sha256": "20f65eb884aa917bf8a0b8a055e7d1ec8ad982d8bca9b983321091ca4dc16627",
+      "media_type": "image/png"
+    },
+    {
+      "role": "geometry_azimuth_0",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l7\\s3c-bridge-20261001-024950-502243f0\\geometry_review\\geometry_azimuth_0.png",
+      "sha256": "848f1b453a0910e7a92097f9a456788f5b0f2aff9f263bb71b65b855adf24300",
+      "media_type": "image/png"
+    },
+    {
+      "role": "geometry_azimuth_90",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l7\\s3c-bridge-20261001-024950-502243f0\\geometry_review\\geometry_azimuth_90.png",
+      "sha256": "33188ef6c876ac1a3dd727c5333dd217cc14e3fb1cdfafd83622743939bb098e",
+      "media_type": "image/png"
+    },
+    {
+      "role": "geometry_azimuth_180",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l7\\s3c-bridge-20261001-024950-502243f0\\geometry_review\\geometry_azimuth_180.png",
+      "sha256": "a2124e3d2226433635d094e733654ee9ba35a05718f5b620327b787eed9bff82",
+      "media_type": "image/png"
+    },
+    {
+      "role": "geometry_azimuth_270",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l7\\s3c-bridge-20261001-024950-502243f0\\geometry_review\\geometry_azimuth_270.png",
+      "sha256": "d5a0dfbb37f030889f307b853ce9033897c18bd4ab4b59d4129bbffc927ee5ad",
+      "media_type": "image/png"
+    }
+  ],
+  "instruction_file": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\s3c-bridge-20261001-024950-502243f0\\review_instructions.md",
+    "sha256": "25d6e31de9d8d7e3ff02aeff04fe4585b19a594025d09dc238c9bb7063d4d7e5"
+  },
+  "context": {
+    "initial_contract": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\s3c-bridge-20261001-024950-502243f0\\initial.json",
+      "sha256": "44ed03820c73ced0fcf49b25c070f7f622f324de0e32675967b5cacc0fa4ec66"
+    },
+    "l6_input": {
+      "source_run_id": "s3c-l6-20261001-024950-502243f0",
+      "artifact": {
+        "type": "geometry",
+        "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\mesh\\l6\\s3c-l6-20261001-024950-502243f0\\geometry_00001_.glb",
+        "bytes": 1139020,
+        "sha256": "a8f9922bfb52c6bf6b856a76b3ea5876dedec9ddc826c0231484cea5d0785862",
+        "glb_version": 2,
+        "declared_length": 1139020
+      },
+      "references": [
+        {
+          "role": "front",
+          "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\input\\hunyuan-official-demo-padded.png",
+          "sha256": "8a6dd9ca3f8984b31c1243e7698cd5030b423464d80e0ad763609148e0ff4f51",
+          "bytes": 142572,
+          "width": 768,
+          "height": 768,
+          "execution_report": null
+        },
+        {
+          "role": "right",
+          "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l6\\s3c-l6-20261001-024950-502243f0\\right_00001_.png",
+          "sha256": "8e83596d98ce318043d70845dc5edec9309aa7f125f06e7b9aec0edf44eee4d3",
+          "bytes": 233501,
+          "width": 768,
+          "height": 768,
+          "execution_report": {
+            "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\s3c-l6-20261001-024950-502243f0\\right_execution.json",
+            "sha256": "db5eb2985d9e5dd25e40e05cf56d2854f39acb4d488e46c3f27c3455f9138f52"
+          }
+        },
+        {
+          "role": "left",
+          "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l6\\s3c-l6-20261001-024950-502243f0\\left_00001_.png",
+          "sha256": "306d8c96f44785ecc88ea1faa3226ff2b72a013519279cc6542a2145b4261da2",
+          "bytes": 223399,
+          "width": 768,
+          "height": 768,
+          "execution_report": {
+            "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\s3c-l6-20261001-024950-502243f0\\left_execution.json",
+            "sha256": "7f480776a94eb3408fddaa3d76b2ac01778dc983944f8c391c016916b0ada762"
+          }
+        },
+        {
+          "role": "back",
+          "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l6\\s3c-l6-20261001-024950-502243f0\\back_00001_.png",
+          "sha256": "20f65eb884aa917bf8a0b8a055e7d1ec8ad982d8bca9b983321091ca4dc16627",
+          "bytes": 232980,
+          "width": 768,
+          "height": 768,
+          "execution_report": {
+            "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\s3c-l6-20261001-024950-502243f0\\back_execution.json",
+            "sha256": "ad53eef10bbff95fc77e717a120314c79dd9cdcf42db96156b1b2611a3483a71"
+          }
+        }
+      ],
+      "geometry_execution": {
+        "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\s3c-l6-20261001-024950-502243f0\\geometry_execution.json",
+        "sha256": "358eb99180fac5b31b683b425b1e7b97fcfb8b7fd993a8ceec9aeedb1190ad44"
+      },
+      "geometry_plan": {
+        "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\s3c-l6-20261001-024950-502243f0\\geometry_plan.json",
+        "sha256": "3e669263717f2a054537d799fc19459755515622857637cb1b524ef3edd0fefe"
+      },
+      "geometry_worker_report": {
+        "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\s3c-l6-20261001-024950-502243f0\\geometry_worker_report.json",
+        "sha256": "43d318f8745a2f60d3cc5e5c83493d155bd3d215650701554c6c61a906e5a67a"
+      },
+      "multiview_manifest": {
+        "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\s3c-l6-20261001-024950-502243f0\\multiview_manifest.json",
+        "sha256": "d81ca7d7718a3b98fe0699e28af82157d2d02ec2e704432b7ad96b7a44e56578"
+      },
+      "terminal": {
+        "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\s3c-l6-20261001-024950-502243f0\\terminal.json",
+        "sha256": "3ad9b751bf1940115208733d7a6ce0c046b9ac47d00e7c8464678432d1ffabb7"
+      }
+    },
+    "diagnostic_config": {
+      "engine": "BLENDER_WORKBENCH",
+      "projection": "ORTHO",
+      "resolution": [
+        512,
+        512
+      ],
+      "margin": 1.2,
+      "up_axis": "+Z",
+      "color_mode": "SINGLE",
+      "neutral_color": [
+        0.7,
+        0.72,
+        0.75
+      ],
+      "background": "TRANSPARENT",
+      "scale_rule": "max(world XYZ extents) * 1.2",
+      "distance_rule": "2 * world bounds diagonal",
+      "azimuth_zero_direction": "-Y"
+    },
+    "dispatch_allowed": false,
+    "specification_review": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\s3c-bridge-20261001-024950-502243f0\\geometry_criteria.json",
+      "sha256": "17b07156fb257c128b3cd8e9b2152bcbcc4d6aed411907daa76234800b86a3b3"
+    }
+  }
+}

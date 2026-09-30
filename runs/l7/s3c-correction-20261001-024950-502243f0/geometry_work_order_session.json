@@ -1,0 +1,10 @@
+{
+  "session_binding": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\s3c-correction-20261001-024950-502243f0\\session_binding.json",
+    "sha256": "855a0a698c552a3e873b8fd002de12aaea172f62920a0838a9f048551f4f523c"
+  },
+  "record": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\s3c-correction-20261001-024950-502243f0\\geometry_work_order.json",
+    "sha256": "f04d17b2880d883eec87416d5d73a0c6240ed679f9c7ddca381ce68938e2e23c"
+  }
+}

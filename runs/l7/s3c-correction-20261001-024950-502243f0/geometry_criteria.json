@@ -1,0 +1,26 @@
+{
+  "session_binding": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\s3c-correction-20261001-024950-502243f0\\session_binding.json",
+    "sha256": "855a0a698c552a3e873b8fd002de12aaea172f62920a0838a9f048551f4f523c"
+  },
+  "specification_identity_sha256": "4924f77516300a139b54d211dcbac582e204d32cf30cd61eb5a3d096ba8fd809",
+  "stage": "geometry",
+  "criteria": [
+    {
+      "criterion_id": "AC-MULTIVIEW-COHERENCE",
+      "authority_ref": "USER_CURRENT_REQUEST",
+      "blocking_when_unmet": true,
+      "description": "Generated multiview images must depict the same canonical source object, preserve its recognizable major silhouette and structural parts, and contain no severe crop, missing/detached major part, or cross-view identity contradiction."
+    },
+    {
+      "criterion_id": "AC-GEOMETRY-IDENTITY",
+      "authority_ref": "USER_CURRENT_REQUEST",
+      "blocking_when_unmet": true,
+      "description": "The final GLB must remain recognizable as the canonical source object by preserving its major silhouette, proportions, and structural parts without severe deformation or detached major parts."
+    }
+  ],
+  "authorities": {
+    "USER_CURRENT_REQUEST": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\session\\s3c-session-20261001-024950-502243f0\\user_request.md#sha256=1bf8a65e31b67f72f4511783cdad97906e695af20ea2602731eb5b8e8960dfb6",
+    "CANONICAL_SOURCE": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\input\\hunyuan-official-demo-padded.png#sha256=8a6dd9ca3f8984b31c1243e7698cd5030b423464d80e0ad763609148e0ff4f51"
+  }
+}
