@@ -2,3 +2,5 @@
 src/core/worker_port.py -text
 tests/fixtures/c5_input.txt -text
 runs/*-deterministic.txt -text
+
+docs/Agent-Loop_Direction_Gate_v1.md -text
