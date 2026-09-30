@@ -1,0 +1,42 @@
+{
+  "version": "l6.0",
+  "run_id": "l6-m3-20260930-164920-8109160a",
+  "work_order_id": "l6-m3-20260930-164920-8109160a-back",
+  "stage": "back",
+  "status": "SUCCESS",
+  "work_order": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\l6-m3-20260930-164920-8109160a\\back_work_order.json",
+    "sha256": "83673ea2e62231439e2584d3135cfaa1d7547b0d42ad858b0363163d70b4fb0e"
+  },
+  "plan": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\l6-m3-20260930-164920-8109160a\\back_plan.json",
+    "sha256": "2de0147f7f5a37970708d9210ca37738448f2dccf076be9a82cb6e77911cf026"
+  },
+  "workflow": {
+    "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\workflows\\02_Image_to_Multiview\\Qwen2509_Back_api.json",
+    "sha256": "ac80748728f98d7ad1e08806778f91a42fce026e7a35cdf0d52e46b4e18eacfb"
+  },
+  "worker_report": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\l6-m3-20260930-164920-8109160a\\back_worker_report.json",
+    "sha256": "58ae332d9741754f0063bcb372d1b090b91855bdb76fa2c8c097ed95ab698ed9"
+  },
+  "initial_contract": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\l6-m3-20260930-164920-8109160a\\initial.json",
+    "sha256": "c6f1468eaaec1a55a640927ef2a55646868178e1d3bc1ea63c515c61cab900b0"
+  },
+  "backend": "ComfyUI",
+  "model": "Qwen-Image-Edit-2509-Q4_K_S.gguf",
+  "prompt_id": "56b08605-092b-4fa0-900e-d08672537f6e",
+  "client_id": "15885294-daac-4a21-8104-592d3ee6c749",
+  "started_at": "2026-09-30T07:53:47.436300+00:00",
+  "completed_at": "2026-09-30T07:55:44.325933+00:00",
+  "artifact": {
+    "role": "back",
+    "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l6\\l6-m3-20260930-164920-8109160a\\back_00001_.png",
+    "sha256": "2aa7f06a081869b961650498fe77bb19955019b958098156cee42b30bc1f937f",
+    "bytes": 232979,
+    "width": 768,
+    "height": 768
+  },
+  "errors": []
+}

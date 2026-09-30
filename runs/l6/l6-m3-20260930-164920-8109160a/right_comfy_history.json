@@ -1,0 +1,230 @@
+{
+  "prompt": [
+    4,
+    "064e265c-b79c-467d-99e3-ec89c0302574",
+    {
+      "1": {
+        "class_type": "LoadImage",
+        "inputs": {
+          "image": "hunyuan-official-demo-padded.png"
+        }
+      },
+      "2": {
+        "class_type": "CLIPLoader",
+        "inputs": {
+          "clip_name": "split_files\\text_encoders\\qwen_2.5_vl_7b_fp8_scaled.safetensors",
+          "type": "qwen_image",
+          "device": "default"
+        }
+      },
+      "3": {
+        "class_type": "VAELoader",
+        "inputs": {
+          "vae_name": "split_files\\vae\\qwen_image_vae.safetensors"
+        }
+      },
+      "4": {
+        "class_type": "UnetLoaderGGUF",
+        "inputs": {
+          "unet_name": "Qwen-Image-Edit-2509-Q4_K_S.gguf"
+        }
+      },
+      "5": {
+        "class_type": "LoraLoaderModelOnly",
+        "inputs": {
+          "model": [
+            "4",
+            0
+          ],
+          "lora_name": "Qwen-Image-Lightning-8steps-V1.1.safetensors",
+          "strength_model": 1.0
+        }
+      },
+      "6": {
+        "class_type": "LoraLoaderModelOnly",
+        "inputs": {
+          "model": [
+            "5",
+            0
+          ],
+          "lora_name": "split_files\\loras\\Qwen-Edit-2509-Multiple-angles.safetensors",
+          "strength_model": 1.0
+        }
+      },
+      "7": {
+        "class_type": "ModelSamplingAuraFlow",
+        "inputs": {
+          "model": [
+            "6",
+            0
+          ],
+          "shift": 3.0
+        }
+      },
+      "8": {
+        "class_type": "TextEncodeQwenImageEditPlus",
+        "inputs": {
+          "clip": [
+            "2",
+            0
+          ],
+          "vae": [
+            "3",
+            0
+          ],
+          "image1": [
+            "1",
+            0
+          ],
+          "prompt": "Rotate the camera 45 degrees to the right. Keep the entire object visible, centered and at the same scale. Do not zoom in."
+        }
+      },
+      "9": {
+        "class_type": "TextEncodeQwenImageEditPlus",
+        "inputs": {
+          "clip": [
+            "2",
+            0
+          ],
+          "vae": [
+            "3",
+            0
+          ],
+          "image1": [
+            "1",
+            0
+          ],
+          "prompt": ""
+        }
+      },
+      "10": {
+        "class_type": "VAEEncode",
+        "inputs": {
+          "pixels": [
+            "1",
+            0
+          ],
+          "vae": [
+            "3",
+            0
+          ]
+        }
+      },
+      "11": {
+        "class_type": "KSampler",
+        "inputs": {
+          "model": [
+            "7",
+            0
+          ],
+          "seed": 29481,
+          "steps": 8,
+          "cfg": 1.0,
+          "sampler_name": "euler",
+          "scheduler": "simple",
+          "positive": [
+            "8",
+            0
+          ],
+          "negative": [
+            "9",
+            0
+          ],
+          "latent_image": [
+            "10",
+            0
+          ],
+          "denoise": 1.0
+        }
+      },
+      "12": {
+        "class_type": "VAEDecode",
+        "inputs": {
+          "samples": [
+            "11",
+            0
+          ],
+          "vae": [
+            "3",
+            0
+          ]
+        }
+      },
+      "13": {
+        "class_type": "SaveImage",
+        "inputs": {
+          "images": [
+            "12",
+            0
+          ],
+          "filename_prefix": "l6/l6-m3-20260930-164920-8109160a/right"
+        }
+      }
+    },
+    {
+      "client_id": "6650d361-4ca6-44e9-9fc1-1428ac8f1c20",
+      "create_time": 1790754603305
+    },
+    [
+      "13"
+    ]
+  ],
+  "outputs": {
+    "13": {
+      "images": [
+        {
+          "filename": "right_00001_.png",
+          "subfolder": "l6\\l6-m3-20260930-164920-8109160a",
+          "type": "output"
+        }
+      ]
+    }
+  },
+  "status": {
+    "status_str": "success",
+    "completed": true,
+    "messages": [
+      [
+        "execution_start",
+        {
+          "prompt_id": "064e265c-b79c-467d-99e3-ec89c0302574",
+          "timestamp": 1790754603307
+        }
+      ],
+      [
+        "execution_cached",
+        {
+          "nodes": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10"
+          ],
+          "prompt_id": "064e265c-b79c-467d-99e3-ec89c0302574",
+          "timestamp": 1790754603311
+        }
+      ],
+      [
+        "execution_success",
+        {
+          "prompt_id": "064e265c-b79c-467d-99e3-ec89c0302574",
+          "timestamp": 1790754708578
+        }
+      ]
+    ]
+  },
+  "meta": {
+    "13": {
+      "node_id": "13",
+      "display_node": "13",
+      "parent_node": null,
+      "real_node_id": "13"
+    }
+  }
+}

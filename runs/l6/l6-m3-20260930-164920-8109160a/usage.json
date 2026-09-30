@@ -1,0 +1,63 @@
+{
+  "version": "l6.0",
+  "run_id": "l6-m3-20260930-164920-8109160a",
+  "workers": [
+    {
+      "stage": "right",
+      "backend": "ComfyUI",
+      "model": "Qwen-Image-Edit-2509-Q4_K_S.gguf",
+      "invocations": 1,
+      "execution_seconds": 106.011468
+    },
+    {
+      "stage": "left",
+      "backend": "ComfyUI",
+      "model": "Qwen-Image-Edit-2509-Q4_K_S.gguf",
+      "invocations": 1,
+      "execution_seconds": 117.936947
+    },
+    {
+      "stage": "back",
+      "backend": "ComfyUI",
+      "model": "Qwen-Image-Edit-2509-Q4_K_S.gguf",
+      "invocations": 1,
+      "execution_seconds": 116.889633
+    },
+    {
+      "stage": "geometry",
+      "backend": "ComfyUI",
+      "model": "hunyuan3d-dit-v2-mv-turbo_fp16.safetensors",
+      "invocations": 1,
+      "execution_seconds": 43.640453
+    }
+  ],
+  "frontier": {
+    "provider": "OpenAI",
+    "auth_mode": "CHATGPT_ACCOUNT",
+    "invocations": 1,
+    "review_duration_seconds": 42.48400000000038,
+    "requested_model": null,
+    "requested_reasoning_effort": null,
+    "actual_model": null,
+    "actual_reasoning_effort": null,
+    "input_tokens": null,
+    "cached_input_tokens": null,
+    "output_tokens": null,
+    "reasoning_tokens": null,
+    "reported_credits": null,
+    "unavailable_reason": "Existing direct Reviewer API has no explicit model/effort override; unobserved telemetry is null."
+  },
+  "budgets": {
+    "worker_budget": {
+      "limit": 4,
+      "consumed": 4,
+      "remaining": 0
+    },
+    "reviewer_budget": {
+      "limit": 1,
+      "consumed": 1,
+      "remaining": 0
+    }
+  },
+  "final_state": "GEOMETRY_READY"
+}

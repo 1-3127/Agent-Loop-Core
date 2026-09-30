@@ -1,0 +1,56 @@
+{
+  "record_kind": "POST_RUN_DERIVED_GLB_METADATA_VALIDATION",
+  "run_id": "l6-m3-20260930-164920-8109160a",
+  "artifact": {
+    "type": "geometry",
+    "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\mesh\\l6\\l6-m3-20260930-164920-8109160a\\geometry_00001_.glb",
+    "bytes": 1139016,
+    "sha256": "1cc00067c772f3efdad34f36cb44c4b5d54ed5bfa4b03a4888a3f3de80fca252",
+    "glb_version": 2,
+    "declared_length": 1139016
+  },
+  "inputs": [
+    {
+      "role": "front",
+      "node": "1",
+      "image": "hunyuan-official-demo-padded.png",
+      "reviewed_sha256": "8a6dd9ca3f8984b31c1243e7698cd5030b423464d80e0ad763609148e0ff4f51",
+      "embedded_is_changed": [
+        "8a6dd9ca3f8984b31c1243e7698cd5030b423464d80e0ad763609148e0ff4f51"
+      ]
+    },
+    {
+      "role": "right",
+      "node": "4",
+      "image": "l6/l6-m3-20260930-164920-8109160a/right.png",
+      "reviewed_sha256": "6c4828c226de954cab7daee8975f4e2f60ee1507bee5c9eb72fd34d9c146bc4d",
+      "embedded_is_changed": [
+        "6c4828c226de954cab7daee8975f4e2f60ee1507bee5c9eb72fd34d9c146bc4d"
+      ]
+    },
+    {
+      "role": "left",
+      "node": "2",
+      "image": "l6/l6-m3-20260930-164920-8109160a/left.png",
+      "reviewed_sha256": "d1f6c681ebbee462e26b42e5de710caf34424edfa68eb01686f7caa88b7b89d6",
+      "embedded_is_changed": [
+        "d1f6c681ebbee462e26b42e5de710caf34424edfa68eb01686f7caa88b7b89d6"
+      ]
+    },
+    {
+      "role": "back",
+      "node": "3",
+      "image": "l6/l6-m3-20260930-164920-8109160a/back.png",
+      "reviewed_sha256": "2aa7f06a081869b961650498fe77bb19955019b958098156cee42b30bc1f937f",
+      "embedded_is_changed": [
+        "2aa7f06a081869b961650498fe77bb19955019b958098156cee42b30bc1f937f"
+      ]
+    }
+  ],
+  "checkpoint": "hunyuan3d-dit-v2-mv-turbo_fp16.safetensors",
+  "seed": 528364197559477,
+  "resolution": 1024,
+  "octree": 128,
+  "result": "PASS",
+  "scope": "Embedded metadata identity; no rendering or geometry semantic assessment."
+}

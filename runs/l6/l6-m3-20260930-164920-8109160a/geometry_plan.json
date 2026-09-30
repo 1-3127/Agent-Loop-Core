@@ -1,0 +1,26 @@
+{
+  "schema_version": "0.1",
+  "task_id": "l6-m3-20260930-164920-8109160a-geometry",
+  "workflow": "workflows/03_Multiview_to_3D/Hunyuan3D_MV_RTX4060_api.json",
+  "patches": {
+    "1": {
+      "image": "hunyuan-official-demo-padded.png"
+    },
+    "4": {
+      "image": "l6/l6-m3-20260930-164920-8109160a/right.png"
+    },
+    "2": {
+      "image": "l6/l6-m3-20260930-164920-8109160a/left.png"
+    },
+    "3": {
+      "image": "l6/l6-m3-20260930-164920-8109160a/back.png"
+    },
+    "14": {
+      "seed": 528364197559477
+    },
+    "17": {
+      "filename_prefix": "mesh/l6/l6-m3-20260930-164920-8109160a/geometry"
+    }
+  },
+  "output_node": "17"
+}
