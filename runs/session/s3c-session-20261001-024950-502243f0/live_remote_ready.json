@@ -1,0 +1,15 @@
+{
+  "observed_at": "2026-09-30T17:54:57.319045+00:00",
+  "refs": {
+    "HEAD": "7eee393801f4d8c14278b43ebcbaabaec7ccc9df",
+    "refs/heads/main": "7eee393801f4d8c14278b43ebcbaabaec7ccc9df",
+    "refs/heads/scenario-a-l6": "840b138cc023c623108c44c3944948b065300f99",
+    "refs/heads/scenario-a-l7": "1da2bef094d2cc3f4bd70bbc266d99dc955460bb",
+    "refs/heads/session-bound-scenario-s3b": "89201d2511985a054cfc3045768e6b29ef62e5cf",
+    "refs/heads/session-boundary-s3a": "a651e38d3435c661185862692e5e69fe9f501ec6",
+    "refs/heads/session-contract-s1": "ba04e8c127c92163f686cd07695ae3e16d8c11cc",
+    "refs/heads/session-integration-s2": "acf69d8cff633e046bfb364aed8d101dc620c1b5",
+    "refs/tags/core-v1.0.0": "8b962c5d94828af852d020237554606c305ef01e",
+    "refs/tags/core-v1.0.0^{}": "7eee393801f4d8c14278b43ebcbaabaec7ccc9df"
+  }
+}

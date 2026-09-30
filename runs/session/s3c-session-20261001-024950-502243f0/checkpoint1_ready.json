@@ -1,0 +1,89 @@
+{
+  "baseline": "89201d2511985a054cfc3045768e6b29ef62e5cf",
+  "identities": {
+    "session": "s3c-session-20261001-024950-502243f0",
+    "loop": "s3c-loop-20261001-024950-502243f0",
+    "l6": "s3c-l6-20261001-024950-502243f0",
+    "bridge": "s3c-bridge-20261001-024950-502243f0",
+    "correction": "s3c-correction-20261001-024950-502243f0"
+  },
+  "specification": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\session\\S3C_WORK_SPECIFICATION_v1.md",
+    "sha256": "2bfa53cedb9606198109ed26f6ccf946f0576f041d33ce90eadb7d712af26859",
+    "identity_sha256": "4924f77516300a139b54d211dcbac582e204d32cf30cd61eb5a3d096ba8fd809"
+  },
+  "session_binding": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\session\\s3c-session-20261001-024950-502243f0\\scenario_a.json",
+    "sha256": "99250dfa962678268697fa585159c9be8612bb0db2a775777ee5742e2bad7d69"
+  },
+  "source": {
+    "role": "front",
+    "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\input\\hunyuan-official-demo-padded.png",
+    "sha256": "8a6dd9ca3f8984b31c1243e7698cd5030b423464d80e0ad763609148e0ff4f51",
+    "bytes": 142572,
+    "width": 768,
+    "height": 768
+  },
+  "preflight": {
+    "status": "PREFLIGHT_PASS",
+    "session_binding": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\session\\s3c-session-20261001-024950-502243f0\\scenario_a.json",
+      "sha256": "99250dfa962678268697fa585159c9be8612bb0db2a775777ee5742e2bad7d69"
+    },
+    "child_ids": {
+      "l6": "s3c-l6-20261001-024950-502243f0",
+      "bridge": "s3c-bridge-20261001-024950-502243f0",
+      "correction": "s3c-correction-20261001-024950-502243f0"
+    },
+    "capability": "fixed_four_view_glb_seed_only",
+    "limits": {
+      "worker": 6,
+      "reviewer": 4,
+      "renderer": 2,
+      "revision": 1
+    },
+    "renderer": {
+      "executable": "D:\\Blender_5.2\\blender.exe",
+      "version": "5.2.0 LTS",
+      "bytes": 112975320,
+      "mtime_ns": 1783967930000000000
+    },
+    "script": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\src\\scenario_a\\l7_blender_diagnostic.py",
+      "sha256": "d71f932c5679d6e1ad453e1fa39d75c919fec5c1ff975d22c1114ed53f249cd1"
+    },
+    "effects": 0,
+    "delivered": false
+  },
+  "comfy_devices": [
+    {
+      "name": "cuda:0 NVIDIA GeForce RTX 4060 : cudaMallocAsync",
+      "type": "cuda",
+      "index": 0,
+      "vram_total": 8585216000,
+      "vram_free": 7452229632,
+      "torch_vram_total": 0,
+      "torch_vram_free": 0
+    }
+  ],
+  "reviewer_auth": "CHATGPT_ACCOUNT",
+  "actual_counts": {
+    "comfy_submissions": 0,
+    "semantic_reviewer": 0,
+    "blender_production": 0,
+    "correction_dispatch": 0
+  },
+  "blockers": [],
+  "verdict": "S3C ACTUAL_EXECUTION_READY",
+  "observed_at": "2026-09-30T17:54:57.320044+00:00",
+  "resolved_initial_runtime_probe": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\session\\s3c-session-20261001-024950-502243f0\\checkpoint1.json",
+    "sha256": "bb9856507cd371445fc68954c9f4866e60020f913fbcbb75920263713e353df2"
+  },
+  "existing_launch": {
+    "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\start_comfyui.bat",
+    "sha256": "ada111339884f7628dd23779b8c315ae14f4792f5145a8eb6dc50da029e4ca7d",
+    "launcher_pid": 25848,
+    "window": "Hidden"
+  }
+}
