@@ -2,6 +2,7 @@
 
 import argparse
 import hashlib
+import io
 import json
 import os
 import re
@@ -134,6 +135,32 @@ def validate_plan(plan, comfy_root):
     return graph
 
 
+def png_dimensions(data):
+    from PIL import Image
+
+    # Pillow verifies chunk CRCs up to IEND; check the complete IEND too.
+    iend = b"\x00\x00\x00\x00IEND\xaeB\x60\x82"
+    if len(data) < 24 or not data.endswith(iend):
+        raise ValueError("PNG missing or corrupt IEND")
+    try:
+        expected = struct.unpack(">II", data[16:24])
+        with io.BytesIO(data) as stream:
+            with Image.open(stream, formats=["PNG"]) as image:
+                if image.size != expected:
+                    raise ValueError("PNG dimensions differ")
+                image.verify()
+            if stream.tell() != len(data) - 4:
+                raise ValueError("PNG has a premature IEND or trailing data")
+        # verify() checks the container; reopening and load() decode IDAT.
+        with Image.open(io.BytesIO(data), formats=["PNG"]) as image:
+            image.load()
+            if image.size != expected or min(image.size) < 1:
+                raise ValueError("PNG decoded dimensions differ")
+            return image.size
+    except (OSError, SyntaxError, ValueError, struct.error, Image.DecompressionBombError) as exc:
+        raise ValueError("PNG integrity or decode failed") from exc
+
+
 def verify_images(record, node_id, comfy_root):
     images = record.get("outputs", {}).get(node_id, {}).get("images", [])
     if not images:
@@ -151,14 +178,11 @@ def verify_images(record, node_id, comfy_root):
         path = within(output_root, subpath / filename)
         query = urllib.parse.urlencode({key: item[key] for key in ("filename", "subfolder", "type")})
         with urllib.request.urlopen(BASE_URL + "/view?" + query, timeout=20) as response:
-            remote_header = response.read(24)
-        local_header = path.read_bytes()[:24]
-        signature = b"\x89PNG\r\n\x1a\n"
-        if remote_header[:8] != signature or local_header[:8] != signature or remote_header[:24] != local_header[:24]:
-            raise ValueError(f"PNG verification failed: {path}")
-        width, height = struct.unpack(">II", local_header[16:24])
-        if width < 1 or height < 1:
-            raise ValueError(f"invalid PNG dimensions: {path}")
+            remote_data = response.read()
+        local_data = path.read_bytes()
+        if remote_data != local_data:
+            raise ValueError(f"PNG remote/local payload differs: {path}")
+        width, height = png_dimensions(local_data)
         result.append({"type": "image", "path": str(path), "width": width, "height": height})
     return result
 

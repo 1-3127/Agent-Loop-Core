@@ -2,6 +2,7 @@
 
 import argparse
 import json
+import os
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -33,11 +34,17 @@ def worker_state_path(run_id):
     return ROOT / "runs" / (run_id + "_worker_state.json")
 
 
+def review_reservation_path(run_id):
+    return ROOT / "runs" / (run_id + "_review_reservation.json")
+
+
 def write_once(path, data):
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("x", encoding="utf-8") as stream:
         json.dump(data, stream, ensure_ascii=False, indent=2)
         stream.write("\n")
+        stream.flush()
+        os.fsync(stream.fileno())
 
 
 def initial_contract(order):
@@ -104,6 +111,43 @@ def validate_review_request(request):
     return order, execution, state
 
 
+def reserve_review(request_path, result_path, report_path, request, state):
+    reservation = {
+        "run_id": request["run_id"], "review_id": request["review_id"],
+        "review_request": repo_ref(request_path),
+        "initial_contract": request["bounded_contract"],
+        "worker_state": request["worker_state"],
+        "reviewer_budget": {"limit": state["reviewer_budget"]["limit"],
+                            "consumed": 1, "remaining": 0},
+        "reserved": True, "consumed": True,
+        "result_path": str(Path(result_path).resolve()),
+        "invocation_report_path": str(Path(report_path).resolve()),
+        "created_at": datetime.now(timezone.utc).isoformat(),
+    }
+    path = review_reservation_path(request["run_id"])
+    try:
+        write_once(path, reservation)
+    except FileExistsError as exc:
+        raise ValueError("REVIEW_BUDGET_ALREADY_RESERVED") from exc
+    return reservation
+
+
+def checked_review_reservation(request_path, result_path, report_path, request):
+    reservation = read_ref(repo_ref(review_reservation_path(request["run_id"])))
+    if (reservation.get("run_id") != request["run_id"]
+            or reservation.get("review_id") != request["review_id"]
+            or reservation.get("review_request") != repo_ref(request_path)
+            or reservation.get("initial_contract") != request["bounded_contract"]
+            or reservation.get("worker_state") != request["worker_state"]
+            or reservation.get("reviewer_budget") != {"limit": 1, "consumed": 1, "remaining": 0}
+            or reservation.get("reserved") is not True or reservation.get("consumed") is not True
+            or reservation.get("result_path") != str(Path(result_path).resolve())
+            or reservation.get("invocation_report_path") != str(Path(report_path).resolve())):
+        raise ValueError("Reviewer reservation lineage differs")
+    datetime.fromisoformat(reservation["created_at"])
+    return reservation
+
+
 def run_review(request_path, result_path, report_path):
     request = json.loads(Path(request_path).read_text(encoding="utf-8"))
     order, _, state = validate_review_request(request)
@@ -111,6 +155,7 @@ def run_review(request_path, result_path, report_path):
         raise ValueError("ALREADY_TERMINAL")
     if state["reviewer_budget"]["remaining"] < 1:
         raise ValueError("Reviewer budget exhausted")
+    reserve_review(request_path, result_path, report_path, request, state)
     return reviewer.review_once(request_path, result_path, report_path, timeout=600)
 
 
@@ -136,6 +181,7 @@ def resolve_terminal(request_path, result_path, report_path):
     if target.exists():
         return "ALREADY_TERMINAL", None
     order, execution, state = validate_review_request(request)
+    reservation = checked_review_reservation(request_path, result_path, report_path, request)
     source = {"kind": "RESULT_REVIEW", "path": repo_ref(result_path)["path"],
               "sha256": delegate.digest(result_path),
               "request_path": repo_ref(request_path)["path"],
@@ -150,7 +196,8 @@ def resolve_terminal(request_path, result_path, report_path):
             or invocation.get("auth_mode") != "CHATGPT_ACCOUNT"
             or invocation.get("process_exit_code") != 0
             or invocation.get("attached_images") != attachments
-            or invocation.get("reviewer_process_started") is not True):
+            or invocation.get("reviewer_process_started") is not True
+            or datetime.fromisoformat(invocation["started_at"]) < datetime.fromisoformat(reservation["created_at"])):
         raise ValueError("actual Reviewer invocation differs")
     status, reason, accepted = terminal_policy(review, state["worker_budget"]["remaining"])
     artifact = {"path": execution["artifact"]["path"],
@@ -166,6 +213,7 @@ def resolve_terminal(request_path, result_path, report_path):
         "review_request": repo_ref(request_path),
         "review_result": repo_ref(result_path),
         "review_invocation_report": repo_ref(report_path),
+        "review_reservation": repo_ref(review_reservation_path(request["run_id"])),
         "worker_budget": state["worker_budget"],
         "reviewer_budget": {"limit": 1, "consumed": 1, "remaining": 0},
         "internal_accept": accepted,
