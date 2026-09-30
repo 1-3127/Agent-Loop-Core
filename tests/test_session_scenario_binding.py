@@ -1,5 +1,6 @@
 """S3B local integration. All production adapters use existing synthetic fixtures."""
 import json
+from dataclasses import replace
 from pathlib import Path
 import sys
 import unittest
@@ -46,6 +47,175 @@ class SessionScenarioTests(unittest.TestCase):
     def execute_l6(self):
         return l6.run_pipeline(self.f.run_id, self.f.comfy, 1, 1,
                                execute=True, session_binding=self.parent)
+
+    def select_criteria(self, stages, extra=()):
+        # New fixture binding, before any adapters run; original records stay intact.
+        fields = replace(self.spec.fields, acceptance_criteria=self.spec.fields.acceptance_criteria + extra)
+        self.spec = sb.freeze_specification(self.doc, fields)
+        self.session = sb.SessionBoundary("session-test", self.f.root / "criterion-session")
+        self.binding = self.session.create_binding(self.spec, "logical-loop")
+        self.parent = self.prepare(stage_criteria=stages)
+
+    def split_mandatory_criteria(self):
+        self.select_criteria({"multiview": ("AC1",), "geometry": ("AC3",)},
+            (sb.AcceptanceCriterion("AC3", "USER", True, "preserve geometry identity"),))
+
+    def test_c01_geometry_subset_and_multiview_only_mandatory(self):
+        self.split_mandatory_criteria()
+        self.geometry_fixture()
+        self.assertEqual(self.execute_bridge()["state"], "GEOMETRY_REVIEWED")
+        path = self.f.repo / "runs/l7" / self.ids["bridge"]
+        self.assertEqual([c["criterion_id"] for c in bound.review_contract(path, "geometry")["criteria"]], ["AC3"])
+        instructions = (path / "review_instructions.md").read_text(encoding="utf-8")
+        self.assertNotIn('"criterion_id": "AC1"', instructions)
+        self.assertNotIn('"criterion_id": "AC2"', instructions)
+        bound.internal_accept_candidate(self.parent, path).validate()
+        accepted = l6.read_json(self.session.directory / "scenario_a_accept.json")
+        self.assertEqual(accepted["mandatory_criterion_ids"], ["AC1", "AC3"])
+        self.assertEqual(l6.read_ref(accepted["stage_coverage"]["multiview"])["coverage"], {"AC1": "SATISFIED"})
+        self.assertEqual(l6.read_ref(accepted["stage_coverage"]["geometry"])["coverage"], {"AC3": "SATISFIED"})
+        self.assertFalse(self.session.outcome.delivered)
+
+    def test_c01_unassigned_nonblocking_does_not_block_final(self):
+        self.select_criteria({"multiview": ("AC1",), "geometry": ("AC1",)})
+        self.geometry_fixture()
+        self.assertEqual(self.execute_bridge()["state"], "GEOMETRY_REVIEWED")
+        path = self.f.repo / "runs/l7" / self.ids["bridge"]
+        bound.internal_accept_candidate(self.parent, path).validate()
+        accepted = l6.read_json(self.session.directory / "scenario_a_accept.json")
+        self.assertEqual(accepted["criterion_ids"], ["AC1", "AC2"])
+        self.assertEqual(accepted["mandatory_criterion_ids"], ["AC1"])
+        for reference in accepted["stage_coverage"].values():
+            self.assertEqual(l6.read_ref(reference)["coverage"], {"AC1": "SATISFIED"})
+
+    def test_c01_unsupported_mandatory_preflight_zero_effects(self):
+        fields = replace(self.spec.fields, acceptance_criteria=self.spec.fields.acceptance_criteria +
+            (sb.AcceptanceCriterion("PERFORMANCE", "USER", True, "runtime performance"),))
+        spec = sb.freeze_specification(self.doc, fields)
+        boundary = sb.SessionBoundary("session-test", self.f.root / "unsupported-session")
+        binding = boundary.create_binding(spec, "logical-loop")
+        with self.assertRaisesRegex(ValueError, "UNSUPPORTED_ACCEPTANCE_CRITERION: PERFORMANCE"):
+            self.prepare(boundary=boundary, binding=binding)
+        self.assertFalse((boundary.directory / "scenario_a.json").exists())
+        self.f.assert_calls(0, 0)
+        self.f.network.assert_not_called()
+
+    def test_c01_reloaded_parent_cannot_bypass_mandatory_preflight(self):
+        # Even a caller-supplied parent ref cannot turn omitted mandatory coverage
+        # into effect eligibility at the direct L6 or fixed entry.
+        self.geometry_fixture(execute=False)
+        data = l6.read_ref(self.parent)
+        data["stage_criteria"] = {"multiview": ["AC2"], "geometry": ["AC2"]}
+        path = self.session.directory / "unsupported_parent.json"
+        l6.write_once(path, data)
+        parent = l6.reference(path)
+        with self.assertRaisesRegex(ValueError, "UNSUPPORTED_ACCEPTANCE_CRITERION: AC1"):
+            l6.run_pipeline(self.ids["l6"], self.f.comfy, execute=True, session_binding=parent)
+        with self.assertRaisesRegex(ValueError, "UNSUPPORTED_ACCEPTANCE_CRITERION: AC1"):
+            bound.run_session(parent, comfy_root=self.f.comfy, blender_executable=self.g.executable, execute=True)
+        self.f.worker_mock.assert_not_called()
+        self.renderer.assert_not_called()
+        self.reviewer.assert_not_called()
+        self.f.network.assert_not_called()
+        self.assertFalse(self.path.exists())
+
+    def test_c01_selected_stage_coverage_rejections(self):
+        contract = {"criteria": [dict(criterion_id="AC1", authority_ref="USER", blocking_when_unmet=True),
+                                  dict(criterion_id="AC2", authority_ref="USER", blocking_when_unmet=False)]}
+        good = {"verdict": "PASS", "observations": ["[AC1@USER] SATISFIED: evidence", "[AC2@USER] UNMET: optional"],
+                "blocking_issues": []}
+        cases = ([], [good["observations"][0]], [good["observations"][0]] * 2,
+                 ["[AC1@USER] UNMET: failure", good["observations"][1]],
+                 ["[AC1@USER] UNCERTAIN: unknown", good["observations"][1]],
+                 ["[AC1@HIDDEN] SATISFIED: wrong authority", good["observations"][1]])
+        for observations in cases:
+            with self.subTest(observations=observations), self.assertRaises(ValueError):
+                bound.validate_coverage(contract, good | {"observations": observations})
+        self.assertEqual(bound.validate_coverage(contract, good), {"AC1": "SATISFIED", "AC2": "UNMET"})
+
+    def test_c01_final_rejects_invalid_current_stage_evidence(self):
+        self.split_mandatory_criteria()
+        self.geometry_fixture()
+        self.assertEqual(self.execute_bridge()["state"], "GEOMETRY_REVIEWED")
+        final = self.f.repo / "runs/l7" / self.ids["bridge"]
+        for stage_dir, prefix in ((self.path, "review"), (final, "review")):
+            result_path = stage_dir / (prefix + "_result.json")
+            original = result_path.read_bytes()
+            result = l6.read_json(result_path)
+            tag = result["observations"][0]
+            cases = ([], [tag.replace("SATISFIED", "UNMET")], [tag.replace("SATISFIED", "UNCERTAIN")],
+                     [tag.replace("@USER", "@HIDDEN")])
+            for observations in cases:
+                with self.subTest(stage=stage_dir.name, observations=observations):
+                    try:
+                        l6.worker.write_report(result_path, result | {"observations": observations})
+                        with self.assertRaises((ValueError, l6.StageFailure)):
+                            bound.internal_accept_candidate(self.parent, final)
+                        self.assertFalse((self.session.directory / "internal_accept.json").exists())
+                        self.assertFalse((self.session.directory / "scenario_a_accept.json").exists())
+                    finally:
+                        result_path.write_bytes(original)
+            # Wrong Spec and stale Request lineage must also reject, regardless of PASS.
+            for name, key in (("geometry_criteria.json" if stage_dir == final else "multiview_criteria.json",
+                               "specification_identity_sha256"), (prefix + "_request.json", "run_id")):
+                path = stage_dir / name
+                original = path.read_bytes()
+                content = l6.read_json(path)
+                try:
+                    l6.worker.write_report(path, content | {key: "wrong-current-identity"})
+                    with self.subTest(stage=stage_dir.name, key=key), self.assertRaises((ValueError, l6.StageFailure)):
+                        bound.internal_accept_candidate(self.parent, final)
+                    self.assertFalse((self.session.directory / "internal_accept.json").exists())
+                finally:
+                    path.write_bytes(original)
+        bound.internal_accept_candidate(self.parent, final).validate()
+
+    def test_c01_geometry_correction_retains_multiview_and_uses_current_geometry(self):
+        self.split_mandatory_criteria()
+        h = self.correction_fixture()
+        self.assertEqual(self.execute_correction(h.source)["state"], "INTERNAL_ACCEPT")
+        path = self.f.repo / "runs/l7" / self.ids["correction"]
+        before = {p.name: p.read_bytes() for p in self.path.iterdir() if p.is_file()}
+        bound.internal_accept_candidate(self.parent, path).validate()
+        accepted = l6.read_json(self.session.directory / "scenario_a_accept.json")
+        self.assertEqual(accepted["stage_coverage"]["multiview"], l6.reference(self.path / "review_result_coverage.json"))
+        self.assertEqual(accepted["stage_coverage"]["geometry"], l6.reference(path / "geometry_review_result_coverage.json"))
+        self.assertEqual(before, {p.name: p.read_bytes() for p in self.path.iterdir() if p.is_file()})
+        self.assertFalse((path / "multiview_review_result.json").exists())
+
+    def test_c01_view_correction_uses_replacement_multiview_evidence(self):
+        self.split_mandatory_criteria()
+        h = self.correction_fixture("right")
+        self.assertEqual(self.execute_correction(h.source)["state"], "INTERNAL_ACCEPT")
+        path = self.f.repo / "runs/l7" / self.ids["correction"]
+        bound.internal_accept_candidate(self.parent, path).validate()
+        accepted = l6.read_json(self.session.directory / "scenario_a_accept.json")
+        self.assertEqual(accepted["stage_coverage"]["multiview"], l6.reference(path / "multiview_review_result_coverage.json"))
+        self.assertNotEqual(accepted["stage_coverage"]["multiview"], l6.reference(self.path / "review_result_coverage.json"))
+        self.assertEqual(accepted["stage_coverage"]["geometry"], l6.reference(path / "geometry_review_result_coverage.json"))
+
+    def test_c01_initial_geometry_pass_cannot_accept_after_correction_started(self):
+        self.geometry_fixture()
+        self.assertEqual(self.execute_bridge()["state"], "GEOMETRY_REVIEWED")
+        source = self.f.repo / "runs/l7" / self.ids["bridge"]
+        current = source.parent / self.ids["correction"]
+        current.mkdir()
+        bound.child_binding(self.parent, "correction", current, source)
+        with self.assertRaisesRegex(ValueError, "current correction evidence required"):
+            bound.internal_accept_candidate(self.parent, source)
+        self.assertFalse((self.session.directory / "internal_accept.json").exists())
+
+    def test_c01_correction_failure_cannot_fall_back_to_initial_coverage(self):
+        self.split_mandatory_criteria()
+        h = self.correction_fixture()
+        h.final_verdict = "REVISE"
+        result = self.execute_correction(h.source)
+        self.assertEqual((result["state"], result["reason"]), ("ABORT", "REVISION_BUDGET_EXHAUSTED"))
+        path = self.f.repo / "runs/l7" / self.ids["correction"]
+        for candidate in (h.source, path):
+            with self.subTest(candidate=candidate), self.assertRaises(ValueError):
+                bound.internal_accept_candidate(self.parent, candidate)
+        self.assertFalse((self.session.directory / "internal_accept.json").exists())
 
     def test_l6_binding_full_local_lineage(self):
         self.assertEqual(self.execute_l6()["state"], "GEOMETRY_READY")

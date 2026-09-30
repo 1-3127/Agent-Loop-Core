@@ -12,6 +12,22 @@ CAPS = {"worker": 6, "reviewer": 4, "renderer": 2, "revision": 1}
 CAPABILITY = "fixed_four_view_glb_seed_only"
 
 
+def _validate_stage_criteria(fields, stage_criteria, *, immutable=False):
+    ids = {c.criterion_id for c in fields.acceptance_criteria}
+    if set(stage_criteria) != {"multiview", "geometry"}:
+        raise ValueError("fixed stage criterion selection required")
+    for selection in stage_criteria.values():
+        if (not isinstance(selection, tuple if immutable else (tuple, list))
+                or not selection or len(set(selection)) != len(selection)
+                or not set(selection) <= ids):
+            raise ValueError("unknown/duplicate stage criterion")
+    assigned = set().union(*stage_criteria.values())
+    unsupported = {c.criterion_id for c in fields.acceptance_criteria
+                   if c.blocking_when_unmet} - assigned
+    if unsupported:
+        raise ValueError("UNSUPPORTED_ACCEPTANCE_CRITERION: " + ", ".join(sorted(unsupported)))
+
+
 def prepare(boundary, binding, *, goal, must_haves, stage_criteria, child_ids,
             capability=CAPABILITY, limits=None):
     """Freeze explicit finalized Scenario projection before any child/effect.
@@ -42,15 +58,7 @@ def prepare(boundary, binding, *, goal, must_haves, stage_criteria, child_ids,
             raise ValueError("Goal/Must-Have source or authority mismatch")
     if any(not re.fullmatch(r'[A-Za-z0-9_-]+', c.criterion_id) or not re.fullmatch(r'[A-Za-z0-9_-]+', c.authority_ref) for c in fields.acceptance_criteria):
         raise ValueError('unsupported bound criterion identifier')
-    ids = {c.criterion_id for c in fields.acceptance_criteria}
-    if set(stage_criteria) != {"multiview", "geometry"}:
-        raise ValueError("fixed stage criterion selection required")
-    for selection in stage_criteria.values():
-        if not isinstance(selection, tuple) or not selection or len(set(selection)) != len(selection) or not set(selection) <= ids:
-            raise ValueError("unknown/duplicate stage criterion")
-    # Final geometry review covers every declared criterion; no hidden final gate.
-    if set(stage_criteria["geometry"]) != ids:
-        raise ValueError("final geometry criteria must cover the frozen Specification")
+    _validate_stage_criteria(fields, stage_criteria, immutable=True)
     data = {"version": "s3b-scenario-a.0", "session_directory": str(boundary.directory),
             "session_id": boundary.session_id, "loop_run_id": binding.loop_run_id,
             "binding": l6.reference(boundary.directory / "binding.json"),
@@ -78,6 +86,7 @@ def checked_parent(reference, *, execution=False):
             or data["loop_run_id"] != binding.loop_run_id or data["scenario"] != "scenario_a"
             or data["capability"] != CAPABILITY or data["limits"] != CAPS):
         raise ValueError("Scenario Session/Specification/logical Loop mismatch")
+    _validate_stage_criteria(binding.specification.fields, data["stage_criteria"])
     return data, boundary, binding
 
 
@@ -292,7 +301,7 @@ def check_result(run_dir, stage, request, result, result_path, invocation_path):
 
 
 def internal_accept_candidate(parent_ref, final_dir):
-    """Current bound artifact + final geometry Review only; no delivery transport."""
+    """Current bound stage Reviews cover mandatory criteria; no delivery transport."""
     from scenario_a import l7_geometry_review as bridge
     from scenario_a import l7_feedback_controller as controller
     final_dir = Path(final_dir)
@@ -302,6 +311,8 @@ def internal_accept_candidate(parent_ref, final_dir):
         if ref is not None:
             l6.reviewer.checked_ref(ref)
     if record["kind"] == "bridge":
+        if (final_dir.parent / data["child_ids"]["correction"]).exists():
+            raise ValueError("current correction evidence required; initial geometry is stale")
         if terminal["state"] != "GEOMETRY_REVIEWED":
             raise ValueError("current final bridge not reviewed")
         result = bridge.checked_review(final_dir)
@@ -327,14 +338,19 @@ def internal_accept_candidate(parent_ref, final_dir):
         raise ValueError("artifact/final Review lineage mismatch")
     coverage_ref = check_result(final_dir, "geometry", l6.read_json(request_path), result, result_path, invocation_path)
     lineage = []
+    children = []
     source = record
     while True:
         child_dir = Path(source["run_directory"])
         checked_child(child_dir, parent_ref=parent_ref)
+        children.append(source)
         lineage.append(l6.reference(child_dir / "terminal.json"))
         if source["source"] is None:
             break
         source = l6.read_ref(source["source"])
+    expected_kinds = ["bridge", "l6"] if record["kind"] == "bridge" else ["correction", "bridge", "l6"]
+    if [child["kind"] for child in children] != expected_kinds:
+        raise ValueError("current fixed child lineage mismatch")
     for ref in lineage:
         child_terminal = l6.read_ref(ref)
         if not child_terminal["terminal"]:
@@ -342,12 +358,41 @@ def internal_accept_candidate(parent_ref, final_dir):
         for entry in child_terminal["records"].values():
             if entry is not None:
                 l6.reviewer.checked_ref(entry)
+    # Geometry-only correction retains the approved L6 views; view correction
+    # replaces multiview authority with its own current Review, never the old PASS.
+    multiview_dir = Path(children[-1]["run_directory"])
+    prefix = "review"
+    if (record["kind"] == "correction"
+            and l6.read_json(final_dir / "initial.json")["action"]["code"] == "REGENERATE_VIEW"):
+        multiview_dir = final_dir
+        prefix = "multiview_review"
+        multiview_result = controller.checked_review(multiview_dir, "multiview")
+    else:
+        multiview_result = l6.checked_review(multiview_dir)
+    if (multiview_result["verdict"] != "PASS" or multiview_result["blocking_issues"]
+            or multiview_result["suggested_action"] != {"code": "NONE", "target": None}):
+        raise ValueError("current multiview Review not acceptable")
+    multiview_coverage = check_result(multiview_dir, "multiview",
+        l6.read_json(multiview_dir / (prefix + "_request.json")), multiview_result,
+        multiview_dir / (prefix + "_result.json"), multiview_dir / (prefix + "_invocation.json"))
+    stage_coverage = {"multiview": multiview_coverage, "geometry": coverage_ref}
+    mandatory = [c.criterion_id for c in binding.specification.fields.acceptance_criteria
+                 if c.blocking_when_unmet]
+    # A criterion selected for both stages must be satisfied in both current
+    # Reviews. A PASS elsewhere cannot erase a failing applicable stage.
+    for stage, reference in stage_coverage.items():
+        coverage = l6.read_ref(reference)["coverage"]
+        if any(coverage.get(cid) != "SATISFIED" for cid in mandatory
+               if cid in data["stage_criteria"][stage]):
+            raise ValueError("mandatory blocking criteria not satisfied")
     candidate = boundary._record("scenario_a_accept", {
         "status": "INTERNAL_ACCEPT_CANDIDATE", "specification": data["specification"],
         "session_binding": l6.reference(final_dir / "session_binding.json"),
         "artifact": artifact, "request": l6.reference(request_path), "result": l6.reference(result_path),
         "invocation": l6.reference(invocation_path), "coverage": coverage_ref,
-        "criterion_ids": data["stage_criteria"]["geometry"], "child_terminals": lineage,
+        "criterion_ids": [c.criterion_id for c in binding.specification.fields.acceptance_criteria],
+        "mandatory_criterion_ids": mandatory, "stage_coverage": stage_coverage,
+        "child_terminals": lineage,
         "delivered": False})
     refs = tuple(session.file_identity(r["path"], "child-terminal") for r in lineage)
     return boundary.internal_accept(binding, session.file_identity(artifact["path"], "final-glb"),
