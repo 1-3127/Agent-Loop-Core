@@ -1,0 +1,37 @@
+{
+  "run_id": "m4-c4-reg-20260930-122819-6f5c4427",
+  "same_request": {
+    "path": "reviewer_requests/m4-c4-reg-20260930-122819-6f5c4427-review.json",
+    "sha256": "3001674df349de40775b640402acc3b40b5a1e5507f254a1811809c59d6e8dd5"
+  },
+  "different_result_path": "reviews\\m4-c4-reg-20260930-122819-6f5c4427-different-path.json",
+  "different_report_path": "runs\\m4-c4-reg-20260930-122819-6f5c4427_different_path_invocation.json",
+  "pre_terminal_rejection": "REVIEW_BUDGET_ALREADY_RESERVED",
+  "second_reviewer_process_starts": 0,
+  "second_external_dispatches": 0,
+  "observed_audit_events": [],
+  "reservation_unchanged": true,
+  "reservation": {
+    "path": "runs/m4-c4-reg-20260930-122819-6f5c4427_review_reservation.json",
+    "sha256": "70a58cc30dbadc1ec4b3d4e18568e8853ac711deece117cc1eae1d15df99722a"
+  },
+  "F01_RUNTIME_BYPASS_PROBE_BLOCKED": true,
+  "terminal_resolver_reentry": "ALREADY_TERMINAL",
+  "post_terminal_review_rejection": "ALREADY_TERMINAL",
+  "terminal_bytes_unchanged": true,
+  "terminal": {
+    "path": "runs/m4-c4-reg-20260930-122819-6f5c4427_terminal.json",
+    "sha256": "4b8f494872a9191cb2c29727be49a2ed34a5439226346845871d635bf48c43d1"
+  },
+  "worker_budget": {
+    "limit": 1,
+    "consumed": 1,
+    "remaining": 0
+  },
+  "reviewer_budget": {
+    "limit": 1,
+    "consumed": 1,
+    "remaining": 0
+  },
+  "created_at": "2026-09-30T03:33:27.944338+00:00"
+}

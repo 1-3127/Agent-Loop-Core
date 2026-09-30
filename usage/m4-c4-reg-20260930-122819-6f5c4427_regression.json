@@ -1,0 +1,38 @@
+{
+  "run_id": "m4-c4-reg-20260930-122819-6f5c4427",
+  "frontier": {
+    "provider": "OpenAI",
+    "model": null,
+    "invocations": 1,
+    "input_tokens": null,
+    "cached_input_tokens": null,
+    "output_tokens": null,
+    "reasoning_tokens": null,
+    "reported_credits": null,
+    "auth_mode": "CHATGPT_ACCOUNT",
+    "review_duration_seconds": 18.85900000000038
+  },
+  "workers": [
+    {
+      "worker_id": "scenario-a-qwen-right",
+      "backend": "ComfyUI",
+      "model": "Qwen-Image-Edit-2509-Q4_K_S.gguf",
+      "invocations": 1,
+      "execution_seconds": 117.5161
+    }
+  ],
+  "run": {
+    "terminal_status": "DELIVERED",
+    "worker_budget": {
+      "limit": 1,
+      "consumed": 1,
+      "remaining": 0
+    },
+    "reviewer_budget": {
+      "limit": 1,
+      "consumed": 1,
+      "remaining": 0
+    }
+  },
+  "unavailable_reason": "Actual model/token/credits not independently exposed; requested configuration in Frontier sidecar."
+}

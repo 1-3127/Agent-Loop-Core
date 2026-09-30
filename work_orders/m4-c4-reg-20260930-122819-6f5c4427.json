@@ -1,0 +1,30 @@
+{
+  "version": "c4.0",
+  "run_id": "m4-c4-reg-20260930-122819-6f5c4427",
+  "work_order_id": "m4-c4-reg-20260930-122819-6f5c4427-initial-right",
+  "worker_type": "ComfyUI",
+  "adapter": "src/scenario_a/c1_delegate.py",
+  "requested_task": "Generate one right view from the source image",
+  "iteration": 0,
+  "source": {
+    "sha256": "8a6dd9ca3f8984b31c1243e7698cd5030b423464d80e0ad763609148e0ff4f51",
+    "path": "hunyuan-official-demo-padded.png"
+  },
+  "workflow": {
+    "sha256": "bb16c26a0aa599f3eee35f206940f1e6ab40bd39c9569025fa8a4f80de67311a",
+    "path": "workflows/02_Image_to_Multiview/Qwen2509_Multiangle_RTX4060_api.json"
+  },
+  "plan": {
+    "path": "plans/m4-c4-reg-20260930-122819-6f5c4427-initial-right.json",
+    "sha256": "ac31676c28ca286a508993e28284ae5c140d356bcf77a1f75e7d50336e8981c8"
+  },
+  "expected_output_kind": "image",
+  "worker_report_path": "runs/m4-c4-reg-20260930-122819-6f5c4427_worker_report.json",
+  "execution_report_path": "runs/m4-c4-reg-20260930-122819-6f5c4427_execution.json",
+  "usage_path": "usage/m4-c4-reg-20260930-122819-6f5c4427_worker.json",
+  "worker_model": "Qwen-Image-Edit-2509-Q4_K_S.gguf",
+  "bounded_contract": {
+    "path": "runs/m4-c4-reg-20260930-122819-6f5c4427_initial_budget.json",
+    "sha256": "22c193c95c543f8c6126f6900f010f538e25d0fb72456d55001e20c84e7a49db"
+  }
+}

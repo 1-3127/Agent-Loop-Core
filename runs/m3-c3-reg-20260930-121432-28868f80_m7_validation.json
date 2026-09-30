@@ -1,0 +1,159 @@
+{
+  "chain_a": "m3-c3-reg-20260930-121432-28868f80",
+  "chain_b": "m4-c4-reg-20260930-122819-6f5c4427",
+  "chain_c": "m5-c5-reg-20260930-123412-ff1e9bee",
+  "C1": "PASS",
+  "C2": "PASS",
+  "C3": "PASS",
+  "C4": "PASS",
+  "C5": "PASS",
+  "F03_RUNTIME_PATH_EXERCISED": true,
+  "F01_RUNTIME_BYPASS_PROBE_BLOCKED": true,
+  "actual_effect_counts": {
+    "ComfyUI": 4,
+    "semantic_reviewer": 2,
+    "deterministic_worker": 1
+  },
+  "comfy_history": [
+    {
+      "prompt_id": "1154e4e9-02fe-4c16-8661-5de2d1fec553",
+      "status": "success",
+      "output_node": "13",
+      "output_node_cached": false,
+      "cached_nodes": [],
+      "artifact": {
+        "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\codex_to_comfy\\m3-c3-reg-20260930-121432-28868f80_00001_.png",
+        "kind": "image",
+        "bytes": 233510,
+        "sha256": "98d5819f11fe5a509fcb49af18814512722c956aa6698f288ea05cd7b216ba81",
+        "width": 768,
+        "height": 768
+      }
+    },
+    {
+      "prompt_id": "25d52a67-617e-4d83-be75-6439a70ee291",
+      "status": "success",
+      "output_node": "13",
+      "output_node_cached": false,
+      "cached_nodes": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "9",
+        "10"
+      ],
+      "artifact": {
+        "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\codex_to_comfy\\m3-c3-reg-20260930-121432-28868f80-revision_00001_.png",
+        "kind": "image",
+        "bytes": 242980,
+        "sha256": "1fb72a416a3094e0a226d9826938c0690293b598b89de851f664bb0f653f6abf",
+        "width": 768,
+        "height": 768
+      }
+    },
+    {
+      "prompt_id": "ebee7f6e-8814-4901-bac8-af9b5e5c4839",
+      "status": "success",
+      "output_node": "13",
+      "output_node_cached": false,
+      "cached_nodes": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "9",
+        "10"
+      ],
+      "artifact": {
+        "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\codex_to_comfy\\m4-c4-reg-20260930-122819-6f5c4427_00001_.png",
+        "kind": "image",
+        "bytes": 252802,
+        "sha256": "77aa25b6723ec427dd53365b5f7a8ba6c4041029cc1f435e20f3a0713f026be7",
+        "width": 768,
+        "height": 768
+      }
+    },
+    {
+      "prompt_id": "38c0a312-a890-4be8-bbae-1de0148519e4",
+      "status": "success",
+      "output_node": "13",
+      "output_node_cached": false,
+      "cached_nodes": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "artifact": {
+        "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\codex_to_comfy\\m5-c5-reg-20260930-123412-ff1e9bee-comfy_00001_.png",
+        "kind": "image",
+        "bytes": 252808,
+        "sha256": "59386e3cf0ee437ad64900315e5445adcab9035d227941add8dd9387192aa870",
+        "width": 768,
+        "height": 768
+      }
+    }
+  ],
+  "CLI_help_smoke": [
+    {
+      "module": "scenario_a.c1_delegate",
+      "exit_code": 0
+    },
+    {
+      "module": "scenario_a.c2_review",
+      "exit_code": 0
+    },
+    {
+      "module": "scenario_a.c3_review",
+      "exit_code": 0
+    },
+    {
+      "module": "scenario_a.c3_revision",
+      "exit_code": 0
+    },
+    {
+      "module": "scenario_a.c4_bounded",
+      "exit_code": 0
+    },
+    {
+      "module": "scenario_a.c5_worker_swap",
+      "exit_code": 0
+    },
+    {
+      "module": "scenario_a.codex_to_comfy",
+      "exit_code": 0
+    },
+    {
+      "module": "core.result_review_adapter",
+      "exit_code": 0
+    }
+  ],
+  "unit_tests": {
+    "command": "python -m unittest discover -s tests -p 'test_*.py' -v",
+    "count": 38,
+    "result": "PASS",
+    "runtime": "Python 3.12.14; Pillow 12.3.0"
+  },
+  "core_independence": "PASS via test_package_boundary",
+  "single_src_import_root": "PASS via test_package_boundary",
+  "source_changed": false,
+  "protected_historical_files": 51,
+  "historical_modified_count": 0,
+  "Direction_Gate_byte_identical": true,
+  "created_at": "2026-09-30T03:36:44.512835+00:00"
+}

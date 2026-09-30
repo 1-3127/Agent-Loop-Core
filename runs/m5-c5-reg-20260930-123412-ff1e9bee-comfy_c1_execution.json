@@ -1,0 +1,41 @@
+{
+  "version": "c1.0",
+  "run_id": "m5-c5-reg-20260930-123412-ff1e9bee-comfy",
+  "work_order_id": "m5-c5-reg-20260930-123412-ff1e9bee-comfy-initial-right",
+  "work_order": {
+    "path": "work_orders/m5-c5-reg-20260930-123412-ff1e9bee-comfy-delegate.json",
+    "sha256": "13b5c20f9d85d4fe9f39329a8440ecc44d234d718a16efa88583dd69667f6406"
+  },
+  "plan": {
+    "path": "plans/m5-c5-reg-20260930-123412-ff1e9bee-comfy-initial-right.json",
+    "sha256": "f74ec10d64ad3220a841181e3dd7a4931092dc33aabd3e27e49f494e240f52fa"
+  },
+  "source": {
+    "sha256": "8a6dd9ca3f8984b31c1243e7698cd5030b423464d80e0ad763609148e0ff4f51",
+    "path": "hunyuan-official-demo-padded.png"
+  },
+  "workflow": {
+    "sha256": "bb16c26a0aa599f3eee35f206940f1e6ab40bd39c9569025fa8a4f80de67311a",
+    "path": "workflows/02_Image_to_Multiview/Qwen2509_Multiangle_RTX4060_api.json"
+  },
+  "worker_type": "ComfyUI",
+  "adapter": "src/scenario_a/c1_delegate.py",
+  "worker_model": "Qwen-Image-Edit-2509-Q4_K_S.gguf",
+  "status": "SUCCESS",
+  "worker_report": {
+    "path": "runs/m5-c5-reg-20260930-123412-ff1e9bee-comfy_worker_report.json",
+    "sha256": "bc35884b7d4492266200858e7f2b8d2eccfe664d7ece71d556a6944db121c19f"
+  },
+  "client_id": "3e8b86d2-fdbc-4ab2-b178-86aaea3f5fd9",
+  "prompt_id": "38c0a312-a890-4be8-bbae-1de0148519e4",
+  "started_at": "2026-09-30T03:34:43.178374+00:00",
+  "completed_at": "2026-09-30T03:34:45.299993+00:00",
+  "artifact": {
+    "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\codex_to_comfy\\m5-c5-reg-20260930-123412-ff1e9bee-comfy_00001_.png",
+    "kind": "image",
+    "bytes": 252808,
+    "sha256": "59386e3cf0ee437ad64900315e5445adcab9035d227941add8dd9387192aa870",
+    "width": 768,
+    "height": 768
+  }
+}

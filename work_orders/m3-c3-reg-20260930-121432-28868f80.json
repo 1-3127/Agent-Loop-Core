@@ -1,0 +1,26 @@
+{
+  "version": "c1.0",
+  "run_id": "m3-c3-reg-20260930-121432-28868f80",
+  "work_order_id": "m3-c3-reg-20260930-121432-28868f80-initial-right",
+  "worker_type": "ComfyUI",
+  "adapter": "src/scenario_a/c1_delegate.py",
+  "requested_task": "Generate one right view from the source image",
+  "iteration": 0,
+  "source": {
+    "sha256": "8a6dd9ca3f8984b31c1243e7698cd5030b423464d80e0ad763609148e0ff4f51",
+    "path": "hunyuan-official-demo-padded.png"
+  },
+  "workflow": {
+    "sha256": "bb16c26a0aa599f3eee35f206940f1e6ab40bd39c9569025fa8a4f80de67311a",
+    "path": "workflows/02_Image_to_Multiview/Qwen2509_Multiangle_RTX4060_api.json"
+  },
+  "plan": {
+    "path": "plans/m3-c3-reg-20260930-121432-28868f80-initial-right.json",
+    "sha256": "5f732bd97a94255215b7d40b6966274ce1bca8da6e73f9d5dd8804fd87dcf1c0"
+  },
+  "expected_output_kind": "image",
+  "worker_report_path": "runs/m3-c3-reg-20260930-121432-28868f80_initial_worker_report.json",
+  "execution_report_path": "runs/m3-c3-reg-20260930-121432-28868f80_initial_execution.json",
+  "usage_path": "usage/m3-c3-reg-20260930-121432-28868f80_initial.json",
+  "worker_model": "Qwen-Image-Edit-2509-Q4_K_S.gguf"
+}

@@ -1,0 +1,59 @@
+{
+  "version": "c5.0",
+  "proof_id": "m5-c5-reg-20260930-123412-ff1e9bee",
+  "core_worker_port": {
+    "path": "src/core/worker_port.py",
+    "sha256_before_a": "bb25d1d69761c0e59ca3477045b61e073c00040480d752b142fdb2e82c681296",
+    "sha256_before_b": "bb25d1d69761c0e59ca3477045b61e073c00040480d752b142fdb2e82c681296",
+    "sha256_after_b": "bb25d1d69761c0e59ca3477045b61e073c00040480d752b142fdb2e82c681296"
+  },
+  "same_core_entry_point": true,
+  "core_modified_between_swaps": false,
+  "adapter_a": {
+    "adapter_id": "scenario_a_comfy",
+    "work_order": {
+      "path": "work_orders/m5-c5-reg-20260930-123412-ff1e9bee-comfy.json",
+      "sha256": "85bf116113be74ce5d9b52f283350570ba1513a8b6510a36d4dbf685ba41750d"
+    },
+    "result": {
+      "path": "runs/m5-c5-reg-20260930-123412-ff1e9bee-comfy_worker_result.json",
+      "sha256": "e308f880d78ef57ebbb147a790401bbcdbce3f1ec2bf34693368fa9061c75452"
+    },
+    "invocation_id": "38c0a312-a890-4be8-bbae-1de0148519e4",
+    "artifact": {
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\codex_to_comfy\\m5-c5-reg-20260930-123412-ff1e9bee-comfy_00001_.png",
+      "kind": "image",
+      "bytes": 252808,
+      "sha256": "59386e3cf0ee437ad64900315e5445adcab9035d227941add8dd9387192aa870"
+    },
+    "inner_work_order": {
+      "path": "work_orders/m5-c5-reg-20260930-123412-ff1e9bee-comfy-delegate.json",
+      "sha256": "13b5c20f9d85d4fe9f39329a8440ecc44d234d718a16efa88583dd69667f6406"
+    },
+    "execution_report": {
+      "path": "runs/m5-c5-reg-20260930-123412-ff1e9bee-comfy_c1_execution.json",
+      "sha256": "4417a1ef90c2de9e947688d223e79543128aa266b5fdeb75f2d982d22ce9acc3"
+    },
+    "worker_model": "Qwen-Image-Edit-2509-Q4_K_S.gguf"
+  },
+  "adapter_b": {
+    "adapter_id": "deterministic_test_worker",
+    "work_order": {
+      "path": "work_orders/m5-c5-reg-20260930-123412-ff1e9bee-deterministic.json",
+      "sha256": "a23934b8a370f2c5f17830a436c031adc26b4a0a1c70072ed0e0adfd673fc8f5"
+    },
+    "result": {
+      "path": "runs/m5-c5-reg-20260930-123412-ff1e9bee-deterministic_worker_result.json",
+      "sha256": "a02fdfff19b2dd195bd0080aa7336f597c98fecedc98dcf8d2c3d969aee8316e"
+    },
+    "invocation_id": "cba98ecf-cd45-408f-a274-4ce640ace88a",
+    "artifact": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\m5-c5-reg-20260930-123412-ff1e9bee-deterministic.txt",
+      "kind": "text",
+      "bytes": 97,
+      "sha256": "570a9422b12d4dc800924cf8df574462fb0634da89a3025871ce7421412f7409"
+    }
+  },
+  "semantic_reviewer_invocations": 0,
+  "conclusion": "WORKER_BOUNDARY_REPLACEABLE"
+}

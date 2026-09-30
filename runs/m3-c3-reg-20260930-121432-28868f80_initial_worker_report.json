@@ -1,0 +1,20 @@
+{
+  "schema_version": "0.1",
+  "task_id": "m3-c3-reg-20260930-121432-28868f80-initial-right",
+  "workflow": "workflows/02_Image_to_Multiview/Qwen2509_Multiangle_RTX4060_api.json",
+  "output_node": "13",
+  "status": "SUCCESS",
+  "client_id": "143cb028-63b9-4533-a9ce-6c7800687532",
+  "prompt_id": "1154e4e9-02fe-4c16-8661-5de2d1fec553",
+  "started_at": "2026-09-30T03:14:56.888345+00:00",
+  "completed_at": "2026-09-30T03:17:23.878812+00:00",
+  "outputs": [
+    {
+      "type": "image",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\codex_to_comfy\\m3-c3-reg-20260930-121432-28868f80_00001_.png",
+      "width": 768,
+      "height": 768
+    }
+  ],
+  "errors": []
+}

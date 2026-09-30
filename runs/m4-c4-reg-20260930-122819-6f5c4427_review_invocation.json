@@ -1,0 +1,29 @@
+{
+  "review_id": "m4-c4-reg-20260930-122819-6f5c4427-review",
+  "reviewer_mode": "CODEX_CLI",
+  "invocation_status": "SUCCESS",
+  "request_sha256": "3001674df349de40775b640402acc3b40b5a1e5507f254a1811809c59d6e8dd5",
+  "result_path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\reviews\\m4-c4-reg-20260930-122819-6f5c4427-review.json",
+  "reviewer_process_started": true,
+  "auth_mode": "CHATGPT_ACCOUNT",
+  "attached_images": [
+    {
+      "role": "generated_output",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\codex_to_comfy\\m4-c4-reg-20260930-122819-6f5c4427_00001_.png",
+      "sha256": "77aa25b6723ec427dd53365b5f7a8ba6c4041029cc1f435e20f3a0713f026be7"
+    },
+    {
+      "role": "source_reference",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\input\\hunyuan-official-demo-padded.png",
+      "sha256": "8a6dd9ca3f8984b31c1243e7698cd5030b423464d80e0ad763609148e0ff4f51"
+    }
+  ],
+  "started_at": "2026-09-30T03:32:04.521918+00:00",
+  "process_exit_code": 0,
+  "stdout_sha256": "af3055a8be878e9c321b9241cdbf613395e0784b3db8b1c92ed4be0d6819c02f",
+  "stderr_sha256": "9875c783243c1a002611bc92a23c116a36ca64e0e0db07932e05f4632bb55e04",
+  "result_sha256": "f1f4f51d53e0c28eb19983cdb50f82f01d2c166d5f84418d59655bd60854be08",
+  "verdict": "PASS",
+  "finished_at": "2026-09-30T03:32:23.375860+00:00",
+  "duration_seconds": 18.85900000000038
+}

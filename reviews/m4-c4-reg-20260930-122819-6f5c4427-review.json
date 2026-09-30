@@ -1,0 +1,34 @@
+{
+  "review_version": "0.3",
+  "review_id": "m4-c4-reg-20260930-122819-6f5c4427-review",
+  "stage": "RIGHT_VIEW_REVIEW",
+  "source_result": {
+    "path": "runs/m4-c4-reg-20260930-122819-6f5c4427_execution.json",
+    "sha256": "10984f8e6c166bb717f7fbc004cbf8417d2a50aa9b51c66b408042028576f190"
+  },
+  "artifacts": [
+    {
+      "role": "generated_output",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\codex_to_comfy\\m4-c4-reg-20260930-122819-6f5c4427_00001_.png",
+      "sha256": "77aa25b6723ec427dd53365b5f7a8ba6c4041029cc1f435e20f3a0713f026be7",
+      "media_type": "image/png"
+    },
+    {
+      "role": "source_reference",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\input\\hunyuan-official-demo-padded.png",
+      "sha256": "8a6dd9ca3f8984b31c1243e7698cd5030b423464d80e0ad763609148e0ff4f51",
+      "media_type": "image/png"
+    }
+  ],
+  "verdict": "PASS",
+  "blocking_issues": [],
+  "observations": [
+    "The generated image preserves the penguin, its orange beak and feet, the two sign supports, and the HY3D sign with its red 3.",
+    "The sign and penguin are shown from an oblique view rather than the source's frontal view, giving a plausible sideward camera change.",
+    "The sign, supports, body, and feet are fully framed with no severe crop or zoom. Minor blue edge artifacts are visible, but no blocking structural distortion or floating element is apparent."
+  ],
+  "suggested_action": {
+    "code": "NONE",
+    "target": null
+  }
+}

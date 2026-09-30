@@ -1,0 +1,20 @@
+{
+  "schema_version": "0.1",
+  "task_id": "m5-c5-reg-20260930-123412-ff1e9bee-comfy-initial-right",
+  "workflow": "workflows/02_Image_to_Multiview/Qwen2509_Multiangle_RTX4060_api.json",
+  "patches": {
+    "1": {
+      "image": "hunyuan-official-demo-padded.png"
+    },
+    "8": {
+      "prompt": "Rotate the camera 45 degrees to the right. Keep the entire object visible, centered and at the same scale. Do not zoom in."
+    },
+    "11": {
+      "seed": 29601
+    },
+    "13": {
+      "filename_prefix": "codex_to_comfy/m5-c5-reg-20260930-123412-ff1e9bee-comfy"
+    }
+  },
+  "output_node": "13"
+}

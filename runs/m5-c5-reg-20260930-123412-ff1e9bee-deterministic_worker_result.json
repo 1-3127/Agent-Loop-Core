@@ -1,0 +1,16 @@
+{
+  "version": "c5.0",
+  "run_id": "m5-c5-reg-20260930-123412-ff1e9bee-deterministic",
+  "work_order_id": "m5-c5-reg-20260930-123412-ff1e9bee-deterministic-text",
+  "adapter_id": "deterministic_test_worker",
+  "backend": "deterministic local worker",
+  "status": "SUCCESS",
+  "invocation_id": "cba98ecf-cd45-408f-a274-4ce640ace88a",
+  "artifact": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\m5-c5-reg-20260930-123412-ff1e9bee-deterministic.txt",
+    "kind": "text",
+    "bytes": 97,
+    "sha256": "570a9422b12d4dc800924cf8df574462fb0634da89a3025871ce7421412f7409"
+  },
+  "execution_seconds": 0.01600000000144064
+}

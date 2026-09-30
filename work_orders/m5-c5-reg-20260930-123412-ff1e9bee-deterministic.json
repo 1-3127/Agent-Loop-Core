@@ -1,0 +1,15 @@
+{
+  "version": "c5.0",
+  "run_id": "m5-c5-reg-20260930-123412-ff1e9bee-deterministic",
+  "work_order_id": "m5-c5-reg-20260930-123412-ff1e9bee-deterministic-text",
+  "requested_task": "Create one deterministic text artifact from the fixture input",
+  "expected_output_kind": "text",
+  "adapter_id": "deterministic_test_worker",
+  "payload": {
+    "input": {
+      "path": "tests/fixtures/c5_input.txt",
+      "sha256": "e03377a91e7187b5c4aefb218e3bbd26b574bb2b5aa03a35477040fed1f67dc7"
+    },
+    "output_path": "runs/m5-c5-reg-20260930-123412-ff1e9bee-deterministic.txt"
+  }
+}

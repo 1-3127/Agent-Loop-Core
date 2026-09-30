@@ -1,0 +1,29 @@
+{
+  "review_id": "m4-c4-reg-20260930-122819-6f5c4427-review",
+  "requested_provider": "OpenAI",
+  "requested_model_display": "GPT-6.1 Sol",
+  "requested_reasoning_effort": "High",
+  "requested_cli_identifier": "gpt-6.1-sol",
+  "requested_cli_reasoning_value": "high",
+  "actual_model": null,
+  "actual_reasoning_effort": null,
+  "cli_version": "codex-cli 0.159.0",
+  "config_source": {
+    "path": ".codex/config.toml",
+    "sha256": "f9caaf0c19849f3ce6f8b3d273db20190b7a8e63375f8a7f641b321a2193186a"
+  },
+  "config_keys": {
+    "model": "gpt-6.1-sol",
+    "model_reasoning_effort": "high"
+  },
+  "supported_identifier_evidence": "C:/Users/Worker/.codex/models_cache.json: slug gpt-6.1-sol; supported_reasoning_levels includes high",
+  "global_config_observed": {
+    "model": "gpt-6-sol",
+    "model_reasoning_effort": "medium"
+  },
+  "command": "codex exec --ephemeral --skip-git-repo-check --sandbox read-only --output-schema result_review_schema.json -C D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core -i <generated_output> -i <source_reference> -",
+  "auth_mode": "CHATGPT_ACCOUNT",
+  "actual_identity_unavailable_reason": "Adapter preserves only stdout/stderr hashes; project config records requested settings, not independent backend identity",
+  "created_at": "2026-09-30T03:31:40.535162+00:00",
+  "external_transfer_authorization": "User authorized current Chain A and subsequent Agent-Loop Core image transfers to Codex in this conversation"
+}
