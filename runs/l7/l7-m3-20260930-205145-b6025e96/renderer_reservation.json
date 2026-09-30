@@ -1,0 +1,13 @@
+{
+  "run_id": "l7-m3-20260930-205145-b6025e96",
+  "stage": "renderer",
+  "source": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\l7-m3-20260930-205145-b6025e96\\render_request.json",
+    "sha256": "a69cbd97ad3ae353356fc30500b90a21437dc7e9bd815f2ba8c707cd9c69e1a7"
+  },
+  "created_at": "2026-09-30T11:56:33.308336+00:00",
+  "initial_contract": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\l7-m3-20260930-205145-b6025e96\\initial.json",
+    "sha256": "452cb18c87b44efd36aaf0290efb4fa1e0bec4b597be4920c39c09b29139ddb5"
+  }
+}

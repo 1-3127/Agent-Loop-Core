@@ -1,0 +1,40 @@
+{
+  "version": "l7-m1.0",
+  "run_id": "l7-m3-20260930-205145-b6025e96",
+  "source_l6_run_id": "l6-m3-20260930-164920-8109160a",
+  "source_glb": {
+    "type": "geometry",
+    "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\mesh\\l7\\l7-m3-20260930-205145-b6025e96\\geometry_00001_.glb",
+    "bytes": 1049244,
+    "sha256": "24e0b6a9ff2b3aa23f9a211ade467453900b45a94d33cb41a945f3251df6c83b",
+    "glb_version": 2,
+    "declared_length": 1049244
+  },
+  "blender_version": "5.2.0 LTS",
+  "script": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\src\\scenario_a\\l7_blender_diagnostic.py",
+    "sha256": "d71f932c5679d6e1ad453e1fa39d75c919fec5c1ff975d22c1114ed53f249cd1"
+  },
+  "config": {
+    "engine": "BLENDER_WORKBENCH",
+    "projection": "ORTHO",
+    "resolution": [
+      512,
+      512
+    ],
+    "margin": 1.2,
+    "up_axis": "+Z",
+    "color_mode": "SINGLE",
+    "neutral_color": [
+      0.7,
+      0.72,
+      0.75
+    ],
+    "background": "TRANSPARENT",
+    "scale_rule": "max(world XYZ extents) * 1.2",
+    "distance_rule": "2 * world bounds diagonal",
+    "azimuth_zero_direction": "-Y"
+  },
+  "output_dir": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l7\\l7-m3-20260930-205145-b6025e96\\geometry_review",
+  "manifest_path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\l7-m3-20260930-205145-b6025e96\\render_manifest.json"
+}

@@ -1,0 +1,77 @@
+{
+  "run_id": "l7-m3-20260930-205145-b6025e96",
+  "revision": {
+    "version": "l7-feedback.0",
+    "run_id": "l7-m3-20260930-205145-b6025e96",
+    "source_review": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\l7-m1-20260930-184618-3703fee4\\review_result.json",
+      "sha256": "f4b08fb1a8eaf2c5778971131e7d97ac24cb038945d9f7ee6360a3a3445446d3"
+    },
+    "source_verdict": "REVISE",
+    "action_code": "REGENERATE_GEOMETRY",
+    "target": "geometry",
+    "revision_ordinal": 1,
+    "previous_seed": 528364197559477,
+    "revision_seed": 528364197559478,
+    "budget": {
+      "limit": 1,
+      "consumed": 0
+    },
+    "status": "REVISION_PLANNED"
+  },
+  "workers": [
+    {
+      "stage": "geometry",
+      "backend": "ComfyUI",
+      "model": "hunyuan3d-dit-v2-mv-turbo_fp16.safetensors",
+      "invocations": 1,
+      "duration_seconds": 36.940397
+    }
+  ],
+  "reviewers": [
+    {
+      "stage": "geometry_review",
+      "invocations": 1,
+      "duration_seconds": 106.8440000000046
+    }
+  ],
+  "renderer": {
+    "invocations": 1,
+    "duration_seconds": 1.9219999999986612
+  },
+  "frontier": {
+    "requested_model": null,
+    "requested_reasoning_effort": null,
+    "actual_model": null,
+    "actual_reasoning_effort": null,
+    "input_tokens": null,
+    "cached_input_tokens": null,
+    "output_tokens": null,
+    "reasoning_tokens": null,
+    "reported_credits": null
+  },
+  "budgets": {
+    "revision": {
+      "limit": 1,
+      "consumed": 1,
+      "remaining": 0
+    },
+    "worker": {
+      "limit": 2,
+      "consumed": 1,
+      "remaining": 1
+    },
+    "reviewer": {
+      "limit": 2,
+      "consumed": 1,
+      "remaining": 1
+    },
+    "renderer": {
+      "limit": 1,
+      "consumed": 1,
+      "remaining": 0
+    }
+  },
+  "automatic_retries": 0,
+  "final_state": "ABORT"
+}

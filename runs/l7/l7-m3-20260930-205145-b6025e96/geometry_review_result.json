@@ -1,0 +1,73 @@
+{
+  "review_version": "0.3",
+  "review_id": "l7-m3-20260930-205145-b6025e96-geometry_review",
+  "stage": "GEOMETRY_REVIEW",
+  "source_result": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\l7-m3-20260930-205145-b6025e96\\render_manifest.json",
+    "sha256": "e1d2653c9c1052df822cfeea76559b116450774b2bb6cfd6b98ca50b650d9f8c"
+  },
+  "artifacts": [
+    {
+      "role": "source_front",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\input\\hunyuan-official-demo-padded.png",
+      "sha256": "8a6dd9ca3f8984b31c1243e7698cd5030b423464d80e0ad763609148e0ff4f51",
+      "media_type": "image/png"
+    },
+    {
+      "role": "source_right",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l6\\l6-m3-20260930-164920-8109160a\\right_00001_.png",
+      "sha256": "6c4828c226de954cab7daee8975f4e2f60ee1507bee5c9eb72fd34d9c146bc4d",
+      "media_type": "image/png"
+    },
+    {
+      "role": "source_left",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l6\\l6-m3-20260930-164920-8109160a\\left_00001_.png",
+      "sha256": "d1f6c681ebbee462e26b42e5de710caf34424edfa68eb01686f7caa88b7b89d6",
+      "media_type": "image/png"
+    },
+    {
+      "role": "source_back",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l6\\l6-m3-20260930-164920-8109160a\\back_00001_.png",
+      "sha256": "2aa7f06a081869b961650498fe77bb19955019b958098156cee42b30bc1f937f",
+      "media_type": "image/png"
+    },
+    {
+      "role": "geometry_azimuth_0",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l7\\l7-m3-20260930-205145-b6025e96\\geometry_review\\geometry_azimuth_0.png",
+      "sha256": "54b2d93bc1ea4dfe7cf63b74f9abe59dffd77def1727dc73de4a5abfdcd37f83",
+      "media_type": "image/png"
+    },
+    {
+      "role": "geometry_azimuth_90",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l7\\l7-m3-20260930-205145-b6025e96\\geometry_review\\geometry_azimuth_90.png",
+      "sha256": "bf70d413cc9ca542cc5bd42d1951637cdd6825592e637dce036409b9ce75d180",
+      "media_type": "image/png"
+    },
+    {
+      "role": "geometry_azimuth_180",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l7\\l7-m3-20260930-205145-b6025e96\\geometry_review\\geometry_azimuth_180.png",
+      "sha256": "550e4da6954afdfefb29172dd3038c8004fdbab220cdda48d699d4945a3f86e3",
+      "media_type": "image/png"
+    },
+    {
+      "role": "geometry_azimuth_270",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l7\\l7-m3-20260930-205145-b6025e96\\geometry_review\\geometry_azimuth_270.png",
+      "sha256": "5484458a8f4f0cfa61c8c2ba66ae4da867660d13a539a086ef260b070603124a",
+      "media_type": "image/png"
+    }
+  ],
+  "verdict": "REVISE",
+  "blocking_issues": [
+    "The penguin's body has pronounced concentric raised bands across the belly and back in all four geometry views; the corresponding surfaces are smooth in the front, side, and back references.",
+    "In geometry_azimuth_0, the two eyes and broad bill are compressed into an indistinct facial mass compared with the clearly separate eyes and bill in source_front."
+  ],
+  "observations": [
+    "The overall penguin, two sign poles, rectangular sign, flippers, and feet remain present across the geometry views.",
+    "The back of the sign remains recessed in geometry_azimuth_180, consistent with source_back. No visually apparent large hole or exploded component is visible.",
+    "The references present a coherent front, angled sides, and back; the observed deformation spans multiple geometry views, so a particular generated side or back reference is not the likely cause."
+  ],
+  "suggested_action": {
+    "code": "REGENERATE_GEOMETRY",
+    "target": "geometry"
+  }
+}
