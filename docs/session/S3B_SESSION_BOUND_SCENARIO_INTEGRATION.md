@@ -1,5 +1,11 @@
 # S3B Session-bound Scenario Integration
 
+**S3B SESSION-BOUND SCENARIO INTEGRATION = LOCAL-VERIFIED**
+
+**S3C ACTUAL SESSION E2E PROOF = READY / NOT STARTED**
+
+Final required regression: 196/196 PASS; S3B 24/24, existing 172/172.
+
 ## Scope / baseline
 단일 S3B milestone, branch session-bound-scenario-s3b.
 Start a651e38d3435c661185862692e5e69fe9f501ec6 (clean session-boundary-s3a).
@@ -163,3 +169,50 @@ with tempfile.TemporaryDirectory(prefix='s3b-local-tests-',dir=root) as scratch:
  sys.exit(0 if result.wasSuccessful() and not effects['network'] and not effects['production_process'] else 1)
 
 ```
+
+## Checkpoint 5 — Actual-proof readiness
+- Starting commit: 881989fc0e0613b65431acd90f3a65bc088bbefe.
+- Inspected seams: prepare/checked_parent/checked_child, run_session preflight,
+  L6/bridge/correction guards, compile/check Request, coverage/action validator,
+  final artifact/Review lineage, S3A internal_accept and typed ambiguity stop.
+- Implementation: no additional runtime code; final readiness/protection/handoff recorded here.
+  This checkpoint has a substantive documentation update; no empty/no-op commit or new milestone.
+- Gate findings:
+  - One Session / logical Loop, fixed L6/bridge/correction child IDs, same immutable Spec.
+  - Parent/Ready Gate before every effect; child reservation/budget guards preserved.
+  - Goal/Must-Have/criteria/declared authority structurally pinned before first effect.
+  - Bound instruction replaces legacy quality prose; coverage/action authority validated.
+  - Seed-only correction same Spec, max one correction; no policy quality claim.
+  - Current final GLB + current geometry Review + immutable coverage/child evidence gate exists.
+  - Session terminal/ambiguity/internal acceptance prevents additional bound effects.
+  - Default fixed entry checks assets and renderer/script without invoking transport.
+  - No local DELIVERED/receipt/reset fabrication or inherited unbound PASS promotion.
+- Tests: use Checkpoint 4 final regression on identical runtime/test bytes; no optional repeat suite.
+- Effect counts: all production/transport effects0; only allowed import smoke1 in regression.
+- Known actual prerequisites: next milestone must freeze a genuine finalized Work Spec and
+  explicit stage projection/current input, check live runtime and external-review permission,
+  then separately authorize actual execution. Network/runtime availability was not probed here.
+  Actual delivery transport/receipt authenticity and external context reset remain unverified.
+  Semantic correctness and seed-only geometry policy quality remain unproven.
+- Changed files: this cumulative milestone document only.
+- Commits: CP1 3e7d240; CP2 b61e6e9; CP3 566beb0; CP4 881989fc0e0613b65431acd90f3a65bc088bbefe.
+  CP5 subject: docs(s3b): finalize actual-proof readiness gate
+  Exact CP5 hash is in git log/final report (no self-referential hash in its own file).
+- Result:
+  S3B SESSION-BOUND SCENARIO INTEGRATION = LOCAL-VERIFIED
+  S3C ACTUAL SESSION E2E PROOF = READY / NOT STARTED
+
+## Final scope boundary
+AGENT LOOP CORE V1.0.0 = FROZEN / UNCHANGED
+LEVEL 6 MULTI-STAGE SUPERVISED PIPELINE = VERIFIED (historical proof preserved)
+L7-M3 ACTUAL CLOSED FEEDBACK PROOF = NOT PASSED
+L7-R1 GEOMETRY REVISION DIAGNOSIS = COMPLETE
+LEVEL 7 CLOSED FEEDBACK PIPELINE = NOT VERIFIED
+ACTUAL SESSION E2E = NOT VERIFIED
+ACTUAL USER DELIVERY RECEIPT = NOT VERIFIED
+EXTERNAL FRESH-CONTEXT RESET = NOT VERIFIED
+HYPOTHESIS BENCHMARK = NOT STARTED
+
+Repository outcome: one branch session-bound-scenario-s3b, five checkpoint commits.
+Normal push only; final local/tracking/live equality and clean verified in final response.
+No main merge/tag/release/history rewrite. Stop after push/clean.
