@@ -11,6 +11,7 @@ from pathlib import Path
 
 from core import result_review_adapter as reviewer
 from scenario_a import codex_to_comfy as worker
+from scenario_a import session_binding as bound
 
 ROOT = Path(__file__).resolve().parents[2]
 ASSET_MANIFEST = ROOT / "docs/l6/L6_ASSET_MANIFEST.json"
@@ -144,6 +145,7 @@ def budgets(run_dir):
 
 
 def guard(run_dir):
+    bound.effect_guard(run_dir)
     if (run_dir / "terminal.json").exists():
         raise ValueError("ALREADY_TERMINAL")
     state = read_json(run_dir / "state.json")
@@ -215,6 +217,8 @@ def publish_order(run_dir, stage, assets, inputs):
              "initial_contract": reference(run_dir / "initial.json")}
     path = run_dir / (stage + "_work_order.json")
     write_once(path, order)
+    bound.bind_record(run_dir, plan_path)
+    bound.bind_record(run_dir, path)
     return path
 
 
@@ -276,6 +280,8 @@ def run_worker(order_path, comfy_root, timeout):
     output_prefix = worker.within(Path(comfy_root) / "work/output", worker.safe_relative(prefix, "prefix"))
     if any(output_prefix.parent.glob(output_prefix.name + "_*")):
         raise ValueError("Worker artifact namespace already exists")
+    bound.check_record(run_dir, order_path)
+    bound.check_record(run_dir, run_dir / (stage + "_plan.json"))
     reserve_worker(run_dir, stage, order_path)
     worker.run(plan_path, report_path, Path(comfy_root), timeout)
     report = read_json(report_path)
@@ -319,6 +325,7 @@ def record_execution(order_path, report, artifact, status, errors):
         "started_at": report.get("started_at"), "completed_at": report.get("completed_at"),
         "artifact": artifact, "errors": errors}
     write_once(run_dir / (stage + "_execution.json"), execution)
+    bound.bind_record(run_dir, run_dir / (stage + "_execution.json"))
 
 
 def available_report(path):
@@ -370,6 +377,7 @@ def validate_manifest(manifest, run_dir):
 def prepare_review(run_dir, manifest):
     images = validate_manifest(manifest, run_dir)
     write_once(run_dir / "multiview_manifest.json", manifest)
+    bound.bind_record(run_dir, run_dir / "multiview_manifest.json")
     initial = read_json(run_dir / "initial.json")
     orders = [reference(run_dir / (role + "_work_order.json")) for role in VIEWS]
     executions = [reference(run_dir / (role + "_execution.json")) for role in VIEWS]
@@ -574,7 +582,7 @@ def finish(run_dir, state_name, reason, stage, error=None):
 
 
 def run_pipeline(run_id, comfy_root=worker.DEFAULT_COMFY_ROOT, worker_timeout=600,
-                 review_timeout=600, *, execute=False):
+                 review_timeout=600, *, execute=False, session_binding=None):
     if not isinstance(run_id, str) or not re.fullmatch(r"[A-Za-z0-9_-]{1,48}", run_id):
         raise ValueError("invalid run_id")
     if worker_timeout <= 0 or review_timeout <= 0:
@@ -584,6 +592,10 @@ def run_pipeline(run_id, comfy_root=worker.DEFAULT_COMFY_ROOT, worker_timeout=60
         if (run_dir / "terminal.json").exists():
             return {"status": "ALREADY_TERMINAL", "terminal": reference(run_dir / "terminal.json")}
         raise ValueError("L6_RUN_ALREADY_EXISTS")
+    if session_binding is not None:
+        data, _, _ = bound.checked_parent(session_binding, execution=True)
+        if data["child_ids"]["l6"] != run_id:
+            raise ValueError("current L6 child identity mismatch")
     assets = preflight(comfy_root)
     if not execute:
         return {"status": "PREFLIGHT_PASS", "asset_manifest": reference(ASSET_MANIFEST),
@@ -596,6 +608,8 @@ def run_pipeline(run_id, comfy_root=worker.DEFAULT_COMFY_ROOT, worker_timeout=60
                "asset_manifest": reference(ASSET_MANIFEST),
                "worker_budget": {"limit": 4, "consumed": 0, "remaining": 4},
                "reviewer_budget": {"limit": 1, "consumed": 0, "remaining": 1}, "terminal": False}
+    if session_binding is not None:
+        initial["session_binding"] = bound.child_binding(session_binding, "l6", run_dir)
     write_once(run_dir / "initial.json", initial)
     worker.write_report(run_dir / "state.json", initial | {"initial_contract": reference(run_dir / "initial.json")})
     stage = "right"
