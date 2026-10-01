@@ -1,0 +1,36 @@
+{
+  "canonical_failure": "FAILED / VIEW_STAGE / Worker PNG dimensions differ",
+  "executor_classification": "RUNTIME_FAILED",
+  "observed_input_dimensions": [
+    467,
+    539
+  ],
+  "observed_output_dimensions": [
+    464,
+    536
+  ],
+  "required_view_dimensions": [
+    768,
+    768
+  ],
+  "observed_output_identity": {
+    "role": "right",
+    "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l6\\fsr-l6-20261001-152846-ccab2a25\\right_00001_.png",
+    "sha256": "a239eb8db8c8c4d88781a25d0180a886e104c14e14dae5a583c2b5153aee79c9",
+    "bytes": 221336,
+    "width": 464,
+    "height": 536
+  },
+  "source_locations": {
+    "input_preflight": "src/scenario_a/l6_pipeline.py:98-152 (current PNG identity accepted; no 768x768 source constraint)",
+    "dispatch_output_gate": "src/scenario_a/l6_pipeline.py:374-376",
+    "view_latent_wiring": "Qwen2509_Multiangle_RTX4060_api.json:96-108,130-133 (LoadImage -> VAEEncode -> KSampler)",
+    "vae_crop": "ComfyUI/comfy/sd.py:1136-1145 (compression-ratio crop before encode)"
+  },
+  "diagnostic_inference": "Current Reference is propagated correctly. The current PNG readiness path accepts the 467x539 photo, while the unchanged production view gate still requires exactly 768x768 output. The actual graph encodes the source image directly without 768x768 normalization. This is a supported-input/output-contract compatibility blocker, not a semantic Reviewer rejection.",
+  "defect_classification": "CONTRACT_DEFECT_FOUND (diagnostic; canonical terminal remains FAILED)",
+  "source_fix_in_this_attempt": false,
+  "input_edit_or_padding_in_this_attempt": false,
+  "retry_or_resume_in_this_attempt": false,
+  "stop_reason": "Any fix requires separately authorized source/contract work. This proof attempt retains its failure and performs no repair."
+}

@@ -1,0 +1,67 @@
+CANONICAL_PRODUCTION_ENTRY_START 2026-10-01T06:33:20.909070+00:00
+{
+  "started_after_cp1": true,
+  "finished_at": "2026-10-01T06:35:28.490479+00:00",
+  "duration_seconds": 127.57800000000134,
+  "result": {
+    "version": "l6.0",
+    "run_id": "fsr-l6-20261001-152846-ccab2a25",
+    "created_at": "2026-10-01T06:33:21.045071+00:00",
+    "state": "FAILED",
+    "source": {
+      "role": "front",
+      "path": "C:\\Users\\Worker\\AppData\\Local\\Temp\\codex-clipboard-cccea437-5ac5-4e4e-8009-43493507bd03.png",
+      "sha256": "9da5ed9e7f3490d058673122a7bd50b46635d4f0b5a36ca3199f0c1636cd17e5",
+      "bytes": 362412,
+      "width": 467,
+      "height": 539,
+      "execution_report": null
+    },
+    "comfy_root": "D:\\VSCODE-WorkSpace\\Comfy-UI",
+    "asset_manifest": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\l6\\L6_ASSET_MANIFEST.json",
+      "sha256": "ceff2ea2ed0ac799ca08673c6d4d912c03e23e16770eaac04dfd9c9160f6a716"
+    },
+    "worker_budget": {
+      "limit": 4,
+      "consumed": 1,
+      "remaining": 3
+    },
+    "reviewer_budget": {
+      "limit": 1,
+      "consumed": 0,
+      "remaining": 1
+    },
+    "terminal": true,
+    "session_binding": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\fsr-l6-20261001-152846-ccab2a25\\session_binding.json",
+      "sha256": "c16313a090c43af809d46109874210b5b57698fd7c405f9806e4ba05c367749c"
+    },
+    "current_reference": {
+      "file": {
+        "identity": "USER_CURRENT_REFERENCE",
+        "path": "C:\\Users\\Worker\\AppData\\Local\\Temp\\codex-clipboard-cccea437-5ac5-4e4e-8009-43493507bd03.png",
+        "bytes": 362412,
+        "sha256": "9da5ed9e7f3490d058673122a7bd50b46635d4f0b5a36ca3199f0c1636cd17e5"
+      },
+      "authority_ref": "REF",
+      "authority_source": "{\"bytes\":362412,\"identity\":\"USER_CURRENT_REFERENCE\",\"path\":\"C:\\\\Users\\\\Worker\\\\AppData\\\\Local\\\\Temp\\\\codex-clipboard-cccea437-5ac5-4e4e-8009-43493507bd03.png\",\"sha256\":\"9da5ed9e7f3490d058673122a7bd50b46635d4f0b5a36ca3199f0c1636cd17e5\"}",
+      "session_id": "fsr-session-20261001-152846-ccab2a25",
+      "specification_identity_sha256": "404913d520686f3a42adaaa1262fe2b581042d1879fe7bc708b7b57ba0b4d8aa"
+    },
+    "reference_staging": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\fsr-l6-20261001-152846-ccab2a25\\reference_staging.json",
+      "sha256": "38b88881a63c71d66004a7f12b622013b472b39f9042276b5a24a3808c1531c1"
+    },
+    "initial_contract": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\fsr-l6-20261001-152846-ccab2a25\\initial.json",
+      "sha256": "d3ef2f2e5fca43f4dcb4d3fcb6607a8f34eede780a0d3067e95a84302b26d5fa"
+    },
+    "reason": "VIEW_STAGE",
+    "failed_stage": "right",
+    "errors": [
+      "Worker PNG dimensions differ"
+    ],
+    "finished_at": "2026-10-01T06:35:28.426478+00:00"
+  }
+}

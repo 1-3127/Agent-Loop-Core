@@ -1,0 +1,63 @@
+{
+  "version": "l6.0",
+  "run_id": "fsr-l6-20261001-152846-ccab2a25",
+  "workers": [
+    {
+      "stage": "right",
+      "backend": "ComfyUI",
+      "model": "Qwen-Image-Edit-2509-Q4_K_S.gguf",
+      "invocations": 1,
+      "execution_seconds": 126.991409
+    },
+    {
+      "stage": "left",
+      "backend": "ComfyUI",
+      "model": "Qwen-Image-Edit-2509-Q4_K_S.gguf",
+      "invocations": 0,
+      "execution_seconds": null
+    },
+    {
+      "stage": "back",
+      "backend": "ComfyUI",
+      "model": "Qwen-Image-Edit-2509-Q4_K_S.gguf",
+      "invocations": 0,
+      "execution_seconds": null
+    },
+    {
+      "stage": "geometry",
+      "backend": "ComfyUI",
+      "model": "hunyuan3d-dit-v2-mv-turbo_fp16.safetensors",
+      "invocations": 0,
+      "execution_seconds": null
+    }
+  ],
+  "frontier": {
+    "provider": "OpenAI",
+    "auth_mode": null,
+    "invocations": 0,
+    "review_duration_seconds": null,
+    "requested_model": null,
+    "requested_reasoning_effort": null,
+    "actual_model": null,
+    "actual_reasoning_effort": null,
+    "input_tokens": null,
+    "cached_input_tokens": null,
+    "output_tokens": null,
+    "reasoning_tokens": null,
+    "reported_credits": null,
+    "unavailable_reason": "Existing direct Reviewer API has no explicit model/effort override; unobserved telemetry is null."
+  },
+  "budgets": {
+    "worker_budget": {
+      "limit": 4,
+      "consumed": 1,
+      "remaining": 3
+    },
+    "reviewer_budget": {
+      "limit": 1,
+      "consumed": 0,
+      "remaining": 1
+    }
+  },
+  "final_state": "FAILED"
+}
