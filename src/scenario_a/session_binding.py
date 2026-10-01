@@ -1,5 +1,5 @@
 """Fixed Scenario A Session binding sidecars; no Core schema or transport changes."""
-from dataclasses import asdict
+from dataclasses import asdict, dataclass
 import json
 from pathlib import Path
 import re
@@ -10,6 +10,66 @@ from scenario_a import l6_pipeline as l6
 KINDS = ("l6", "bridge", "correction")
 CAPS = {"worker": 6, "reviewer": 4, "renderer": 2, "revision": 1}
 CAPABILITY = "fixed_four_view_glb_seed_only"
+
+
+@dataclass(frozen=True)
+class CurrentReference:
+    file: session.FileIdentity
+    authority_ref: str
+    authority_source: str
+    session_id: str
+    specification_identity_sha256: str
+
+
+def reference_authority(file):
+    """Canonical single-image identity to include in frozen authority_references."""
+    file.validate()
+    return json.dumps(asdict(file), sort_keys=True, separators=(",", ":"), ensure_ascii=True)
+
+
+def freeze_current_reference(binding, file, authority_ref):
+    binding.validate()
+    source = reference_authority(file)
+    reference = CurrentReference(file, authority_ref, source,
+        binding.specification.reference.session_id, binding.specification.identity_sha256)
+    checked_current_reference(asdict(reference), binding)
+    return reference
+
+
+def checked_current_reference(record, binding):
+    if record is None:
+        raise ValueError("CURRENT_REFERENCE_REQUIRED")
+    reference = CurrentReference(**(record | {"file": session.FileIdentity(**record["file"])}))
+    reference.file.validate()
+    authorities = {a.reference_id: a.source_ref for a in binding.specification.fields.authority_references}
+    if (reference.session_id != binding.specification.reference.session_id
+            or reference.specification_identity_sha256 != binding.specification.identity_sha256
+            or reference.authority_source != reference_authority(reference.file)
+            or authorities.get(reference.authority_ref) != reference.authority_source):
+        raise ValueError("current Reference Session/Specification/authority mismatch")
+    l6.png_identity(reference.file.path, "front")  # Current capability supports one PNG only.
+    return reference
+
+
+def attempt_namespace_preflight(data, comfy_root):
+    """I-03's fixed three-child/seven-external gate, shared by entry and direct L6."""
+    from scenario_a import l7_geometry_review as bridge
+    from scenario_a import l7_feedback_controller as controller
+    ids = data["child_ids"]
+    children = (l6.ROOT / "runs/l6" / ids["l6"], bridge.ROOT / "runs/l7" / ids["bridge"],
+                controller.ROOT / "runs/l7" / ids["correction"])
+    if any(path.exists() for path in children):
+        raise ValueError("BOUND_ATTEMPT_ALREADY_EXISTS: no automatic resume")
+    root = Path(comfy_root).resolve()
+    external = (root / "work/input/l6" / ids["l6"],
+                root / "work/output/l6" / ids["l6"],
+                root / "work/output/mesh/l6" / ids["l6"],
+                root / "work/output/l7" / ids["bridge"],
+                root / "work/input/l7" / ids["correction"],
+                root / "work/output/l7" / ids["correction"],
+                root / "work/output/mesh/l7" / ids["correction"])
+    if any(path.exists() for path in external):
+        raise ValueError("external namespace exists")
 
 
 def _validate_stage_criteria(fields, stage_criteria, *, immutable=False):
@@ -29,7 +89,7 @@ def _validate_stage_criteria(fields, stage_criteria, *, immutable=False):
 
 
 def prepare(boundary, binding, *, goal, must_haves, stage_criteria, child_ids,
-            capability=CAPABILITY, limits=None):
+            capability=CAPABILITY, limits=None, current_reference=None, legacy_fixture=False):
     """Freeze explicit finalized Scenario projection before any child/effect.
 
     Goal/Must-Have text and authority are caller-selected from frozen bytes.
@@ -59,13 +119,21 @@ def prepare(boundary, binding, *, goal, must_haves, stage_criteria, child_ids,
     if any(not re.fullmatch(r'[A-Za-z0-9_-]+', c.criterion_id) or not re.fullmatch(r'[A-Za-z0-9_-]+', c.authority_ref) for c in fields.acceptance_criteria):
         raise ValueError('unsupported bound criterion identifier')
     _validate_stage_criteria(fields, stage_criteria, immutable=True)
-    data = {"version": "s3b-scenario-a.0", "session_directory": str(boundary.directory),
+    if type(legacy_fixture) is not bool or (legacy_fixture and current_reference is not None):
+        raise ValueError("explicit compatibility fixture cannot also bind current Reference")
+    if not legacy_fixture:
+        if type(current_reference) is not CurrentReference:
+            raise ValueError("CURRENT_REFERENCE_REQUIRED")
+        checked_current_reference(asdict(current_reference), binding)
+    data = {"version": "s3b-scenario-a.1", "session_directory": str(boundary.directory),
             "session_id": boundary.session_id, "loop_run_id": binding.loop_run_id,
             "binding": l6.reference(boundary.directory / "binding.json"),
             "binding_identity_sha256": binding.identity_sha256,
             "specification_identity_sha256": binding.specification.identity_sha256,
             "specification": asdict(binding.specification.reference), "scenario": "scenario_a",
             "goal": goal, "must_haves": list(must_haves), "stage_criteria": stage_criteria,
+            "current_reference": asdict(current_reference) if current_reference else None,
+            "input_mode": "legacy_fixture" if legacy_fixture else "current_reference",
             "child_ids": child_ids, "capability": capability, "limits": CAPS, "automatic_retries": 0}
     path = boundary.directory / "scenario_a.json"
     l6.write_once(path, data)
@@ -87,6 +155,18 @@ def checked_parent(reference, *, execution=False):
             or data["capability"] != CAPABILITY or data["limits"] != CAPS):
         raise ValueError("Scenario Session/Specification/logical Loop mismatch")
     _validate_stage_criteria(binding.specification.fields, data["stage_criteria"])
+    if data["version"] == "s3b-scenario-a.0":
+        if execution:
+            raise ValueError("CURRENT_REFERENCE_REQUIRED: historical parent is evidence-only")
+    elif data["version"] == "s3b-scenario-a.1":
+        if data.get("input_mode") == "current_reference":
+            checked_current_reference(data.get("current_reference"), binding)
+        elif data.get("input_mode") != "legacy_fixture" or data.get("current_reference") is not None:
+            raise ValueError("CURRENT_REFERENCE_REQUIRED")
+        if reference != l6.reference(boundary.directory / "scenario_a.json"):
+            raise ValueError("Scenario reference differs from frozen Session parent")
+    else:
+        raise ValueError("unsupported Scenario binding version")
     return data, boundary, binding
 
 
@@ -438,28 +518,14 @@ def run_session(parent_ref, *, comfy_root=l6.worker.DEFAULT_COMFY_ROOT,
     if min(worker_timeout, review_timeout, render_timeout) <= 0:
         raise ValueError("timeouts must be positive")
     # Prevalidate the whole fixed capability before the first Worker effect.
-    l6.preflight(comfy_root)
+    l6.preflight(comfy_root, current_reference=data.get("current_reference"), run_id=data["child_ids"]["l6"])
     renderer = bridge.blender_identity(blender_executable or bridge.BLENDER)
     script = l6.reference(bridge.SCRIPT)
     ids = data["child_ids"]
     l6_dir = l6.ROOT / "runs/l6" / ids["l6"]
     bridge_dir = bridge.ROOT / "runs/l7" / ids["bridge"]
     correction_dir = controller.ROOT / "runs/l7" / ids["correction"]
-    if any(path.exists() for path in (l6_dir, bridge_dir, correction_dir)):
-        raise ValueError("BOUND_ATTEMPT_ALREADY_EXISTS: no automatic resume")
-    # Fixed child IDs determine every writable external namespace, including
-    # either optional correction target, before any Worker effect. Child-local
-    # guards still revalidate at their own entry/staging/dispatch boundaries.
-    root = Path(comfy_root).resolve()
-    external = (root / "work/input/l6" / ids["l6"],
-                root / "work/output/l6" / ids["l6"],
-                root / "work/output/mesh/l6" / ids["l6"],
-                root / "work/output/l7" / ids["bridge"],
-                root / "work/input/l7" / ids["correction"],
-                root / "work/output/l7" / ids["correction"],
-                root / "work/output/mesh/l7" / ids["correction"])
-    if any(path.exists() for path in external):
-        raise ValueError("external namespace exists")
+    attempt_namespace_preflight(data, comfy_root)
     if not execute:
         return {"status": "PREFLIGHT_PASS", "session_binding": parent_ref,
                 "child_ids": data["child_ids"], "capability": CAPABILITY, "limits": CAPS,

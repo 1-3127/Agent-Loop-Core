@@ -87,7 +87,10 @@ def preflight(source_review_run=SOURCE_DIR, comfy_root=l6.worker.DEFAULT_COMFY_R
     if session_binding is None and read(Path(source_review_run) / 'initial.json').get('session_binding'):
         raise ValueError('BOUND_SOURCE_REQUIRES_SESSION_BINDING')
     source = validate_source(source_review_run, session_binding)
-    assets = l6.preflight(comfy_root)
+    current = bound.checked_parent(session_binding)[0].get('current_reference') if session_binding else None
+    assets = l6.preflight(comfy_root, current_reference=current, run_id=source['input']['source_run_id'])
+    if current is not None:
+        l6.validate_current_staging(Path(source['input']['multiview_manifest']['path']).parent)
     prior = l6.read_ref(source['input']['geometry_plan'])
     if prior != l6.make_plan(source['input']['source_run_id'], 'geometry', assets, staged=True):
         raise ValueError('prior geometry plan differs from verified contract')
@@ -128,6 +131,8 @@ def guard(run_dir, *, check_source=True, evidence=False):
     source = initial['source']
     if not check_source:
         return initial
+    if child and child[1].get('current_reference') is not None:
+        l6.validate_current_staging(Path(source['input']['multiview_manifest']['path']).parent)
     for name in ('terminal', 'result', 'invocation', 'request', 'render_manifest', 'instructions'):
         l6.reviewer.checked_ref(source[name])
     for name in ('geometry_execution', 'geometry_plan', 'geometry_worker_report', 'multiview_manifest', 'terminal', 'artifact'):
@@ -253,7 +258,8 @@ def revised_plan(run_dir, role):
     if role == 'geometry':
         validate_staging(run_dir)
         for name, node in l6.MAPPING.items():
-            plan['patches'][node]['image'] = 'hunyuan-official-demo-padded.png' if name == 'front' else f'l7/{run_dir.name}/{name}.png'
+            if name != 'front':
+                plan['patches'][node]['image'] = f'l7/{run_dir.name}/{name}.png'
     return plan
 
 

@@ -1,6 +1,7 @@
 """Fixed Scenario A L6 pipeline; default CLI and callable perform preflight only."""
 
 import argparse
+from dataclasses import asdict
 import hashlib
 import json
 import os
@@ -75,17 +76,18 @@ def checked_image(artifact):
 
 def make_plan(run_id, stage, assets, staged=False):
     view = assets["geometry"] if stage == "geometry" else assets["view_generation"][stage]
+    source_input = assets.get("source_input", "hunyuan-official-demo-padded.png")
     if stage == "geometry":
         # Preflight inspects existing template inputs; actual plans consume staged images.
         graph = read_json(view["workflow"])
-        patches = {node: {"image": ("hunyuan-official-demo-padded.png" if role == "front"
+        patches = {node: {"image": (source_input if role == "front"
                                    else f"l6/{run_id}/{role}.png") if staged
                          else graph[node]["inputs"]["image"]}
                    for role, node in MAPPING.items()}
         patches.update({"14": {"seed": view["seed"]},
                         "17": {"filename_prefix": f"mesh/l6/{run_id}/geometry"}})
     else:
-        patches = {"1": {"image": "hunyuan-official-demo-padded.png"},
+        patches = {"1": {"image": source_input},
                    "8": {"prompt": view["prompt"]}, "11": {"seed": view["template_seed"]},
                    "13": {"filename_prefix": f"l6/{run_id}/{stage}"}}
     return {"schema_version": "0.1", "task_id": run_id + "-" + stage,
@@ -93,16 +95,23 @@ def make_plan(run_id, stage, assets, staged=False):
             "output_node": view["output_node"]}
 
 
-def preflight(comfy_root):
+def preflight(comfy_root, *, current_reference=None, run_id="l6-preflight"):
     """Read real assets and validate all four plans without reserving or executing."""
     comfy_root = Path(comfy_root).resolve()
     if digest(ASSET_MANIFEST) != MANIFEST_SHA256:
         raise ValueError("M1 CONTRACT REVISION REQUIRED: asset manifest hash differs")
     assets = read_json(ASSET_MANIFEST)
-    source = assets["source"]
-    if Path(source["path"]).resolve() != comfy_root / "work/input/hunyuan-official-demo-padded.png":
-        raise ValueError("M1 source/root differs")
-    checked_image(source)
+    if current_reference is None:
+        source = assets["source"]
+        if Path(source["path"]).resolve() != comfy_root / "work/input/hunyuan-official-demo-padded.png":
+            raise ValueError("M1 source/root differs")
+        checked_image(source)
+    else:
+        session_file = bound.session.FileIdentity(**current_reference["file"])
+        session_file.validate()
+        source = png_identity(session_file.path, "front")
+        assets["source"] = source
+        assets["source_input"] = f"l6/{run_id}/front.png"
     if set(assets["view_generation"]) != set(VIEWS) or assets["geometry"]["view_mapping"] != MAPPING:
         raise ValueError("M1 role mapping differs")
     for stage in VIEWS + ("geometry",):
@@ -127,13 +136,69 @@ def preflight(comfy_root):
         elif (graph["8"]["inputs"]["prompt"] != view["prompt"]
               or graph["4"]["inputs"]["unet_name"] != view["model"]):
             raise ValueError("M1 view settings differ")
-        worker.validate_plan(make_plan("l6-preflight", stage, assets), comfy_root)
+        plan = make_plan(run_id, stage, assets, staged=current_reference is not None)
+        # Dry validation checks graph/patch types against verified source bytes;
+        # future derived inputs do not exist yet. Dispatch uses no substitutions.
+        planned_inputs = ({patch["image"]: Path(source["path"])
+                           for patch in plan["patches"].values() if "image" in patch}
+                          if current_reference is not None else None)
+        worker.validate_plan(plan, comfy_root, planned_inputs=planned_inputs)
     for model in assets["models"]:
         path = Path(model["path"]).resolve()
         if (not path.is_relative_to(comfy_root / "models") or not path.is_file()
                 or path.stat().st_size != model["bytes"]):
             raise ValueError("M1 model missing/size differs")
     return assets
+
+
+def stage_current_reference(run_dir, comfy_root, parent_ref):
+    """Exclusive attempt-local front copy after the fixed entry namespace gate."""
+    data, _, binding = bound.checked_parent(parent_ref, execution=True)
+    current = bound.checked_current_reference(data["current_reference"], binding)
+    payload = Path(current.file.path).read_bytes()
+    if hashlib.sha256(payload).hexdigest() != current.file.sha256 or len(payload) != current.file.bytes:
+        raise ValueError("current Reference changed before staging")
+    destination = worker.within(Path(comfy_root) / "work/input", Path("l6") / run_dir.name)
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.mkdir()
+    path = destination / "front.png"
+    with path.open("xb") as stream:
+        stream.write(payload)
+        stream.flush()
+        os.fsync(stream.fileno())
+    staged = png_identity(path, "front")
+    if staged["sha256"] != current.file.sha256 or staged["bytes"] != current.file.bytes:
+        raise ValueError("staged current Reference identity differs")
+    record = {"run_id": run_dir.name, "session_binding": parent_ref,
+              "current_reference": asdict(current), "staged": staged}
+    write_once(run_dir / "reference_staging.json", record)
+    return reference(run_dir / "reference_staging.json")
+
+
+def validate_current_staging(run_dir):
+    initial = read_json(run_dir / "initial.json")
+    if not initial.get("current_reference"):
+        child = bound.checked_child(run_dir)
+        if child and child[1].get("input_mode") == "current_reference":
+            raise ValueError("CURRENT_REFERENCE_REQUIRED")
+        return
+    child = bound.checked_child(run_dir)
+    if child is None:
+        raise ValueError("current Reference requires Session binding")
+    _, data, _, binding = child
+    bound.checked_current_reference(initial["current_reference"], binding)
+    record = read_ref(initial["reference_staging"])
+    expected = Path(initial["comfy_root"]) / "work/input/l6" / run_dir.name / "front.png"
+    current = data["current_reference"]
+    if (initial["current_reference"] != current or record["current_reference"] != current
+            or record["session_binding"] != child[0]["parent"] or record["run_id"] != run_dir.name
+            or initial["reference_staging"] != reference(run_dir / "reference_staging.json")
+            or Path(record["staged"]["path"]) != expected
+            or record["staged"]["sha256"] != current["file"]["sha256"]
+            or record["staged"]["bytes"] != current["file"]["bytes"]
+            or initial["source"] != png_identity(current["file"]["path"], "front") | {"execution_report": None}):
+        raise ValueError("current Reference/staging lineage differs")
+    checked_image(record["staged"])
 
 
 def budgets(run_dir):
@@ -197,6 +262,7 @@ def reserve_review(run_dir, request_path, result_path, report_path):
 
 def publish_order(run_dir, stage, assets, inputs):
     guard(run_dir)
+    validate_current_staging(run_dir)
     if stage == "geometry":
         if checked_review(run_dir)["verdict"] != "PASS":
             raise ValueError("Geometry requires PASS")
@@ -257,7 +323,11 @@ def run_worker(order_path, comfy_root, timeout):
         raise ValueError("Worker Work Order identity differs")
     plan_path = reviewer.checked_ref(order["plan"])
     reviewer.checked_ref(order["workflow"])
-    assets = preflight(comfy_root)
+    initial = read_json(run_dir / "initial.json")
+    child = bound.checked_child(run_dir, execution=True)
+    current = child[1].get("current_reference") if child else None
+    assets = preflight(comfy_root, current_reference=current, run_id=run_dir.name)
+    validate_current_staging(run_dir)
     expected = make_plan(run_dir.name, stage, assets, staged=stage == "geometry")
     if read_json(plan_path) != expected:
         raise ValueError("Worker Plan differs from frozen L6 mapping")
@@ -494,7 +564,12 @@ def stage_reviewed_bytes(run_dir, comfy_root):
     images = validate_manifest(read_json(run_dir / "multiview_manifest.json"), run_dir)
     destination = worker.within(Path(comfy_root) / "work/input", Path("l6") / run_dir.name)
     destination.parent.mkdir(parents=True, exist_ok=True)
-    destination.mkdir()  # Exclusive, including collision with identical historical bytes.
+    if read_json(run_dir / "initial.json").get("current_reference"):
+        validate_current_staging(run_dir)
+        if set(destination.iterdir()) != {destination / "front.png"}:
+            raise ValueError("current Reference input namespace differs")
+    else:
+        destination.mkdir()  # Exclusive, including collision with identical historical bytes.
     staged = []
     for image in images[1:]:
         checked_image(image)
@@ -512,6 +587,7 @@ def stage_reviewed_bytes(run_dir, comfy_root):
 
 
 def validate_staging(run_dir):
+    validate_current_staging(run_dir)
     manifest = read_json(run_dir / "multiview_manifest.json")
     validate_manifest(manifest, run_dir)
     record = read_json(run_dir / "staging.json")
@@ -577,6 +653,8 @@ def finish(run_dir, state_name, reason, stage, error=None):
     if state["terminal"]:
         names = ["initial", "multiview_manifest", "multiview_work_order", "multiview_execution",
                  "review_request", "review_result", "review_invocation", "review_reservation", "staging", "usage"]
+        if (run_dir / "reference_staging.json").exists():
+            names.append("reference_staging")
         names += [stage + suffix for stage in VIEWS + ("geometry",)
                   for suffix in ("_work_order", "_plan", "_worker_report", "_execution", "_reservation")]
         records = {name: reference(run_dir / (name + ".json"))
@@ -598,14 +676,17 @@ def run_pipeline(run_id, comfy_root=worker.DEFAULT_COMFY_ROOT, worker_timeout=60
         if (run_dir / "terminal.json").exists():
             return {"status": "ALREADY_TERMINAL", "terminal": reference(run_dir / "terminal.json")}
         raise ValueError("L6_RUN_ALREADY_EXISTS")
+    current = None
     if session_binding is not None:
         data, _, _ = bound.checked_parent(session_binding, execution=True)
         if data["child_ids"]["l6"] != run_id:
             raise ValueError("current L6 child identity mismatch")
-    assets = preflight(comfy_root)
+        current = data.get("current_reference")
+        bound.attempt_namespace_preflight(data, comfy_root)
+    assets = preflight(comfy_root, current_reference=current, run_id=run_id)
     if not execute:
         return {"status": "PREFLIGHT_PASS", "asset_manifest": reference(ASSET_MANIFEST),
-                "worker_limit": 4, "reviewer_limit": 1, "effects": 0}
+                "current_reference": current, "worker_limit": 4, "reviewer_limit": 1, "effects": 0}
     run_dir.parent.mkdir(parents=True, exist_ok=True)
     run_dir.mkdir()
     source = png_identity(assets["source"]["path"], "front") | {"execution_report": None}
@@ -616,6 +697,9 @@ def run_pipeline(run_id, comfy_root=worker.DEFAULT_COMFY_ROOT, worker_timeout=60
                "reviewer_budget": {"limit": 1, "consumed": 0, "remaining": 1}, "terminal": False}
     if session_binding is not None:
         initial["session_binding"] = bound.child_binding(session_binding, "l6", run_dir)
+    if current is not None:
+        initial["current_reference"] = current
+        initial["reference_staging"] = stage_current_reference(run_dir, comfy_root, session_binding)
     write_once(run_dir / "initial.json", initial)
     worker.write_report(run_dir / "state.json", initial | {"initial_contract": reference(run_dir / "initial.json")})
     stage = "right"

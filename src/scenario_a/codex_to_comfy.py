@@ -84,7 +84,7 @@ def within(root, relative):
     return path
 
 
-def validate_plan(plan, comfy_root):
+def validate_plan(plan, comfy_root, *, planned_inputs=None):
     if not isinstance(plan, dict) or set(plan) != {"schema_version", "task_id", "workflow", "patches", "output_node"}:
         raise ValueError("plan must contain exactly schema_version, task_id, workflow, patches, output_node")
     if plan["schema_version"] != "0.1" or not isinstance(plan["task_id"], str) or not re.fullmatch(r"[A-Za-z0-9_-]{1,80}", plan["task_id"]):
@@ -128,7 +128,11 @@ def validate_plan(plan, comfy_root):
     for node in graph.values():
         if node.get("class_type") == "LoadImage":
             image = safe_relative(node["inputs"]["image"], "image")
-            if not within(comfy_root / "work" / "input", image).is_file():
+            actual_path = within(comfy_root / "work" / "input", image)
+            # Explicit dry preflight only; run() always validates actual staged files.
+            if planned_inputs is not None and str(image).replace("\\", "/") in planned_inputs:
+                actual_path = Path(planned_inputs[str(image).replace("\\", "/")])
+            if not actual_path.is_file():
                 raise ValueError(f"input image does not exist: {image}")
         if node.get("class_type") in ("SaveImage", "SaveGLB"):
             safe_relative(node["inputs"]["filename_prefix"], "filename_prefix")

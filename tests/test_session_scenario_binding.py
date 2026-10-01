@@ -40,7 +40,7 @@ class SessionScenarioTests(unittest.TestCase):
         options = dict(goal={"text": "create four-view GLB.", "authority_ref": "USER"},
             must_haves=({"text": "preserve the object.", "authority_ref": "USER"},),
             stage_criteria={"multiview": ("AC1",), "geometry": ("AC1", "AC2")},
-            child_ids=self.ids)
+            child_ids=self.ids, legacy_fixture=True)
         options.update(overrides)
         return bound.prepare(boundary or self.session, binding or self.binding, **options)
 
