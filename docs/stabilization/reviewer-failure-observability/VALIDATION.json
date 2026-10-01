@@ -1,0 +1,170 @@
+{
+  "local_verdict": "LOCAL_VALIDATION_PASS; final STABILIZED requires single commit, push, equality, clean",
+  "baseline_branch": "diagnosis-semantic-reviewer-exit1",
+  "baseline_head": "63a9fd6f38d245f96e9db8f69b3eaa2f54ac1928",
+  "corrective_branch": "stabilization-reviewer-failure-observability",
+  "historical_gap": "REVIEWER_FAILURE_OBSERVABILITY_GAP reconfirmed with pre-fix exit1 synthetic fixture",
+  "historical_exact_root_cause": "UNKNOWN",
+  "historical_fresh_session": "FAILED / REVIEW_STAGE; NOT VERIFIED; unchanged",
+  "tests": {
+    "focused": {
+      "mode": "focused",
+      "tests": 17,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "passed": true,
+      "seconds": 0.8129999999946449,
+      "tripwires": {
+        "network": 0,
+        "production_process": 0,
+        "import_smoke_process": 0,
+        "synthetic_pipe_process": 3
+      },
+      "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+      "executable": "C:\\Users\\Worker\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe"
+    },
+    "related": {
+      "mode": "related",
+      "tests": 225,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "passed": true,
+      "seconds": 534.7649999999994,
+      "tripwires": {
+        "network": 0,
+        "production_process": 0,
+        "import_smoke_process": 0,
+        "synthetic_pipe_process": 0
+      },
+      "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+      "executable": "C:\\Users\\Worker\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe"
+    },
+    "full": {
+      "mode": "full",
+      "tests": 261,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "passed": true,
+      "seconds": 579.1410000000033,
+      "tripwires": {
+        "network": 0,
+        "production_process": 0,
+        "import_smoke_process": 1,
+        "synthetic_pipe_process": 3
+      },
+      "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+      "executable": "C:\\Users\\Worker\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe"
+    }
+  },
+  "regression_groups": {
+    "C-01": 10,
+    "I-03": 7,
+    "Current Reference": 18,
+    "Dimension Normalization": 13,
+    "Existing Reviewer/C4 budget": 12
+  },
+  "imports": [
+    {
+      "order": "import core.worker_port, core.result_review_adapter, core.reviewer_auth; import scenario_a.session_binding; import scenario_a.l6_pipeline",
+      "exit": 0,
+      "network_production_effects": 0
+    },
+    {
+      "order": "import core.worker_port, core.result_review_adapter, core.reviewer_auth; import scenario_a.l6_pipeline; import scenario_a.session_binding",
+      "exit": 0,
+      "network_production_effects": 0
+    }
+  ],
+  "preservation": {
+    "baseline_head": "63a9fd6f38d245f96e9db8f69b3eaa2f54ac1928",
+    "baseline_tracked": 664,
+    "changed_existing": [
+      "src/core/result_review_adapter.py",
+      "tests/test_c4_review_budget.py"
+    ],
+    "unchanged_tracked": 662,
+    "protected_manifest_sha256_before": "b2f7e9f6cab63854fe6b6b8be56bf3081e6763752a2e4c80123109234b13c9eb",
+    "protected_manifest_sha256_after": "b2f7e9f6cab63854fe6b6b8be56bf3081e6763752a2e4c80123109234b13c9eb",
+    "existing_local_refs_tags_unchanged": 19,
+    "unchanged_public_functions_ast": [
+      "digest",
+      "checked_ref",
+      "validate_request",
+      "validate_result",
+      "checked_invocation",
+      "main"
+    ],
+    "external_historical_references_verified": [
+      {
+        "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\input\\l6\\fsf-l6-20261001-165330-6b5962c4\\front.png",
+        "sha256": "93c081f086bc91821c8aa0ed61e012109d5eb13fd1358c7ef123598dd6574b00"
+      },
+      {
+        "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l6\\fsf-l6-20261001-165330-6b5962c4\\right_00001_.png",
+        "sha256": "39183566652ae93549dce6080005e71651bfd6682a9619cc740f893d41773c1c"
+      },
+      {
+        "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l6\\fsf-l6-20261001-165330-6b5962c4\\left_00001_.png",
+        "sha256": "abcb3ec9426dc1be20bc239a67706db541f57ed8841bce84c8c12710f43a4abf"
+      },
+      {
+        "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l6\\fsf-l6-20261001-165330-6b5962c4\\back_00001_.png",
+        "sha256": "01663127abb68492b27d97a17406df6b3ba2cd56b662726b646268188cc99224"
+      }
+    ],
+    "protected_categories": [
+      "Frozen Core unrelated source/schema/auth/config",
+      "Session semantics/C-01/I-03",
+      "Current Reference/Dimension Normalization",
+      "S3B/S3C",
+      "actual Loop/Delivery",
+      "Fresh Session failure proofs",
+      "semantic exit1 diagnosis"
+    ]
+  },
+  "remote_refs_before": [
+    "b4211581bb79986de76cebb12d0e5b48b2829443\trefs/heads/actual-loop-post-stabilization",
+    "bc6b721039c3e9884a62066859d600cdb83c915f\trefs/heads/delivery-closure-post-stabilization",
+    "63a9fd6f38d245f96e9db8f69b3eaa2f54ac1928\trefs/heads/diagnosis-semantic-reviewer-exit1",
+    "b7bc1d65f6d6c7cf62fdb654591f2061f020cb90\trefs/heads/fresh-session-refresh-proof",
+    "b0b328c1b37daee0f475d0239cbbef2c95de102a\trefs/heads/fresh-session-refresh-proof-final",
+    "75ba8384f2b62714e3452fc781c9530f76f48f4b\trefs/heads/fresh-session-refresh-proof-retry",
+    "7eee393801f4d8c14278b43ebcbaabaec7ccc9df\trefs/heads/main",
+    "840b138cc023c623108c44c3944948b065300f99\trefs/heads/scenario-a-l6",
+    "1da2bef094d2cc3f4bd70bbc266d99dc955460bb\trefs/heads/scenario-a-l7",
+    "89201d2511985a054cfc3045768e6b29ef62e5cf\trefs/heads/session-bound-scenario-s3b",
+    "a651e38d3435c661185862692e5e69fe9f501ec6\trefs/heads/session-boundary-s3a",
+    "ba04e8c127c92163f686cd07695ae3e16d8c11cc\trefs/heads/session-contract-s1",
+    "422f82687ffb96f8c92a5cabb869383b2ca98b80\trefs/heads/session-e2e-s3c",
+    "acf69d8cff633e046bfb364aed8d101dc620c1b5\trefs/heads/session-integration-s2",
+    "31bb8dae8bd4e21c685aa70c77dd7283f80c3442\trefs/heads/stabilization-c01-criterion-applicability",
+    "03d62fb0ab8b3a7ac8a89c548961830475e72e92\trefs/heads/stabilization-current-reference-binding",
+    "f212bcdc3749edf96e9e0b68b5cb4e458f9c6770\trefs/heads/stabilization-i03-namespace-preflight",
+    "5b1a3c8a918cb9fcabaa7c7c7824b3755b2e5a2c\trefs/heads/stabilization-reference-dimension-normalization",
+    "8b962c5d94828af852d020237554606c305ef01e\trefs/tags/core-v1.0.0",
+    "7eee393801f4d8c14278b43ebcbaabaec7ccc9df\trefs/tags/core-v1.0.0^{}"
+  ],
+  "optional_codex_cli_diagnostic_model_requests": 0,
+  "production_effects": {
+    "Worker": 0,
+    "ComfyUI": 0,
+    "Blender": 0,
+    "semantic_Reviewer": 0,
+    "correction": 0,
+    "Delivery": 0,
+    "Fresh_Session_retry": 0
+  },
+  "source_changes": [
+    "src/core/result_review_adapter.py"
+  ],
+  "test_changes": [
+    "tests/test_c4_review_budget.py",
+    "tests/test_reviewer_failure_observability.py"
+  ],
+  "evidence_cap_bytes_per_stream": 65536,
+  "pre_fix_reproduction": "exit1 FAILED, stdout empty, stderr nonempty, no readable stderr persisted; effects 0",
+  "I-01_I-02": "unchanged; excluded from this corrective"
+}

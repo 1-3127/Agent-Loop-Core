@@ -44,7 +44,7 @@ class ReviewBudgetTests(unittest.TestCase):
             self.addCleanup(patch.stop)
 
     def success(self):
-        return subprocess.CompletedProcess([], 0, RESULT.read_text(encoding="utf-8"), "")
+        return subprocess.CompletedProcess([], 0, RESULT.read_bytes(), b"")
 
     def assert_retry_blocked(self, dispatch):
         reservation = c4.review_reservation_path(self.request["run_id"])
@@ -63,7 +63,7 @@ class ReviewBudgetTests(unittest.TestCase):
             self.assert_retry_blocked(dispatch)
 
     def test_failed_process_does_not_restore_budget(self):
-        failure = subprocess.CompletedProcess([], 1, "", "failed")
+        failure = subprocess.CompletedProcess([], 1, b"", b"failed")
         with mock.patch.object(c4.reviewer.subprocess, "run", return_value=failure) as dispatch:
             report = c4.run_review(self.request_path, self.result_path, self.report_path)
             self.assertEqual(report["invocation_status"], "FAILED")
@@ -85,7 +85,7 @@ class ReviewBudgetTests(unittest.TestCase):
             self.assert_retry_blocked(dispatch)
 
     def test_malformed_result_does_not_restore_budget(self):
-        invalid = subprocess.CompletedProcess([], 0, "not JSON", "")
+        invalid = subprocess.CompletedProcess([], 0, b"not JSON", b"")
         with mock.patch.object(c4.reviewer.subprocess, "run", return_value=invalid) as dispatch:
             report = c4.run_review(self.request_path, self.result_path, self.report_path)
             self.assertEqual(report["invocation_status"], "FAILED")

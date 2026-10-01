@@ -117,10 +117,66 @@ def checked_invocation(source):
     return request, review
 
 
+
+# Evidence is bounded independently of the complete stdout used for Result validation.
+STREAM_EVIDENCE_CAP = 65536
+_CREDENTIAL_NAME = r"(?:[\w-]*(?:api[_-]?key|token|secret|password|passwd|authorization|cookie|credential)[\w-]*|[\w-]*_key)"
+_CREDENTIAL_ASSIGNMENT = re.compile(
+    r"(?im)(?<![\w-])([\"']?" + _CREDENTIAL_NAME + r"[\"']?\s*[:=]\s*)"
+    r'''(?:"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|[^\r\n]+)''')
+
+
+def _sanitized_stream(text):
+    """Bounded Reviewer evidence redaction; never read credential files."""
+    original = text
+    # Remove obvious inherited credential values, including bare values in errors.
+    values = {value for key, value in os.environ.items()
+              if value and re.fullmatch(_CREDENTIAL_NAME, key, re.IGNORECASE)}
+    for value in sorted(values, key=lambda item: (-len(item), item)):
+        text = text.replace(value, "[REDACTED]")
+    text = _CREDENTIAL_ASSIGNMENT.sub(lambda match: match[1] + '"[REDACTED]"', text)
+    text = re.sub(r"(?i)\b(?:Bearer|Basic)\s+[A-Za-z0-9._~+/=-]+", "[REDACTED]", text)
+    text = re.sub(r"\bsk-[A-Za-z0-9_-]+", "[REDACTED]", text)
+    text = re.sub(r"\beyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+", "[REDACTED]", text)
+    text = re.sub(r"(?i)(https?://)[^\s/@:]+:[^\s/@]+@", r"\1[REDACTED]@", text)
+    text = re.sub(r"(?s)-----BEGIN [^-\r\n]*PRIVATE KEY-----.*?-----END [^-\r\n]*PRIVATE KEY-----",
+                  "[REDACTED]", text)
+    return text, text != original
+
+
+def _decoded_stream(raw):
+    # Preserve text-mode universal-newline behavior for validation and legacy hashes.
+    return raw.decode("utf-8", errors="replace").replace("\r\n", "\n").replace("\r", "\n")
+
+
+def _stream_evidence(raw, path, complete):
+    decoded = _decoded_stream(raw)
+    try:
+        raw.decode("utf-8", errors="strict")
+        replaced = False
+    except UnicodeDecodeError:
+        replaced = True
+    sanitized, redacted = _sanitized_stream(decoded)
+    payload = sanitized.encode("utf-8")
+    # Do not split a UTF-8 character at the deterministic prefix boundary.
+    saved = payload[:STREAM_EVIDENCE_CAP].decode("utf-8", errors="ignore").encode("utf-8")
+    with path.open("xb") as stream:
+        stream.write(saved)
+    return {"path": str(path.resolve()), "sha256": hashlib.sha256(saved).hexdigest(),
+            "bytes": len(saved), "raw_bytes": len(raw), "raw_sha256": hashlib.sha256(raw).hexdigest(),
+            "decoded_bytes": len(decoded.encode("utf-8")), "sanitized_bytes": len(payload),
+            "encoding": "utf-8", "decode_errors": "replace", "decode_replacement": replaced,
+            "newline_normalization": "universal", "redacted": redacted,
+            "truncated": len(payload) > STREAM_EVIDENCE_CAP, "cap_bytes": STREAM_EVIDENCE_CAP,
+            "capture_complete": complete}
+
+
 def review_once(request_path, result_path, report_path, timeout=300, workspace=None):
     request_path, result_path, report_path = map(Path, (request_path, result_path, report_path))
     request = validate_request(json.loads(request_path.read_text(encoding="utf-8")))
-    if result_path.exists() or report_path.exists():
+    evidence_paths = {name: report_path.with_name(report_path.name + "." + name + ".txt")
+                      for name in ("stdout", "stderr")}
+    if result_path.exists() or report_path.exists() or any(path.exists() for path in evidence_paths.values()):
         raise ValueError("review result/report exists; refusing repeat")
     mode = auth_mode(os.environ)
     if mode != "CHATGPT_ACCOUNT":
@@ -153,25 +209,35 @@ def review_once(request_path, result_path, report_path, timeout=300, workspace=N
                   started_at=datetime.now(timezone.utc).isoformat())
     report_path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     started = time.monotonic()
+    stdout_raw, stderr_raw, capture_complete = b"", b"", False
+    report["process_exit_code"] = None
     try:
-        proc = subprocess.run(args, input=prompt, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=timeout,
+        proc = subprocess.run(args, input=prompt.replace("\n", os.linesep).encode("utf-8"), capture_output=True, timeout=timeout,
                               env=dict(os.environ, CODEX_HOME=os.environ.get("CODEX_HOME") or "C:/Users/Worker/.codex"))
-        report.update(process_exit_code=proc.returncode, stdout_sha256=hashlib.sha256(proc.stdout.encode("utf-8")).hexdigest(), stderr_sha256=hashlib.sha256(proc.stderr.encode("utf-8")).hexdigest())
+        stdout_raw, stderr_raw, capture_complete = proc.stdout, proc.stderr, True
+        stdout, stderr = _decoded_stream(stdout_raw), _decoded_stream(stderr_raw)
+        report.update(process_exit_code=proc.returncode, stdout_sha256=hashlib.sha256(stdout.encode("utf-8")).hexdigest(), stderr_sha256=hashlib.sha256(stderr.encode("utf-8")).hexdigest())
         if proc.returncode != 0:
             report["invocation_status"] = "FAILED"
         else:
             try:
-                result = validate_result(json.loads(proc.stdout), request)
+                result = validate_result(json.loads(stdout), request)
                 result_path.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
                 report.update(invocation_status="SUCCESS", result_sha256=digest(result_path), verdict=result["verdict"])
             except (ValueError, TypeError, json.JSONDecodeError) as exc:
                 report.update(invocation_status="FAILED", validation_error=str(exc))
-    except subprocess.TimeoutExpired:
+    except subprocess.TimeoutExpired as exc:
+        stdout_raw, stderr_raw = exc.stdout or b"", exc.stderr or b""
         report["invocation_status"] = "UNRESOLVED"
     except OSError as exc:
         report.update(invocation_status="FAILED", reviewer_process_started=False,
                       launch_error=f"{type(exc).__name__}: {exc}")
     finally:
+        for name, raw in (("stdout", stdout_raw), ("stderr", stderr_raw)):
+            try:
+                report[name + "_evidence"] = _stream_evidence(raw, evidence_paths[name], capture_complete)
+            except OSError as exc:
+                report[name + "_evidence_error"] = type(exc).__name__
         report.update(finished_at=datetime.now(timezone.utc).isoformat(),
                       duration_seconds=time.monotonic() - started)
         report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
