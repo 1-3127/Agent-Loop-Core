@@ -441,16 +441,29 @@ def run_session(parent_ref, *, comfy_root=l6.worker.DEFAULT_COMFY_ROOT,
     l6.preflight(comfy_root)
     renderer = bridge.blender_identity(blender_executable or bridge.BLENDER)
     script = l6.reference(bridge.SCRIPT)
-    if not execute:
-        return {"status": "PREFLIGHT_PASS", "session_binding": parent_ref,
-                "child_ids": data["child_ids"], "capability": CAPABILITY, "limits": CAPS,
-                "renderer": renderer, "script": script, "effects": 0, "delivered": False}
     ids = data["child_ids"]
     l6_dir = l6.ROOT / "runs/l6" / ids["l6"]
     bridge_dir = bridge.ROOT / "runs/l7" / ids["bridge"]
     correction_dir = controller.ROOT / "runs/l7" / ids["correction"]
     if any(path.exists() for path in (l6_dir, bridge_dir, correction_dir)):
         raise ValueError("BOUND_ATTEMPT_ALREADY_EXISTS: no automatic resume")
+    # Fixed child IDs determine every writable external namespace, including
+    # either optional correction target, before any Worker effect. Child-local
+    # guards still revalidate at their own entry/staging/dispatch boundaries.
+    root = Path(comfy_root).resolve()
+    external = (root / "work/input/l6" / ids["l6"],
+                root / "work/output/l6" / ids["l6"],
+                root / "work/output/mesh/l6" / ids["l6"],
+                root / "work/output/l7" / ids["bridge"],
+                root / "work/input/l7" / ids["correction"],
+                root / "work/output/l7" / ids["correction"],
+                root / "work/output/mesh/l7" / ids["correction"])
+    if any(path.exists() for path in external):
+        raise ValueError("external namespace exists")
+    if not execute:
+        return {"status": "PREFLIGHT_PASS", "session_binding": parent_ref,
+                "child_ids": data["child_ids"], "capability": CAPABILITY, "limits": CAPS,
+                "renderer": renderer, "script": script, "effects": 0, "delivered": False}
     result = l6.run_pipeline(ids["l6"], comfy_root, worker_timeout, review_timeout,
                               execute=True, session_binding=parent_ref)
     if result["state"] != "GEOMETRY_READY":

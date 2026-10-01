@@ -519,6 +519,103 @@ class SessionScenarioTests(unittest.TestCase):
         self.assertEqual(l6.read_json(path / "multiview_criteria.json")["specification_identity_sha256"],
                          l6.read_json(path / "geometry_criteria.json")["specification_identity_sha256"])
 
+    def assert_namespace_rejection(self, paths, message):
+        for path in paths:
+            with self.subTest(namespace=str(path)):
+                path.mkdir(parents=True)
+                marker = path / "existing_record.json"
+                marker.write_bytes(b"historical namespace: never overwrite or reuse\n")
+                before = {str(p): p.read_bytes() if p.is_file() else None
+                          for p in self.f.root.rglob("*")}
+                for execute in (False, True):
+                    with self.subTest(execute=execute), self.assertRaisesRegex(ValueError, message):
+                        bound.run_session(self.parent, comfy_root=self.f.comfy,
+                            blender_executable=self.g.executable, execute=execute)
+                    self.f.worker_mock.assert_not_called()
+                    self.renderer.assert_not_called()
+                    self.reviewer.assert_not_called()
+                    self.f.network.assert_not_called()
+                    self.assertEqual(self.session.outcome.status, "LOOP_READY")
+                    self.assertEqual(before, {str(p): p.read_bytes() if p.is_file() else None
+                                              for p in self.f.root.rglob("*")})
+                # Only test-owned collision fixtures are removed between cases.
+                marker.unlink()
+                path.rmdir()
+
+    def test_i03_clean_preflight_creates_no_namespace_or_records(self):
+        self.geometry_fixture(execute=False)
+        before = {str(p): p.read_bytes() if p.is_file() else None
+                  for p in self.f.root.rglob("*")}
+        result = bound.run_session(self.parent, comfy_root=self.f.comfy,
+                                   blender_executable=self.g.executable)
+        self.assertEqual(result["status"], "PREFLIGHT_PASS")
+        self.assertEqual(result["effects"], 0)
+        self.assertEqual(result["child_ids"], self.ids)
+        self.assertEqual(before, {str(p): p.read_bytes() if p.is_file() else None
+                                  for p in self.f.root.rglob("*")})
+        self.f.worker_mock.assert_not_called()
+        self.renderer.assert_not_called()
+        self.reviewer.assert_not_called()
+        self.f.network.assert_not_called()
+
+    def test_i03_repository_child_collision_zero_effects(self):
+        self.geometry_fixture(execute=False)
+        paths = [self.f.repo / "runs/l6" / self.ids["l6"],
+                 self.f.repo / "runs/l7" / self.ids["bridge"],
+                 self.f.repo / "runs/l7" / self.ids["correction"]]
+        self.assert_namespace_rejection(paths, "BOUND_ATTEMPT_ALREADY_EXISTS")
+
+    def test_i03_l6_external_collision_zero_effects(self):
+        self.geometry_fixture(execute=False)
+        paths = [self.f.comfy / prefix / self.ids["l6"] for prefix in
+                 ("work/input/l6", "work/output/l6", "work/output/mesh/l6")]
+        self.assert_namespace_rejection(paths, "external namespace exists")
+
+    def test_i03_bridge_external_collision_before_first_l6_effect(self):
+        self.geometry_fixture(execute=False)
+        self.assert_namespace_rejection(
+            [self.f.comfy / "work/output/l7" / self.ids["bridge"]], "external namespace exists")
+
+    def test_i03_correction_external_collision_before_first_l6_effect(self):
+        self.geometry_fixture(execute=False)
+        paths = [self.f.comfy / prefix / self.ids["correction"] for prefix in
+                 ("work/input/l7", "work/output/l7", "work/output/mesh/l7")]
+        self.assert_namespace_rejection(paths, "external namespace exists")
+
+    def test_i03_direct_bridge_revalidates_after_clean_entry_preflight(self):
+        self.geometry_fixture(execute=False)
+        bound.run_session(self.parent, comfy_root=self.f.comfy,
+                          blender_executable=self.g.executable)
+        self.assertEqual(self.execute_l6()["state"], "GEOMETRY_READY")
+        path = self.f.comfy / "work/output/l7" / self.ids["bridge"]
+        path.mkdir(parents=True)
+        marker = path / "existing_record.json"
+        marker.write_bytes(b"preserve direct-entry collision")
+        with self.assertRaisesRegex(ValueError, "external namespace exists"):
+            self.execute_bridge()
+        self.renderer.assert_not_called()
+        self.assertEqual(self.reviewer.call_count, 1)  # Mock L6 Review only.
+        self.assertEqual(marker.read_bytes(), b"preserve direct-entry collision")
+        self.assertFalse((self.f.repo / "runs/l7" / self.ids["bridge"]).exists())
+
+    def test_i03_direct_correction_local_external_guards(self):
+        h = self.correction_fixture()
+        for prefix in ("work/input/l7", "work/output/l7", "work/output/mesh/l7"):
+            with self.subTest(prefix=prefix):
+                path = self.f.comfy / prefix / self.ids["correction"]
+                path.mkdir(parents=True)
+                marker = path / "existing_record.json"
+                marker.write_bytes(b"preserve direct-entry collision")
+                with self.assertRaisesRegex(ValueError, "external namespace exists"):
+                    self.execute_correction(h.source)
+                self.f.worker_mock.assert_not_called()
+                self.renderer.assert_not_called()
+                self.reviewer.assert_not_called()
+                self.assertEqual(marker.read_bytes(), b"preserve direct-entry collision")
+                self.assertFalse((self.f.repo / "runs/l7" / self.ids["correction"]).exists())
+                marker.unlink()
+                path.rmdir()
+
     def test_fixed_session_entry_default_preflight_and_local_pass(self):
         self.geometry_fixture(execute=False)
         checks = bound.run_session(self.parent, comfy_root=self.f.comfy,

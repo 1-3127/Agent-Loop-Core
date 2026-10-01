@@ -308,3 +308,88 @@ git diff --check 및 changed surface 검토 PASS.
 C-01 LOCAL CONTRACT REGRESSION = PASS.
 최종 C-01 STABILIZED 판정은 요청된 commit/push/remote equality 확인 이후다.
 이번 checkpoint 이후 actual 실행이나 다음 milestone을 시작하지 않는다.
+
+
+## I-03 corrective checkpoint — External namespace preflight stabilization (2026-10-01)
+
+- Baseline: stabilization-c01-criterion-applicability / 31bb8dae8bd4e21c685aa70c77dd7283f80c3442,
+  clean; local/tracking/live remote equality verified before changes. Branch:
+  stabilization-i03-namespace-preflight, created from that exact HEAD.
+- Authority: current I-03 User Request; Design Philosophy Preservation v1; Direction Gate / Core Freeze /
+  S1 / S2 / S3A / S3B / S3C; applicable AGENTS.md and Agents/workflow.md; current source/evidence.
+  Historical attachment instructions are references, not new execution authorization.
+- Finding revalidated: original run_session checked the three repository child directories only in
+  execute mode. Bridge/correction external collision exceptions were raised at child entry outside
+  outer child-result-to-Session-stop mapping. The bridge-only synthetic reproduction performed four
+  mock L6 Worker calls before rejection, with no outer Session terminal; actual effects remained 0.
+  The same collision was invisible to the original dry preflight.
+
+### Fixed entry boundary / deterministic namespaces
+
+Both run_session(execute=False) and run_session(execute=True) now check the same fixed namespaces
+after parent/capability/assets/renderer/script validation and before any L6 child call or new record:
+
+| Owner | Repository child | External writable namespaces under resolved comfy_root |
+|---|---|---|
+| L6 | runs/l6/<l6_id> | work/input/l6/<l6_id>; work/output/l6/<l6_id>; work/output/mesh/l6/<l6_id> |
+| Bridge | runs/l7/<bridge_id> | work/output/l7/<bridge_id> |
+| Optional correction | runs/l7/<correction_id> | work/input/l7/<correction_id>; work/output/l7/<correction_id>; work/output/mesh/l7/<correction_id> |
+
+All three IDs are frozen in the parent before entry. Review determines whether/which correction
+target runs, but never changes these directory identities. Both possible target families already
+share the controller's existing external namespace guard, so checking their union needs no prediction.
+Shared canonical front input, workflows/models, script/executable and parent Specification/Session
+records are validated existing inputs, not fresh child output namespaces. All current fixed-path
+external writable attempt namespaces are covered; no undetermined external namespace was found.
+
+Repository collisions reuse BOUND_ATTEMPT_ALREADY_EXISTS: no automatic resume; external collisions
+reuse external namespace exists. Rejection is a preflight exception, leaves Session LOOP_READY and
+existing bytes unchanged, creates no child/terminal/accept record, and performs zero effects.
+No overwrite, deletion, automatic resume, child reuse, alternate suffix or replacement ID is added.
+Existing L6 staging/per-stage artifact guards and bridge/controller entry/renderer guards are unchanged;
+they still protect direct calls and state changes between entry preflight and child dispatch.
+No reservation, transaction, namespace manager or recovery framework was introduced.
+
+### Regression / protection
+
+Seven added tests cover clean effect-free preflight; all three repository child collisions; all three
+L6 external collisions; bridge-only collision before first L6 Worker; all three correction-only collisions;
+direct bridge revalidation after clean entry preflight; and direct correction local guards.
+Every entry collision is tested in both modes and checks mock effects0, Session outcome and the entire
+fixture file/directory snapshot unchanged. Existing fixed-entry clean execution, L6 staging collision,
+artifact/reservation/terminal tests and all original C-01 assertions are retained without modification.
+Before the production fix the new bridge regression failed as expected; that reproduction is not a PASS.
+
+Bundled Python 3.12.14 / Pillow 12.3.0, -B, writable process-local TEMP; existing synthetic/mock adapters
+and audit hook forbid actual network/production subprocess. Only the existing exact package import-only
+child command is permitted in the full suite.
+
+| Suite | Result | Seconds | Failures / Errors / Skips | Network / Production process / Import smoke |
+|---|---|---|---|---|
+| i03 | 7/7 PASS | 14.0 | 0 / 0 / 0 | 0 / 0 / 0 |
+| c01 | 10/10 PASS | 59.812 | 0 / 0 / 0 | 0 / 0 / 0 |
+| related | 175/175 PASS | 399.047 | 0 / 0 / 0 | 0 / 0 / 0 |
+| full | 213/213 PASS | 394.625 | 0 / 0 / 0 | 0 / 0 / 1 |
+
+- Separate fresh-process binding-first / L6-first import smoke: both PASS, network0/process0.
+- git diff --check and changed-surface review PASS. Runtime change confined to run_session's entry gate.
+- Original C-01 functions/tests are AST-identical; geometry subset, unsupported mandatory effect0,
+  final current-stage coverage and correction stale-evidence protections PASS.
+- Allowed changed files: src/scenario_a/session_binding.py, tests/test_session_scenario_binding.py,
+  this append. Other 369 of the starting 372 tracked files retain SHA-256; this document's entire
+  historical/C-01 body is retained as a byte-identical prefix.
+- Frozen Core/src/core, schemas, S3A source, historical L6/L7/S3B/S3C evidence, frozen S3C Specification,
+  raw Review Result/Invocation/artifacts/hashes and failure records unchanged. Original local refs preserved;
+  protected live remote refs are rechecked after the normal push in the external final report.
+- Historical S3C: multiview PASS, initial geometry REVISE, correction geometry REVISE,
+  final child ABORT / REVISION_BUDGET_EXHAUSTED; INTERNAL_ACCEPT NONE, preserved.
+- Actual Worker / ComfyUI / Blender / semantic Reviewer / correction dispatch / Delivery: all 0.
+  Git remote reads and requested normal push are separate repository operations.
+- I-01 circular import and I-02 S3A private API coupling remain unchanged; no restructuring/public API migration.
+- This local checkpoint does not establish actual Session E2E PASS, geometry quality, INTERNAL_ACCEPT,
+  User Delivery or fresh-context proof. No next actual execution or historical attempt resume is started.
+- Exactly one corrective commit with subject fix(s3b): preflight fixed external namespaces before effects;
+  normal push/local-tracking-live equality/clean verification is recorded after commit in the final report.
+
+I-03 LOCAL CONTRACT REGRESSION = PASS.
+Final I-03 STABILIZED verdict requires the requested single commit, normal push, remote equality and clean tree.
