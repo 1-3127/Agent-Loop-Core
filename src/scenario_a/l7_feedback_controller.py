@@ -53,12 +53,25 @@ def validate_source(source_dir, parent_ref=None):
         raise ValueError('source terminal/run differs')
     required = {'initial', 'render_request', 'renderer_reservation', 'renderer_invocation', 'render_manifest',
                 'review_request', 'reviewer_reservation', 'review_result', 'review_invocation', 'usage', 'review_instructions'}
-    expected_records = ({p.stem for p in source_dir.iterdir() if p.is_file() and p.name not in ('state.json', 'terminal.json')}
-                        if child is not None else required)
+    evidence_paths = {}
+    if child is not None:
+        # Match bound bridge.finish's actual file identities, not guessed suffixes.
+        extensions = {'review_instructions': '.md',
+                      'review_invocation.json.stdout': '.txt',
+                      'review_invocation.json.stderr': '.txt'}
+        for path in source_dir.iterdir():
+            if not path.is_file() or path.name in ('state.json', 'terminal.json'):
+                continue
+            if (path.stem in evidence_paths or path.resolve().parent != source_dir
+                    or path.suffix != extensions.get(path.stem, '.json')):
+                raise ValueError('source record identity/extension differs: ' + path.name)
+            evidence_paths[path.stem] = path
+    expected_records = set(evidence_paths) if child is not None else required
     if not required <= expected_records or set(terminal['records']) != expected_records or read(source_dir / 'initial.json')['run_id'] != source_dir.name:
         raise ValueError('source evidence set/run differs')
     for name, item in terminal['records'].items():
-        expected = source_dir / (name + ('.md' if name == 'review_instructions' else '.json'))
+        expected = (evidence_paths[name] if child is not None else
+                    source_dir / (name + ('.md' if name == 'review_instructions' else '.json')))
         if item != ref(expected):
             raise ValueError('source record path/hash differs: ' + name)
         l6.reviewer.checked_ref(item)

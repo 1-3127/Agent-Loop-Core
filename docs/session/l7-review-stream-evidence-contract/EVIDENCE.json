@@ -1,0 +1,152 @@
+{
+  "starting_branch": "fresh-session-refresh-proof-final-2",
+  "starting_head": "77ad3aea90a1dd61d0fbf960c867df6776b4020b",
+  "corrective_branch": "stabilization-l7-review-stream-evidence-contract",
+  "starting_local_tracking_live_equal": true,
+  "pre_fix_environment_error": {
+    "tests": 1,
+    "failures": 0,
+    "errors": 1,
+    "skips": 0,
+    "pass": false,
+    "seconds": 0.0009968999947886914,
+    "tripwires": {
+      "network": 0,
+      "production_process": 0,
+      "allowed_local_fixture_process": 0
+    },
+    "python": "3.14.7 (tags/v3.14.7:823f032, Aug  5 2026, 10:51:32) [MSC v.1944 64 bit (AMD64)]",
+    "runtime": "C:\\Python314\\python.exe",
+    "scope": "Synthetic regression, not Session E2E or fresh-context proof"
+  },
+  "pre_fix_defect_reproduced": {
+    "tests": 1,
+    "failures": 0,
+    "errors": 1,
+    "skips": 0,
+    "pass": false,
+    "seconds": 5.4060000000026776,
+    "tripwires": {
+      "network": 0,
+      "production_process": 0,
+      "allowed_local_fixture_process": 0
+    },
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "runtime": "C:\\Users\\Worker\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "scope": "Synthetic regression, not Session E2E or fresh-context proof"
+  },
+  "historical_source_validation": {
+    "source_validation": "PASS",
+    "run_id": "fsf2-bridge-20261001-194618-9febb329",
+    "verdict": "REVISE",
+    "action": {
+      "code": "REGENERATE_GEOMETRY",
+      "target": "geometry"
+    },
+    "terminal": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf2-bridge-20261001-194618-9febb329\\terminal.json",
+      "sha256": "fae677dd4c71947d019620fdc82a9a90f48408bc73baf8eb22ec827ad6aa5ba2"
+    },
+    "record_keys": [
+      "geometry_criteria",
+      "initial",
+      "render_manifest",
+      "render_request",
+      "renderer_invocation",
+      "renderer_reservation",
+      "review_instructions",
+      "review_invocation",
+      "review_invocation.json.stderr",
+      "review_invocation.json.stdout",
+      "review_request",
+      "review_result",
+      "review_result_coverage",
+      "reviewer_reservation",
+      "session_binding",
+      "usage"
+    ],
+    "observed_stream_records": {
+      "review_invocation.json.stderr": {
+        "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf2-bridge-20261001-194618-9febb329\\review_invocation.json.stderr.txt",
+        "sha256": "828be671588a0039b74a9c56a46fa6c5d0970474dd8b594e96416b3d5c6b0df0"
+      },
+      "review_invocation.json.stdout": {
+        "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf2-bridge-20261001-194618-9febb329\\review_invocation.json.stdout.txt",
+        "sha256": "4746cf7f7f659c8cb58c9dace94de3205ad7ee437cfd524f1bfa6d06c857d598"
+      }
+    },
+    "tripwires": {
+      "writes": 0,
+      "network": 0,
+      "process": 0
+    },
+    "correction_dispatches": 0,
+    "scope": "Read-only historical source validation; Session remains FAILED and is not resumed"
+  },
+  "focused": {
+    "tests": 239,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "pass": true,
+    "seconds": 693.2350000000006,
+    "tripwires": {
+      "network": 0,
+      "production_process": 0,
+      "allowed_local_fixture_process": 3
+    },
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "runtime": "C:\\Users\\Worker\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "scope": "Synthetic regression, not Session E2E or fresh-context proof"
+  },
+  "full": {
+    "tests": 277,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "pass": true,
+    "seconds": 700.4060000000027,
+    "tripwires": {
+      "network": 0,
+      "production_process": 0,
+      "allowed_local_fixture_process": 4
+    },
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "runtime": "C:\\Users\\Worker\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "scope": "Synthetic regression, not Session E2E or fresh-context proof"
+  },
+  "groups": {
+    "new_contract": 16,
+    "feedback_controller": 44,
+    "geometry_bridge": 33,
+    "reviewer_observability": 17,
+    "session_scenario": 41,
+    "session_boundary": 23,
+    "l6_pipeline": 34,
+    "C-01_subset": 10,
+    "I-03_subset": 7,
+    "current_reference": 18,
+    "dimension_normalization": 13
+  },
+  "binding_first_import": "PASS",
+  "l6_first_import": "PASS",
+  "git_diff_check": "PASS",
+  "baseline_files": 800,
+  "changed_existing_files": [
+    "src/scenario_a/l7_feedback_controller.py"
+  ],
+  "historical_files_and_baseline_refs_unchanged": true,
+  "actual_effects": {
+    "Worker": 0,
+    "ComfyUI": 0,
+    "Blender": 0,
+    "semantic_Reviewer": 0,
+    "correction": 0,
+    "Delivery": 0,
+    "Codex_CLI_model_request": 0
+  },
+  "I-01": "deferred P2; unchanged",
+  "I-02": "deferred P2; unchanged",
+  "validation_verdict": "PASS; STABILIZED completion declaration follows verified commit/push/equality",
+  "evidence_boundary": "Synthetic regression and read-only historical validation; no Session resume or Fresh Session proof"
+}

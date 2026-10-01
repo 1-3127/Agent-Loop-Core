@@ -1,0 +1,24 @@
+test_l7_review_stream_contract (unittest.loader._FailedTest.test_l7_review_stream_contract) ... ERROR
+
+======================================================================
+ERROR: test_l7_review_stream_contract (unittest.loader._FailedTest.test_l7_review_stream_contract)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_l7_review_stream_contract
+Traceback (most recent call last):
+  File "C:\Python314\Lib\unittest\loader.py", line 141, in loadTestsFromName
+    module = __import__(module_name)
+  File "D:\VSCODE-WorkSpace\Others\Agent-Loop-Core\tests\test_l7_review_stream_contract.py", line 10, in <module>
+    from scenario_a import l7_feedback_controller as controller
+  File "D:\VSCODE-WorkSpace\Others\Agent-Loop-Core\src\scenario_a\l7_feedback_controller.py", line 16, in <module>
+    from scenario_a import l6_pipeline as l6
+  File "D:\VSCODE-WorkSpace\Others\Agent-Loop-Core\src\scenario_a\l6_pipeline.py", line 16, in <module>
+    from scenario_a import reference_normalization as normalization
+  File "D:\VSCODE-WorkSpace\Others\Agent-Loop-Core\src\scenario_a\reference_normalization.py", line 6, in <module>
+    from PIL import Image, __version__ as pillow_version
+ModuleNotFoundError: No module named 'PIL'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)
