@@ -1,0 +1,74 @@
+{
+  "status": "READINESS_PASS",
+  "generation_effects": 0,
+  "ids": {
+    "session": "fsf2-session-20261001-194618-9febb329",
+    "loop": "fsf2-loop-20261001-194618-9febb329",
+    "l6": "fsf2-l6-20261001-194618-9febb329",
+    "bridge": "fsf2-bridge-20261001-194618-9febb329",
+    "correction": "fsf2-correction-20261001-194618-9febb329"
+  },
+  "parent": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\session\\fsf2-session-20261001-194618-9febb329\\scenario_a.json",
+    "sha256": "741681c122ffa73016c2ef52874b9ce1d180eeed6346961f54ad3f8900d3d750"
+  },
+  "reference_sha256": "9da5ed9e7f3490d058673122a7bd50b46635d4f0b5a36ca3199f0c1636cd17e5",
+  "normalized_sha256": "93c081f086bc91821c8aa0ed61e012109d5eb13fd1358c7ef123598dd6574b00",
+  "specification_identity_sha256": "09d9d9ec26a4dc6ad60e5fc442fa433b15b4cf61108fec3323e129ef981d9f6b",
+  "criteria": {
+    "multiview": [
+      "LANTERN_FORM",
+      "APERTURE_VISUAL",
+      "MULTIVIEW_IDENTITY"
+    ],
+    "geometry": [
+      "LANTERN_FORM",
+      "APERTURE_GEOMETRY",
+      "GLB_READABILITY"
+    ]
+  },
+  "regression": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\session\\fresh-session-refresh-proof-final-2\\REGRESSION_VERIFIED.json",
+    "sha256": "df3d28a818dbf6090ed1d96a6cff4f0b21b6637686b9fc8729494b715459c10b"
+  },
+  "runtime": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\session\\fresh-session-refresh-proof-final-2\\RUNTIME_READINESS.json",
+    "sha256": "0d25c809076db2808a990bda4c18f6822e30a7822de96827eb5448bb8371ee78"
+  },
+  "reviewer_readiness": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\session\\fresh-session-refresh-proof-final-2\\REVIEWER_READINESS_PROBE.json",
+    "sha256": "3a0c38dfe18b6dbe1bff1af9ad3b0133a9760865041b865a0915e5b62e3f783d"
+  },
+  "namespace_preflight": {
+    "status": "PREFLIGHT_PASS",
+    "session_binding": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\session\\fsf2-session-20261001-194618-9febb329\\scenario_a.json",
+      "sha256": "741681c122ffa73016c2ef52874b9ce1d180eeed6346961f54ad3f8900d3d750"
+    },
+    "child_ids": {
+      "l6": "fsf2-l6-20261001-194618-9febb329",
+      "bridge": "fsf2-bridge-20261001-194618-9febb329",
+      "correction": "fsf2-correction-20261001-194618-9febb329"
+    },
+    "capability": "fixed_four_view_glb_seed_only",
+    "limits": {
+      "worker": 6,
+      "reviewer": 4,
+      "renderer": 2,
+      "revision": 1
+    },
+    "renderer": {
+      "executable": "D:\\Blender_5.2\\blender.exe",
+      "version": "5.2.0 LTS",
+      "bytes": 112975320,
+      "mtime_ns": 1783967930000000000
+    },
+    "script": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\src\\scenario_a\\l7_blender_diagnostic.py",
+      "sha256": "d71f932c5679d6e1ad453e1fa39d75c919fec5c1ff975d22c1114ed53f249cd1"
+    },
+    "effects": 0,
+    "delivered": false
+  },
+  "delivery": false
+}

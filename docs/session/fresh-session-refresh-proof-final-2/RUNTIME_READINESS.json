@@ -1,0 +1,259 @@
+{
+  "entry_preflight": {
+    "status": "PREFLIGHT_PASS",
+    "session_binding": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\session\\fsf2-session-20261001-194618-9febb329\\scenario_a.json",
+      "sha256": "741681c122ffa73016c2ef52874b9ce1d180eeed6346961f54ad3f8900d3d750"
+    },
+    "child_ids": {
+      "l6": "fsf2-l6-20261001-194618-9febb329",
+      "bridge": "fsf2-bridge-20261001-194618-9febb329",
+      "correction": "fsf2-correction-20261001-194618-9febb329"
+    },
+    "capability": "fixed_four_view_glb_seed_only",
+    "limits": {
+      "worker": 6,
+      "reviewer": 4,
+      "renderer": 2,
+      "revision": 1
+    },
+    "renderer": {
+      "executable": "D:\\Blender_5.2\\blender.exe",
+      "version": "5.2.0 LTS",
+      "bytes": 112975320,
+      "mtime_ns": 1783967930000000000
+    },
+    "script": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\src\\scenario_a\\l7_blender_diagnostic.py",
+      "sha256": "d71f932c5679d6e1ad453e1fa39d75c919fec5c1ff975d22c1114ed53f249cd1"
+    },
+    "effects": 0,
+    "delivered": false
+  },
+  "stats": {
+    "system": {
+      "os": "win32",
+      "ram_total": 34281861120,
+      "ram_free": 11834527744,
+      "comfyui_version": "0.37.4",
+      "required_frontend_version": "1.52.7",
+      "installed_templates_version": "0.11.69",
+      "required_templates_version": "0.11.69",
+      "comfy_package_versions": [
+        {
+          "name": "comfyui-frontend-package",
+          "installed": "1.52.7",
+          "required": "1.52.7"
+        },
+        {
+          "name": "comfyui-workflow-templates",
+          "installed": "0.11.69",
+          "required": "0.11.69"
+        },
+        {
+          "name": "comfyui-embedded-docs",
+          "installed": "0.5.12",
+          "required": "0.5.12"
+        },
+        {
+          "name": "comfy-kitchen",
+          "installed": "0.2.35",
+          "required": "0.2.35"
+        },
+        {
+          "name": "comfy-aimdo",
+          "installed": "0.5.5",
+          "required": "0.5.5"
+        }
+      ],
+      "python_version": "3.13.14 (tags/v3.13.14:fd17997, Jun 10 2026, 13:03:48) [MSC v.1944 64 bit (AMD64)]",
+      "pytorch_version": "2.13.0+cu130",
+      "embedded_python": true,
+      "deploy_environment": "local-portable",
+      "argv": [
+        "D:\\VSCODE-WorkSpace\\Comfy-UI\\runtime\\ComfyUI_windows_portable\\ComfyUI\\main.py",
+        "--windows-standalone-build",
+        "--disable-auto-launch",
+        "--enable-manager",
+        "--models-directory",
+        "D:\\VSCODE-WorkSpace\\Comfy-UI\\models",
+        "--input-directory",
+        "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\input",
+        "--output-directory",
+        "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output",
+        "--temp-directory",
+        "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\temp",
+        "--user-directory",
+        "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\user"
+      ]
+    },
+    "devices": [
+      {
+        "name": "cuda:0 NVIDIA GeForce RTX 4060 : cudaMallocAsync",
+        "type": "cuda",
+        "index": 0,
+        "vram_total": 8585216000,
+        "vram_free": 3360500438,
+        "torch_vram_total": 3858759680,
+        "torch_vram_free": 22883030
+      }
+    ]
+  },
+  "queue": {
+    "queue_running": [],
+    "queue_pending": []
+  },
+  "required_node_classes": [
+    "CLIPLoader",
+    "CLIPVisionEncode",
+    "EmptyLatentHunyuan3Dv2",
+    "FluxGuidance",
+    "Hunyuan3Dv2ConditioningMultiView",
+    "ImageOnlyCheckpointLoader",
+    "KSampler",
+    "LoadImage",
+    "LoraLoaderModelOnly",
+    "ModelSamplingAuraFlow",
+    "SaveGLB",
+    "SaveImage",
+    "TextEncodeQwenImageEditPlus",
+    "UnetLoaderGGUF",
+    "VAEDecode",
+    "VAEDecodeHunyuan3D",
+    "VAEEncode",
+    "VAELoader",
+    "VoxelToMesh"
+  ],
+  "missing_classes": [],
+  "models": [
+    {
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\models\\unet\\Qwen-Image-Edit-2509-Q4_K_S.gguf",
+      "filename": "Qwen-Image-Edit-2509-Q4_K_S.gguf",
+      "category": "unet",
+      "bytes": 12204309024,
+      "mtime_ns": 1788587735619355500,
+      "role": "image diffusion",
+      "sha256": null,
+      "actual_bytes": 12204309024
+    },
+    {
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\models\\text_encoders\\split_files\\text_encoders\\qwen_2.5_vl_7b_fp8_scaled.safetensors",
+      "filename": "split_files\\text_encoders\\qwen_2.5_vl_7b_fp8_scaled.safetensors",
+      "category": "text_encoders",
+      "bytes": 9384670680,
+      "mtime_ns": 1788588802845699200,
+      "role": "image encoder",
+      "sha256": null,
+      "actual_bytes": 9384670680
+    },
+    {
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\models\\vae\\split_files\\vae\\qwen_image_vae.safetensors",
+      "filename": "split_files\\vae\\qwen_image_vae.safetensors",
+      "category": "vae",
+      "bytes": 253806246,
+      "mtime_ns": 1788586249755663600,
+      "role": "image VAE",
+      "sha256": null,
+      "actual_bytes": 253806246
+    },
+    {
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\models\\loras\\Qwen-Image-Lightning-8steps-V1.1.safetensors",
+      "filename": "Qwen-Image-Lightning-8steps-V1.1.safetensors",
+      "category": "loras",
+      "bytes": 1698951104,
+      "mtime_ns": 1790528336105260700,
+      "role": "image acceleration LoRA",
+      "sha256": null,
+      "actual_bytes": 1698951104
+    },
+    {
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\models\\loras\\split_files\\loras\\Qwen-Edit-2509-Multiple-angles.safetensors",
+      "filename": "split_files\\loras\\Qwen-Edit-2509-Multiple-angles.safetensors",
+      "category": "loras",
+      "bytes": 236117032,
+      "mtime_ns": 1788586559601224800,
+      "role": "multiview LoRA",
+      "sha256": null,
+      "actual_bytes": 236117032
+    },
+    {
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\models\\checkpoints\\hunyuan3d-dit-v2-mv-turbo_fp16.safetensors",
+      "filename": "hunyuan3d-dit-v2-mv-turbo_fp16.safetensors",
+      "category": "checkpoints",
+      "bytes": 4930777530,
+      "mtime_ns": 1790066889923795300,
+      "role": "geometry model/CLIP vision/VAE checkpoint",
+      "sha256": null,
+      "actual_bytes": 4930777530
+    }
+  ],
+  "workflow_pins": [
+    {
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\workflows\\02_Image_to_Multiview\\Qwen2509_Multiangle_RTX4060_api.json",
+      "sha256": "bb16c26a0aa599f3eee35f206940f1e6ab40bd39c9569025fa8a4f80de67311a"
+    },
+    {
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\workflows\\02_Image_to_Multiview\\Qwen2509_Left_api.json",
+      "sha256": "65e97b19b89736cf6431c3803c8cecbdee2466067a63aa8eeb3e11d1e7d30f28"
+    },
+    {
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\workflows\\02_Image_to_Multiview\\Qwen2509_Back_api.json",
+      "sha256": "ac80748728f98d7ad1e08806778f91a42fce026e7a35cdf0d52e46b4e18eacfb"
+    },
+    {
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\workflows\\03_Multiview_to_3D\\Hunyuan3D_MV_RTX4060_api.json",
+      "sha256": "729e9e02c3ef655c5f576067ec3cb291285dcf1d1db70100857c141c026ab2fa"
+    }
+  ],
+  "reviewer_auth": "CHATGPT_ACCOUNT",
+  "codex_version": "codex-cli 0.159.2",
+  "generation_effects": 0,
+  "namespace_gate": "PASS: 3 repository children and 7 external namespaces absent",
+  "normalization": {
+    "contract": {
+      "kind": "contain_pad",
+      "version": "scenario-a-reference.1",
+      "target_dimensions": [
+        768,
+        768
+      ],
+      "upscale": false,
+      "crop": false,
+      "alignment": "center_floor",
+      "padding_rgb": [
+        255,
+        255,
+        255
+      ],
+      "padding_alpha": 0,
+      "resampling": "LANCZOS",
+      "encoding": "PNG",
+      "compress_level": 9,
+      "optimize": false,
+      "metadata": "strip_on_transform_preserve_on_identity",
+      "pillow_version": "12.3.0",
+      "zlib_version": "1.3.2"
+    },
+    "operation": "pad",
+    "original_dimensions": [
+      467,
+      539
+    ],
+    "resized_dimensions": [
+      467,
+      539
+    ],
+    "padding_offsets": {
+      "left": 150,
+      "top": 114,
+      "right": 151,
+      "bottom": 115
+    },
+    "original_mode": "RGB",
+    "output_mode": "RGB",
+    "normalized_sha256": "93c081f086bc91821c8aa0ed61e012109d5eb13fd1358c7ef123598dd6574b00",
+    "normalized_bytes": 273422
+  },
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "created_at": "2026-10-01T10:53:07.442705+00:00"
+}

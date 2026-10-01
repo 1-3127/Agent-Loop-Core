@@ -1,0 +1,89 @@
+{
+  "ids": {
+    "session": "fsf2-session-20261001-194618-9febb329",
+    "loop": "fsf2-loop-20261001-194618-9febb329",
+    "l6": "fsf2-l6-20261001-194618-9febb329",
+    "bridge": "fsf2-bridge-20261001-194618-9febb329",
+    "correction": "fsf2-correction-20261001-194618-9febb329"
+  },
+  "parent": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\session\\fsf2-session-20261001-194618-9febb329\\scenario_a.json",
+    "sha256": "741681c122ffa73016c2ef52874b9ce1d180eeed6346961f54ad3f8900d3d750"
+  },
+  "current_reference": {
+    "file": {
+      "identity": "CURRENT_DIRECT_USER_REFERENCE",
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\session\\fresh-session-refresh-proof-final-2\\CURRENT_REFERENCE.png",
+      "bytes": 362412,
+      "sha256": "9da5ed9e7f3490d058673122a7bd50b46635d4f0b5a36ca3199f0c1636cd17e5"
+    },
+    "authority_ref": "reference",
+    "authority_source": "{\"bytes\":362412,\"identity\":\"CURRENT_DIRECT_USER_REFERENCE\",\"path\":\"D:\\\\VSCODE-WorkSpace\\\\Others\\\\Agent-Loop-Core\\\\docs\\\\session\\\\fresh-session-refresh-proof-final-2\\\\CURRENT_REFERENCE.png\",\"sha256\":\"9da5ed9e7f3490d058673122a7bd50b46635d4f0b5a36ca3199f0c1636cd17e5\"}",
+    "session_id": "fsf2-session-20261001-194618-9febb329",
+    "specification_identity_sha256": "09d9d9ec26a4dc6ad60e5fc442fa433b15b4cf61108fec3323e129ef981d9f6b"
+  },
+  "normalization": {
+    "contract": {
+      "kind": "contain_pad",
+      "version": "scenario-a-reference.1",
+      "target_dimensions": [
+        768,
+        768
+      ],
+      "upscale": false,
+      "crop": false,
+      "alignment": "center_floor",
+      "padding_rgb": [
+        255,
+        255,
+        255
+      ],
+      "padding_alpha": 0,
+      "resampling": "LANCZOS",
+      "encoding": "PNG",
+      "compress_level": 9,
+      "optimize": false,
+      "metadata": "strip_on_transform_preserve_on_identity",
+      "pillow_version": "12.3.0",
+      "zlib_version": "1.3.2"
+    },
+    "operation": "pad",
+    "original_dimensions": [
+      467,
+      539
+    ],
+    "resized_dimensions": [
+      467,
+      539
+    ],
+    "padding_offsets": {
+      "left": 150,
+      "top": 114,
+      "right": 151,
+      "bottom": 115
+    },
+    "original_mode": "RGB",
+    "output_mode": "RGB",
+    "normalized_sha256": "93c081f086bc91821c8aa0ed61e012109d5eb13fd1358c7ef123598dd6574b00",
+    "normalized_bytes": 273422
+  },
+  "specification_identity_sha256": "09d9d9ec26a4dc6ad60e5fc442fa433b15b4cf61108fec3323e129ef981d9f6b",
+  "stage_criteria": {
+    "multiview": [
+      "LANTERN_FORM",
+      "APERTURE_VISUAL",
+      "MULTIVIEW_IDENTITY"
+    ],
+    "geometry": [
+      "LANTERN_FORM",
+      "APERTURE_GEOMETRY",
+      "GLB_READABILITY"
+    ]
+  },
+  "direct_attachment": {
+    "identity": "DIRECT_ATTACHMENT",
+    "path": "C:\\Users\\Worker\\AppData\\Local\\Temp\\codex-clipboard-28be2078-6a5d-4129-b231-8450fd077f76.png",
+    "bytes": 362412,
+    "sha256": "9da5ed9e7f3490d058673122a7bd50b46635d4f0b5a36ca3199f0c1636cd17e5"
+  }
+}

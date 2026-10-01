@@ -1,0 +1,53 @@
+{
+  "purpose": "Readiness only; not production semantic Review",
+  "auth_mode": "CHATGPT_ACCOUNT",
+  "process_exit_code": 0,
+  "elapsed": 9.202999999994063,
+  "images": [
+    {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\session\\fresh-session-refresh-proof-final-2\\CURRENT_REFERENCE.png",
+      "sha256": "9da5ed9e7f3490d058673122a7bd50b46635d4f0b5a36ca3199f0c1636cd17e5"
+    }
+  ],
+  "streams": {
+    "stdout": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\session\\fresh-session-refresh-proof-final-2\\REVIEWER_PROBE.stdout.txt",
+      "sha256": "ae91807e320db754b91a9c29e52e2067276056593d413122ae60a80c87ccac13",
+      "bytes": 128,
+      "raw_bytes": 128,
+      "raw_sha256": "ae91807e320db754b91a9c29e52e2067276056593d413122ae60a80c87ccac13",
+      "decoded_bytes": 128,
+      "sanitized_bytes": 128,
+      "encoding": "utf-8",
+      "decode_errors": "replace",
+      "decode_replacement": false,
+      "newline_normalization": "universal",
+      "redacted": false,
+      "truncated": false,
+      "cap_bytes": 65536,
+      "capture_complete": true
+    },
+    "stderr": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\session\\fresh-session-refresh-proof-final-2\\REVIEWER_PROBE.stderr.txt",
+      "sha256": "9c7cc8f07df9bdf0cf67034bf3cdc2e4424ee72eee09003166f76e6973246bf1",
+      "bytes": 7222,
+      "raw_bytes": 7201,
+      "raw_sha256": "30e00d597ebf9d1fa86720fef2a8d7e2b4441249542ffd8f2009f85c8a27d616",
+      "decoded_bytes": 7201,
+      "sanitized_bytes": 7222,
+      "encoding": "utf-8",
+      "decode_errors": "replace",
+      "decode_replacement": false,
+      "newline_normalization": "universal",
+      "redacted": true,
+      "truncated": false,
+      "cap_bytes": 65536,
+      "capture_complete": true
+    }
+  },
+  "automatic_retries": 0,
+  "result": {
+    "observed_target": "A stone garden lantern with a broad roof, central chamber, and arched legs.",
+    "square_opening_visible": true
+  }
+}

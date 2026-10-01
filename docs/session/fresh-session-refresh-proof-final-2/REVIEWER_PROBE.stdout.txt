@@ -1,0 +1,1 @@
+{"observed_target":"A stone garden lantern with a broad roof, central chamber, and arched legs.","square_opening_visible":true}

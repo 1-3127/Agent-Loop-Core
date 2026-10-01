@@ -1,0 +1,42 @@
+{
+  "tests": 261,
+  "pass": true,
+  "failures": 0,
+  "errors": 0,
+  "first_run": {
+    "tests": 261,
+    "failures": 0,
+    "errors": 3,
+    "skips": 0,
+    "pass": false,
+    "seconds": 543.7339999999967,
+    "tripwires": {
+      "network": 0,
+      "production_process": 3,
+      "import_smoke_process": 0
+    },
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "runtime": "C:\\Users\\Worker\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "temporary_root": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-01\\files-mentioned-by-the-user-codex-2\\work\\test-temp",
+    "evidence_scope": "Synthetic regression; not actual production proof"
+  },
+  "wrapper_recheck": {
+    "tests": 3,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "pass": true,
+    "seconds": 0.375,
+    "tripwires": {
+      "network": 0,
+      "production_process": 0,
+      "allowed_local_fixture_process": 4
+    },
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "runtime": "C:\\Users\\Worker\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "temporary_root": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-01\\files-mentioned-by-the-user-codex-2\\work\\test-temp",
+    "evidence_scope": "Synthetic regression; not actual production proof"
+  },
+  "validation_scope": "258 original passes plus all 3 wrapper-blocked tests rechecked with exact local subprocess whitelist; source/test unchanged. Original raw failure retained.",
+  "production_effects": 0
+}

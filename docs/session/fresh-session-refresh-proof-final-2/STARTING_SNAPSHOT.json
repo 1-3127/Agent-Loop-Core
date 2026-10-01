@@ -1,0 +1,9 @@
+{
+  "branch": "stabilization-reviewer-failure-observability",
+  "head": "93d9dfc7d29c9ffe54886f0f3b34a0248fde410e",
+  "tracking": "93d9dfc7d29c9ffe54886f0f3b34a0248fde410e",
+  "live": "93d9dfc7d29c9ffe54886f0f3b34a0248fde410e\trefs/heads/stabilization-reviewer-failure-observability",
+  "tree_clean": true,
+  "origin": "https://github.com/1-3127/Agent-Loop-Core.git",
+  "created_at": "2026-10-01T10:46:18.461539+00:00"
+}
