@@ -1,0 +1,48 @@
+{
+  "run_id": "fsf3-bridge-20261001-223651-6baf886b",
+  "renderer": {
+    "backend": "Blender",
+    "executable": "D:\\Blender_5.2\\blender.exe",
+    "version": "5.2.0 LTS",
+    "bytes": 112975320,
+    "mtime_ns": 1783967930000000000,
+    "invocations": 1,
+    "duration_seconds": 5.592999999993481,
+    "render_engine": "BLENDER_WORKBENCH"
+  },
+  "frontier": {
+    "provider": "OpenAI",
+    "auth_mode": "CHATGPT_ACCOUNT",
+    "invocations": 1,
+    "duration_seconds": 92.56299999999464,
+    "requested_model": null,
+    "requested_reasoning_effort": null,
+    "actual_model": null,
+    "actual_reasoning_effort": null,
+    "input_tokens": null,
+    "cached_input_tokens": null,
+    "output_tokens": null,
+    "reasoning_tokens": null,
+    "reported_credits": null,
+    "unavailable_reason": "Unobserved existing Reviewer telemetry; no CLI overrides requested."
+  },
+  "comfy": {
+    "invocations": 0
+  },
+  "automatic_retries": 0,
+  "revision_dispatches": 0,
+  "final_state": "GEOMETRY_REVIEWED",
+  "review_verdict": "REVISE",
+  "budgets": {
+    "renderer_budget": {
+      "limit": 1,
+      "consumed": 1,
+      "remaining": 0
+    },
+    "reviewer_budget": {
+      "limit": 1,
+      "consumed": 1,
+      "remaining": 0
+    }
+  }
+}

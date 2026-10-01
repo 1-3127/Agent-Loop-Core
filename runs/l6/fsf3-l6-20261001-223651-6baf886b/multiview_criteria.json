@@ -1,0 +1,32 @@
+{
+  "session_binding": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\fsf3-l6-20261001-223651-6baf886b\\session_binding.json",
+    "sha256": "6d51d9021e6cda17acb5a2d1c081ca0e96940174a069efa2d3c4729cbe49ebd3"
+  },
+  "specification_identity_sha256": "ee4348bc686efdd50ba426ee2d9e9eb01b96759e4e08d0b88d1b26382be6d233",
+  "stage": "multiview",
+  "criteria": [
+    {
+      "criterion_id": "FORM_SILHOUETTE",
+      "authority_ref": "REFERENCE",
+      "blocking_when_unmet": true,
+      "description": "The target is recognizable as the reference stone lantern: a wide, low overhanging roof with a small top cap, a roughly square chamber, a projecting horizontal platform, and substantial arched supports or legs. Judge observable form in the selected stage. Complete occluded sides reasonably; exclude the person, foreground pole, vegetation, and scene surfaces from the lantern."
+    },
+    {
+      "criterion_id": "MV_APERTURE",
+      "authority_ref": "REQUEST",
+      "blocking_when_unmet": true,
+      "description": "In the current multiview images, the chamber below the roof has a clearly framed central square or approximately rectangular opening where observable. This criterion concerns visual appearance only; a visible dark opening in an image does not establish an actual geometric cavity."
+    },
+    {
+      "criterion_id": "MV_COHERENCE",
+      "authority_ref": "REFERENCE",
+      "blocking_when_unmet": true,
+      "description": "The current front, right, left, and back remain plausible views of one stone lantern, with a compatible roof, chamber, platform, and support arrangement. Occlusion and inferred hidden surfaces may vary, but the target identity and major proportions remain coherent."
+    }
+  ],
+  "authorities": {
+    "REQUEST": "Current direct user request: 레퍼런스 이미지에 있는 석등을 제작하라. 석등은 중앙의 사각형 구멍을 포함한 실루엣이 명확히 나와야 한다.",
+    "REFERENCE": "{\"bytes\":362412,\"identity\":\"USER_DIRECT_CURRENT_REFERENCE\",\"path\":\"C:\\\\Users\\\\Worker\\\\AppData\\\\Local\\\\Temp\\\\codex-clipboard-08627ccb-773a-4ec0-9b6e-3dd1bcde0524.png\",\"sha256\":\"9da5ed9e7f3490d058673122a7bd50b46635d4f0b5a36ca3199f0c1636cd17e5\"}"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "session_binding": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf3-correction-20261001-223651-6baf886b\\session_binding.json",
+    "sha256": "06b69cf97397fc39393e71184c7cf2cc927c31c9acf0abe6a9a58707ba175e51"
+  },
+  "specification_identity_sha256": "ee4348bc686efdd50ba426ee2d9e9eb01b96759e4e08d0b88d1b26382be6d233",
+  "stage": "geometry",
+  "criteria": [
+    {
+      "criterion_id": "FORM_SILHOUETTE",
+      "authority_ref": "REFERENCE",
+      "blocking_when_unmet": true,
+      "description": "The target is recognizable as the reference stone lantern: a wide, low overhanging roof with a small top cap, a roughly square chamber, a projecting horizontal platform, and substantial arched supports or legs. Judge observable form in the selected stage. Complete occluded sides reasonably; exclude the person, foreground pole, vegetation, and scene surfaces from the lantern."
+    },
+    {
+      "criterion_id": "GEO_APERTURE",
+      "authority_ref": "REQUEST",
+      "blocking_when_unmet": true,
+      "description": "The current 3D chamber includes an actual square or approximately rectangular aperture or open cavity below the roof. Current geometry diagnostics must support spatial depth, a rim and inner surfaces, or visible empty space/background. A flat dark square, texture mark, shallow decorative panel, or base arch alone does not satisfy this requirement. Preserve uncertainty when diagnostics cannot establish it."
+    },
+    {
+      "criterion_id": "GEO_READABILITY",
+      "authority_ref": "REQUEST",
+      "blocking_when_unmet": true,
+      "description": "The current GLB and its diagnostic renders are readable as a coherent lantern with separable roof, chamber, platform, and raised support. The user-required silhouette and central chamber opening are assessable from the current geometry evidence; an undifferentiated solid or featureless surface is insufficient."
+    }
+  ],
+  "authorities": {
+    "REQUEST": "Current direct user request: 레퍼런스 이미지에 있는 석등을 제작하라. 석등은 중앙의 사각형 구멍을 포함한 실루엣이 명확히 나와야 한다.",
+    "REFERENCE": "{\"bytes\":362412,\"identity\":\"USER_DIRECT_CURRENT_REFERENCE\",\"path\":\"C:\\\\Users\\\\Worker\\\\AppData\\\\Local\\\\Temp\\\\codex-clipboard-08627ccb-773a-4ec0-9b6e-3dd1bcde0524.png\",\"sha256\":\"9da5ed9e7f3490d058673122a7bd50b46635d4f0b5a36ca3199f0c1636cd17e5\"}"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "version": "s3b-child.0",
+  "kind": "correction",
+  "run_id": "fsf3-correction-20261001-223651-6baf886b",
+  "run_directory": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf3-correction-20261001-223651-6baf886b",
+  "parent": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\session\\fsf3-session-20261001-223651-6baf886b\\scenario_a.json",
+    "sha256": "f559151a1f1f1d0325dbb3615edc9fb21af1bee46e259fe5b860aea6ca4a1b88"
+  },
+  "source": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf3-bridge-20261001-223651-6baf886b\\session_binding.json",
+    "sha256": "ee59830e15f4e48ad5f764defa904e163d77019035d5b77c4a44ce53aa6dc01c"
+  }
+}

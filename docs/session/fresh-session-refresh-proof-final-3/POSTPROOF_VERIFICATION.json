@@ -1,0 +1,58 @@
+{
+  "status": "PASS",
+  "classification": "SEMANTIC_CLOSURE_FAILED",
+  "FRESH_SESSION_REFRESH_PROOF": "NOT_VERIFIED",
+  "production_entry_count": 1,
+  "actual_worker_comfy_count": 5,
+  "geometry_count": 2,
+  "reviewer_count": 3,
+  "reviewer_exits": [
+    0,
+    0,
+    0
+  ],
+  "reviewer_verdicts": [
+    "PASS",
+    "REVISE",
+    "REVISE"
+  ],
+  "blender_count": 2,
+  "correction_dispatch_count": 1,
+  "correction_budget": {
+    "revision": {
+      "limit": 1,
+      "consumed": 1,
+      "remaining": 0
+    },
+    "worker": {
+      "limit": 2,
+      "consumed": 1,
+      "remaining": 1
+    },
+    "reviewer": {
+      "limit": 2,
+      "consumed": 1,
+      "remaining": 1
+    },
+    "renderer": {
+      "limit": 1,
+      "consumed": 1,
+      "remaining": 0
+    }
+  },
+  "image_evidence_count": 11,
+  "current_history_success": 5,
+  "current_artifact_lineage_and_terminal_references": "Validated by canonical checked_child/checked_review/validate_source and hash checks",
+  "L7_stream_contract": "Actual .stdout.txt and .stderr.txt FileReferences validate; correction preflight and dispatch succeeded",
+  "mandatory_criteria_final": {
+    "FORM_SILHOUETTE": "UNMET",
+    "GEO_APERTURE": "UNCERTAIN",
+    "GEO_READABILITY": "UNMET"
+  },
+  "INTERNAL_ACCEPT": false,
+  "geometry_generation_root_cause": "UNKNOWN; semantic failure does not establish a new source/contract defect",
+  "source_test_changes": 0,
+  "historical_changes": 0,
+  "retry_resume_delivery_count": 0,
+  "publication_policy": "CP2 stages only fresh authorized namespaces with command-local core.autocrlf=false, preserving exact current evidence bytes without persistent Git setting or history rewrite."
+}

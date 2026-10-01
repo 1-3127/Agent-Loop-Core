@@ -1,0 +1,42 @@
+{
+  "version": "l6.0",
+  "run_id": "fsf3-l6-20261001-223651-6baf886b",
+  "work_order_id": "fsf3-l6-20261001-223651-6baf886b-geometry",
+  "stage": "geometry",
+  "status": "SUCCESS",
+  "work_order": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\fsf3-l6-20261001-223651-6baf886b\\geometry_work_order.json",
+    "sha256": "bbf1f5864c1615f42f39c6a3ee769fcc38faacc5325a4ea587d0243d30f12cbc"
+  },
+  "plan": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\fsf3-l6-20261001-223651-6baf886b\\geometry_plan.json",
+    "sha256": "a399c90cf1f46b43589c9c3f67a7ed97a9e0c859e399b2f3098a830d8991b978"
+  },
+  "workflow": {
+    "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\workflows\\03_Multiview_to_3D\\Hunyuan3D_MV_RTX4060_api.json",
+    "sha256": "729e9e02c3ef655c5f576067ec3cb291285dcf1d1db70100857c141c026ab2fa"
+  },
+  "worker_report": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\fsf3-l6-20261001-223651-6baf886b\\geometry_worker_report.json",
+    "sha256": "c4991a43f795bf87f00ff1550593f89dd381036aab0c57abc6cf6ed151c0df77"
+  },
+  "initial_contract": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\fsf3-l6-20261001-223651-6baf886b\\initial.json",
+    "sha256": "5cb39c9d50fb17a5516a9add4ed87d6a2da5dd16f3daa837192892603ee313fe"
+  },
+  "backend": "ComfyUI",
+  "model": "hunyuan3d-dit-v2-mv-turbo_fp16.safetensors",
+  "prompt_id": "93faaa2a-5cbc-4d64-93a4-306a34f8a8d2",
+  "client_id": "9f6dc61e-8f50-48cb-ad6e-4d5faa00d588",
+  "started_at": "2026-10-01T13:57:50.558926+00:00",
+  "completed_at": "2026-10-01T13:58:37.012291+00:00",
+  "artifact": {
+    "type": "geometry",
+    "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\mesh\\l6\\fsf3-l6-20261001-223651-6baf886b\\geometry_00001_.glb",
+    "bytes": 3513684,
+    "sha256": "2cae787bef7ce341f6d7d3ff2f260f4435252d691454967a0c0ec145521682d2",
+    "glb_version": 2,
+    "declared_length": 3513684
+  },
+  "errors": []
+}

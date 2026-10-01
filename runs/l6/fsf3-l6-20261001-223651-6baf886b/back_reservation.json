@@ -1,0 +1,13 @@
+{
+  "run_id": "fsf3-l6-20261001-223651-6baf886b",
+  "stage": "back",
+  "work_order": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\fsf3-l6-20261001-223651-6baf886b\\back_work_order.json",
+    "sha256": "6e65a226d1a5bc2eed0f2244a15ae2ad57ebcbe9e613baea2f200ff755fa5644"
+  },
+  "initial_contract": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\fsf3-l6-20261001-223651-6baf886b\\initial.json",
+    "sha256": "5cb39c9d50fb17a5516a9add4ed87d6a2da5dd16f3daa837192892603ee313fe"
+  },
+  "created_at": "2026-10-01T13:54:18.399806+00:00"
+}

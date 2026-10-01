@@ -1,0 +1,73 @@
+{
+  "review_version": "0.3",
+  "review_id": "fsf3-correction-20261001-223651-6baf886b-geometry_review",
+  "stage": "GEOMETRY_REVIEW",
+  "source_result": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf3-correction-20261001-223651-6baf886b\\render_manifest.json",
+    "sha256": "a6a259ce3d894b8eef3463b7705d7e8a57575fe9f73293c4c98a5e05cd2437f0"
+  },
+  "artifacts": [
+    {
+      "role": "source_front",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\input\\l6\\fsf3-l6-20261001-223651-6baf886b\\front.png",
+      "sha256": "93c081f086bc91821c8aa0ed61e012109d5eb13fd1358c7ef123598dd6574b00",
+      "media_type": "image/png"
+    },
+    {
+      "role": "source_right",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l6\\fsf3-l6-20261001-223651-6baf886b\\right_00001_.png",
+      "sha256": "ef07d2a4cf910cc8015041626ad1e9c663d8d1cbcd948382a6fc3f1b4ee52abe",
+      "media_type": "image/png"
+    },
+    {
+      "role": "source_left",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l6\\fsf3-l6-20261001-223651-6baf886b\\left_00001_.png",
+      "sha256": "912d18ef6315ebff15bd75f2a8a654d29e3b3b41c8e3534f36a518b9eae978d6",
+      "media_type": "image/png"
+    },
+    {
+      "role": "source_back",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l6\\fsf3-l6-20261001-223651-6baf886b\\back_00001_.png",
+      "sha256": "c6bcff1f6b65c9404535d463ad85ccfab2b61010440b5ec599b7f6ee88284260",
+      "media_type": "image/png"
+    },
+    {
+      "role": "geometry_azimuth_0",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l7\\fsf3-correction-20261001-223651-6baf886b\\geometry_review\\geometry_azimuth_0.png",
+      "sha256": "8a4aa54509cc12a6fae14cb328fd3c7a211aebb397953b4747782f13ef52d0ab",
+      "media_type": "image/png"
+    },
+    {
+      "role": "geometry_azimuth_90",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l7\\fsf3-correction-20261001-223651-6baf886b\\geometry_review\\geometry_azimuth_90.png",
+      "sha256": "8565ede5ffcdb3f5e9e765c17e65beacabad7492e0ae32a8a3d27d300c6be3f6",
+      "media_type": "image/png"
+    },
+    {
+      "role": "geometry_azimuth_180",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l7\\fsf3-correction-20261001-223651-6baf886b\\geometry_review\\geometry_azimuth_180.png",
+      "sha256": "30ec6a5dd811150736e651a3ea11e37855691f68f3f6a31007bcc26a44b59709",
+      "media_type": "image/png"
+    },
+    {
+      "role": "geometry_azimuth_270",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l7\\fsf3-correction-20261001-223651-6baf886b\\geometry_review\\geometry_azimuth_270.png",
+      "sha256": "02bbcc053ca207641ad106874fbac3275b8318a0666d836ba501eba8ccebe9a8",
+      "media_type": "image/png"
+    }
+  ],
+  "verdict": "REVISE",
+  "blocking_issues": [
+    "[FORM_SILHOUETTE@REFERENCE] UNMET: All four current geometry diagnostics show an approximately square, featureless face without the reference lantern's distinguishable overhanging roof, top cap, chamber, projecting platform, or arched supports.",
+    "[GEO_READABILITY@REQUEST] UNMET: The current geometry diagnostics present undifferentiated surfaces; separable roof, chamber, platform, raised support, and central chamber opening are not assessable."
+  ],
+  "observations": [
+    "[FORM_SILHOUETTE@REFERENCE] UNMET: The source images show the recognizable stone lantern, but all four current geometry diagnostics lack its observable roof, cap, chamber, platform, and leg silhouette.",
+    "[GEO_APERTURE@REQUEST] UNCERTAIN: None of the four current geometry diagnostics reveals a chamber aperture with spatial depth, rim, inner surfaces, or visible empty space/background; these images cannot establish whether the required opening exists.",
+    "[GEO_READABILITY@REQUEST] UNMET: All four current diagnostic views appear as approximately square, featureless surfaces, preventing assessment of a coherent lantern and its central opening."
+  ],
+  "suggested_action": {
+    "code": "REGENERATE_GEOMETRY",
+    "target": "geometry"
+  }
+}

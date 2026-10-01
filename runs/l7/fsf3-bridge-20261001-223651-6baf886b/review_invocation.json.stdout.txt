@@ -1,0 +1,73 @@
+{
+  "review_version": "0.3",
+  "review_id": "fsf3-bridge-20261001-223651-6baf886b-geometry-review",
+  "stage": "GEOMETRY_REVIEW",
+  "source_result": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf3-bridge-20261001-223651-6baf886b\\render_manifest.json",
+    "sha256": "a4abb816a0485a539b2f7c882bf073701b64f11f2bf596c9fdd26c18f4e063ca"
+  },
+  "artifacts": [
+    {
+      "role": "source_front",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\input\\l6\\fsf3-l6-20261001-223651-6baf886b\\front.png",
+      "sha256": "93c081f086bc91821c8aa0ed61e012109d5eb13fd1358c7ef123598dd6574b00",
+      "media_type": "image/png"
+    },
+    {
+      "role": "source_right",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l6\\fsf3-l6-20261001-223651-6baf886b\\right_00001_.png",
+      "sha256": "ef07d2a4cf910cc8015041626ad1e9c663d8d1cbcd948382a6fc3f1b4ee52abe",
+      "media_type": "image/png"
+    },
+    {
+      "role": "source_left",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l6\\fsf3-l6-20261001-223651-6baf886b\\left_00001_.png",
+      "sha256": "912d18ef6315ebff15bd75f2a8a654d29e3b3b41c8e3534f36a518b9eae978d6",
+      "media_type": "image/png"
+    },
+    {
+      "role": "source_back",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l6\\fsf3-l6-20261001-223651-6baf886b\\back_00001_.png",
+      "sha256": "c6bcff1f6b65c9404535d463ad85ccfab2b61010440b5ec599b7f6ee88284260",
+      "media_type": "image/png"
+    },
+    {
+      "role": "geometry_azimuth_0",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l7\\fsf3-bridge-20261001-223651-6baf886b\\geometry_review\\geometry_azimuth_0.png",
+      "sha256": "c63f8a415a68293c7e928845488aa267ceab6be9f8eb9e136844c9a5aa61c162",
+      "media_type": "image/png"
+    },
+    {
+      "role": "geometry_azimuth_90",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l7\\fsf3-bridge-20261001-223651-6baf886b\\geometry_review\\geometry_azimuth_90.png",
+      "sha256": "b4b735d4e11c9899e235dbd7a19ad11ab859770c6ab16e06b1c86a188d5ea46d",
+      "media_type": "image/png"
+    },
+    {
+      "role": "geometry_azimuth_180",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l7\\fsf3-bridge-20261001-223651-6baf886b\\geometry_review\\geometry_azimuth_180.png",
+      "sha256": "17e200150dd95b6c6afabae6bce1197d70caaac65cc7ee2c8530144d519cb052",
+      "media_type": "image/png"
+    },
+    {
+      "role": "geometry_azimuth_270",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l7\\fsf3-bridge-20261001-223651-6baf886b\\geometry_review\\geometry_azimuth_270.png",
+      "sha256": "06cadddeeb126a873f646b33ab29e14fa87c97262f81c94bbdf276f745a08db7",
+      "media_type": "image/png"
+    }
+  ],
+  "verdict": "REVISE",
+  "blocking_issues": [
+    "[FORM_SILHOUETTE@REFERENCE] UNMET: 네 방향 geometry diagnostics 모두 거의 특징 없는 사각 표면으로 보이며, 레퍼런스 석등의 넓고 낮은 지붕, 작은 상부 캡, 사각 몸체, 돌출 받침판, 아치형 다리 실루엣을 식별할 수 없다.",
+    "[GEO_READABILITY@REQUEST] UNMET: 네 방향 geometry diagnostics에서 지붕, 몸체, 받침판, raised support가 분리되어 읽히지 않으며, 요구된 석등 실루엣과 중앙 개구부를 평가할 수 없는 거의 특징 없는 표면이 나타난다."
+  ],
+  "observations": [
+    "[FORM_SILHOUETTE@REFERENCE] UNMET: source_front와 source_right/left/back에는 석등의 주요 형태가 보이지만, 현재 geometry_azimuth_0/90/180/270에는 해당 형태가 식별되지 않는 사각 표면이 보인다.",
+    "[GEO_APERTURE@REQUEST] UNCERTAIN: 현재 geometry diagnostics에는 중앙 몸체의 사각 개구부를 입증할 공간 깊이, 테두리와 내부 면, 빈 공간 또는 배경이 보이지 않는다. 이 증거만으로 실제 3D 개구부의 존재나 부재를 확정할 수 없다.",
+    "[GEO_READABILITY@REQUEST] UNMET: 현재 네 방향 geometry diagnostics는 거의 특징 없는 사각 표면으로 나타나며, 일관된 석등의 지붕, 몸체, 받침판, raised support와 중앙 개구부가 판독되지 않는다."
+  ],
+  "suggested_action": {
+    "code": "REGENERATE_GEOMETRY",
+    "target": "geometry"
+  }
+}

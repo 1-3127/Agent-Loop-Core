@@ -1,0 +1,42 @@
+{
+  "version": "l6.0",
+  "run_id": "fsf3-correction-20261001-223651-6baf886b",
+  "work_order_id": "fsf3-correction-20261001-223651-6baf886b-geometry",
+  "stage": "geometry",
+  "status": "SUCCESS",
+  "work_order": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf3-correction-20261001-223651-6baf886b\\geometry_work_order.json",
+    "sha256": "d482ab7e6474c3fb3dc03f3763c8faed8cdaef45f4f9628742d4e0255927b1e9"
+  },
+  "plan": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf3-correction-20261001-223651-6baf886b\\geometry_plan.json",
+    "sha256": "5bbbde6c59ea22b30e23ebff5a6b3d11ed978c4c12c393bfedd8956f79c9b5c8"
+  },
+  "workflow": {
+    "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\workflows\\03_Multiview_to_3D\\Hunyuan3D_MV_RTX4060_api.json",
+    "sha256": "729e9e02c3ef655c5f576067ec3cb291285dcf1d1db70100857c141c026ab2fa"
+  },
+  "worker_report": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf3-correction-20261001-223651-6baf886b\\geometry_worker_report.json",
+    "sha256": "fdbc37f7fe3f2651238e0b97c636c686d363c80749549f9aab633a2163d7100a"
+  },
+  "initial_contract": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf3-correction-20261001-223651-6baf886b\\initial.json",
+    "sha256": "917ae1cb6799401c71655b945a6c1a249bf2fd410f2b562e80eb4348b4dc8fcd"
+  },
+  "backend": "ComfyUI",
+  "model": "hunyuan3d-dit-v2-mv-turbo_fp16.safetensors",
+  "prompt_id": "7e37498a-2919-472c-a10f-d92a2979969e",
+  "client_id": "ccbeb64d-a8c5-4a94-9621-aecba89240fb",
+  "started_at": "2026-10-01T14:00:34.735604+00:00",
+  "completed_at": "2026-10-01T14:01:15.093173+00:00",
+  "artifact": {
+    "type": "geometry",
+    "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\mesh\\l7\\fsf3-correction-20261001-223651-6baf886b\\geometry_00001_.glb",
+    "bytes": 4239008,
+    "sha256": "652354fe3868fc1b5ca968a8427c214155a8185831c24fd23c5e6b870ef6eb1c",
+    "glb_version": 2,
+    "declared_length": 4239008
+  },
+  "errors": []
+}

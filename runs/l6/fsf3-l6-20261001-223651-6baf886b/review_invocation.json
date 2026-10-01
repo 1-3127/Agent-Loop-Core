@@ -1,0 +1,73 @@
+{
+  "review_id": "fsf3-l6-20261001-223651-6baf886b-multiview-review",
+  "reviewer_mode": "CODEX_CLI",
+  "invocation_status": "SUCCESS",
+  "request_sha256": "388e45a4a7353cf1f7660bf2b4001eb5210e67d43a3bf1607f376147478f5e9a",
+  "result_path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\fsf3-l6-20261001-223651-6baf886b\\review_result.json",
+  "reviewer_process_started": true,
+  "auth_mode": "CHATGPT_ACCOUNT",
+  "attached_images": [
+    {
+      "role": "front",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\input\\l6\\fsf3-l6-20261001-223651-6baf886b\\front.png",
+      "sha256": "93c081f086bc91821c8aa0ed61e012109d5eb13fd1358c7ef123598dd6574b00"
+    },
+    {
+      "role": "right",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l6\\fsf3-l6-20261001-223651-6baf886b\\right_00001_.png",
+      "sha256": "ef07d2a4cf910cc8015041626ad1e9c663d8d1cbcd948382a6fc3f1b4ee52abe"
+    },
+    {
+      "role": "left",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l6\\fsf3-l6-20261001-223651-6baf886b\\left_00001_.png",
+      "sha256": "912d18ef6315ebff15bd75f2a8a654d29e3b3b41c8e3534f36a518b9eae978d6"
+    },
+    {
+      "role": "back",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l6\\fsf3-l6-20261001-223651-6baf886b\\back_00001_.png",
+      "sha256": "c6bcff1f6b65c9404535d463ad85ccfab2b61010440b5ec599b7f6ee88284260"
+    }
+  ],
+  "started_at": "2026-10-01T13:55:59.923373+00:00",
+  "process_exit_code": 0,
+  "stdout_sha256": "1ca34f0a095603be1313eb2e4734ed3f8b992f77b73cbda4badc7d5609f101b1",
+  "stderr_sha256": "730dad1c00b6d0c03994c3c24fb48eb85e4baeab27a911e355e0cbc4d86f2c00",
+  "result_sha256": "760b4a034ae6df80cd0bc62881c5625157706c1185fc761c531bf7e3f15b50b1",
+  "verdict": "PASS",
+  "stdout_evidence": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\fsf3-l6-20261001-223651-6baf886b\\review_invocation.json.stdout.txt",
+    "sha256": "1ca34f0a095603be1313eb2e4734ed3f8b992f77b73cbda4badc7d5609f101b1",
+    "bytes": 2604,
+    "raw_bytes": 2604,
+    "raw_sha256": "1ca34f0a095603be1313eb2e4734ed3f8b992f77b73cbda4badc7d5609f101b1",
+    "decoded_bytes": 2604,
+    "sanitized_bytes": 2604,
+    "encoding": "utf-8",
+    "decode_errors": "replace",
+    "decode_replacement": false,
+    "newline_normalization": "universal",
+    "redacted": false,
+    "truncated": false,
+    "cap_bytes": 65536,
+    "capture_complete": true
+  },
+  "stderr_evidence": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\fsf3-l6-20261001-223651-6baf886b\\review_invocation.json.stderr.txt",
+    "sha256": "5930ee7384e5ec5ea5bd0648dde249d274285f49399cf147519fd2cf2306df3d",
+    "bytes": 65536,
+    "raw_bytes": 89665,
+    "raw_sha256": "318f40b455c69df2932a5c1563179b9911b7921e5ecd8c76c717d0817bd40f70",
+    "decoded_bytes": 89019,
+    "sanitized_bytes": 89040,
+    "encoding": "utf-8",
+    "decode_errors": "replace",
+    "decode_replacement": false,
+    "newline_normalization": "universal",
+    "redacted": true,
+    "truncated": true,
+    "cap_bytes": 65536,
+    "capture_complete": true
+  },
+  "finished_at": "2026-10-01T13:57:47.185719+00:00",
+  "duration_seconds": 107.25
+}

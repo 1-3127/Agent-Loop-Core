@@ -1,0 +1,26 @@
+{
+  "event": "ACTUAL_COMFY_POST",
+  "index": 1,
+  "time": "2026-10-01T13:50:22.406504+00:00",
+  "graph_sha256": "3364e712f7135f6e7a35f253609183fee18c50ad9ee56f7c322bd109c87cce01",
+  "stage": "multiview",
+  "input_images": [
+    {
+      "role": "input",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\input\\l6\\fsf3-l6-20261001-223651-6baf886b\\front.png",
+      "sha256": "93c081f086bc91821c8aa0ed61e012109d5eb13fd1358c7ef123598dd6574b00",
+      "bytes": 273422,
+      "width": 768,
+      "height": 768
+    }
+  ],
+  "parent": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\session\\fsf3-session-20261001-223651-6baf886b\\scenario_a.json",
+    "sha256": "f559151a1f1f1d0325dbb3615edc9fb21af1bee46e259fe5b860aea6ca4a1b88"
+  },
+  "reference_staging": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\fsf3-l6-20261001-223651-6baf886b\\reference_staging.json",
+    "sha256": "a38bae5259597f5a54ad6f847e73826aa5ecd14098810eb880cac0a43475655c"
+  },
+  "old_source_fallback": 0
+}

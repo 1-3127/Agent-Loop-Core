@@ -1,0 +1,31 @@
+{
+  "run_id": "fsf3-correction-20261001-223651-6baf886b",
+  "command": [
+    "D:\\Blender_5.2\\blender.exe",
+    "--background",
+    "--factory-startup",
+    "--python-exit-code",
+    "1",
+    "--python",
+    "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\src\\scenario_a\\l7_blender_diagnostic.py",
+    "--",
+    "--request",
+    "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf3-correction-20261001-223651-6baf886b\\render_request.json"
+  ],
+  "render_request": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf3-correction-20261001-223651-6baf886b\\render_request.json",
+    "sha256": "f1d725ed39f3da6cd6681bf4f1b8422166c826340bc72597416bb9b6df905f76"
+  },
+  "initial_contract": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf3-correction-20261001-223651-6baf886b\\initial.json",
+    "sha256": "917ae1cb6799401c71655b945a6c1a249bf2fd410f2b562e80eb4348b4dc8fcd"
+  },
+  "started_at": "2026-10-01T14:01:16.791807+00:00",
+  "process_started": true,
+  "status": "SUCCESS",
+  "exit_code": 0,
+  "stdout_sha256": "712651f075555f5855a028493364dcb49de5be251261d88acf80622c60c9f6f2",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "completed_at": "2026-10-01T14:01:18.800575+00:00",
+  "duration_seconds": 2.014999999999418
+}

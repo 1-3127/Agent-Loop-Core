@@ -1,0 +1,28 @@
+{
+  "session_binding": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf3-correction-20261001-223651-6baf886b\\session_binding.json",
+    "sha256": "06b69cf97397fc39393e71184c7cf2cc927c31c9acf0abe6a9a58707ba175e51"
+  },
+  "criteria": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf3-correction-20261001-223651-6baf886b\\geometry_criteria.json",
+    "sha256": "b181e3dd72467fd1d4387a0d3e90c2cc6f3c4a399b2c742a25592a6ad79e5c5f"
+  },
+  "request": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf3-correction-20261001-223651-6baf886b\\geometry_review_request.json",
+    "sha256": "d9787ef45ee866f6fd53cd108995c64b11226415c52261de6ef8897327dfedf6"
+  },
+  "result": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf3-correction-20261001-223651-6baf886b\\geometry_review_result.json",
+    "sha256": "e733c6cb601eec2ca44f24866068289624412c8b5d0eb369a3f8049f6b0b85e7"
+  },
+  "invocation": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf3-correction-20261001-223651-6baf886b\\geometry_review_invocation.json",
+    "sha256": "5f6ced1bae5dc349934622063de73479ad83f0cf7a92c78cb03c1251477186a8"
+  },
+  "coverage": {
+    "FORM_SILHOUETTE": "UNMET",
+    "GEO_APERTURE": "UNCERTAIN",
+    "GEO_READABILITY": "UNMET"
+  },
+  "verdict": "REVISE"
+}
