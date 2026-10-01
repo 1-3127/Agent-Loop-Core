@@ -1,0 +1,20 @@
+{
+  "stage": "C",
+  "reserved_at": "2026-10-01T09:09:46.272992+00:00",
+  "maximum_invocations": 1,
+  "argv": [
+    "codex",
+    "exec",
+    "--ephemeral",
+    "--skip-git-repo-check",
+    "--sandbox",
+    "read-only",
+    "--output-schema",
+    "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\session\\fresh-session-refresh-proof-final\\reviewer_transport_schema.json",
+    "-C",
+    "C:\\Users\\Worker\\Documents\\Codex\\2026-10-01\\files-pasted-by-the-user-agent-4\\work\\diagnostic-workspace",
+    "-i",
+    "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\session\\fresh-session-refresh-proof-final\\artifact_archive\\l6-right_worker_report-right_00001_.png",
+    "-"
+  ]
+}

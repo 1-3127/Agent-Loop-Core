@@ -1,0 +1,15 @@
+{
+  "stage_C": {
+    "initial_auto_review": "rejected private PNG transfer; no process started",
+    "direct_human_reply": "해당 PNG 1회 전송 승인",
+    "result": "Approved exact actual right PNG to Codex CLI / CHATGPT_ACCOUNT; one invocation completed"
+  },
+  "stage_D": {
+    "initial_auto_review": "rejected four private images and semantic prompt; Stage C approval insufficient for broader payload",
+    "process_started": true,
+    "follow_up": "Exact four images and prompt approval requested",
+    "direct_human_reply": "4장과 기존 검수 prompt 1회 전송 승인"
+  },
+  "no_workaround": true,
+  "original_attachment_scope": "Sections 6/7 permit bounded existing-proof images, and require stop for additional platform approval"
+}

@@ -1,0 +1,30 @@
+2026-10-01T09:06:45.828656Z  WARN codex_skills::interface: ignoring interface.icon_small: icon path with '..' must resolve under plugin assets/
+2026-10-01T09:06:45.828687Z  WARN codex_skills::interface: ignoring interface.icon_large: icon path with '..' must resolve under plugin assets/
+2026-10-01T09:06:45.843622Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for powershell: Shell snapshot not supported yet for PowerShell
+OpenAI Codex v0.159.2
+--------
+workdir: C:\Users\Worker\Documents\Codex\2026-10-01\files-pasted-by-the-user-agent-4\work\diagnostic-workspace
+model: gpt-6.1-sol
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: high
+reasoning summaries: none
+session id: 01a0f6b7-5795-7f00-befa-d252b89f6647
+--------
+user
+Diagnostic account transport check only. No images or production task. Do not use tools or inspect files. Return exactly the JSON object {"ready":true}.
+2026-10-01T09:06:47.091454Z  WARN codex_skills::interface: ignoring interface.icon_small: icon path with '..' must resolve under plugin assets/
+2026-10-01T09:06:47.091477Z  WARN codex_skills::interface: ignoring interface.icon_large: icon path with '..' must resolve under plugin assets/
+2026-10-01T09:06:48.026885Z  WARN codex_exec_server::client::http_client::route_aware_http_client: http/request send failed http_method="POST" error_is_timeout=false error_is_connect=true error=error sending request
+2026-10-01T09:06:48.026932Z  WARN codex_rmcp_client::http_client_adapter: streamable HTTP post_message failed endpoint_scheme="http" endpoint_host="127.0.0.1" endpoint_path="/mcp" endpoint_has_query=false mcp_method="initialize" mcp_request_id="0" has_session_id=false has_authorization_header=false
+2026-10-01T09:06:48.026970Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when Client(HttpRequest(HttpRequest("http/request failed: error sending request for url (http://127.0.0.1:3000/mcp)")))
+2026-10-01T09:06:48.027016Z  WARN codex_rmcp_client::rmcp_client::streamable_http_retry: streamable HTTP MCP initialize failed with a retryable error; retrying attempt=1 max_attempts=3 delay_ms=250 error=handshaking with MCP server failed: Send message error Transport [codex_rmcp_client::event_notification_transport::EventNotificationTransport<rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>>] error: Client error: HTTP request failed: http/request failed: error sending request for url (http://127.0.0.1:3000/mcp), when send initialize request
+2026-10-01T09:06:50.344024Z  WARN codex_exec_server::client::http_client::route_aware_http_client: http/request send failed http_method="POST" error_is_timeout=false error_is_connect=true error=error sending request
+2026-10-01T09:06:50.344064Z  WARN codex_rmcp_client::http_client_adapter: streamable HTTP post_message failed endpoint_scheme="http" endpoint_host="127.0.0.1" endpoint_path="/mcp" endpoint_has_query=false mcp_method="initialize" mcp_request_id="0" has_session_id=false has_authorization_header=false
+2026-10-01T09:06:50.344101Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when Client(HttpRequest(HttpRequest("http/request failed: error sending request for url (http://127.0.0.1:3000/mcp)")))
+2026-10-01T09:06:50.344145Z  WARN codex_rmcp_client::rmcp_client::streamable_http_retry: streamable HTTP MCP initialize failed with a retryable error; retrying attempt=2 max_attempts=3 delay_ms=1000 error=handshaking with MCP server failed: Send message error Transport [codex_rmcp_client::event_notification_transport::EventNotificationTransport<rmcp::transport::worker::WorkerTransport<rmcp::transport::streamable_http_client::StreamableHttpClientWorker<codex_rmcp_client::http_client_adapter::StreamableHttpClientAdapter>>>] error: Client error: HTTP request failed: http/request failed: error sending request for url (http://127.0.0.1:3000/mcp), when send initialize request
+codex
+{"ready":true}
+tokens used
+19,999

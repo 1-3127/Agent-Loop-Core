@@ -1,0 +1,22 @@
+{
+  "status": "DIAGNOSIS_COMPLETE",
+  "final_classification": "TRANSIENT_REVIEWER_RUNTIME_FAILURE_SUPPORTED",
+  "secondary_finding": "REVIEWER_FAILURE_OBSERVABILITY_GAP",
+  "historical_exact_root_cause": "UNKNOWN",
+  "stage_A": "PASS; CLI 0.159.2 / ChatGPT login / supported repeated -i and stdin syntax",
+  "stage_B": "PASS; one no-image request; exit 0; ready true",
+  "stage_C": "PASS; one archived actual right attachment; exit 0; ready true",
+  "stage_D": "PASS; exit 0; Result0.3 validated; diagnostic verdict PASS",
+  "actual_diagnostic_model_requests": 3,
+  "request_counts": {
+    "no_image": 1,
+    "image_probe": 1,
+    "production_equivalent": 1
+  },
+  "quota": "No current diagnostic quota failure. Nearby historical other-chat usage failure cannot be attributed to Reviewer.",
+  "image_transport": "Single-image and four-image production-equivalent transports currently successful",
+  "adapter": "Current argv syntax, hash-bound request and direct equivalent output validation succeeded; no deterministic adapter defect established",
+  "source_test_changes": 0,
+  "historical_evidence_modified": 0,
+  "next_bounded_step": "Evaluate separate minimal stderr observability corrective. New Fresh Session proof is a candidate without a demonstrated root-cause source corrective; no automatic rerun."
+}

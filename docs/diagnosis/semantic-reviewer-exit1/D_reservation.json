@@ -1,0 +1,26 @@
+{
+  "stage": "D",
+  "reserved_at": "2026-10-01T09:15:53.834471+00:00",
+  "maximum_invocations": 1,
+  "argv": [
+    "codex",
+    "exec",
+    "--ephemeral",
+    "--skip-git-repo-check",
+    "--sandbox",
+    "read-only",
+    "--output-schema",
+    "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\result_review_schema.json",
+    "-C",
+    "C:\\Users\\Worker\\Documents\\Codex\\2026-10-01\\files-pasted-by-the-user-agent-4\\work\\diagnostic-workspace",
+    "-i",
+    "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\input\\l6\\fsf-l6-20261001-165330-6b5962c4\\front.png",
+    "-i",
+    "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\session\\fresh-session-refresh-proof-final\\artifact_archive\\l6-right_worker_report-right_00001_.png",
+    "-i",
+    "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\session\\fresh-session-refresh-proof-final\\artifact_archive\\l6-left_worker_report-left_00001_.png",
+    "-i",
+    "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\session\\fresh-session-refresh-proof-final\\artifact_archive\\l6-back_worker_report-back_00001_.png",
+    "-"
+  ]
+}

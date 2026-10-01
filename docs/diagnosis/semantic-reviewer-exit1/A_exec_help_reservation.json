@@ -1,0 +1,10 @@
+{
+  "stage": "A_exec_help",
+  "reserved_at": "2026-10-01T09:06:18.165582+00:00",
+  "maximum_invocations": 1,
+  "argv": [
+    "codex",
+    "exec",
+    "--help"
+  ]
+}

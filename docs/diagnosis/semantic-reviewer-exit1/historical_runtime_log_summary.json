@@ -1,0 +1,18 @@
+{
+  "source_database": "C:\\Users\\Worker\\.codex\\logs_2.sqlite",
+  "read_only": true,
+  "window_start_utc": "2026-10-01T08:08:15Z",
+  "window_end_utc": "2026-10-01T08:08:48Z",
+  "rows_inspected": 20,
+  "nearby_usage_limit_messages": [
+    {
+      "ts": 1790842126,
+      "process_uuid": "pid:20392:8fde512b-6343-40fc-b601-52e08c943701",
+      "thread_id": "01a0f66e-f0a3-7380-aac5-5b7a224cc525",
+      "message": "Turn error: You’ve hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.com/codex/settings/usage to purchase more credits or try again at Oct 6th, 2026 9:39 PM."
+    }
+  ],
+  "attribution": "The usage-limit message is from a separate desktop chat process with a different cwd. No direct binding to historical Reviewer subprocess. Not evidence of historical Reviewer quota failure.",
+  "historical_raw_stderr_recovered": false,
+  "search_limit": "Scoped repository artifacts and narrow runtime log window only; not an exhaustive machine-wide recovery claim."
+}
