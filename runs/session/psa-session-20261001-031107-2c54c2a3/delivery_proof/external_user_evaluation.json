@@ -1,0 +1,15 @@
+{
+  "source_receipt": {
+    "identity": "external-user-receipt",
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\session\\psa-session-20261001-031107-2c54c2a3\\delivery_proof\\external_receipt_acknowledgement.json",
+    "bytes": 5163,
+    "sha256": "fa1a1115a43df6ad98224d0d464cb2ecd0047d8c048539f655c3d4999cbf1f75"
+  },
+  "evaluation": "승인",
+  "literal_feedback": "글씨의 경우 직접 추가하여 사용하겠다. 펭귄 눈과 부리, 피켓을 들고 있는 손, 물갈퀴가 정상적으로 렌더링됐다.",
+  "scope": "External User evaluation, outside Core Run/Reviewer state",
+  "new_request": false,
+  "old_loop_revise": false,
+  "executor_artifact_modification": false,
+  "note": "User will add lettering themselves; no additional work or fresh Session is started"
+}

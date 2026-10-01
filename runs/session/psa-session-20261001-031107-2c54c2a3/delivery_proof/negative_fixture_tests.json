@@ -1,0 +1,24 @@
+{
+  "scope": "SYNTHETIC_EXISTING_LOCAL_NEGATIVE_CONTRACT_TESTS_ONLY",
+  "actual_delivery_proof": false,
+  "test_names": [
+    "test_t11_delivery_without_structured_submission_evidence_rejected",
+    "test_t13_submission_package_artifact_and_specification_mismatch_rejected",
+    "test_t14_terminal_reentry_all_mutations_rejected_and_bytes_unchanged",
+    "test_fail_abort_guards_and_premature_delivery_rejected",
+    "test_receipt_structure_namespace_and_timestamp_validation"
+  ],
+  "tests_run": 5,
+  "failures": 0,
+  "errors": 0,
+  "skips": 0,
+  "successful": true,
+  "effects": {
+    "network": 0,
+    "production_process": 0,
+    "generation": 0
+  },
+  "actual_session_records_unchanged": true,
+  "fixture_directory": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-01\\agent-loop-post-stabilization-actual-loop\\work\\closure_negative_fixture_tmp",
+  "completed_at": "2026-10-01T04:37:15.151257+00:00"
+}
