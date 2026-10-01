@@ -1,0 +1,26 @@
+{
+  "session_binding": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\psa-bridge-20261001-031107-2c54c2a3\\session_binding.json",
+    "sha256": "f97133c1a7f898c6c9397874f9e4e9fce8d9980de9013e5b6e109fec07850a87"
+  },
+  "criteria": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\psa-bridge-20261001-031107-2c54c2a3\\geometry_criteria.json",
+    "sha256": "f8994efbeeab6cfcf1a759871834e9bd29ad5e559467b997aac0435d38145f4c"
+  },
+  "request": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\psa-bridge-20261001-031107-2c54c2a3\\review_request.json",
+    "sha256": "a66a268ff5fc102d062e59121b98961dad752f64a6b2ebd196e65278c11a10db"
+  },
+  "result": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\psa-bridge-20261001-031107-2c54c2a3\\review_result.json",
+    "sha256": "de7433dbacd9770b5add4a362f7e3fda100f4e04ca57c100eca29ec721eb934c"
+  },
+  "invocation": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\psa-bridge-20261001-031107-2c54c2a3\\review_invocation.json",
+    "sha256": "5b07b63620595eafb44499ddec84dc8d5907a484f93df0a10486bfce736c99e2"
+  },
+  "coverage": {
+    "AC-GEOMETRY-IDENTITY": "SATISFIED"
+  },
+  "verdict": "PASS"
+}

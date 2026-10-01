@@ -1,0 +1,26 @@
+{
+  "session_binding": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\session_binding.json",
+    "sha256": "4eba62dafb9a91586a6c12d5d1103c32e7b83094bca54d4171e78a92181c79a4"
+  },
+  "criteria": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\multiview_criteria.json",
+    "sha256": "948731ed337bdb085fda7aa3831fe52b2a040aabec3150a665f7b001f9d89df5"
+  },
+  "request": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\review_request.json",
+    "sha256": "5a2e82acc196ab8c78a0f7577ea927d46b6db0b04f99ff3bd35d9746b95a1c18"
+  },
+  "result": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\review_result.json",
+    "sha256": "a56822b00f334d61ac81ed7d98c869c0c695487e8a6fa93a3e8f200863133148"
+  },
+  "invocation": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\review_invocation.json",
+    "sha256": "98e892bd65ef468281cd3ded351876ded0d4d82893f7c1f47b88e67eb385d49f"
+  },
+  "coverage": {
+    "AC-MULTIVIEW-COHERENCE": "SATISFIED"
+  },
+  "verdict": "PASS"
+}

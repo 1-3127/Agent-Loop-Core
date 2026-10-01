@@ -1,0 +1,20 @@
+{
+  "schema_version": "0.1",
+  "task_id": "psa-l6-20261001-031107-2c54c2a3-back",
+  "workflow": "workflows/02_Image_to_Multiview/Qwen2509_Back_api.json",
+  "output_node": "13",
+  "status": "SUCCESS",
+  "client_id": "07f0cef3-d65b-42ce-8dfe-ed1caa4fa5b2",
+  "prompt_id": "82e40936-86d5-44ee-a1e0-a571b6e2bc0f",
+  "started_at": "2026-10-01T03:20:37.665138+00:00",
+  "completed_at": "2026-10-01T03:22:26.037348+00:00",
+  "outputs": [
+    {
+      "type": "image",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l6\\psa-l6-20261001-031107-2c54c2a3\\back_00001_.png",
+      "width": 768,
+      "height": 768
+    }
+  ],
+  "errors": []
+}

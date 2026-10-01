@@ -1,0 +1,20 @@
+{
+  "schema_version": "0.1",
+  "task_id": "psa-l6-20261001-031107-2c54c2a3-left",
+  "workflow": "workflows/02_Image_to_Multiview/Qwen2509_Left_api.json",
+  "output_node": "13",
+  "status": "SUCCESS",
+  "client_id": "dd94a794-6012-464b-b91c-8259e1f1f20b",
+  "prompt_id": "517344c0-6b78-49db-822f-7f3fb63ecb74",
+  "started_at": "2026-10-01T03:18:54.898773+00:00",
+  "completed_at": "2026-10-01T03:20:37.479521+00:00",
+  "outputs": [
+    {
+      "type": "image",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l6\\psa-l6-20261001-031107-2c54c2a3\\left_00001_.png",
+      "width": 768,
+      "height": 768
+    }
+  ],
+  "errors": []
+}

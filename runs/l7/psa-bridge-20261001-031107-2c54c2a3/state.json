@@ -1,0 +1,26 @@
+{
+  "version": "l7-m1.0",
+  "run_id": "psa-bridge-20261001-031107-2c54c2a3",
+  "state": "GEOMETRY_REVIEWED",
+  "terminal": true,
+  "reason": "VALID_GEOMETRY_VERDICT_NO_DISPATCH",
+  "finished_at": "2026-10-01T03:26:22.747269+00:00",
+  "initial_contract": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\psa-bridge-20261001-031107-2c54c2a3\\initial.json",
+    "sha256": "e17267b38c17fca4eec1700e56283831ee24b69603225bfdeb396b749d5a049e"
+  },
+  "review_verdict": "PASS",
+  "actionable": true,
+  "dispatches": 0,
+  "errors": [],
+  "renderer_budget": {
+    "limit": 1,
+    "consumed": 1,
+    "remaining": 0
+  },
+  "reviewer_budget": {
+    "limit": 1,
+    "consumed": 1,
+    "remaining": 0
+  }
+}

@@ -1,0 +1,202 @@
+{
+  "version": "l7-m1.0",
+  "run_id": "psa-bridge-20261001-031107-2c54c2a3",
+  "source_l6_run_id": "psa-l6-20261001-031107-2c54c2a3",
+  "source_glb": {
+    "type": "geometry",
+    "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\mesh\\l6\\psa-l6-20261001-031107-2c54c2a3\\geometry_00001_.glb",
+    "bytes": 1139020,
+    "sha256": "1ee1c6b28f56499e8e83d810b038d0b1736952563744cc2416e04efddeb0c770",
+    "glb_version": 2,
+    "declared_length": 1139020
+  },
+  "render_request": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\psa-bridge-20261001-031107-2c54c2a3\\render_request.json",
+    "sha256": "0ec0c839d1ac29b15970eb4cfe7f7e397af251aa6ffa917d0ec9bee9f749a610"
+  },
+  "blender_executable": "D:\\Blender_5.2\\blender.exe",
+  "blender_version": "5.2.0 LTS",
+  "config": {
+    "engine": "BLENDER_WORKBENCH",
+    "projection": "ORTHO",
+    "resolution": [
+      512,
+      512
+    ],
+    "margin": 1.2,
+    "up_axis": "+Z",
+    "color_mode": "SINGLE",
+    "neutral_color": [
+      0.7,
+      0.72,
+      0.75
+    ],
+    "background": "TRANSPARENT",
+    "scale_rule": "max(world XYZ extents) * 1.2",
+    "distance_rule": "2 * world bounds diagonal",
+    "azimuth_zero_direction": "-Y"
+  },
+  "bounding_box": {
+    "min": [
+      -0.5248173475265503,
+      -0.4529300630092621,
+      -0.8353204727172852
+    ],
+    "max": [
+      0.5400901436805725,
+      0.4915047585964203,
+      0.8514028191566467
+    ],
+    "center": [
+      0.007636398077011108,
+      0.0192873477935791,
+      0.008041173219680786
+    ],
+    "extents": [
+      1.0649075508117676,
+      0.9444348216056824,
+      1.686723232269287
+    ],
+    "maximum_dimension": 1.686723232269287
+  },
+  "object_count": 1,
+  "mesh_count": 1,
+  "import_transforms": [
+    {
+      "name": "Mesh_0",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    }
+  ],
+  "studio_light": "Default",
+  "outputs": [
+    {
+      "role": "geometry_azimuth_0",
+      "azimuth": 0,
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l7\\psa-bridge-20261001-031107-2c54c2a3\\geometry_review\\geometry_azimuth_0.png",
+      "sha256": "4c424b482c8c97085a70ad0baebd55749222f086de320cfd55b4a81fa4664af0",
+      "bytes": 200853,
+      "width": 512,
+      "height": 512,
+      "foreground_pixels": 89851,
+      "camera_location": [
+        0.007636398077011108,
+        -4.3947906494140625,
+        0.008041173219680786
+      ],
+      "camera_rotation_euler": [
+        1.5707964897155762,
+        -0.0,
+        0.0
+      ],
+      "ortho_scale": 2.0240678787231445,
+      "distance": 4.414077704749463,
+      "clip": [
+        0.002207038924098015,
+        8.828155517578125
+      ]
+    },
+    {
+      "role": "geometry_azimuth_90",
+      "azimuth": 90,
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l7\\psa-bridge-20261001-031107-2c54c2a3\\geometry_review\\geometry_azimuth_90.png",
+      "sha256": "68022b097bcae3488a0e5cb4fa300339b93984a457f07c125606df09b9f03f96",
+      "bytes": 164782,
+      "width": 512,
+      "height": 512,
+      "foreground_pixels": 61028,
+      "camera_location": [
+        4.4217143058776855,
+        0.0192873477935791,
+        0.008041173219680786
+      ],
+      "camera_rotation_euler": [
+        1.5707963705062866,
+        -0.0,
+        1.5707963705062866
+      ],
+      "ortho_scale": 2.0240678787231445,
+      "distance": 4.414077704749463,
+      "clip": [
+        0.002207038924098015,
+        8.828155517578125
+      ]
+    },
+    {
+      "role": "geometry_azimuth_180",
+      "azimuth": 180,
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l7\\psa-bridge-20261001-031107-2c54c2a3\\geometry_review\\geometry_azimuth_180.png",
+      "sha256": "edfd7435579cc1c02c73873ed2ffc4305f2177c6b3a7d79b0b2da74da2c53313",
+      "bytes": 185228,
+      "width": 512,
+      "height": 512,
+      "foreground_pixels": 89851,
+      "camera_location": [
+        0.007636398077011108,
+        4.4333648681640625,
+        0.008041173219680786
+      ],
+      "camera_rotation_euler": [
+        -1.570796251296997,
+        -3.141592502593994,
+        -0.0
+      ],
+      "ortho_scale": 2.0240678787231445,
+      "distance": 4.414077704749463,
+      "clip": [
+        0.002207038924098015,
+        8.828155517578125
+      ]
+    },
+    {
+      "role": "geometry_azimuth_270",
+      "azimuth": 270,
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l7\\psa-bridge-20261001-031107-2c54c2a3\\geometry_review\\geometry_azimuth_270.png",
+      "sha256": "420b647f48eb767144e90bf1b2c0d90fed1aba96b9d9abc3f4f86be64f8d8eae",
+      "bytes": 160852,
+      "width": 512,
+      "height": 512,
+      "foreground_pixels": 61034,
+      "camera_location": [
+        -4.4064412117004395,
+        0.0192873477935791,
+        0.008041173219680786
+      ],
+      "camera_rotation_euler": [
+        1.5707963705062866,
+        -0.0,
+        -1.5707963705062866
+      ],
+      "ortho_scale": 2.0240678787231445,
+      "distance": 4.414077704749463,
+      "clip": [
+        0.002207038924098015,
+        8.828155517578125
+      ]
+    }
+  ]
+}

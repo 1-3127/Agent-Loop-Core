@@ -1,0 +1,177 @@
+{
+  "version": "l6.0",
+  "run_id": "psa-l6-20261001-031107-2c54c2a3",
+  "created_at": "2026-10-01T03:16:43.847223+00:00",
+  "state": "GEOMETRY_READY",
+  "source": {
+    "role": "front",
+    "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\input\\hunyuan-official-demo-padded.png",
+    "sha256": "8a6dd9ca3f8984b31c1243e7698cd5030b423464d80e0ad763609148e0ff4f51",
+    "bytes": 142572,
+    "width": 768,
+    "height": 768,
+    "execution_report": null
+  },
+  "comfy_root": "D:\\VSCODE-WorkSpace\\Comfy-UI",
+  "asset_manifest": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\l6\\L6_ASSET_MANIFEST.json",
+    "sha256": "ceff2ea2ed0ac799ca08673c6d4d912c03e23e16770eaac04dfd9c9160f6a716"
+  },
+  "worker_budget": {
+    "limit": 4,
+    "consumed": 4,
+    "remaining": 0
+  },
+  "reviewer_budget": {
+    "limit": 1,
+    "consumed": 1,
+    "remaining": 0
+  },
+  "terminal": true,
+  "session_binding": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\session_binding.json",
+    "sha256": "4eba62dafb9a91586a6c12d5d1103c32e7b83094bca54d4171e78a92181c79a4"
+  },
+  "initial_contract": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\initial.json",
+    "sha256": "6435596390dc83ace15cc74a2d6bbc1800ed7bbfb9df13fff7364336e899447d"
+  },
+  "latest_review": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\review_result.json",
+    "sha256": "a56822b00f334d61ac81ed7d98c869c0c695487e8a6fa93a3e8f200863133148"
+  },
+  "reason": "REVIEWED_MULTIVIEW_TO_VALID_GLB",
+  "failed_stage": null,
+  "errors": [],
+  "finished_at": "2026-10-01T03:24:31.761027+00:00",
+  "records": {
+    "initial": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\initial.json",
+      "sha256": "6435596390dc83ace15cc74a2d6bbc1800ed7bbfb9df13fff7364336e899447d"
+    },
+    "multiview_manifest": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\multiview_manifest.json",
+      "sha256": "0f643b35e5af14070d8361ac03af807442c992c58dd01b1ebf4a49d4acc560c3"
+    },
+    "multiview_work_order": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\multiview_work_order.json",
+      "sha256": "8779d34529565d897f582e428a9b030b2e5b8fcfbb1f97fe5284e85c0bfa6029"
+    },
+    "multiview_execution": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\multiview_execution.json",
+      "sha256": "7bcff9edad97c5f7c5ee3f21f10db94ed5b975833211840b44ad37f6f720e580"
+    },
+    "review_request": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\review_request.json",
+      "sha256": "5a2e82acc196ab8c78a0f7577ea927d46b6db0b04f99ff3bd35d9746b95a1c18"
+    },
+    "review_result": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\review_result.json",
+      "sha256": "a56822b00f334d61ac81ed7d98c869c0c695487e8a6fa93a3e8f200863133148"
+    },
+    "review_invocation": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\review_invocation.json",
+      "sha256": "98e892bd65ef468281cd3ded351876ded0d4d82893f7c1f47b88e67eb385d49f"
+    },
+    "review_reservation": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\review_reservation.json",
+      "sha256": "3fcd003495d8867b0c32f71fdee4b1af733f316508fd0c6a1a7f7b33ee207e6e"
+    },
+    "staging": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\staging.json",
+      "sha256": "817e7048fa1133d96b6f378b1795cad4eaf899023d9fc62cf9f1da0064a57725"
+    },
+    "usage": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\usage.json",
+      "sha256": "2c832a1f2a9eaf23a492c6e640cbcb417ed92885f52fceaa0d4842a01eba0055"
+    },
+    "right_work_order": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\right_work_order.json",
+      "sha256": "5449514dcee2f964c1c104a03c1c5b6f967ad9e5f53f3697092e7d9c758cb4f6"
+    },
+    "right_plan": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\right_plan.json",
+      "sha256": "c375f39578a8b4fc38b4b45ffd94e74c87b0d2b771533799e4a04a8c92e3cb1d"
+    },
+    "right_worker_report": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\right_worker_report.json",
+      "sha256": "84b680d87f364adc7a362f25a557925ac570720654437d64c9a142da92d9fd3d"
+    },
+    "right_execution": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\right_execution.json",
+      "sha256": "6c7be6d6da09e1349dc5acb29d19bb83b09b71ca0fbff9028a3d43a5ccdc44cb"
+    },
+    "right_reservation": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\right_reservation.json",
+      "sha256": "744e9f8440894a0f66838e9942f81f9e26abbaddbe639182604f77f3aa740342"
+    },
+    "left_work_order": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\left_work_order.json",
+      "sha256": "f5d4759ab0f8411b5f03ccd2c6fb527f5093f8ae57d4381e8ed9096ac6fa91c9"
+    },
+    "left_plan": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\left_plan.json",
+      "sha256": "fc11769e7d337d79d9a0efdbcab3527b88ea8503bd1214b1d546c946e05c92ca"
+    },
+    "left_worker_report": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\left_worker_report.json",
+      "sha256": "fd818578332605e08c4a833fbb20715bf3c5a7138b57a470ad731601dd01523c"
+    },
+    "left_execution": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\left_execution.json",
+      "sha256": "6af71f250862b9668b1b70cb28cec1916d2d78b6cafc91bf2ea76dfc6107c705"
+    },
+    "left_reservation": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\left_reservation.json",
+      "sha256": "0eca8546172c6562b44627797dc39308d8ab95f4f2cea7d624ddd986635780f2"
+    },
+    "back_work_order": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\back_work_order.json",
+      "sha256": "72d0de7dbf99d8d6dd1d9860da06cfbde0df0dd879142c9e78462b4b0e0de18e"
+    },
+    "back_plan": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\back_plan.json",
+      "sha256": "3dc246abf3c60e82e216f4ed361e047dfe9a13092fc3a8af7a6841885bdee9ea"
+    },
+    "back_worker_report": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\back_worker_report.json",
+      "sha256": "2a6eae2a32eb4b59dd14cc1a7b7a42ffc18f42dca69e97b31ea808e7da0fc22c"
+    },
+    "back_execution": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\back_execution.json",
+      "sha256": "588fc389568342b08fb50f8e747dd79c228173f126a9e9aed4e61230072165a9"
+    },
+    "back_reservation": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\back_reservation.json",
+      "sha256": "26803254e6643eefb439ea8138fa0ef259856645148e4ddaca66ce990e7fe6ee"
+    },
+    "geometry_work_order": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\geometry_work_order.json",
+      "sha256": "e00771db3c13c5d7b8d7a89f4e880fa783cd26f100866e926746f4df1e63ef8b"
+    },
+    "geometry_plan": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\geometry_plan.json",
+      "sha256": "66b9837ace3f663d3a9118498f6bcf73cccea77e31da4c9660b698390b48c211"
+    },
+    "geometry_worker_report": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\geometry_worker_report.json",
+      "sha256": "481f33d0e8ba9ba67b05f70a2f0735e13ae56e61de2647acac161668a53b975d"
+    },
+    "geometry_execution": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\geometry_execution.json",
+      "sha256": "3e2f6fc8997e251bffdd80d605b7393b8540633a5e358273c55204d44b18a3c2"
+    },
+    "geometry_reservation": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\geometry_reservation.json",
+      "sha256": "27d1bee34fb1ee9c8fc85e59d9ea74f1a77413ea5705e3034b961dc43f58ae80"
+    }
+  },
+  "artifact": {
+    "type": "geometry",
+    "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\mesh\\l6\\psa-l6-20261001-031107-2c54c2a3\\geometry_00001_.glb",
+    "bytes": 1139020,
+    "sha256": "1ee1c6b28f56499e8e83d810b038d0b1736952563744cc2416e04efddeb0c770",
+    "glb_version": 2,
+    "declared_length": 1139020
+  }
+}

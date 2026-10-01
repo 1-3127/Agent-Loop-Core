@@ -1,0 +1,24 @@
+{
+  "version": "l6.0",
+  "run_id": "psa-l6-20261001-031107-2c54c2a3",
+  "stage": "MULTIVIEW",
+  "status": "SUCCESS",
+  "manifest": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\multiview_manifest.json",
+    "sha256": "0f643b35e5af14070d8361ac03af807442c992c58dd01b1ebf4a49d4acc560c3"
+  },
+  "executions": [
+    {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\right_execution.json",
+      "sha256": "6c7be6d6da09e1349dc5acb29d19bb83b09b71ca0fbff9028a3d43a5ccdc44cb"
+    },
+    {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\left_execution.json",
+      "sha256": "6af71f250862b9668b1b70cb28cec1916d2d78b6cafc91bf2ea76dfc6107c705"
+    },
+    {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\back_execution.json",
+      "sha256": "588fc389568342b08fb50f8e747dd79c228173f126a9e9aed4e61230072165a9"
+    }
+  ]
+}

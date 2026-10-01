@@ -1,0 +1,42 @@
+{
+  "version": "l6.0",
+  "run_id": "psa-l6-20261001-031107-2c54c2a3",
+  "work_order_id": "psa-l6-20261001-031107-2c54c2a3-right",
+  "stage": "right",
+  "status": "SUCCESS",
+  "work_order": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\right_work_order.json",
+    "sha256": "5449514dcee2f964c1c104a03c1c5b6f967ad9e5f53f3697092e7d9c758cb4f6"
+  },
+  "plan": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\right_plan.json",
+    "sha256": "c375f39578a8b4fc38b4b45ffd94e74c87b0d2b771533799e4a04a8c92e3cb1d"
+  },
+  "workflow": {
+    "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\workflows\\02_Image_to_Multiview\\Qwen2509_Multiangle_RTX4060_api.json",
+    "sha256": "bb16c26a0aa599f3eee35f206940f1e6ab40bd39c9569025fa8a4f80de67311a"
+  },
+  "worker_report": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\right_worker_report.json",
+    "sha256": "84b680d87f364adc7a362f25a557925ac570720654437d64c9a142da92d9fd3d"
+  },
+  "initial_contract": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\initial.json",
+    "sha256": "6435596390dc83ace15cc74a2d6bbc1800ed7bbfb9df13fff7364336e899447d"
+  },
+  "backend": "ComfyUI",
+  "model": "Qwen-Image-Edit-2509-Q4_K_S.gguf",
+  "prompt_id": "1d9a66e5-d26b-484e-b276-9cdb0700c8b1",
+  "client_id": "8da97640-03ee-4477-8d7d-6cfe875bbe65",
+  "started_at": "2026-10-01T03:16:44.045222+00:00",
+  "completed_at": "2026-10-01T03:18:54.737097+00:00",
+  "artifact": {
+    "role": "right",
+    "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l6\\psa-l6-20261001-031107-2c54c2a3\\right_00001_.png",
+    "sha256": "a053a66ae9d2167de4a4533a9a54b325d1f2f12c2219011a60f13921a0e25d02",
+    "bytes": 233501,
+    "width": 768,
+    "height": 768
+  },
+  "errors": []
+}

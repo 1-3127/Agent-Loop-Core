@@ -1,0 +1,21 @@
+{
+  "session_binding": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\psa-bridge-20261001-031107-2c54c2a3\\session_binding.json",
+    "sha256": "f97133c1a7f898c6c9397874f9e4e9fce8d9980de9013e5b6e109fec07850a87"
+  },
+  "specification_identity_sha256": "52e5df408164f80465c628f051909dc5ae02f6d2f0c3fd9af4acb58ac9b7592e",
+  "stage": "geometry",
+  "criteria": [
+    {
+      "criterion_id": "AC-GEOMETRY-IDENTITY",
+      "authority_ref": "USER_CURRENT_REQUEST",
+      "blocking_when_unmet": true,
+      "description": "The final GLB must remain recognizable as the canonical source object by preserving its major silhouette, proportions, and structural parts without severe deformation or detached major parts."
+    }
+  ],
+  "authorities": {
+    "USER_CURRENT_REQUEST": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\session\\psa-session-20261001-031107-2c54c2a3\\user_request.md#sha256=37bda4fe4f126dd56af0afed412c30411cf77e9169e68b7e79134e2c8a7cfa49",
+    "CANONICAL_SOURCE": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\input\\hunyuan-official-demo-padded.png#sha256=8a6dd9ca3f8984b31c1243e7698cd5030b423464d80e0ad763609148e0ff4f51",
+    "ORIGINAL_REQUEST_REFERENCE": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\session\\psa-session-20261001-031107-2c54c2a3\\original_request_reference.md#sha256=1bf8a65e31b67f72f4511783cdad97906e695af20ea2602731eb5b8e8960dfb6"
+  }
+}

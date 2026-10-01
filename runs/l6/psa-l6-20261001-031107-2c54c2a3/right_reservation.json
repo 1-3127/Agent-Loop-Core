@@ -1,0 +1,13 @@
+{
+  "run_id": "psa-l6-20261001-031107-2c54c2a3",
+  "stage": "right",
+  "work_order": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\right_work_order.json",
+    "sha256": "5449514dcee2f964c1c104a03c1c5b6f967ad9e5f53f3697092e7d9c758cb4f6"
+  },
+  "initial_contract": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\initial.json",
+    "sha256": "6435596390dc83ace15cc74a2d6bbc1800ed7bbfb9df13fff7364336e899447d"
+  },
+  "created_at": "2026-10-01T03:16:43.988225+00:00"
+}

@@ -1,0 +1,39 @@
+{
+  "review_id": "psa-l6-20261001-031107-2c54c2a3-multiview-review",
+  "reviewer_mode": "CODEX_CLI",
+  "invocation_status": "SUCCESS",
+  "request_sha256": "5a2e82acc196ab8c78a0f7577ea927d46b6db0b04f99ff3bd35d9746b95a1c18",
+  "result_path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3\\review_result.json",
+  "reviewer_process_started": true,
+  "auth_mode": "CHATGPT_ACCOUNT",
+  "attached_images": [
+    {
+      "role": "front",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\input\\hunyuan-official-demo-padded.png",
+      "sha256": "8a6dd9ca3f8984b31c1243e7698cd5030b423464d80e0ad763609148e0ff4f51"
+    },
+    {
+      "role": "right",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l6\\psa-l6-20261001-031107-2c54c2a3\\right_00001_.png",
+      "sha256": "a053a66ae9d2167de4a4533a9a54b325d1f2f12c2219011a60f13921a0e25d02"
+    },
+    {
+      "role": "left",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l6\\psa-l6-20261001-031107-2c54c2a3\\left_00001_.png",
+      "sha256": "aba717857a566755db05d66ddfafa4fded9f9a7e8cf8f5e314046bf232f77b59"
+    },
+    {
+      "role": "back",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l6\\psa-l6-20261001-031107-2c54c2a3\\back_00001_.png",
+      "sha256": "56e7fe8738c8b9d3256a1afb73bb82654725328fa1541be3addc469d86119e7f"
+    }
+  ],
+  "started_at": "2026-10-01T03:22:26.528595+00:00",
+  "process_exit_code": 0,
+  "stdout_sha256": "0d27a4097913c83a0598f3ddb5a1bdf758021709bdb50d30931adb9a75959804",
+  "stderr_sha256": "8e0d9774e842db8ccdb41a37847acaa5ff230be8f17e7bbb353124c26d536989",
+  "result_sha256": "a56822b00f334d61ac81ed7d98c869c0c695487e8a6fa93a3e8f200863133148",
+  "verdict": "PASS",
+  "finished_at": "2026-10-01T03:23:45.972759+00:00",
+  "duration_seconds": 79.45300000000134
+}
