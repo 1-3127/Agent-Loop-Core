@@ -295,7 +295,7 @@ class CurrentReferenceIntegrationTests(unittest.TestCase):
         self.s.f.worker_mock.reset_mock()
         staged=self.s.f.comfy/'work/input/l6'/self.s.ids['l6']/'front.png'
         Image.new('RGB',(768,768),'blue').save(staged)
-        with self.assertRaisesRegex(ValueError,'image bytes/hash/dimensions differ'):
+        with self.assertRaisesRegex(ValueError,'image bytes/hash/dimensions differ|file reference missing or hash differs'):
             self.s.execute_correction(h.source)
         self.s.f.worker_mock.assert_not_called()
         self.s.renderer.assert_not_called()

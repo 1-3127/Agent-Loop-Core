@@ -13,6 +13,7 @@ from pathlib import Path
 from core import result_review_adapter as reviewer
 from scenario_a import codex_to_comfy as worker
 from scenario_a import session_binding as bound
+from scenario_a import reference_normalization as normalization
 
 ROOT = Path(__file__).resolve().parents[2]
 ASSET_MANIFEST = ROOT / "docs/l6/L6_ASSET_MANIFEST.json"
@@ -152,12 +153,15 @@ def preflight(comfy_root, *, current_reference=None, run_id="l6-preflight"):
 
 
 def stage_current_reference(run_dir, comfy_root, parent_ref):
-    """Exclusive attempt-local front copy after the fixed entry namespace gate."""
+    """Exclusive normalized execution derivative after the namespace gate."""
     data, _, binding = bound.checked_parent(parent_ref, execution=True)
     current = bound.checked_current_reference(data["current_reference"], binding)
     payload = Path(current.file.path).read_bytes()
     if hashlib.sha256(payload).hexdigest() != current.file.sha256 or len(payload) != current.file.bytes:
         raise ValueError("current Reference changed before staging")
+    if data["child_ids"]["l6"] != run_dir.name:
+        raise ValueError("current normalization attempt identity mismatch")
+    payload, transform = normalization.normalize_reference(payload)
     destination = worker.within(Path(comfy_root) / "work/input", Path("l6") / run_dir.name)
     destination.parent.mkdir(parents=True, exist_ok=True)
     destination.mkdir()
@@ -167,10 +171,14 @@ def stage_current_reference(run_dir, comfy_root, parent_ref):
         stream.flush()
         os.fsync(stream.fileno())
     staged = png_identity(path, "front")
-    if staged["sha256"] != current.file.sha256 or staged["bytes"] != current.file.bytes:
-        raise ValueError("staged current Reference identity differs")
+    if (staged["sha256"] != transform["normalized_sha256"]
+            or staged["bytes"] != transform["normalized_bytes"]
+            or (staged["width"], staged["height"]) != normalization.TARGET):
+        raise ValueError("staged normalized Reference identity differs")
+    normalized = bound.session.file_identity(path, "SCENARIO_A_NORMALIZED_EXECUTION_INPUT")
     record = {"run_id": run_dir.name, "session_binding": parent_ref,
-              "current_reference": asdict(current), "staged": staged}
+              "current_reference": asdict(current), "normalization": transform,
+              "normalized_execution": asdict(normalized), "staged": staged}
     write_once(run_dir / "reference_staging.json", record)
     return reference(run_dir / "reference_staging.json")
 
@@ -190,13 +198,21 @@ def validate_current_staging(run_dir):
     record = read_ref(initial["reference_staging"])
     expected = Path(initial["comfy_root"]) / "work/input/l6" / run_dir.name / "front.png"
     current = data["current_reference"]
+    _, transform = normalization.normalize_reference(Path(current["file"]["path"]).read_bytes())
+    normalized = bound.session.FileIdentity(**record["normalized_execution"])
     if (initial["current_reference"] != current or record["current_reference"] != current
             or record["session_binding"] != child[0]["parent"] or record["run_id"] != run_dir.name
             or initial["reference_staging"] != reference(run_dir / "reference_staging.json")
             or Path(record["staged"]["path"]) != expected
-            or record["staged"]["sha256"] != current["file"]["sha256"]
-            or record["staged"]["bytes"] != current["file"]["bytes"]
-            or initial["source"] != png_identity(current["file"]["path"], "front") | {"execution_report": None}):
+            or record["normalization"] != transform
+            or normalized.identity != "SCENARIO_A_NORMALIZED_EXECUTION_INPUT"
+            or Path(normalized.path) != expected
+            or normalized.sha256 != transform["normalized_sha256"]
+            or normalized.bytes != transform["normalized_bytes"]
+            or record["staged"]["sha256"] != normalized.sha256
+            or record["staged"]["bytes"] != normalized.bytes
+            or (record["staged"]["width"], record["staged"]["height"]) != normalization.TARGET
+            or initial["source"] != record["staged"] | {"execution_report": None}):
         raise ValueError("current Reference/staging lineage differs")
     checked_image(record["staged"])
 
@@ -700,6 +716,8 @@ def run_pipeline(run_id, comfy_root=worker.DEFAULT_COMFY_ROOT, worker_timeout=60
     if current is not None:
         initial["current_reference"] = current
         initial["reference_staging"] = stage_current_reference(run_dir, comfy_root, session_binding)
+        source = read_ref(initial["reference_staging"])["staged"] | {"execution_report": None}
+        initial["source"] = source
     write_once(run_dir / "initial.json", initial)
     worker.write_report(run_dir / "state.json", initial | {"initial_contract": reference(run_dir / "initial.json")})
     stage = "right"
