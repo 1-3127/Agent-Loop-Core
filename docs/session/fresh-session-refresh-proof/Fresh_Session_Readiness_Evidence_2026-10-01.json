@@ -1,0 +1,158 @@
+{
+  "report_date": "2026-10-01",
+  "timezone": "Asia/Seoul",
+  "scope": "READ_ONLY_CURRENT_REFERENCE_ROUTING_CHECK",
+  "proof_verdict": "NOT_VERIFIED",
+  "executor_classification": "CONTRACT_DEFECT_FOUND",
+  "blocker": "Canonical fixed Scenario A entry has no current-reference input binding and consumes the pinned old source.",
+  "start_gate": {
+    "repository": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core",
+    "branch": "delivery-closure-post-stabilization",
+    "head": "bc6b721039c3e9884a62066859d600cdb83c915f",
+    "tracking": "bc6b721039c3e9884a62066859d600cdb83c915f",
+    "live_remote": "bc6b721039c3e9884a62066859d600cdb83c915f",
+    "equality": true,
+    "status_porcelain": ""
+  },
+  "current_reference": {
+    "path": "C:\\Users\\Worker\\AppData\\Local\\Temp\\codex-clipboard-db8b9907-3c93-42cd-ac7e-8d6906652f45.png",
+    "bytes": 362412,
+    "sha256": "9da5ed9e7f3490d058673122a7bd50b46635d4f0b5a36ca3199f0c1636cd17e5"
+  },
+  "fixed_source": {
+    "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\input\\hunyuan-official-demo-padded.png",
+    "bytes": 142572,
+    "sha256": "8a6dd9ca3f8984b31c1243e7698cd5030b423464d80e0ad763609148e0ff4f51"
+  },
+  "asset_manifest": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\l6\\L6_ASSET_MANIFEST.json",
+    "bytes": 21732,
+    "sha256": "ceff2ea2ed0ac799ca08673c6d4d912c03e23e16770eaac04dfd9c9160f6a716"
+  },
+  "fixed_source_matches_manifest": true,
+  "current_reference_matches_fixed_source": false,
+  "canonical_signatures": {
+    "run_session": {
+      "file": "src/scenario_a/session_binding.py",
+      "line": 427,
+      "arguments": "parent_ref, *, comfy_root=l6.worker.DEFAULT_COMFY_ROOT, blender_executable=None, execute=False, worker_timeout=600, review_timeout=600, render_timeout=600"
+    },
+    "make_plan": {
+      "file": "src/scenario_a/l6_pipeline.py",
+      "line": 76,
+      "arguments": "run_id, stage, assets, staged=False"
+    },
+    "preflight": {
+      "file": "src/scenario_a/l6_pipeline.py",
+      "line": 96,
+      "arguments": "comfy_root"
+    },
+    "run_pipeline": {
+      "file": "src/scenario_a/l6_pipeline.py",
+      "line": 590,
+      "arguments": "run_id, comfy_root=worker.DEFAULT_COMFY_ROOT, worker_timeout=600, review_timeout=600, *, execute=False, session_binding=None"
+    }
+  },
+  "source_evidence": [
+    {
+      "file": "src/scenario_a/l6_pipeline.py",
+      "lines": [
+        17,
+        18
+      ],
+      "fact": "Manifest path and expected SHA-256 are constants."
+    },
+    {
+      "file": "src/scenario_a/l6_pipeline.py",
+      "lines": [
+        81,
+        88
+      ],
+      "fact": "LoadImage patches use hunyuan-official-demo-padded.png."
+    },
+    {
+      "file": "src/scenario_a/l6_pipeline.py",
+      "lines": [
+        99,
+        100,
+        103,
+        105
+      ],
+      "fact": "Preflight rejects changed manifest/source hash or path."
+    },
+    {
+      "file": "src/scenario_a/l6_pipeline.py",
+      "lines": [
+        605,
+        611,
+        625
+      ],
+      "fact": "Actual pipeline derives source from fixed assets, then publishes Workers from it."
+    },
+    {
+      "file": "src/scenario_a/session_binding.py",
+      "lines": [
+        31,
+        62,
+        68,
+        427,
+        467
+      ],
+      "fact": "Scenario projection and fixed entry do not provide a replacement input reference."
+    }
+  ],
+  "old_closed_session": {
+    "identity": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\session\\psa-session-20261001-031107-2c54c2a3\\terminal.json",
+      "bytes": 1242,
+      "sha256": "402655076dbe28c599bc169397e40a0e222448a0016103ce3142b9e38d838447"
+    },
+    "session_id": "psa-session-20261001-031107-2c54c2a3",
+    "status": "CLOSED",
+    "reopened": false,
+    "old_evidence_used_as_current": false
+  },
+  "new_session": null,
+  "new_loop": null,
+  "new_binding": null,
+  "frozen_specification": null,
+  "specification_candidate_only": true,
+  "readiness": {
+    "overall": "FAIL_CURRENT_REFERENCE_ROUTING",
+    "canonical_effect_entry_invoked": false,
+    "c01_stage_projection": "PROPOSED_ONLY_NOT_EXECUTED",
+    "i03_namespace_gate": "NOT_EXECUTED",
+    "runtime": "NOT_PROBED_AFTER_BLOCKER",
+    "reviewer": "NOT_PROBED_AFTER_BLOCKER",
+    "full_regression": "NOT_RUN_AFTER_BLOCKER"
+  },
+  "effects": {
+    "worker": 0,
+    "comfyui": 0,
+    "blender": 0,
+    "semantic_reviewer": 0,
+    "correction": 0,
+    "delivery": 0
+  },
+  "internal_accept_created": false,
+  "protection": {
+    "tracked_file_count": 495,
+    "changed_tracked_files": [],
+    "local_refs_unchanged": true,
+    "historical_tracked_bytes_unchanged": true,
+    "source_test_changes": "",
+    "external_old_source_unchanged_during_check": true
+  },
+  "git_writes": {
+    "branch_created": false,
+    "checkpoint_commits": [],
+    "push": "NOT_ATTEMPTED",
+    "approval_review": "Local branch creation rejected: attachment instruction is not established direct authorization.",
+    "direct_user_approval": "REQUESTED_PENDING"
+  },
+  "limitations": [
+    "No actual fresh Session/Loop proof.",
+    "No current runtime or semantic review evidence.",
+    "No historical reasoning transcript or old Work Specification loaded as active task semantics."
+  ]
+}
