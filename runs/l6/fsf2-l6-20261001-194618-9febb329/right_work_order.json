@@ -1,0 +1,35 @@
+{
+  "version": "l6.0",
+  "run_id": "fsf2-l6-20261001-194618-9febb329",
+  "work_order_id": "fsf2-l6-20261001-194618-9febb329-right",
+  "stage": "right",
+  "worker_type": "ComfyUI",
+  "adapter": "src/scenario_a/codex_to_comfy.py",
+  "requested_task": "Generate one right view from original front",
+  "expected_output_kind": "image",
+  "workflow": {
+    "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\workflows\\02_Image_to_Multiview\\Qwen2509_Multiangle_RTX4060_api.json",
+    "sha256": "bb16c26a0aa599f3eee35f206940f1e6ab40bd39c9569025fa8a4f80de67311a"
+  },
+  "plan": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\fsf2-l6-20261001-194618-9febb329\\right_plan.json",
+    "sha256": "b8ee447ff4e90dbe78becef122f0e4e5ba643d658eaca96d54d08f430824bb3c"
+  },
+  "inputs": {
+    "source": {
+      "role": "front",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\input\\l6\\fsf2-l6-20261001-194618-9febb329\\front.png",
+      "sha256": "93c081f086bc91821c8aa0ed61e012109d5eb13fd1358c7ef123598dd6574b00",
+      "bytes": 273422,
+      "width": 768,
+      "height": 768,
+      "execution_report": null
+    }
+  },
+  "worker_report_path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\fsf2-l6-20261001-194618-9febb329\\right_worker_report.json",
+  "execution_report_path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\fsf2-l6-20261001-194618-9febb329\\right_execution.json",
+  "initial_contract": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\fsf2-l6-20261001-194618-9febb329\\initial.json",
+    "sha256": "e5e765fd73d9cabf0497de198e38afc9fb883d4edd2d8f0e9f2b33e6e7674f4f"
+  }
+}

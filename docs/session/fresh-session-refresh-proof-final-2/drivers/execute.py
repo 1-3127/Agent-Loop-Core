@@ -1,4 +1,4 @@
-import os,sys,json,hashlib,traceback
+import os,sys,json,hashlib,traceback,shlex
 from pathlib import Path
 ROOT=Path(r'D:\VSCODE-WorkSpace\Others\Agent-Loop-Core')
 PROOF=ROOT/'docs/session/fresh-session-refresh-proof-final-2'
@@ -37,12 +37,13 @@ def audit(event,args):
         print('ACTUAL_COMFY_POST '+str(index)+' '+record['stage'],flush=True)
     if event=='subprocess.Popen':
         command=args[1]
+        if isinstance(command,str): command=[v.strip('"') for v in shlex.split(command,posix=False)]
         if isinstance(command,(list,tuple)):
             if 'exec' in command and 'codex' in str(command[0]).lower():
                 images=[Path(command[i+1]) for i,v in enumerate(command[:-1]) if v=='-i']
                 events.append({'event':'ACTUAL_SEMANTIC_REVIEWER','time':l6.now(),'images':[l6.reference(p) for p in images]})
                 print('ACTUAL_SEMANTIC_REVIEWER images='+str(len(images)),flush=True)
-            elif 'blender' in str(command[0]).lower() and '--background' in command:
+            elif 'blender' in str(command[0]).lower() and ('--background' in command or '-b' in command):
                 events.append({'event':'ACTUAL_BLENDER_RENDER','time':l6.now()})
                 print('ACTUAL_BLENDER_RENDER',flush=True)
 sys.addaudithook(audit)

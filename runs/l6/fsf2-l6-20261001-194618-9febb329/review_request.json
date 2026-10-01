@@ -1,0 +1,70 @@
+{
+  "request_version": "0.2",
+  "run_id": "fsf2-l6-20261001-194618-9febb329",
+  "review_id": "fsf2-l6-20261001-194618-9febb329-multiview-review",
+  "stage": "MULTIVIEW_REVIEW",
+  "output_kind": "multiview_images",
+  "source_result": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\fsf2-l6-20261001-194618-9febb329\\multiview_manifest.json",
+    "sha256": "23132c6e16149a18ab47a0f7c42f8ba16a6e84f3cc4d8c7a410efa663c135477"
+  },
+  "work_order": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\fsf2-l6-20261001-194618-9febb329\\multiview_work_order.json",
+    "sha256": "55140aa0ccf38937550099592b819096e45b4ad1e49c7251adac4bc79df0d0c5"
+  },
+  "worker_report": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\fsf2-l6-20261001-194618-9febb329\\multiview_execution.json",
+    "sha256": "db8e7b91013a28c17c35cc89236c44d6cb089ec3077c36061f96cc7d942f4a10"
+  },
+  "artifacts": [
+    {
+      "role": "front",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\input\\l6\\fsf2-l6-20261001-194618-9febb329\\front.png",
+      "sha256": "93c081f086bc91821c8aa0ed61e012109d5eb13fd1358c7ef123598dd6574b00",
+      "media_type": "image/png"
+    },
+    {
+      "role": "right",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l6\\fsf2-l6-20261001-194618-9febb329\\right_00001_.png",
+      "sha256": "918eab19f44d7d684f8206271a04e13e0e507a22611a626fec2082435f1641cf",
+      "media_type": "image/png"
+    },
+    {
+      "role": "left",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l6\\fsf2-l6-20261001-194618-9febb329\\left_00001_.png",
+      "sha256": "d51b0b9f9833e6f3a8884392e2662782c3a5b6e0b4ba455d7bd0442737aa167a",
+      "media_type": "image/png"
+    },
+    {
+      "role": "back",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l6\\fsf2-l6-20261001-194618-9febb329\\back_00001_.png",
+      "sha256": "755c9438589b01bc9b002ca5882dd8229fc928146b2b46c36071bf44bb3d1f7c",
+      "media_type": "image/png"
+    }
+  ],
+  "instruction_file": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\fsf2-l6-20261001-194618-9febb329\\review_instructions.md",
+    "sha256": "ba276ae113bef6c484343689c657bdee195bfbf868637de06c09f076a5aa16a6"
+  },
+  "context": {
+    "initial_contract": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\fsf2-l6-20261001-194618-9febb329\\initial.json",
+      "sha256": "e5e765fd73d9cabf0497de198e38afc9fb883d4edd2d8f0e9f2b33e6e7674f4f"
+    },
+    "asset_manifest": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\l6\\L6_ASSET_MANIFEST.json",
+      "sha256": "ceff2ea2ed0ac799ca08673c6d4d912c03e23e16770eaac04dfd9c9160f6a716"
+    },
+    "fixed_role_order": [
+      "front",
+      "right",
+      "left",
+      "back"
+    ],
+    "requested_task": "Assess four-view geometry inputs",
+    "specification_review": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\fsf2-l6-20261001-194618-9febb329\\multiview_criteria.json",
+      "sha256": "82376fa4547998d5d5ba296b0d99586f530e2c13fb74c0f7718996e15cec68de"
+    }
+  }
+}

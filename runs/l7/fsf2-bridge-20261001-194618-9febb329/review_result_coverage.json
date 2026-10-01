@@ -1,0 +1,28 @@
+{
+  "session_binding": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf2-bridge-20261001-194618-9febb329\\session_binding.json",
+    "sha256": "9035066016cfe70d6141010b5ab8e9853ccf127d59df334959aae207b8781163"
+  },
+  "criteria": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf2-bridge-20261001-194618-9febb329\\geometry_criteria.json",
+    "sha256": "112dce7114742b340cb7670c55bb0f77685ec4b1a62ee9ba7c8122ae746600b0"
+  },
+  "request": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf2-bridge-20261001-194618-9febb329\\review_request.json",
+    "sha256": "6d2e4f60c1f1c826de03bcfff8aca0a436a2021bd25bca74b23019b71c8c685c"
+  },
+  "result": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf2-bridge-20261001-194618-9febb329\\review_result.json",
+    "sha256": "9e470af488168e1db8dbcf7c27c5bd2cb7db924595b895f556e5dcaecd2bea0f"
+  },
+  "invocation": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf2-bridge-20261001-194618-9febb329\\review_invocation.json",
+    "sha256": "ca8c6060213ad5e2455f0d737ddde75eaa232e50644bef56cb8a578605633d6e"
+  },
+  "coverage": {
+    "LANTERN_FORM": "UNMET",
+    "APERTURE_GEOMETRY": "UNMET",
+    "GLB_READABILITY": "UNMET"
+  },
+  "verdict": "REVISE"
+}

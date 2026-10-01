@@ -1,0 +1,32 @@
+{
+  "session_binding": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf2-bridge-20261001-194618-9febb329\\session_binding.json",
+    "sha256": "9035066016cfe70d6141010b5ab8e9853ccf127d59df334959aae207b8781163"
+  },
+  "specification_identity_sha256": "09d9d9ec26a4dc6ad60e5fc442fa433b15b4cf61108fec3323e129ef981d9f6b",
+  "stage": "geometry",
+  "criteria": [
+    {
+      "criterion_id": "LANTERN_FORM",
+      "authority_ref": "reference",
+      "blocking_when_unmet": true,
+      "description": "Recognizable stone-lantern silhouette: broad low eaved roof, central chamber, and raised leg-like support, consistent with the current reference. Exclude the foreground post, person, and garden scene."
+    },
+    {
+      "criterion_id": "APERTURE_GEOMETRY",
+      "authority_ref": "request",
+      "blocking_when_unmet": true,
+      "description": "Current 3D diagnostic renders show the central square chamber aperture as a real recessed/open cavity with spatial depth and empty volume, not merely a flat dark square texture. If current renders cannot establish this, do not PASS."
+    },
+    {
+      "criterion_id": "GLB_READABILITY",
+      "authority_ref": "request",
+      "blocking_when_unmet": true,
+      "description": "The current GLB is a coherent readable lantern in diagnostic views, preserving the reference silhouette without gross merged clutter or broken essential components."
+    }
+  ],
+  "authorities": {
+    "request": "{\"bytes\":150,\"identity\":\"CURRENT_DIRECT_USER_REQUEST\",\"path\":\"D:\\\\VSCODE-WorkSpace\\\\Others\\\\Agent-Loop-Core\\\\docs\\\\session\\\\fresh-session-refresh-proof-final-2\\\\CURRENT_REQUEST.md\",\"sha256\":\"1d8778a4439361c1882e78b40b76f83d8423804ff3332852eae108b03439b829\"}",
+    "reference": "{\"bytes\":362412,\"identity\":\"CURRENT_DIRECT_USER_REFERENCE\",\"path\":\"D:\\\\VSCODE-WorkSpace\\\\Others\\\\Agent-Loop-Core\\\\docs\\\\session\\\\fresh-session-refresh-proof-final-2\\\\CURRENT_REFERENCE.png\",\"sha256\":\"9da5ed9e7f3490d058673122a7bd50b46635d4f0b5a36ca3199f0c1636cd17e5\"}"
+  }
+}

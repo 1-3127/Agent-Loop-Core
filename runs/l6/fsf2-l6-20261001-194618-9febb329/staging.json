@@ -1,0 +1,75 @@
+{
+  "version": "l6.0",
+  "run_id": "fsf2-l6-20261001-194618-9febb329",
+  "views": [
+    {
+      "role": "right",
+      "original": {
+        "role": "right",
+        "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l6\\fsf2-l6-20261001-194618-9febb329\\right_00001_.png",
+        "sha256": "918eab19f44d7d684f8206271a04e13e0e507a22611a626fec2082435f1641cf",
+        "bytes": 614012,
+        "width": 768,
+        "height": 768,
+        "execution_report": {
+          "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\fsf2-l6-20261001-194618-9febb329\\right_execution.json",
+          "sha256": "33285b81db887be821f2d8b0d903a32bc2971f1a5a63dc42a9d5bc27b3755963"
+        }
+      },
+      "staged": {
+        "role": "right",
+        "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\input\\l6\\fsf2-l6-20261001-194618-9febb329\\right.png",
+        "sha256": "918eab19f44d7d684f8206271a04e13e0e507a22611a626fec2082435f1641cf",
+        "bytes": 614012,
+        "width": 768,
+        "height": 768
+      }
+    },
+    {
+      "role": "left",
+      "original": {
+        "role": "left",
+        "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l6\\fsf2-l6-20261001-194618-9febb329\\left_00001_.png",
+        "sha256": "d51b0b9f9833e6f3a8884392e2662782c3a5b6e0b4ba455d7bd0442737aa167a",
+        "bytes": 585854,
+        "width": 768,
+        "height": 768,
+        "execution_report": {
+          "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\fsf2-l6-20261001-194618-9febb329\\left_execution.json",
+          "sha256": "7510d3fed192b3a1f1d27250949c371d3bd4b92b625a0040334b71718ee06cc3"
+        }
+      },
+      "staged": {
+        "role": "left",
+        "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\input\\l6\\fsf2-l6-20261001-194618-9febb329\\left.png",
+        "sha256": "d51b0b9f9833e6f3a8884392e2662782c3a5b6e0b4ba455d7bd0442737aa167a",
+        "bytes": 585854,
+        "width": 768,
+        "height": 768
+      }
+    },
+    {
+      "role": "back",
+      "original": {
+        "role": "back",
+        "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l6\\fsf2-l6-20261001-194618-9febb329\\back_00001_.png",
+        "sha256": "755c9438589b01bc9b002ca5882dd8229fc928146b2b46c36071bf44bb3d1f7c",
+        "bytes": 603349,
+        "width": 768,
+        "height": 768,
+        "execution_report": {
+          "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\fsf2-l6-20261001-194618-9febb329\\back_execution.json",
+          "sha256": "bfe001eb65cf60ccfca2aa5413ec427bd496c69910d762dafb112b6f55204012"
+        }
+      },
+      "staged": {
+        "role": "back",
+        "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\input\\l6\\fsf2-l6-20261001-194618-9febb329\\back.png",
+        "sha256": "755c9438589b01bc9b002ca5882dd8229fc928146b2b46c36071bf44bb3d1f7c",
+        "bytes": 603349,
+        "width": 768,
+        "height": 768
+      }
+    }
+  ]
+}

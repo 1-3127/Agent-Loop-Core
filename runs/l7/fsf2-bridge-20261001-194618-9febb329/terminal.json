@@ -1,0 +1,170 @@
+{
+  "version": "l7-m1.0",
+  "run_id": "fsf2-bridge-20261001-194618-9febb329",
+  "state": "GEOMETRY_REVIEWED",
+  "terminal": true,
+  "reason": "VALID_GEOMETRY_VERDICT_NO_DISPATCH",
+  "finished_at": "2026-10-01T11:08:11.864644+00:00",
+  "initial_contract": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf2-bridge-20261001-194618-9febb329\\initial.json",
+    "sha256": "53c1d27c606e41b56dd986f984e8da1369629cfd8aee4611784d2cdfe050af03"
+  },
+  "review_verdict": "REVISE",
+  "actionable": true,
+  "dispatches": 0,
+  "errors": [],
+  "renderer_budget": {
+    "limit": 1,
+    "consumed": 1,
+    "remaining": 0
+  },
+  "reviewer_budget": {
+    "limit": 1,
+    "consumed": 1,
+    "remaining": 0
+  },
+  "records": {
+    "geometry_criteria": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf2-bridge-20261001-194618-9febb329\\geometry_criteria.json",
+      "sha256": "112dce7114742b340cb7670c55bb0f77685ec4b1a62ee9ba7c8122ae746600b0"
+    },
+    "initial": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf2-bridge-20261001-194618-9febb329\\initial.json",
+      "sha256": "53c1d27c606e41b56dd986f984e8da1369629cfd8aee4611784d2cdfe050af03"
+    },
+    "renderer_invocation": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf2-bridge-20261001-194618-9febb329\\renderer_invocation.json",
+      "sha256": "a5b435e7e5d8dd9bb4c408aeaa15fc8e9db6b85da79861367e9afb15dab49993"
+    },
+    "renderer_reservation": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf2-bridge-20261001-194618-9febb329\\renderer_reservation.json",
+      "sha256": "c7bd1bda2a4a41fba95a6c9e7dbe6d18362adef804762cc2c9d84543baaf4a03"
+    },
+    "render_manifest": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf2-bridge-20261001-194618-9febb329\\render_manifest.json",
+      "sha256": "d21b5d9fdc485430e04f1b31bbe089183d27ebd3a883e7c5b22067dc666b71e8"
+    },
+    "render_request": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf2-bridge-20261001-194618-9febb329\\render_request.json",
+      "sha256": "4239ead20c7cee48811b87d052568e8a81c2a64fb1ddea7518c7c038ca0ce8df"
+    },
+    "reviewer_reservation": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf2-bridge-20261001-194618-9febb329\\reviewer_reservation.json",
+      "sha256": "70ea05269935f00318f56a369e92a384666a506e107d3f9f7ac8bb1ae420bd88"
+    },
+    "review_instructions": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf2-bridge-20261001-194618-9febb329\\review_instructions.md",
+      "sha256": "cc1e0ff94b63487cff65aa7991bf321709e0f67cf6fec6de0d2650a6b6999573"
+    },
+    "review_invocation": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf2-bridge-20261001-194618-9febb329\\review_invocation.json",
+      "sha256": "ca8c6060213ad5e2455f0d737ddde75eaa232e50644bef56cb8a578605633d6e"
+    },
+    "review_invocation.json.stderr": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf2-bridge-20261001-194618-9febb329\\review_invocation.json.stderr.txt",
+      "sha256": "828be671588a0039b74a9c56a46fa6c5d0970474dd8b594e96416b3d5c6b0df0"
+    },
+    "review_invocation.json.stdout": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf2-bridge-20261001-194618-9febb329\\review_invocation.json.stdout.txt",
+      "sha256": "4746cf7f7f659c8cb58c9dace94de3205ad7ee437cfd524f1bfa6d06c857d598"
+    },
+    "review_request": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf2-bridge-20261001-194618-9febb329\\review_request.json",
+      "sha256": "6d2e4f60c1f1c826de03bcfff8aca0a436a2021bd25bca74b23019b71c8c685c"
+    },
+    "review_result": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf2-bridge-20261001-194618-9febb329\\review_result.json",
+      "sha256": "9e470af488168e1db8dbcf7c27c5bd2cb7db924595b895f556e5dcaecd2bea0f"
+    },
+    "review_result_coverage": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf2-bridge-20261001-194618-9febb329\\review_result_coverage.json",
+      "sha256": "6d5b6a387890fb15ea00269440317353a3a87fb8f5a6ac906619deff7d80d68d"
+    },
+    "session_binding": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf2-bridge-20261001-194618-9febb329\\session_binding.json",
+      "sha256": "9035066016cfe70d6141010b5ab8e9853ccf127d59df334959aae207b8781163"
+    },
+    "usage": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf2-bridge-20261001-194618-9febb329\\usage.json",
+      "sha256": "d9cffd169236b488cdc11923a735b58247d46bf54cbbde1f5e7125ed5909cf78"
+    }
+  },
+  "l6_input": {
+    "source_run_id": "fsf2-l6-20261001-194618-9febb329",
+    "artifact": {
+      "type": "geometry",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\mesh\\l6\\fsf2-l6-20261001-194618-9febb329\\geometry_00001_.glb",
+      "bytes": 3513684,
+      "sha256": "c8a7a05c3ad86d9e15991d15efde2bcd687a304288b02b188dd7d2870385ca8b",
+      "glb_version": 2,
+      "declared_length": 3513684
+    },
+    "references": [
+      {
+        "role": "front",
+        "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\input\\l6\\fsf2-l6-20261001-194618-9febb329\\front.png",
+        "sha256": "93c081f086bc91821c8aa0ed61e012109d5eb13fd1358c7ef123598dd6574b00",
+        "bytes": 273422,
+        "width": 768,
+        "height": 768,
+        "execution_report": null
+      },
+      {
+        "role": "right",
+        "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l6\\fsf2-l6-20261001-194618-9febb329\\right_00001_.png",
+        "sha256": "918eab19f44d7d684f8206271a04e13e0e507a22611a626fec2082435f1641cf",
+        "bytes": 614012,
+        "width": 768,
+        "height": 768,
+        "execution_report": {
+          "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\fsf2-l6-20261001-194618-9febb329\\right_execution.json",
+          "sha256": "33285b81db887be821f2d8b0d903a32bc2971f1a5a63dc42a9d5bc27b3755963"
+        }
+      },
+      {
+        "role": "left",
+        "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l6\\fsf2-l6-20261001-194618-9febb329\\left_00001_.png",
+        "sha256": "d51b0b9f9833e6f3a8884392e2662782c3a5b6e0b4ba455d7bd0442737aa167a",
+        "bytes": 585854,
+        "width": 768,
+        "height": 768,
+        "execution_report": {
+          "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\fsf2-l6-20261001-194618-9febb329\\left_execution.json",
+          "sha256": "7510d3fed192b3a1f1d27250949c371d3bd4b92b625a0040334b71718ee06cc3"
+        }
+      },
+      {
+        "role": "back",
+        "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l6\\fsf2-l6-20261001-194618-9febb329\\back_00001_.png",
+        "sha256": "755c9438589b01bc9b002ca5882dd8229fc928146b2b46c36071bf44bb3d1f7c",
+        "bytes": 603349,
+        "width": 768,
+        "height": 768,
+        "execution_report": {
+          "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\fsf2-l6-20261001-194618-9febb329\\back_execution.json",
+          "sha256": "bfe001eb65cf60ccfca2aa5413ec427bd496c69910d762dafb112b6f55204012"
+        }
+      }
+    ],
+    "geometry_execution": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\fsf2-l6-20261001-194618-9febb329\\geometry_execution.json",
+      "sha256": "8c08311f4cb86da7cdeb457d88620e1b189a5beb8201ed947ff1445966b27194"
+    },
+    "geometry_plan": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\fsf2-l6-20261001-194618-9febb329\\geometry_plan.json",
+      "sha256": "938b4b9764b0a3cfc4955adc80b9201be6c0adeabc3b8b84694cf287aa42db2c"
+    },
+    "geometry_worker_report": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\fsf2-l6-20261001-194618-9febb329\\geometry_worker_report.json",
+      "sha256": "73b84f67134a1fc4e28e1c40d8bbf029ea3af44d3331d52a973c8d97b6f54137"
+    },
+    "multiview_manifest": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\fsf2-l6-20261001-194618-9febb329\\multiview_manifest.json",
+      "sha256": "23132c6e16149a18ab47a0f7c42f8ba16a6e84f3cc4d8c7a410efa663c135477"
+    },
+    "terminal": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\fsf2-l6-20261001-194618-9febb329\\terminal.json",
+      "sha256": "65fe32da5f47a26c6b14b488f0cf6823b84e14925a7915d4a679887cbb784b49"
+    }
+  }
+}

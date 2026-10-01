@@ -1,0 +1,32 @@
+{
+  "session_binding": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\fsf2-l6-20261001-194618-9febb329\\session_binding.json",
+    "sha256": "74c471bf4e22c7c69ed9544d7d49a4106b3e989c817f0cc67092052b424a9b28"
+  },
+  "specification_identity_sha256": "09d9d9ec26a4dc6ad60e5fc442fa433b15b4cf61108fec3323e129ef981d9f6b",
+  "stage": "multiview",
+  "criteria": [
+    {
+      "criterion_id": "LANTERN_FORM",
+      "authority_ref": "reference",
+      "blocking_when_unmet": true,
+      "description": "Recognizable stone-lantern silhouette: broad low eaved roof, central chamber, and raised leg-like support, consistent with the current reference. Exclude the foreground post, person, and garden scene."
+    },
+    {
+      "criterion_id": "APERTURE_VISUAL",
+      "authority_ref": "request",
+      "blocking_when_unmet": true,
+      "description": "The lantern chamber has a clearly bounded square aperture readable in the visible generated views; do not mistake the openings between base legs for the chamber aperture. Occluded views need coherent completion, not invented exact historical detail."
+    },
+    {
+      "criterion_id": "MULTIVIEW_IDENTITY",
+      "authority_ref": "reference",
+      "blocking_when_unmet": true,
+      "description": "Right, left, and back depict the same stone lantern with coherent proportions and structural arrangement; scene clutter must not become part of the target."
+    }
+  ],
+  "authorities": {
+    "request": "{\"bytes\":150,\"identity\":\"CURRENT_DIRECT_USER_REQUEST\",\"path\":\"D:\\\\VSCODE-WorkSpace\\\\Others\\\\Agent-Loop-Core\\\\docs\\\\session\\\\fresh-session-refresh-proof-final-2\\\\CURRENT_REQUEST.md\",\"sha256\":\"1d8778a4439361c1882e78b40b76f83d8423804ff3332852eae108b03439b829\"}",
+    "reference": "{\"bytes\":362412,\"identity\":\"CURRENT_DIRECT_USER_REFERENCE\",\"path\":\"D:\\\\VSCODE-WorkSpace\\\\Others\\\\Agent-Loop-Core\\\\docs\\\\session\\\\fresh-session-refresh-proof-final-2\\\\CURRENT_REFERENCE.png\",\"sha256\":\"9da5ed9e7f3490d058673122a7bd50b46635d4f0b5a36ca3199f0c1636cd17e5\"}"
+  }
+}

@@ -1,0 +1,263 @@
+{
+  "b5bc3ed8-a5c0-4d67-880f-e8c156a7c48f": {
+    "prompt": [
+      16,
+      "b5bc3ed8-a5c0-4d67-880f-e8c156a7c48f",
+      {
+        "1": {
+          "class_type": "LoadImage",
+          "inputs": {
+            "image": "l6/fsf2-l6-20261001-194618-9febb329/front.png"
+          }
+        },
+        "2": {
+          "class_type": "LoadImage",
+          "inputs": {
+            "image": "l6/fsf2-l6-20261001-194618-9febb329/left.png"
+          }
+        },
+        "3": {
+          "class_type": "LoadImage",
+          "inputs": {
+            "image": "l6/fsf2-l6-20261001-194618-9febb329/back.png"
+          }
+        },
+        "4": {
+          "class_type": "LoadImage",
+          "inputs": {
+            "image": "l6/fsf2-l6-20261001-194618-9febb329/right.png"
+          }
+        },
+        "5": {
+          "class_type": "ImageOnlyCheckpointLoader",
+          "inputs": {
+            "ckpt_name": "hunyuan3d-dit-v2-mv-turbo_fp16.safetensors"
+          }
+        },
+        "6": {
+          "class_type": "CLIPVisionEncode",
+          "inputs": {
+            "clip_vision": [
+              "5",
+              1
+            ],
+            "image": [
+              "1",
+              0
+            ],
+            "crop": "none"
+          }
+        },
+        "7": {
+          "class_type": "CLIPVisionEncode",
+          "inputs": {
+            "clip_vision": [
+              "5",
+              1
+            ],
+            "image": [
+              "2",
+              0
+            ],
+            "crop": "none"
+          }
+        },
+        "8": {
+          "class_type": "CLIPVisionEncode",
+          "inputs": {
+            "clip_vision": [
+              "5",
+              1
+            ],
+            "image": [
+              "3",
+              0
+            ],
+            "crop": "none"
+          }
+        },
+        "9": {
+          "class_type": "CLIPVisionEncode",
+          "inputs": {
+            "clip_vision": [
+              "5",
+              1
+            ],
+            "image": [
+              "4",
+              0
+            ],
+            "crop": "none"
+          }
+        },
+        "10": {
+          "class_type": "Hunyuan3Dv2ConditioningMultiView",
+          "inputs": {
+            "front": [
+              "6",
+              0
+            ],
+            "left": [
+              "7",
+              0
+            ],
+            "back": [
+              "8",
+              0
+            ],
+            "right": [
+              "9",
+              0
+            ]
+          }
+        },
+        "11": {
+          "class_type": "FluxGuidance",
+          "inputs": {
+            "conditioning": [
+              "10",
+              0
+            ],
+            "guidance": 3.5
+          }
+        },
+        "12": {
+          "class_type": "EmptyLatentHunyuan3Dv2",
+          "inputs": {
+            "resolution": 1024,
+            "batch_size": 1
+          }
+        },
+        "13": {
+          "class_type": "ModelSamplingAuraFlow",
+          "inputs": {
+            "model": [
+              "5",
+              0
+            ],
+            "shift": 1.0
+          }
+        },
+        "14": {
+          "class_type": "KSampler",
+          "inputs": {
+            "model": [
+              "13",
+              0
+            ],
+            "positive": [
+              "11",
+              0
+            ],
+            "negative": [
+              "10",
+              1
+            ],
+            "latent_image": [
+              "12",
+              0
+            ],
+            "seed": 528364197559477,
+            "steps": 20,
+            "cfg": 4.0,
+            "sampler_name": "euler",
+            "scheduler": "normal",
+            "denoise": 1.0
+          }
+        },
+        "15": {
+          "class_type": "VAEDecodeHunyuan3D",
+          "inputs": {
+            "samples": [
+              "14",
+              0
+            ],
+            "vae": [
+              "5",
+              2
+            ],
+            "num_chunks": 8000,
+            "octree_resolution": 128
+          }
+        },
+        "16": {
+          "class_type": "VoxelToMesh",
+          "inputs": {
+            "voxel": [
+              "15",
+              0
+            ],
+            "algorithm": "surface net",
+            "threshold": 0.6
+          }
+        },
+        "17": {
+          "class_type": "SaveGLB",
+          "inputs": {
+            "mesh": [
+              "16",
+              0
+            ],
+            "filename_prefix": "mesh/l6/fsf2-l6-20261001-194618-9febb329/geometry"
+          }
+        }
+      },
+      {
+        "client_id": "22ce8b6e-88d4-4fa4-9750-87a61be8c4f3",
+        "create_time": 1790852773568
+      },
+      [
+        "17"
+      ]
+    ],
+    "outputs": {
+      "17": {
+        "3d": [
+          {
+            "filename": "geometry_00001_.glb",
+            "subfolder": "mesh\\l6\\fsf2-l6-20261001-194618-9febb329",
+            "type": "output"
+          }
+        ]
+      }
+    },
+    "status": {
+      "status_str": "success",
+      "completed": true,
+      "messages": [
+        [
+          "execution_start",
+          {
+            "prompt_id": "b5bc3ed8-a5c0-4d67-880f-e8c156a7c48f",
+            "timestamp": 1790852773569
+          }
+        ],
+        [
+          "execution_cached",
+          {
+            "nodes": [
+              "1"
+            ],
+            "prompt_id": "b5bc3ed8-a5c0-4d67-880f-e8c156a7c48f",
+            "timestamp": 1790852773584
+          }
+        ],
+        [
+          "execution_success",
+          {
+            "prompt_id": "b5bc3ed8-a5c0-4d67-880f-e8c156a7c48f",
+            "timestamp": 1790852819920
+          }
+        ]
+      ]
+    },
+    "meta": {
+      "17": {
+        "node_id": "17",
+        "display_node": "17",
+        "parent_node": null,
+        "real_node_id": "17"
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "final_verdict": "CONTRACT_DEFECT_FOUND",
+  "validation": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\session\\fresh-session-refresh-proof-final-2\\ACTUAL_VALIDATION.json",
+    "sha256": "81ea3b9528d03b7fd6810547aa5738b1189fde5ef1f6febe2fbea04751dd7ae9"
+  },
+  "session_outcome": {
+    "status": "FAILED",
+    "terminal": true,
+    "delivered": false
+  },
+  "source_test_changes": 0,
+  "historical_evidence_preserved": true,
+  "delivery": false
+}

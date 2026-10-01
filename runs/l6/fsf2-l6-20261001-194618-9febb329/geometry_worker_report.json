@@ -1,0 +1,22 @@
+{
+  "schema_version": "0.1",
+  "task_id": "fsf2-l6-20261001-194618-9febb329-geometry",
+  "workflow": "workflows/03_Multiview_to_3D/Hunyuan3D_MV_RTX4060_api.json",
+  "output_node": "17",
+  "status": "SUCCESS",
+  "client_id": "22ce8b6e-88d4-4fa4-9750-87a61be8c4f3",
+  "prompt_id": "b5bc3ed8-a5c0-4d67-880f-e8c156a7c48f",
+  "started_at": "2026-10-01T11:06:13.325581+00:00",
+  "completed_at": "2026-10-01T11:07:01.701434+00:00",
+  "outputs": [
+    {
+      "type": "geometry",
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\mesh\\l6\\fsf2-l6-20261001-194618-9febb329\\geometry_00001_.glb",
+      "bytes": 3513684,
+      "sha256": "c8a7a05c3ad86d9e15991d15efde2bcd687a304288b02b188dd7d2870385ca8b",
+      "glb_version": 2,
+      "declared_length": 3513684
+    }
+  ],
+  "errors": []
+}

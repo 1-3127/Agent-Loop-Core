@@ -37,14 +37,21 @@ for d in dirs:
             h=history[prompt]
             item['history_validation']={'prompt_id':prompt,'completed':h['status']['completed'],'status_str':h['status']['status_str'],'outputs_present':bool(h['outputs'])}
             assert h['status']['completed'] and h['status']['status_str']=='success'
+        execution_path=p.with_name(p.name.replace('_worker_report.json','_execution.json'))
+        execution=l6.read_json(execution_path) if execution_path.exists() else None
+        if execution: item['execution']=execution
         for a in report.get('outputs',[]):
             if a.get('path') and Path(a['path']).is_file():
-                assert l6.digest(a['path'])==a['sha256']
+                if a.get('sha256'): assert l6.digest(a['path'])==a['sha256']
+                artifact=execution.get('artifact') if execution else None
+                if artifact and artifact.get('path')==a['path']: assert l6.digest(a['path'])==artifact['sha256']
                 if str(a['path']).lower().endswith('.png'):
                     im=l6.png_identity(a['path'],a.get('role','view'))
                     assert (im['width'],im['height'])==(768,768)
                     images.append({'source':im,'repository_copy':copy_image(a['path'],d.name+'-'+p.stem+'.png')})
-                elif str(a['path']).lower().endswith('.glb'): artifacts.append(a)
+                elif str(a['path']).lower().endswith('.glb'):
+                    assert artifact and artifact['path']==a['path']
+                    artifacts.append(artifact)
         workers.append(item)
     for p in sorted(d.glob('*review_invocation.json')):
         invocation=l6.read_json(p)
@@ -81,7 +88,7 @@ if final and Path(final['path']).stat().st_size<20*1024*1024:
     shutil.copyfile(final['path'],PROOF/'CURRENT_ARTIFACT.glb')
     assert l6.digest(PROOF/'CURRENT_ARTIFACT.glb')==final['sha256']
 posts=[e for e in events if e['event']=='ACTUAL_COMFY_POST']
-verdict='FRESH SESSION / REFRESH PROOF = VERIFIED' if accepted else ('RUNTIME_FAILED' if result.get('state') in ('FAILED','UNRESOLVED','EXECUTION_EXCEPTION') else 'SEMANTIC_CLOSURE_FAILED')
+verdict='CONTRACT_DEFECT_FOUND' if (PROOF/'CONTRACT_DEFECT_EVIDENCE.json').exists() else ('INTERNAL_ACCEPT / PUBLICATION_VERIFICATION_PENDING' if accepted else ('RUNTIME_FAILED' if result.get('state') in ('FAILED','UNRESOLVED','EXECUTION_EXCEPTION') else 'SEMANTIC_CLOSURE_FAILED'))
 validation={'final_verdict':verdict,'canonical_result':result,'session_outcome':asdict(boundary.outcome),'ids':ids,'production_entry_count':1,'worker_reports':workers,'reviews':reviews,'render_manifests':renders,'image_evidence':images,'actual_post_count':len(posts),'geometry_post_count':sum(p['stage']=='geometry' for p in posts),'semantic_reviewer_count':sum(e['event']=='ACTUAL_SEMANTIC_REVIEWER' for e in events),'blender_render_count':sum(e['event']=='ACTUAL_BLENDER_RENDER' for e in events),'correction_count':int((dirs[2]/'revision_reservation.json').exists()),'readiness_reviewer_probe_count':1,'final_artifact':final,'INTERNAL_ACCEPT':accepted,'source_test_changes':0,'historical_changed_files':changed,'protected_tags_preserved':True,'old_source_fallback':0,'resume_count':0,'automatic_retry_count':0,'delivery_count':0,'child_terminals':terminal_records,'reference_sha256':prepared['current_reference']['file']['sha256'],'normalized_sha256':prepared['normalization']['normalized_sha256']}
 write('ACTUAL_VALIDATION.json',validation)
 write('CP2_RESULT.json',{'final_verdict':verdict,'validation':l6.reference(PROOF/'ACTUAL_VALIDATION.json'),'session_outcome':asdict(boundary.outcome),'source_test_changes':0,'historical_evidence_preserved':True,'delivery':False})

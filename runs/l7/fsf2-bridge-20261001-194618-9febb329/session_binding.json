@@ -1,0 +1,14 @@
+{
+  "version": "s3b-child.0",
+  "kind": "bridge",
+  "run_id": "fsf2-bridge-20261001-194618-9febb329",
+  "run_directory": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\fsf2-bridge-20261001-194618-9febb329",
+  "parent": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\session\\fsf2-session-20261001-194618-9febb329\\scenario_a.json",
+    "sha256": "741681c122ffa73016c2ef52874b9ce1d180eeed6346961f54ad3f8900d3d750"
+  },
+  "source": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\fsf2-l6-20261001-194618-9febb329\\session_binding.json",
+    "sha256": "74c471bf4e22c7c69ed9544d7d49a4106b3e989c817f0cc67092052b424a9b28"
+  }
+}
