@@ -1,0 +1,136 @@
+{
+  "verdict": "DELIVERY_READY_AWAITING_EXTERNAL_RECEIPT",
+  "session": "psa-session-20261001-031107-2c54c2a3",
+  "loop": "psa-loop-20261001-031107-2c54c2a3",
+  "proof_branch": "delivery-closure-post-stabilization",
+  "base_commit": "b4211581bb79986de76cebb12d0e5b48b2829443",
+  "canonical_path": "SessionBoundary.prepare_delivery()",
+  "package": {
+    "identity": "psa-session-20261001-031107-2c54c2a3:delivery_package",
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\session\\psa-session-20261001-031107-2c54c2a3\\delivery_package.json",
+    "bytes": 2177,
+    "sha256": "bc10c46a19d1856678e665c03ee620620e090775b2b6b914efc3c49434f2e73e"
+  },
+  "accepted_artifact": {
+    "bytes": 1139020,
+    "identity": "final-glb",
+    "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\mesh\\l6\\psa-l6-20261001-031107-2c54c2a3\\geometry_00001_.glb",
+    "sha256": "1ee1c6b28f56499e8e83d810b038d0b1736952563744cc2416e04efddeb0c770"
+  },
+  "internal_accept": {
+    "bytes": 2180,
+    "identity": "psa-session-20261001-031107-2c54c2a3:internal_accept",
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\session\\psa-session-20261001-031107-2c54c2a3\\internal_accept.json",
+    "sha256": "d29bb410f46d8b90eac840bdd47a38fcc9b0f9fcd29da45d9306cb120a0e0ae8"
+  },
+  "specification": {
+    "session_id": "psa-session-20261001-031107-2c54c2a3",
+    "specification_path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\session\\POST_STABILIZATION_WORK_SPECIFICATION_v1.md",
+    "specification_sha256": "73da08888221bf1e2e9b19d66716c09315edc343a8cd40ebcec6c74a23c73f34",
+    "specification_version": "v1"
+  },
+  "final_review": {
+    "bytes": 3441,
+    "identity": "final-geometry-review",
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\psa-bridge-20261001-031107-2c54c2a3\\review_result.json",
+    "sha256": "de7433dbacd9770b5add4a362f7e3fda100f4e04ca57c100eca29ec721eb934c"
+  },
+  "copy_lineage": {
+    "accepted_artifact": {
+      "original": {
+        "identity": "final-glb",
+        "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\mesh\\l6\\psa-l6-20261001-031107-2c54c2a3\\geometry_00001_.glb",
+        "bytes": 1139020,
+        "sha256": "1ee1c6b28f56499e8e83d810b038d0b1736952563744cc2416e04efddeb0c770"
+      },
+      "copy": {
+        "identity": "final-glb",
+        "path": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-01\\agent-loop-post-stabilization-actual-loop\\outputs\\delivery\\accepted_geometry.glb",
+        "bytes": 1139020,
+        "sha256": "1ee1c6b28f56499e8e83d810b038d0b1736952563744cc2416e04efddeb0c770"
+      },
+      "bytes_equal": true
+    },
+    "delivery_package": {
+      "original": {
+        "identity": "psa-session-20261001-031107-2c54c2a3:delivery_package",
+        "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\session\\psa-session-20261001-031107-2c54c2a3\\delivery_package.json",
+        "bytes": 2177,
+        "sha256": "bc10c46a19d1856678e665c03ee620620e090775b2b6b914efc3c49434f2e73e"
+      },
+      "copy": {
+        "identity": "psa-session-20261001-031107-2c54c2a3:delivery_package",
+        "path": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-01\\agent-loop-post-stabilization-actual-loop\\outputs\\delivery\\delivery_package.json",
+        "bytes": 2177,
+        "sha256": "bc10c46a19d1856678e665c03ee620620e090775b2b6b914efc3c49434f2e73e"
+      },
+      "bytes_equal": true
+    },
+    "initial_input": {
+      "original": {
+        "identity": "source-front",
+        "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\input\\hunyuan-official-demo-padded.png",
+        "bytes": 142572,
+        "sha256": "8a6dd9ca3f8984b31c1243e7698cd5030b423464d80e0ad763609148e0ff4f51"
+      },
+      "copy": {
+        "identity": "source-front",
+        "path": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-01\\agent-loop-post-stabilization-actual-loop\\outputs\\delivery\\initial_input.png",
+        "bytes": 142572,
+        "sha256": "8a6dd9ca3f8984b31c1243e7698cd5030b423464d80e0ad763609148e0ff4f51"
+      },
+      "bytes_equal": true
+    },
+    "final_output_view": {
+      "original": {
+        "identity": "existing-geometry-diagnostic-azimuth-0",
+        "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l7\\psa-bridge-20261001-031107-2c54c2a3\\geometry_review\\geometry_azimuth_0.png",
+        "bytes": 200853,
+        "sha256": "4c424b482c8c97085a70ad0baebd55749222f086de320cfd55b4a81fa4664af0"
+      },
+      "copy": {
+        "identity": "existing-geometry-diagnostic-azimuth-0",
+        "path": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-01\\agent-loop-post-stabilization-actual-loop\\outputs\\delivery\\accepted_geometry_view.png",
+        "bytes": 200853,
+        "sha256": "4c424b482c8c97085a70ad0baebd55749222f086de320cfd55b4a81fa4664af0"
+      },
+      "bytes_equal": true
+    }
+  },
+  "receipt_token": "delivery-bc10c46a19d18566",
+  "destination": "User in the current Codex chat",
+  "planned_transport": "Chat final response with clickable artifact/package links and original input/current accepted geometry diagnostic image",
+  "submission_occurred_before_final_response": false,
+  "actual_submission_evidence": null,
+  "host_atomic_transport_receipt_available": false,
+  "receipt_required": "After the response, user confirms actual receipt with RECEIVED delivery-bc10c46a19d18566",
+  "record_submission_called": false,
+  "delivered": false,
+  "terminal": false,
+  "session_status": "INTERNAL_ACCEPT",
+  "accepted_session_execution_guards": [
+    {
+      "operation": "boundary._execution_open",
+      "rejected": "ALREADY_INTERNAL_ACCEPTED",
+      "actual_effects": 0
+    },
+    {
+      "operation": "bound.checked_parent(execution=True)",
+      "rejected": "ALREADY_INTERNAL_ACCEPTED",
+      "actual_effects": 0
+    }
+  ],
+  "closed_session_guard_actual": "DEFERRED_UNTIL_REAL_RECEIPT_AND_CLOSURE",
+  "effects": {
+    "worker": 0,
+    "comfy_generation": 0,
+    "blender": 0,
+    "semantic_reviewer": 0,
+    "correction": 0,
+    "submission": 0
+  },
+  "starting_tracked_unchanged": 475,
+  "source_test_changes": 0,
+  "historical_evidence_changes": 0,
+  "prepared_at": "2026-10-01T03:43:29.901231+00:00"
+}
