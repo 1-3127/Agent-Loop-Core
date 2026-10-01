@@ -1,0 +1,34 @@
+[
+  {
+    "category": "CURRENT_REQUEST",
+    "reference": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\session\\fresh-session-refresh-proof-final\\CURRENT_REQUEST.md"
+  },
+  {
+    "category": "CURRENT_REFERENCE",
+    "reference": "{\"bytes\":362412,\"identity\":\"USER_CURRENT_REFERENCE\",\"path\":\"C:\\\\Users\\\\Worker\\\\AppData\\\\Local\\\\Temp\\\\codex-clipboard-56c3ee39-4031-47aa-a5ef-ebede4edfb9c.png\",\"sha256\":\"9da5ed9e7f3490d058673122a7bd50b46635d4f0b5a36ca3199f0c1636cd17e5\"}"
+  },
+  {
+    "category": "VERIFIED_FACT",
+    "reference": "C-01 criterion applicability stabilized"
+  },
+  {
+    "category": "VERIFIED_FACT",
+    "reference": "I-03 namespace preflight stabilized"
+  },
+  {
+    "category": "VERIFIED_FACT",
+    "reference": "Current Reference binding stabilized"
+  },
+  {
+    "category": "VERIFIED_FACT",
+    "reference": "Current Reference normalization stabilized"
+  },
+  {
+    "category": "VERIFIED_FACT",
+    "reference": "Previous actual acceptance and Delivery/Closure are historical verified facts; no current state is imported"
+  },
+  {
+    "category": "VERIFIED_FACT",
+    "reference": "I-01 and I-02 deferred P2"
+  }
+]

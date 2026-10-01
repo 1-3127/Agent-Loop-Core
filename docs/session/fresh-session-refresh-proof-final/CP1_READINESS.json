@@ -1,0 +1,183 @@
+{
+  "status": "READINESS_PASS",
+  "time": "2026-10-01T08:01:47.630035+00:00",
+  "generation_effects": 0,
+  "delivery_effects": 0,
+  "entry": "scenario_a.session_binding.run_session(parent, execute=True)",
+  "parent": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\session\\fsf-session-20261001-165330-6b5962c4\\scenario_a.json",
+    "sha256": "8bdffc7b9df32dcc95f730114fb286401093d66dac20830c222c355fb6920442"
+  },
+  "ids": {
+    "session": "fsf-session-20261001-165330-6b5962c4",
+    "loop": "fsf-loop-20261001-165330-6b5962c4",
+    "l6": "fsf-l6-20261001-165330-6b5962c4",
+    "bridge": "fsf-bridge-20261001-165330-6b5962c4",
+    "correction": "fsf-correction-20261001-165330-6b5962c4"
+  },
+  "specification_identity_sha256": "18fa3dea0e88e19982fbd9ac20f5bc90b1550f11af135920e4674a3f4b8106ff",
+  "original": {
+    "identity": "USER_CURRENT_REFERENCE",
+    "path": "C:\\Users\\Worker\\AppData\\Local\\Temp\\codex-clipboard-56c3ee39-4031-47aa-a5ef-ebede4edfb9c.png",
+    "bytes": 362412,
+    "sha256": "9da5ed9e7f3490d058673122a7bd50b46635d4f0b5a36ca3199f0c1636cd17e5"
+  },
+  "normalization": {
+    "contract": {
+      "kind": "contain_pad",
+      "version": "scenario-a-reference.1",
+      "target_dimensions": [
+        768,
+        768
+      ],
+      "upscale": false,
+      "crop": false,
+      "alignment": "center_floor",
+      "padding_rgb": [
+        255,
+        255,
+        255
+      ],
+      "padding_alpha": 0,
+      "resampling": "LANCZOS",
+      "encoding": "PNG",
+      "compress_level": 9,
+      "optimize": false,
+      "metadata": "strip_on_transform_preserve_on_identity",
+      "pillow_version": "12.3.0",
+      "zlib_version": "1.3.2"
+    },
+    "operation": "pad",
+    "original_dimensions": [
+      467,
+      539
+    ],
+    "resized_dimensions": [
+      467,
+      539
+    ],
+    "padding_offsets": {
+      "left": 150,
+      "top": 114,
+      "right": 151,
+      "bottom": 115
+    },
+    "original_mode": "RGB",
+    "output_mode": "RGB",
+    "normalized_sha256": "93c081f086bc91821c8aa0ed61e012109d5eb13fd1358c7ef123598dd6574b00",
+    "normalized_bytes": 273422
+  },
+  "stage_criteria": {
+    "multiview": [
+      "MV_SILHOUETTE",
+      "MV_OPENING"
+    ],
+    "geometry": [
+      "GEO_SILHOUETTE",
+      "GEO_OPENING"
+    ]
+  },
+  "canonical_preflight": {
+    "status": "PREFLIGHT_PASS",
+    "session_binding": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\session\\fsf-session-20261001-165330-6b5962c4\\scenario_a.json",
+      "sha256": "8bdffc7b9df32dcc95f730114fb286401093d66dac20830c222c355fb6920442"
+    },
+    "child_ids": {
+      "l6": "fsf-l6-20261001-165330-6b5962c4",
+      "bridge": "fsf-bridge-20261001-165330-6b5962c4",
+      "correction": "fsf-correction-20261001-165330-6b5962c4"
+    },
+    "capability": "fixed_four_view_glb_seed_only",
+    "limits": {
+      "worker": 6,
+      "reviewer": 4,
+      "renderer": 2,
+      "revision": 1
+    },
+    "renderer": {
+      "executable": "D:\\Blender_5.2\\blender.exe",
+      "version": "5.2.0 LTS",
+      "bytes": 112975320,
+      "mtime_ns": 1783967930000000000
+    },
+    "script": {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\src\\scenario_a\\l7_blender_diagnostic.py",
+      "sha256": "d71f932c5679d6e1ad453e1fa39d75c919fec5c1ff975d22c1114ed53f249cd1"
+    },
+    "effects": 0,
+    "delivered": false
+  },
+  "regression": {
+    "pass": true,
+    "tests": 244,
+    "resolved_failures": 0,
+    "resolved_errors": 0,
+    "skips": 0,
+    "full_discovery": {
+      "tests": 244,
+      "failures": 0,
+      "errors": 1,
+      "skips": 0,
+      "pass": false,
+      "seconds": 560.7030000000013,
+      "tripwires": {
+        "network": 0,
+        "production_process": 1,
+        "import_smoke_process": 0
+      },
+      "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+      "executable": "C:\\Users\\Worker\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe"
+    },
+    "targeted_import_smoke_rerun": {
+      "tests": 1,
+      "pass": true,
+      "errors": 0,
+      "failures": 0,
+      "tripwires": {
+        "network": 0,
+        "production_process": 0,
+        "import_smoke_process": 1
+      },
+      "audit_command_types": [
+        "str"
+      ],
+      "scope": "Exact existing test rerun with Windows list2cmdline-aware import-only allowlist; source/test unchanged"
+    },
+    "basis": "243 passed in full discovery; exactly one import-only subprocess was denied by the proof wrapper before start because Windows audit supplies command as str. Exact existing test passes with list2cmdline-aware allowlist. No source/test change; no production subprocess executed. Initial raw error preserved."
+  },
+  "reviewer_readiness": {
+    "mode": "CODEX_CLI_NO_IMAGE_TRANSPORT_READINESS",
+    "production_reviewer_invocations": 0,
+    "diagnostic_transport_invocations": 1,
+    "image_diagnostic_invocations": 0,
+    "image_transfer": false,
+    "vision_preflight": "not independently probed; private-image diagnostic explicitly rejected; actual production evidence remains required",
+    "process_started": true,
+    "exit_code": 0,
+    "seconds": 8.18699999999808,
+    "args": [
+      "codex",
+      "exec",
+      "--ephemeral",
+      "--skip-git-repo-check",
+      "--sandbox",
+      "read-only",
+      "--output-schema",
+      "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\session\\fresh-session-refresh-proof-final\\reviewer_transport_schema.json",
+      "-C",
+      "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\session\\fresh-session-refresh-proof-final",
+      "-"
+    ],
+    "output": {
+      "ready": true
+    },
+    "pass": true,
+    "rejected_action": "separate current attached PNG vision readiness probe",
+    "rejection_reason": "auto-review: general proof authorization did not clearly cover separate private-image diagnostic to Codex CLI"
+  },
+  "source_test_changes": 0,
+  "starting_tracked_changed": [],
+  "live_starting_branch": "5b1a3c8a918cb9fcabaa7c7c7824b3755b2e5a2c",
+  "normalized_staging": "Canonical entry will exclusively stage exact preview bytes after I-03 and before first Worker POST. Pre-submission audit verifies real staging and Work Order lineage. No precreated attempt namespace or validator bypass."
+}

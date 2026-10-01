@@ -1,0 +1,15 @@
+{
+  "tests": 244,
+  "failures": 0,
+  "errors": 1,
+  "skips": 0,
+  "pass": false,
+  "seconds": 560.7030000000013,
+  "tripwires": {
+    "network": 0,
+    "production_process": 1,
+    "import_smoke_process": 0
+  },
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "executable": "C:\\Users\\Worker\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe"
+}

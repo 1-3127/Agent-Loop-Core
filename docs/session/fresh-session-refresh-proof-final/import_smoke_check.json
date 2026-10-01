@@ -1,0 +1,15 @@
+{
+  "tests": 1,
+  "pass": true,
+  "errors": 0,
+  "failures": 0,
+  "tripwires": {
+    "network": 0,
+    "production_process": 0,
+    "import_smoke_process": 1
+  },
+  "audit_command_types": [
+    "str"
+  ],
+  "scope": "Exact existing test rerun with Windows list2cmdline-aware import-only allowlist; source/test unchanged"
+}
