@@ -1,0 +1,18 @@
+{
+  "entry": "scenario_a.session_binding.run_session",
+  "execute": true,
+  "ids": {
+    "session": "fsf-session-20261001-165330-6b5962c4",
+    "loop": "fsf-loop-20261001-165330-6b5962c4",
+    "l6": "fsf-l6-20261001-165330-6b5962c4",
+    "bridge": "fsf-bridge-20261001-165330-6b5962c4",
+    "correction": "fsf-correction-20261001-165330-6b5962c4"
+  },
+  "parent": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\session\\fsf-session-20261001-165330-6b5962c4\\scenario_a.json",
+    "sha256": "8bdffc7b9df32dcc95f730114fb286401093d66dac20830c222c355fb6920442"
+  },
+  "created_at": "2026-10-01T08:02:38.226366+00:00",
+  "automatic_retries": 0,
+  "delivery": false
+}

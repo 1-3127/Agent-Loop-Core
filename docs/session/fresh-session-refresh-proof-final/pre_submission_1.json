@@ -1,0 +1,29 @@
+{
+  "event": "COMFY_PROMPT_BEFORE_SUBMISSION",
+  "time": "2026-10-01T08:02:39.270183+00:00",
+  "index": 1,
+  "front_input": "l6/fsf-l6-20261001-165330-6b5962c4/front.png",
+  "graph_sha256": "c5d72bc965207bcb06f25fba0b7743bf65929647549bab908c655d85b9036913",
+  "staging": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\fsf-l6-20261001-165330-6b5962c4\\reference_staging.json",
+    "sha256": "6ca2015c35bc2028b6017afffdc8ac614bfbd5ef741c49528e25268731ee6efc"
+  },
+  "normalized_input": {
+    "identity": "SCENARIO_A_NORMALIZED_EXECUTION_INPUT",
+    "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\input\\l6\\fsf-l6-20261001-165330-6b5962c4\\front.png",
+    "bytes": 273422,
+    "sha256": "93c081f086bc91821c8aa0ed61e012109d5eb13fd1358c7ef123598dd6574b00"
+  },
+  "specification_identity_sha256": "18fa3dea0e88e19982fbd9ac20f5bc90b1550f11af135920e4674a3f4b8106ff",
+  "parent": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\session\\fsf-session-20261001-165330-6b5962c4\\scenario_a.json",
+    "sha256": "8bdffc7b9df32dcc95f730114fb286401093d66dac20830c222c355fb6920442"
+  },
+  "work_orders": [
+    {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\fsf-l6-20261001-165330-6b5962c4\\right_work_order.json",
+      "sha256": "fea8fc7bf51ff9c4650557114a110c2495a072c56c9954dcba2ef08342084d3a"
+    }
+  ],
+  "old_source_fallback": 0
+}

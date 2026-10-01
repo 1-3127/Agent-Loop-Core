@@ -1,0 +1,51 @@
+{
+  "version": "l6.0",
+  "run_id": "fsf-l6-20261001-165330-6b5962c4",
+  "created_at": "2026-10-01T08:02:38.316369+00:00",
+  "state": "SOURCE_READY",
+  "source": {
+    "role": "front",
+    "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\input\\l6\\fsf-l6-20261001-165330-6b5962c4\\front.png",
+    "sha256": "93c081f086bc91821c8aa0ed61e012109d5eb13fd1358c7ef123598dd6574b00",
+    "bytes": 273422,
+    "width": 768,
+    "height": 768,
+    "execution_report": null
+  },
+  "comfy_root": "D:\\VSCODE-WorkSpace\\Comfy-UI",
+  "asset_manifest": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\l6\\L6_ASSET_MANIFEST.json",
+    "sha256": "ceff2ea2ed0ac799ca08673c6d4d912c03e23e16770eaac04dfd9c9160f6a716"
+  },
+  "worker_budget": {
+    "limit": 4,
+    "consumed": 0,
+    "remaining": 4
+  },
+  "reviewer_budget": {
+    "limit": 1,
+    "consumed": 0,
+    "remaining": 1
+  },
+  "terminal": false,
+  "session_binding": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\fsf-l6-20261001-165330-6b5962c4\\session_binding.json",
+    "sha256": "6564f5a9ced2878b8265df416c55ede420d94d4bf230e25ace59b97d95a4ec19"
+  },
+  "current_reference": {
+    "file": {
+      "identity": "USER_CURRENT_REFERENCE",
+      "path": "C:\\Users\\Worker\\AppData\\Local\\Temp\\codex-clipboard-56c3ee39-4031-47aa-a5ef-ebede4edfb9c.png",
+      "bytes": 362412,
+      "sha256": "9da5ed9e7f3490d058673122a7bd50b46635d4f0b5a36ca3199f0c1636cd17e5"
+    },
+    "authority_ref": "REF",
+    "authority_source": "{\"bytes\":362412,\"identity\":\"USER_CURRENT_REFERENCE\",\"path\":\"C:\\\\Users\\\\Worker\\\\AppData\\\\Local\\\\Temp\\\\codex-clipboard-56c3ee39-4031-47aa-a5ef-ebede4edfb9c.png\",\"sha256\":\"9da5ed9e7f3490d058673122a7bd50b46635d4f0b5a36ca3199f0c1636cd17e5\"}",
+    "session_id": "fsf-session-20261001-165330-6b5962c4",
+    "specification_identity_sha256": "18fa3dea0e88e19982fbd9ac20f5bc90b1550f11af135920e4674a3f4b8106ff"
+  },
+  "reference_staging": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\fsf-l6-20261001-165330-6b5962c4\\reference_staging.json",
+    "sha256": "6ca2015c35bc2028b6017afffdc8ac614bfbd5ef741c49528e25268731ee6efc"
+  }
+}

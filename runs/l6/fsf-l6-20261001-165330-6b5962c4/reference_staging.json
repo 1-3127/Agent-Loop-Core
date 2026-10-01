@@ -1,0 +1,78 @@
+{
+  "run_id": "fsf-l6-20261001-165330-6b5962c4",
+  "session_binding": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\session\\fsf-session-20261001-165330-6b5962c4\\scenario_a.json",
+    "sha256": "8bdffc7b9df32dcc95f730114fb286401093d66dac20830c222c355fb6920442"
+  },
+  "current_reference": {
+    "file": {
+      "identity": "USER_CURRENT_REFERENCE",
+      "path": "C:\\Users\\Worker\\AppData\\Local\\Temp\\codex-clipboard-56c3ee39-4031-47aa-a5ef-ebede4edfb9c.png",
+      "bytes": 362412,
+      "sha256": "9da5ed9e7f3490d058673122a7bd50b46635d4f0b5a36ca3199f0c1636cd17e5"
+    },
+    "authority_ref": "REF",
+    "authority_source": "{\"bytes\":362412,\"identity\":\"USER_CURRENT_REFERENCE\",\"path\":\"C:\\\\Users\\\\Worker\\\\AppData\\\\Local\\\\Temp\\\\codex-clipboard-56c3ee39-4031-47aa-a5ef-ebede4edfb9c.png\",\"sha256\":\"9da5ed9e7f3490d058673122a7bd50b46635d4f0b5a36ca3199f0c1636cd17e5\"}",
+    "session_id": "fsf-session-20261001-165330-6b5962c4",
+    "specification_identity_sha256": "18fa3dea0e88e19982fbd9ac20f5bc90b1550f11af135920e4674a3f4b8106ff"
+  },
+  "normalization": {
+    "contract": {
+      "kind": "contain_pad",
+      "version": "scenario-a-reference.1",
+      "target_dimensions": [
+        768,
+        768
+      ],
+      "upscale": false,
+      "crop": false,
+      "alignment": "center_floor",
+      "padding_rgb": [
+        255,
+        255,
+        255
+      ],
+      "padding_alpha": 0,
+      "resampling": "LANCZOS",
+      "encoding": "PNG",
+      "compress_level": 9,
+      "optimize": false,
+      "metadata": "strip_on_transform_preserve_on_identity",
+      "pillow_version": "12.3.0",
+      "zlib_version": "1.3.2"
+    },
+    "operation": "pad",
+    "original_dimensions": [
+      467,
+      539
+    ],
+    "resized_dimensions": [
+      467,
+      539
+    ],
+    "padding_offsets": {
+      "left": 150,
+      "top": 114,
+      "right": 151,
+      "bottom": 115
+    },
+    "original_mode": "RGB",
+    "output_mode": "RGB",
+    "normalized_sha256": "93c081f086bc91821c8aa0ed61e012109d5eb13fd1358c7ef123598dd6574b00",
+    "normalized_bytes": 273422
+  },
+  "normalized_execution": {
+    "identity": "SCENARIO_A_NORMALIZED_EXECUTION_INPUT",
+    "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\input\\l6\\fsf-l6-20261001-165330-6b5962c4\\front.png",
+    "bytes": 273422,
+    "sha256": "93c081f086bc91821c8aa0ed61e012109d5eb13fd1358c7ef123598dd6574b00"
+  },
+  "staged": {
+    "role": "front",
+    "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\input\\l6\\fsf-l6-20261001-165330-6b5962c4\\front.png",
+    "sha256": "93c081f086bc91821c8aa0ed61e012109d5eb13fd1358c7ef123598dd6574b00",
+    "bytes": 273422,
+    "width": 768,
+    "height": 768
+  }
+}
