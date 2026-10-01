@@ -1,0 +1,14 @@
+{
+  "request": "레퍼런스 이미지에 있는 석등을 제작하라. 석등은 중앙의 사각형 구멍을 포함한 실루엣이 명확히 나와야 한다.",
+  "reference": {
+    "identity": "USER_DIRECT_CURRENT_REFERENCE",
+    "path": "C:\\Users\\Worker\\AppData\\Local\\Temp\\codex-clipboard-08627ccb-773a-4ec0-9b6e-3dd1bcde0524.png",
+    "bytes": 362412,
+    "sha256": "9da5ed9e7f3490d058673122a7bd50b46635d4f0b5a36ca3199f0c1636cd17e5"
+  },
+  "interpretation": "Generate the lantern itself, with visible major silhouette and a real central chamber cavity. Scene occluders are excluded.",
+  "decisive_ambiguity": false,
+  "user_question_needed": false,
+  "previous_active_state_imported": false,
+  "fresh_chat": "Current chat has a newly supplied request and direct attachment; no historical Session reopened. Host memory erasure is not measurable by the Session API."
+}

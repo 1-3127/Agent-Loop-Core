@@ -1,0 +1,22 @@
+[
+  {
+    "category": "CURRENT_REQUEST",
+    "reference": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\session\\fresh-session-refresh-proof-final-3\\CURRENT_REQUEST.md"
+  },
+  {
+    "category": "CURRENT_REFERENCE",
+    "reference": "{\"bytes\":362412,\"identity\":\"USER_DIRECT_CURRENT_REFERENCE\",\"path\":\"C:\\\\Users\\\\Worker\\\\AppData\\\\Local\\\\Temp\\\\codex-clipboard-08627ccb-773a-4ec0-9b6e-3dd1bcde0524.png\",\"sha256\":\"9da5ed9e7f3490d058673122a7bd50b46635d4f0b5a36ca3199f0c1636cd17e5\"}"
+  },
+  {
+    "category": "VERIFIED_FACT",
+    "reference": "Baseline 94e55ac includes C-01, I-03, reference binding/normalization, Reviewer observability and L7 stream contracts; verify current readiness."
+  },
+  {
+    "category": "VERIFIED_FACT",
+    "reference": "Previous attempts are historical, never active state."
+  },
+  {
+    "category": "VERIFIED_FACT",
+    "reference": "I-01 and I-02 remain deferred."
+  }
+]
