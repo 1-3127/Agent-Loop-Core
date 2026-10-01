@@ -1,0 +1,26 @@
+{
+  "auth_mode": "CHATGPT_ACCOUNT",
+  "version": "codex-cli 0.159.2",
+  "command": [
+    "codex",
+    "exec",
+    "--ephemeral",
+    "--skip-git-repo-check",
+    "--sandbox",
+    "read-only",
+    "--output-schema",
+    "C:\\Users\\Worker\\Documents\\Codex\\2026-10-01\\files-mentioned-by-the-user-fresh\\work\\readiness_schema.json",
+    "-C",
+    "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core",
+    "-"
+  ],
+  "exit_code": 1,
+  "seconds": 0.06199999999807915,
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "a2f59b15b128a20a1c619a482fc24eb2f8f60871d2bdb6e3b28204dae26b3195",
+  "stdout": "",
+  "readiness_probe_invocations": 1,
+  "semantic_artifact_reviews": 0,
+  "actual_model": "UNKNOWN",
+  "actual_reasoning": "UNKNOWN"
+}

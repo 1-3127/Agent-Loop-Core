@@ -1,0 +1,72 @@
+{
+  "version": "s3b-scenario-a.1",
+  "session_directory": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\session\\fsr-session-20261001-152846-ccab2a25",
+  "session_id": "fsr-session-20261001-152846-ccab2a25",
+  "loop_run_id": "fsr-loop-20261001-152846-ccab2a25",
+  "binding": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\session\\fsr-session-20261001-152846-ccab2a25\\binding.json",
+    "sha256": "2bd9ab8f49801abc8ace102265579d6922eff82b0938924109f041df24e00c9f"
+  },
+  "binding_identity_sha256": "2d4a7130f4138ed8d10fe4077967a724f7565b87c5ff1e5106f5da3e224b2416",
+  "specification_identity_sha256": "404913d520686f3a42adaaa1262fe2b581042d1879fe7bc708b7b57ba0b4d8aa",
+  "specification": {
+    "session_id": "fsr-session-20261001-152846-ccab2a25",
+    "specification_version": "v1",
+    "specification_path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\session\\fresh-session-refresh-proof-retry\\STONE_LANTERN_WORK_SPECIFICATION_v1.md",
+    "specification_sha256": "326e5ffb128ea550616aa3258c31e53ee93ad971f52ec7b13097a79dc0e0b661"
+  },
+  "scenario": "scenario_a",
+  "goal": {
+    "text": "Create one recognizable stone-lantern GLB from the current direct photograph.",
+    "authority_ref": "USER"
+  },
+  "must_haves": [
+    {
+      "text": "Preserve the broad roof, compact square chamber, shelf and low splayed arched supports in reference proportions.",
+      "authority_ref": "REF"
+    },
+    {
+      "text": "Show a clearly identifiable central square opening as actual visible geometry.",
+      "authority_ref": "USER"
+    },
+    {
+      "text": "Model the stone lantern alone; exclude the photographed person, foreground post and background scenery.",
+      "authority_ref": "REF"
+    }
+  ],
+  "stage_criteria": {
+    "multiview": [
+      "LANTERN_VIEW_IDENTITY"
+    ],
+    "geometry": [
+      "LANTERN_GLB_SILHOUETTE",
+      "LANTERN_SQUARE_APERTURE"
+    ]
+  },
+  "current_reference": {
+    "file": {
+      "identity": "USER_CURRENT_REFERENCE",
+      "path": "C:\\Users\\Worker\\AppData\\Local\\Temp\\codex-clipboard-cccea437-5ac5-4e4e-8009-43493507bd03.png",
+      "bytes": 362412,
+      "sha256": "9da5ed9e7f3490d058673122a7bd50b46635d4f0b5a36ca3199f0c1636cd17e5"
+    },
+    "authority_ref": "REF",
+    "authority_source": "{\"bytes\":362412,\"identity\":\"USER_CURRENT_REFERENCE\",\"path\":\"C:\\\\Users\\\\Worker\\\\AppData\\\\Local\\\\Temp\\\\codex-clipboard-cccea437-5ac5-4e4e-8009-43493507bd03.png\",\"sha256\":\"9da5ed9e7f3490d058673122a7bd50b46635d4f0b5a36ca3199f0c1636cd17e5\"}",
+    "session_id": "fsr-session-20261001-152846-ccab2a25",
+    "specification_identity_sha256": "404913d520686f3a42adaaa1262fe2b581042d1879fe7bc708b7b57ba0b4d8aa"
+  },
+  "input_mode": "current_reference",
+  "child_ids": {
+    "l6": "fsr-l6-20261001-152846-ccab2a25",
+    "bridge": "fsr-bridge-20261001-152846-ccab2a25",
+    "correction": "fsr-correction-20261001-152846-ccab2a25"
+  },
+  "capability": "fixed_four_view_glb_seed_only",
+  "limits": {
+    "worker": 6,
+    "reviewer": 4,
+    "renderer": 2,
+    "revision": 1
+  },
+  "automatic_retries": 0
+}
