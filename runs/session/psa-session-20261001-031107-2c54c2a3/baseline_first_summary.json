@@ -1,0 +1,14 @@
+{
+  "tests": 98,
+  "failures": 0,
+  "errors": 3,
+  "skipped": 0,
+  "seconds": 19.140999999995984,
+  "effects": {
+    "network": 0,
+    "production_process": 0,
+    "import_smoke_process": 1
+  },
+  "successful": false,
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]"
+}

@@ -1,0 +1,74 @@
+[
+  {
+    "path": "D:\\Downloads\\Agent_Loop_Design_Philosophy_Preservation_v1.md",
+    "sha256": "d4c3cb9a546a5fe6a54252281fcf3e4849c4affe8152e2ba296b333797ace5f7"
+  },
+  {
+    "path": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-01\\agent-loop-repository-implementation-stability-audit\\outputs\\Agent_Loop_Stability_Audit_and_Design_Philosophy_Review_2026-10-01.md",
+    "sha256": "0bcc4e124e0800905da800b9122b7bbe951ea829f5853a0ca149af76a79a4eb9"
+  },
+  {
+    "path": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-01\\files-mentioned-by-the-user-agent\\outputs\\C01_Stabilization_Report_2026-10-01.md",
+    "sha256": "2c79ed459491ad88ca44baf142f85c7b23edb58b4ea0939224f19ac4bd1e14fd"
+  },
+  {
+    "path": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-01\\files-pasted-by-the-user-agent\\outputs\\I03_Stabilization_Report_2026-10-01.md",
+    "sha256": "d2ca6bc1b37dfc1a49a9057d06b8c8749d37756e0278b54cb1de0e39399bd8e5"
+  },
+  {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\AGENTS.md",
+    "sha256": "1b34a44c1efe6baae41a8467467173c10f0ccb9e399259054a83b6ce7f0c3b91"
+  },
+  {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\CORE_V1_FREEZE.md",
+    "sha256": "de4eae3b525f20622a35a15d4fabefcb54a13e1abcd75e5da0665652607db2ba"
+  },
+  {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\Agent-Loop_Direction_Gate_v1.md",
+    "sha256": "1b43f3ddad27f6da003530c2d83db34eee53289cacfa403524b375b6a2623862"
+  },
+  {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\session\\S1_SESSION_CONTRACT_v0.md",
+    "sha256": "3197462ca82f1e0bd61c54d7cb8e07bafa21420d09a87ab2db9ed0f841105092"
+  },
+  {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\session\\S1_SESSION_HANDOFF_TEMPLATE_v0.md",
+    "sha256": "71b4193f19d35b82056f374bb9a6a4e687f85b7a211fed3300263f45e9c38527"
+  },
+  {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\session\\S1_WORK_SPECIFICATION_TEMPLATE_v0.md",
+    "sha256": "ee1804ded93577983319d1c5f4fd54f28427e2413c63584a05013df1caec68c5"
+  },
+  {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\session\\S2_SESSION_INTEGRATION_SEAM_AUDIT.md",
+    "sha256": "ee6ea2d611c0d297e119b88126a9ae764e289d69d9a99caca560892ec6f06bec"
+  },
+  {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\session\\S3A_SESSION_BOUNDARY_LOCAL_PROOF.md",
+    "sha256": "a9c709377be84aa3c510b86d66f7ec803ac9c0a188d1ad50729182350c6830db"
+  },
+  {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\session\\S3B_SESSION_BOUND_SCENARIO_INTEGRATION.md",
+    "sha256": "8135d6b9de0bd52c5ee54dafbb4879ba5cd665d014e388a5bf2f442fab632bfc"
+  },
+  {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\session\\S3C_ACTUAL_SESSION_E2E_PROOF.md",
+    "sha256": "f11709af9eea1aa87caf18a1235485fbd6da9212d9b0b7a7db3cdb5a5b9a82f4"
+  },
+  {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\session\\S3C_WORK_SPECIFICATION_v1.md",
+    "sha256": "2bfa53cedb9606198109ed26f6ccf946f0576f041d33ce90eadb7d712af26859"
+  },
+  {
+    "path": "D:\\VSCODE-WorkSpace\\AGENTS.md",
+    "sha256": "e4c3fcd568f07b27b51c3b6faf87b14c15cf502634b222c1025999848bc4773d"
+  },
+  {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\AGENTS.md",
+    "sha256": "391351b20e31da7224a6848b0978f772d838259bf3657b01d8a0c8fd8a722f78"
+  },
+  {
+    "path": "D:\\VSCODE-WorkSpace\\Agents\\workflow.md",
+    "sha256": "1aff8a712fde94a40951949f9de83d27b2291cfb3bba82b7221082e3fa43ad1c"
+  }
+]

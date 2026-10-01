@@ -1,0 +1,44 @@
+{
+  "identities": {
+    "session": "psa-session-20261001-031107-2c54c2a3",
+    "loop": "psa-loop-20261001-031107-2c54c2a3",
+    "l6": "psa-l6-20261001-031107-2c54c2a3",
+    "bridge": "psa-bridge-20261001-031107-2c54c2a3",
+    "correction": "psa-correction-20261001-031107-2c54c2a3"
+  },
+  "namespaces": {
+    "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\session\\psa-session-20261001-031107-2c54c2a3": {
+      "exists": false
+    },
+    "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l6\\psa-l6-20261001-031107-2c54c2a3": {
+      "exists": false
+    },
+    "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\psa-bridge-20261001-031107-2c54c2a3": {
+      "exists": false
+    },
+    "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\l7\\psa-correction-20261001-031107-2c54c2a3": {
+      "exists": false
+    },
+    "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\input\\l6\\psa-l6-20261001-031107-2c54c2a3": {
+      "exists": false
+    },
+    "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l6\\psa-l6-20261001-031107-2c54c2a3": {
+      "exists": false
+    },
+    "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\mesh\\l6\\psa-l6-20261001-031107-2c54c2a3": {
+      "exists": false
+    },
+    "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l7\\psa-bridge-20261001-031107-2c54c2a3": {
+      "exists": false
+    },
+    "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\input\\l7\\psa-correction-20261001-031107-2c54c2a3": {
+      "exists": false
+    },
+    "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\l7\\psa-correction-20261001-031107-2c54c2a3": {
+      "exists": false
+    },
+    "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\mesh\\l7\\psa-correction-20261001-031107-2c54c2a3": {
+      "exists": false
+    }
+  }
+}

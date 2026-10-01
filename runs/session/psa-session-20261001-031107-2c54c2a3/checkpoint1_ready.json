@@ -1,0 +1,75 @@
+{
+  "verdict": "ACTUAL_EXECUTION_READY",
+  "observed_at": "2026-10-01T03:15:28.695036+00:00",
+  "start_branch": "stabilization-i03-namespace-preflight",
+  "start_head": "f212bcdc3749edf96e9e0b68b5cb4e458f9c6770",
+  "start_clean": true,
+  "proof_branch": "actual-loop-post-stabilization",
+  "identities": {
+    "session": "psa-session-20261001-031107-2c54c2a3",
+    "loop": "psa-loop-20261001-031107-2c54c2a3",
+    "l6": "psa-l6-20261001-031107-2c54c2a3",
+    "bridge": "psa-bridge-20261001-031107-2c54c2a3",
+    "correction": "psa-correction-20261001-031107-2c54c2a3"
+  },
+  "session_binding": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\session\\psa-session-20261001-031107-2c54c2a3\\scenario_a.json",
+    "sha256": "a50d64f4925bc33474694381b2f5856bc2136a1968d41c108ced7a80ff7e9fd8"
+  },
+  "binding_identity_sha256": "3be98ef7a09b0fe6363f87c82e60b414f040a868558cf51f6e461ec89f4b4a25",
+  "specification": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\session\\POST_STABILIZATION_WORK_SPECIFICATION_v1.md",
+    "sha256": "73da08888221bf1e2e9b19d66716c09315edc343a8cd40ebcec6c74a23c73f34"
+  },
+  "specification_identity_sha256": "52e5df408164f80465c628f051909dc5ae02f6d2f0c3fd9af4acb58ac9b7592e",
+  "source": {
+    "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\input\\hunyuan-official-demo-padded.png",
+    "sha256": "8a6dd9ca3f8984b31c1243e7698cd5030b423464d80e0ad763609148e0ff4f51",
+    "bytes": 142572,
+    "width": 768,
+    "height": 768,
+    "role": "front"
+  },
+  "source_contracts": {
+    "src/scenario_a/session_binding.py": "9dd08282f3cba5696b0f9288ea0a2bee9752a00645b8588f2af87daed2f2eaaa",
+    "src/scenario_a/l6_pipeline.py": "d42a9b35b77cb2a9d0a63a50b217e599a34b3308d7fc81524ca9fff9cc7a389c",
+    "src/scenario_a/l7_geometry_review.py": "e2f54780e546e2c4ea5b80ea84ea6213ad85dcacc321472f96499067115cea1b",
+    "src/scenario_a/l7_feedback_controller.py": "fc85cfcde38fa331da26ef4b0c9828af995e92e5640cee41c4a7d06c9b648aa1",
+    "src/scenario_a/l7_blender_diagnostic.py": "d71f932c5679d6e1ad453e1fa39d75c919fec5c1ff975d22c1114ed53f249cd1",
+    "src/core/result_review_adapter.py": "ade0b830c149a71c88cf08cc59b5685271ae47fef5fee0a5238b8bfb31c0938a",
+    "src/core/reviewer_auth.py": "c983df30b5ec4a6238762c6ff26fd880c17011003d443ba9e6b0c04e7888a33a"
+  },
+  "applicability": {
+    "multiview": [
+      "AC-MULTIVIEW-COHERENCE"
+    ],
+    "geometry": [
+      "AC-GEOMETRY-IDENTITY"
+    ]
+  },
+  "capability": "fixed_four_view_glb_seed_only",
+  "limits": {
+    "worker": 6,
+    "reviewer": 4,
+    "renderer": 2,
+    "revision": 1
+  },
+  "reviewer_auth": "CHATGPT_ACCOUNT",
+  "namespace_preflight": "PASS: Session + 3 repository children + 7 external namespaces absent",
+  "specification_dialogue": "SUFFICIENT_CONTEXT / no blocking ambiguity",
+  "preflight": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\session\\psa-session-20261001-031107-2c54c2a3\\preflight.json",
+    "sha256": "b8ce60484ea041549e954a3fb613adbb7a7150ca8d286cf505af631a2aa817de"
+  },
+  "baseline": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\session\\psa-session-20261001-031107-2c54c2a3\\baseline_summary.json",
+    "sha256": "15364bed8110f20e56dea38c0f2ec2df3a7dec39a7da9400a90771e1c1c7953c"
+  },
+  "runtime": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\runs\\session\\psa-session-20261001-031107-2c54c2a3\\runtime_ready.json",
+    "sha256": "ed4a4552d6ba1016ac4f64d60ac2abcdb41cfae0a381973b8e43e40ee73876c1"
+  },
+  "expected_effect_boundary": "first /prompt after CP1; exactly one existing run_session(execute=True); stop at INTERNAL_ACCEPT",
+  "production_effects": 0,
+  "delivered": false
+}
