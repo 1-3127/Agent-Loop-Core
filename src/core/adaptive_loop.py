@@ -53,9 +53,52 @@ class ResourceEnvelope:
         return file_identity(target, 'reservation-%04d' % sequence)
 
 
+def _emit_start_authority(boundary, logger, grant, *, reason_code='EXACT_SESSION_REQUEST_FROZEN_BINDING'):
+    authority_path = boundary.directory / 'session_start_authority.json'
+    if not authority_path.exists():
+        return
+    authority_ref = file_identity(authority_path, 'session-start-authority')
+    authority = json.loads(authority_path.read_text(encoding='utf-8'))
+    from session.session_boundary import FileIdentity
+    consumption_ref = FileIdentity(**authority['consumption_ref'])
+    consumption = json.loads(Path(consumption_ref.path).read_text(encoding='utf-8'))
+    parent = logger.emit('session', 'USER_SESSION_START_AUTHORITY_RECEIVED',
+        input_refs=(FileIdentity(**consumption['user_message_ref']), FileIdentity(**consumption['receipt_ref'])),
+        reason_code='PINNED_USER_INGRESS_RECEIPT')
+    parent = logger.emit('session', 'SESSION_START_GRANT_VALIDATED', parent_event_id=parent.identity,
+        input_refs=(grant,), reason_code=reason_code)
+    logger.emit('session', 'SESSION_START_GRANT_CONSUMED', parent_event_id=parent.identity,
+        input_refs=(consumption_ref,), output_refs=(authority_ref,), reason_code='AT_MOST_ONCE_NO_REFUND')
+
+
+class SpecificationDialogueSession:
+    """Live User-granted Session before freeze; no production or resume API."""
+    def __init__(self, session_id, request_authority_ref, directory, *, mode='ACTUAL',
+                 start_grant=None, start_authority=None):
+        from session.session_boundary import FileIdentity
+        if not isinstance(request_authority_ref, FileIdentity):
+            raise ValueError('SESSION_START_REQUEST_BINDING_REQUIRED')
+        request_authority_ref.validate()
+        if start_grant is None or start_authority is None:
+            raise ValueError('SESSION_START_GRANT_REQUIRED')
+        directory = Path(directory).resolve()
+        if directory.exists():
+            raise ValueError('SESSION_NAMESPACE_COLLISION')
+        self.boundary = SessionBoundary(session_id, directory, mode=mode,
+            start_grant=start_grant, start_authority=start_authority,
+            request_authority_ref=request_authority_ref)
+        self.request_authority_ref, self.loop_bound = request_authority_ref, False
+        from core.event_logging import EventLogger
+        self.logger = EventLogger(directory / 'logs', session_id)
+        _emit_start_authority(self.boundary, self.logger, start_grant,
+            reason_code='EXACT_SESSION_REQUEST_AUTHORITY_BINDING')
+        self.logger.emit('session', 'SESSION_BOUND', input_refs=(request_authority_ref,),
+            reason_code='USER_REQUEST_BOUND_SPECIFICATION_PENDING')
+
+
 class AdaptiveSession:
     def __init__(self, frozen, scope_ref, directory, limits, *, seconds=None, mode='ACTUAL',
-                 clock=time.monotonic, start_grant=None, start_authority=None):
+                 clock=time.monotonic, start_grant=None, start_authority=None, dialogue_session=None):
         from core.workflow_artifact import checked_scope
         frozen.validate(require_ready=True)
         checked_scope(frozen, scope_ref)
@@ -65,38 +108,44 @@ class AdaptiveSession:
                 or seconds is not None and (type(seconds) not in (int, float) or seconds <= 0)):
             raise ValueError('ENVELOPE_INVALID')
         directory = Path(directory)
-        if directory.exists():
+        if dialogue_session is not None:
+            if (type(dialogue_session) is not SpecificationDialogueSession or dialogue_session.loop_bound
+                    or dialogue_session.boundary.directory != directory.resolve()
+                    or dialogue_session.boundary.session_id != frozen.reference.session_id
+                    or dialogue_session.boundary.mode != mode):
+                raise ValueError('DIALOGUE_SESSION_OWNER_MISMATCH')
+            if start_grant is not None or start_authority is not None:
+                raise ValueError('DIALOGUE_START_AUTHORITY_ALREADY_CONSUMED')
+            dialogue_session.boundary._execution_open()
+            if (directory / 'binding.json').exists():
+                raise ValueError('SESSION_NAMESPACE_COLLISION')
+        elif directory.exists():
             raise ValueError('SESSION_NAMESPACE_COLLISION')
         # Check the envelope before creating Session records.
         projection = {'resource_limits': limits, 'deadline_seconds': seconds}
         if canonical_bytes(projection).decode() not in Path(frozen.reference.specification_path).read_text(encoding='utf-8'):
             raise ValueError('ENVELOPE_NOT_IN_FROZEN_SPECIFICATION')
         self.frozen, self.scope, self.directory, self.mode = frozen, scope_ref, directory, mode
-        self.boundary = SessionBoundary(frozen.reference.session_id, directory, mode=mode,
-            start_grant=start_grant, start_authority=start_authority, specification=frozen)
+        if dialogue_session is None:
+            self.boundary = SessionBoundary(frozen.reference.session_id, directory, mode=mode,
+                start_grant=start_grant, start_authority=start_authority, specification=frozen)
+        else:
+            # Transfer only this live owner. No directory reconstruction/recovery.
+            dialogue_session.loop_bound = True
+            self.boundary = dialogue_session.boundary
         self.binding = self.boundary.create_binding(frozen, frozen.reference.session_id + '-adaptive-loop')
         self.resources = ResourceEnvelope(frozen, limits, directory / 'resources', seconds=seconds, clock=clock)
         from core.event_logging import EventLogger
-        self.logger = EventLogger(directory / 'logs', frozen.reference.session_id)
+        self.logger = dialogue_session.logger if dialogue_session is not None else EventLogger(
+            directory / 'logs', frozen.reference.session_id)
         self.run, self.attempt, self.run_count, self.attempt_count = None, None, 0, 0
         self.pending_workflow = None
         self.decisions_consumed = set()
         self.current_reviews = {}
-        authority_path = directory / 'session_start_authority.json'
-        if authority_path.exists():
-            authority_ref = file_identity(authority_path, 'session-start-authority')
-            authority = json.loads(authority_path.read_text(encoding='utf-8'))
-            from session.session_boundary import FileIdentity
-            consumption_ref = FileIdentity(**authority['consumption_ref'])
-            consumption = json.loads(Path(consumption_ref.path).read_text(encoding='utf-8'))
-            parent = self.logger.emit('session', 'USER_SESSION_START_AUTHORITY_RECEIVED',
-                input_refs=(FileIdentity(**consumption['user_message_ref']), FileIdentity(**consumption['receipt_ref'])),
-                reason_code='PINNED_USER_INGRESS_RECEIPT')
-            parent = self.logger.emit('session', 'SESSION_START_GRANT_VALIDATED', parent_event_id=parent.identity,
-                input_refs=(start_grant,), reason_code='EXACT_SESSION_REQUEST_FROZEN_BINDING')
-            self.logger.emit('session', 'SESSION_START_GRANT_CONSUMED', parent_event_id=parent.identity,
-                input_refs=(consumption_ref,), output_refs=(authority_ref,), reason_code='AT_MOST_ONCE_NO_REFUND')
-        self.logger.emit('session', 'SESSION_BOUND', input_refs=(scope_ref, self.resources.reference),
+        if dialogue_session is None:
+            _emit_start_authority(self.boundary, self.logger, start_grant)
+        self.logger.emit('session', 'FROZEN_SPECIFICATION_BOUND' if dialogue_session is not None else 'SESSION_BOUND',
+            input_refs=(scope_ref, self.resources.reference),
             reason_code='ONE_FROZEN_SPECIFICATION_ONE_SESSION')
 
     def state(self):

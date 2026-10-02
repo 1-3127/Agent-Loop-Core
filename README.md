@@ -1,6 +1,6 @@
 # Agent-Loop-Core
 
-Prospective top-level Session creation follows [Session Start Authority Contract v1](docs/adaptive/SESSION_START_AUTHORITY_CONTRACT_v1.md). Each new ACTUAL Session requires an explicit User-originated, single-use grant; corrective/tests/publication readiness and same development chat do not authorize a fresh start. Historical v1.2/proof bytes remain intact. Initializer/intake hosts use `session.session_start_authority.prepare_session_namespace`; Core independently checks the grant.
+Prospective top-level Session creation follows [Session Start Authority Contract v1](docs/adaptive/SESSION_START_AUTHORITY_CONTRACT_v1.md) and its [dialogue-before-freeze timing amendment](docs/adaptive/SESSION_SPECIFICATION_DIALOGUE_START_CONTRACT_v1.md). Each new ACTUAL Session requires an explicit User-originated, single-use grant; corrective/tests/publication readiness and same development chat do not authorize a fresh start. Historical v1.2/proof bytes remain intact. Initializer/intake hosts use `session.session_start_authority.prepare_session_namespace`; Core independently checks the grant. `SpecificationDialogueSession` retains one live Session until its clarified ready Specification binds the production loop.
 
 Compact workspace for proving a fixed Frontier Supervisor's bounded delegation to replaceable Local Workers. The Frontier issues work, reviews the resulting artifact, and decides whether to revise or deliver it. Scenario A (single image → multiview → 3D) is the first reference path, under `src/scenario_a/`.
 

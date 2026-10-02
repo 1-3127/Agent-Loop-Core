@@ -1,0 +1,26 @@
+{
+  "pass": true,
+  "checks": {
+    "original_non_authorized_files_unchanged": true,
+    "fresh_003_unchanged": true,
+    "failed_fresh_004_entry_unchanged": true,
+    "prior_external_authority_checkpoint_unchanged": true,
+    "incident_evidence_unchanged": true,
+    "protected_refs_unchanged": true,
+    "original_authority_contract_unchanged": true,
+    "original_v1_2_unchanged": true,
+    "reviewer_unchanged": true,
+    "frontier_vocabulary_unchanged": true,
+    "no_core_session_scenario_imports": true,
+    "only_top_level_boundary_consumes": true,
+    "consumption_precedes_mkdir": true,
+    "no_actual_session_or_frozen_or_intake_after_failure": true,
+    "no_next_fresh_session": true
+  },
+  "baseline_tracked_files_checked": 1814,
+  "preserved_fresh_003_files_checked": 79,
+  "incident_files_checked": 569,
+  "protected_refs_checked": 45,
+  "new_actual_sessions_consumptions_production_effects_after_failure": 0,
+  "scope": "Two-phase start/binding only; no generic auth, recovery/resume, Bundle inheritance or production strategy changes"
+}

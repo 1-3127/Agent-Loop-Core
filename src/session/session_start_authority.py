@@ -99,6 +99,22 @@ def _validate_runtime_user_event(source, message):
     return {'thread_id': source['thread_id'], 'offset': source['offset'], 'sha256': source['sha256']}
 
 
+def _validate_target_specification(request, session_id, frozen):
+    """Bind a consumed User Request to its one later-ready Specification."""
+    request.validate()
+    frozen.validate(require_ready=True)
+    if frozen.reference.session_id != session_id:
+        raise ValueError('SESSION_START_SESSION_MISMATCH')
+    sources = []
+    for item in frozen.fields.authority_references:
+        try:
+            sources.append(json.loads(item.source_ref))
+        except (TypeError, ValueError):
+            pass
+    if asdict(request) not in sources:
+        raise ValueError('SESSION_START_REQUEST_MISMATCH')
+
+
 @dataclass(frozen=True, init=False)
 class SessionStartAuthority:
     """Pinned User receipts + one durable consumption ledger per trusted ingress.
@@ -175,17 +191,7 @@ class SessionStartAuthority:
         if request_authority_ref is not None and request != request_authority_ref:
             raise ValueError('SESSION_START_REQUEST_MISMATCH')
         if frozen is not None:
-            frozen.validate(require_ready=True)
-            if frozen.reference.session_id != session_id:
-                raise ValueError('SESSION_START_SESSION_MISMATCH')
-            sources = []
-            for item in frozen.fields.authority_references:
-                try:
-                    sources.append(json.loads(item.source_ref))
-                except (TypeError, ValueError):
-                    pass
-            if asdict(request) not in sources:
-                raise ValueError('SESSION_START_REQUEST_MISMATCH')
+            _validate_target_specification(request, session_id, frozen)
         issued, expires, now = _timestamp(data['issued_at']), _timestamp(data['expires_at']), self.now()
         if now.tzinfo is None or expires <= issued or now < issued or now >= expires:
             raise ValueError('SESSION_START_GRANT_STALE')
@@ -193,21 +199,28 @@ class SessionStartAuthority:
             raise ValueError('SESSION_START_GRANT_ALREADY_CONSUMED')
         return data
 
-    def _consume(self, grant, session_id, frozen, *, mode='ACTUAL'):
+    def _consume(self, grant, session_id, frozen, *, request_authority_ref=None, mode='ACTUAL'):
         """Only SessionBoundary top-level creation calls this, before mkdir.
 
         Exclusive ledger creation is at-most-once, including failed/interrupted
         starts. No refund, resume or implicit new grant is offered.
         """
-        data = self.validate(grant, session_id, frozen=frozen, mode=mode)
+        if frozen is None and not isinstance(request_authority_ref, FileIdentity):
+            raise ValueError('SESSION_START_REQUEST_BINDING_REQUIRED')
+        data = self.validate(grant, session_id, frozen=frozen,
+            request_authority_ref=request_authority_ref, mode=mode)
         target = self._consumption_path(data)
         record = {'event_type': 'SESSION_START_GRANT_CONSUMED',
             'session_start_grant_id': data['session_start_grant_id'],
             'grant_ref': asdict(grant), 'receipt_ref': data['receipt_ref'],
             'user_message_ref': data['user_message_ref'],
             'target_request_authority_ref': data['target_request_authority_ref'],
-            'session_id': session_id, 'specification_identity_sha256': frozen.identity_sha256,
+            'session_id': session_id,
             'consumed_at': self.now().isoformat(), 'mode': mode, 'refund_policy': 'NO_REFUND_NO_REUSE'}
+        if frozen is None:
+            record['start_phase'] = 'SPECIFICATION_DIALOGUE'
+        else:
+            record['specification_identity_sha256'] = frozen.identity_sha256
         self.ledger_directory.mkdir(parents=True, exist_ok=True)
         try:
             _write_once(target, record)

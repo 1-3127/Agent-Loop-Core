@@ -2,6 +2,8 @@
 
 ## Prospective Session-start authority amendment
 
+For User-started Specification Dialogue, [SESSION_SPECIFICATION_DIALOGUE_START_CONTRACT_v1.md](SESSION_SPECIFICATION_DIALOGUE_START_CONTRACT_v1.md) prospectively supersedes the freeze-before-creation timing below and in the original Session-start authority contract. Core consumes one grant at Request-bound dialogue creation, then binds a ready Frozen Specification to the same live Session without another creation/consumption. The original contract/checkpoint and failed fresh-004 entry evidence remain immutable. No post-corrective retry or new Session is authorized.
+
 Future top-level starts also follow [SESSION_START_AUTHORITY_CONTRACT_v1.md](SESSION_START_AUTHORITY_CONTRACT_v1.md), superseding v1.2 §26.6/§32 and this map's historical corrective→new Specification/Session continuation meaning. Original adopted v1.2 bytes remain unchanged. User-only SessionStartGrant authorizes at most one ACTUAL Session; readiness/corrective/tests/push/`next` are not authority. After terminal/corrective publication, stop at WAITING_FOR_USER_SESSION_START.
 
 `session.session_start_authority` is the narrow pinned-receipt/outer-preflight/ledger gate, not a generic auth framework. Prospective initializer/intake calls its gate before namespace creation. SessionBoundary independently validates/consumes at new top-level creation and binds exact SID, Request and Frozen Spec. Historical handles are readable without consumption; synthetic fixtures cannot authorize ACTUAL. Frontier/Reviewer/Diagnosis vocabulary stays unchanged; Run/Attempt restarts retain Session and never consume grants. Request Bundle inheritance is deferred.

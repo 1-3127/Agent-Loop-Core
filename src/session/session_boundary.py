@@ -312,13 +312,14 @@ class SessionBoundary:
     """
 
     def __init__(self, session_id, record_directory, *, mode="ACTUAL", start_grant=None,
-                 start_authority=None, specification=None):
+                 start_authority=None, specification=None, request_authority_ref=None):
         _text(session_id, "session_id")
         self.session_id = session_id
         self.directory = Path(record_directory).resolve()
         if mode not in ("ACTUAL", "SYNTHETIC"):
             raise ValueError("EXECUTION_MODE_INVALID")
         self.mode = mode
+        self._created_with_start_grant = False
         owner = self.directory / "session.json"
         if owner.exists():
             if self._read("session")["session_id"] != session_id:
@@ -331,19 +332,27 @@ class SessionBoundary:
                 from session.session_start_authority import SessionStartAuthority
                 if not isinstance(start_authority, SessionStartAuthority) or start_grant is None:
                     raise ValueError("SESSION_START_GRANT_REQUIRED")
-                if specification is None:
-                    raise ValueError("SESSION_START_FROZEN_SPECIFICATION_REQUIRED")
+                if specification is None and not isinstance(request_authority_ref, FileIdentity):
+                    raise ValueError("SESSION_START_REQUEST_BINDING_REQUIRED")
                 if start_authority.ledger_directory.is_relative_to(self.directory):
                     raise ValueError("SESSION_START_LEDGER_MUST_BE_EXTERNAL")
-                consumption = start_authority._consume(start_grant, session_id, specification, mode=mode)
+                consumption = start_authority._consume(start_grant, session_id, specification,
+                    request_authority_ref=request_authority_ref, mode=mode)
             # Missing/invalid ACTUAL grant is rejected before Session mkdir.
             self.directory.mkdir(parents=True, exist_ok=True)
             _write_once(owner, {"session_id": session_id})
             if consumption is not None:
-                _write_once(self.directory / "session_start_authority.json", {
+                authority_record = {
                     "event_type": "SESSION_START_GRANT_CONSUMED", "session_id": session_id,
                     "grant_ref": asdict(start_grant), "consumption_ref": asdict(consumption),
-                    "specification_identity_sha256": specification.identity_sha256, "mode": mode})
+                    "mode": mode}
+                if specification is None:
+                    authority_record.update(start_phase="SPECIFICATION_DIALOGUE",
+                        target_request_authority_ref=asdict(request_authority_ref))
+                else:
+                    authority_record["specification_identity_sha256"] = specification.identity_sha256
+                _write_once(self.directory / "session_start_authority.json", authority_record)
+                self._created_with_start_grant = True
 
     def _read(self, name):
         return json.loads((self.directory / (name + ".json")).read_text(encoding="utf-8"))
@@ -391,9 +400,19 @@ class SessionBoundary:
             consumed = json.loads(Path(consumed_ref.path).read_text(encoding="utf-8"))
             if (authority["session_id"] != self.session_id or consumed["session_id"] != self.session_id
                     or authority["mode"] != self.mode or consumed["mode"] != self.mode
-                    or authority["grant_ref"] != consumed["grant_ref"]
-                    or any(record["specification_identity_sha256"] != specification.identity_sha256
-                           for record in (authority, consumed))):
+                    or authority["grant_ref"] != consumed["grant_ref"]):
+                raise ValueError("SESSION_START_BINDING_MISMATCH")
+            if authority.get("start_phase") == "SPECIFICATION_DIALOGUE":
+                from session.session_start_authority import _validate_target_specification
+                if not self._created_with_start_grant:
+                    raise ValueError("DIALOGUE_SESSION_LIVE_OWNER_REQUIRED")
+                if (consumed.get("start_phase") != "SPECIFICATION_DIALOGUE"
+                        or authority["target_request_authority_ref"] != consumed["target_request_authority_ref"]):
+                    raise ValueError("SESSION_START_BINDING_MISMATCH")
+                _validate_target_specification(FileIdentity(**consumed["target_request_authority_ref"]),
+                    self.session_id, specification)
+            elif any(record.get("specification_identity_sha256") != specification.identity_sha256
+                     for record in (authority, consumed)):
                 raise ValueError("SESSION_START_BINDING_MISMATCH")
         self._record("binding", asdict(binding))
         return binding

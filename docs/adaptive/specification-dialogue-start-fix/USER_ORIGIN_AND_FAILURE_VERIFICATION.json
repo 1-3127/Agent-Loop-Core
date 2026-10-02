@@ -1,0 +1,62 @@
+{
+  "scope": "Local observed attestation; no signed account attestation or public raw transcript replay",
+  "user_origin_provenance_verification": "PASS",
+  "observed_role": "user",
+  "source_event_witness": {
+    "evidence_kind": "user_origin_event",
+    "bytes": 509269,
+    "sha256": "ec99625e1a1b9b7521d19fb2d2f3af36eaaab82285ac25c87d43b1b43a94ef23"
+  },
+  "input_text_witness": {
+    "evidence_kind": "user_input_text",
+    "bytes": 813,
+    "sha256": "e61dbeb7259aa52d1acabaa4311f0723651af1e4bb8b73d7885f72b9f703a09a"
+  },
+  "request": {
+    "identity": "fresh-spec-dialogue-artifact-004:original-request",
+    "sha256": "4ae14e0fe1d50869e511bbb47f8d5a292123336fc705c0c594faafc32f89c077",
+    "bytes": 59
+  },
+  "reference": {
+    "identity": "fresh-spec-dialogue-artifact-004:original-reference",
+    "sha256": "2dc0671064303d4eba318335685cdf9c3a2d947b270f15af4c46834821b64e9d",
+    "bytes": 380537
+  },
+  "reference_content_binding_prior_verification_pass": true,
+  "outer_grant_validation": "PASS",
+  "grant_identity": "fresh-spec-dialogue-artifact-004-user-start-001",
+  "grant_witness": {
+    "evidence_kind": "outer_grant",
+    "bytes": 1341,
+    "sha256": "bc3018ec3d34559f3605651ca96d2ab72b012dd7dbebc2a8ed6f88b3f517626c"
+  },
+  "outer_validation_witness": {
+    "evidence_kind": "actual_outer_validation",
+    "bytes": 814,
+    "sha256": "d720a42abac54a6bb4d7f1b1b208ecad64cfd5ca79540602f88424be991a9956"
+  },
+  "actual_failure_witness": {
+    "evidence_kind": "actual_creation_ingress_failure",
+    "bytes": 2004,
+    "sha256": "a4414817449bbf8d912069d98e52b6f8e36596e90862e63ed548db6a5c94872a"
+  },
+  "observed_defect": "SESSION_START_FROZEN_SPECIFICATION_REQUIRED",
+  "grant_received": 1,
+  "outer_grant_validated": 1,
+  "grant_consumption": 0,
+  "core_sessions_created": 0,
+  "frontier_intake_invoked": false,
+  "frozen_specification_created": false,
+  "core_session_directory_exists": false,
+  "production_effect_counters": {
+    "artifact_generation": 0,
+    "attempts": 0,
+    "blender_production": 0,
+    "comfyui_production": 0,
+    "frontier_production": 0,
+    "production_reviewers": 0,
+    "production_runs": 0,
+    "workers": 0
+  },
+  "subsequent_session_start_or_production": 0
+}
