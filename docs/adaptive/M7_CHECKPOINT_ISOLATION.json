@@ -1,0 +1,548 @@
+{
+  "repo_head_before_M7": "0b173baaa96f235e1b5ebb473aad7b0c72c20660",
+  "exact_changed_surface_before_M7_report": [
+    {
+      "status": " M",
+      "path": "src/core/skill_artifact.py"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/PROOF_RESULT.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/SPECIFICATION.md"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/decisions/decision-001/decision.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/decisions/decision-001/invocation/invocation.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/decisions/decision-001/invocation/result.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/decisions/decision-001/request.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/decisions/decision-002/decision.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/decisions/decision-002/invocation/invocation.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/decisions/decision-002/invocation/result.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/decisions/decision-002/request.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/decisions/decision-003/decision.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/decisions/decision-003/invocation/invocation.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/decisions/decision-003/invocation/result.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/decisions/decision-003/request.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/decisions/decision-004/decision.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/decisions/decision-004/invocation/invocation.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/decisions/decision-004/invocation/result.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/decisions/decision-004/request.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/decisions/decision-005/decision.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/decisions/decision-005/invocation/invocation.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/decisions/decision-005/invocation/result.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/decisions/decision-005/request.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/decisions/decision-006/decision.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/decisions/decision-006/invocation/invocation.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/decisions/decision-006/invocation/result.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/decisions/decision-006/request.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/frozen.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/handoff.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/reference.txt"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/scope.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/acceptance_gate.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/binding.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/delivery_package.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/internal_accept.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/logs/acceptance/delivery/events/event-000027.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/logs/acceptance/events/event-000026.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/logs/event_index.jsonl"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/logs/frontier/events/event-000003.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/logs/frontier/events/event-000006.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/logs/frontier/events/event-000013.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/logs/frontier/events/event-000016.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/logs/frontier/events/event-000018.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/logs/frontier/events/event-000025.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/logs/production_runs/run-001/attempts/attempt-001/events/event-000007.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/logs/production_runs/run-001/controller/events/event-000005.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/logs/production_runs/run-001/controller/events/event-000012.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/logs/production_runs/run-001/execution/events/event-000009.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/logs/production_runs/run-001/reviewer/events/event-000011.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/logs/production_runs/run-002/attempts/attempt-001/events/event-000019.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/logs/production_runs/run-002/controller/events/event-000017.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/logs/production_runs/run-002/controller/events/event-000024.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/logs/production_runs/run-002/execution/events/event-000021.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/logs/production_runs/run-002/reviewer/events/event-000023.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/logs/session/events/event-000001.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/logs/session/resources/events/event-000008.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/logs/session/resources/events/event-000010.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/logs/session/resources/events/event-000020.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/logs/session/resources/events/event-000022.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/logs/skills/events/event-000002.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/logs/workflow/events/event-000004.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/logs/workflow/events/event-000014.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/logs/workflow/events/event-000015.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/production_runs/run-001/artifacts/artifact-a.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/production_runs/run-001/attempts/attempt-001/attempt.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/production_runs/run-001/attempts/attempt-001/execution/artifact-a.bin"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/production_runs/run-001/attempts/attempt-001/execution/execution_report.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/production_runs/run-001/attempts/attempt-001/execution/work_order.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/production_runs/run-001/attempts/attempt-001/outcome.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/production_runs/run-001/attempts/attempt-001/review/invocation/invocation.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/production_runs/run-001/attempts/attempt-001/review/invocation/result.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/production_runs/run-001/attempts/attempt-001/review/request.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/production_runs/run-001/attempts/attempt-001/review/review.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/production_runs/run-001/revision-v2.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/production_runs/run-001/run.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/production_runs/run-001/terminal.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/production_runs/run-002/artifacts/artifact-b.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/production_runs/run-002/attempts/attempt-001/attempt.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/production_runs/run-002/attempts/attempt-001/execution/artifact-b.bin"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/production_runs/run-002/attempts/attempt-001/execution/execution_report.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/production_runs/run-002/attempts/attempt-001/execution/work_order.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/production_runs/run-002/attempts/attempt-001/outcome.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/production_runs/run-002/attempts/attempt-001/review/invocation/invocation.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/production_runs/run-002/attempts/attempt-001/review/invocation/result.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/production_runs/run-002/attempts/attempt-001/review/request.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/production_runs/run-002/attempts/attempt-001/review/review.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/production_runs/run-002/run.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/production_runs/run-002/terminal.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/resources/envelope.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/resources/reservation-0001.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/resources/reservation-0002.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/resources/reservation-0003.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/resources/reservation-0004.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/resources/reservation-0005.dispatch.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/resources/reservation-0005.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/resources/reservation-0006.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/resources/reservation-0007.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/resources/reservation-0008.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/resources/reservation-0009.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/resources/reservation-0010.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/resources/reservation-0011.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/resources/reservation-0012.dispatch.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/resources/reservation-0012.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/resources/reservation-0013.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/resources/reservation-0014.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/session.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/session/terminal.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/skills/v1/geometry/SKILL.md"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/skills/v1/geometry/core.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/workflows/workflow-001.json"
+    },
+    {
+      "status": "??",
+      "path": "docs/adaptive/synthetic-proof/workflows/workflow-003.json"
+    },
+    {
+      "status": "??",
+      "path": "tests/test_adaptive_end_to_end.py"
+    }
+  ],
+  "A_count": 112,
+  "B_count": 12,
+  "B_manifest": [
+    {
+      "original": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-02\\agent-loop-adaptive-skill-orchestration-work\\work\\actual_host.py",
+      "snapshot": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-02\\agent-loop-adaptive-skill-orchestration-work\\work\\m8-preserved-before-m7-checkpoint\\actual_host.py",
+      "bytes": 41207,
+      "sha256": "5d5d1b133b74e12fda8997f2141c69c1c6ba7f5964862ed7e378641e04994b16",
+      "classification": "B_M8_ONLY_EXCLUDED_FROM_M7"
+    },
+    {
+      "original": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-02\\agent-loop-adaptive-skill-orchestration-work\\work\\actual_extra_views.py",
+      "snapshot": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-02\\agent-loop-adaptive-skill-orchestration-work\\work\\m8-preserved-before-m7-checkpoint\\actual_extra_views.py",
+      "bytes": 3884,
+      "sha256": "2de9f53533ee348bc811812e6d80ad4fa06439eda4be960451cc3ae3842bb586",
+      "classification": "B_M8_ONLY_EXCLUDED_FROM_M7"
+    },
+    {
+      "original": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-02\\agent-loop-adaptive-skill-orchestration-work\\work\\readiness.py",
+      "snapshot": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-02\\agent-loop-adaptive-skill-orchestration-work\\work\\m8-preserved-before-m7-checkpoint\\readiness.py",
+      "bytes": 4049,
+      "sha256": "e7a7da59f812f680ba4a64d87e15615a355874abb57b9a5ccc16c80495dd879a",
+      "classification": "B_M8_ONLY_EXCLUDED_FROM_M7"
+    },
+    {
+      "original": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-02\\agent-loop-adaptive-skill-orchestration-work\\work\\discovery\\community\\LICENSE",
+      "snapshot": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-02\\agent-loop-adaptive-skill-orchestration-work\\work\\m8-preserved-before-m7-checkpoint\\discovery\\community\\LICENSE",
+      "bytes": 1061,
+      "sha256": "dc25474bd47c86e86e36f1a5b4cd42000c2ab5a2c5bfb09ec335787a8356e77b",
+      "classification": "B_M8_ONLY_EXCLUDED_FROM_M7"
+    },
+    {
+      "original": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-02\\agent-loop-adaptive-skill-orchestration-work\\work\\discovery\\community\\plugins\\blender-agent-studio\\skills\\blender-modeling-workflow\\agents\\openai.yaml",
+      "snapshot": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-02\\agent-loop-adaptive-skill-orchestration-work\\work\\m8-preserved-before-m7-checkpoint\\discovery\\community\\plugins\\blender-agent-studio\\skills\\blender-modeling-workflow\\agents\\openai.yaml",
+      "bytes": 332,
+      "sha256": "bea2a94bbb3aafdf6d1a50e76ad801c3f559dea3b279dc34cf99ec1915e32886",
+      "classification": "B_M8_ONLY_EXCLUDED_FROM_M7"
+    },
+    {
+      "original": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-02\\agent-loop-adaptive-skill-orchestration-work\\work\\discovery\\community\\plugins\\blender-agent-studio\\skills\\blender-modeling-workflow\\references\\astra-workflow.md",
+      "snapshot": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-02\\agent-loop-adaptive-skill-orchestration-work\\work\\m8-preserved-before-m7-checkpoint\\discovery\\community\\plugins\\blender-agent-studio\\skills\\blender-modeling-workflow\\references\\astra-workflow.md",
+      "bytes": 11060,
+      "sha256": "193ae2cc3453bae4358f4f110da98e357c29756dbc03c663dcdb2c60a4a549cd",
+      "classification": "B_M8_ONLY_EXCLUDED_FROM_M7"
+    },
+    {
+      "original": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-02\\agent-loop-adaptive-skill-orchestration-work\\work\\discovery\\community\\plugins\\blender-agent-studio\\skills\\blender-modeling-workflow\\references\\image-to-3d.md",
+      "snapshot": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-02\\agent-loop-adaptive-skill-orchestration-work\\work\\m8-preserved-before-m7-checkpoint\\discovery\\community\\plugins\\blender-agent-studio\\skills\\blender-modeling-workflow\\references\\image-to-3d.md",
+      "bytes": 3239,
+      "sha256": "7db30029c24f82c9d519958093f2b6e0d68cb7fbd7561f146d6c8309c1569995",
+      "classification": "B_M8_ONLY_EXCLUDED_FROM_M7"
+    },
+    {
+      "original": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-02\\agent-loop-adaptive-skill-orchestration-work\\work\\discovery\\community\\plugins\\blender-agent-studio\\skills\\blender-modeling-workflow\\references\\modeling-contract.md",
+      "snapshot": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-02\\agent-loop-adaptive-skill-orchestration-work\\work\\m8-preserved-before-m7-checkpoint\\discovery\\community\\plugins\\blender-agent-studio\\skills\\blender-modeling-workflow\\references\\modeling-contract.md",
+      "bytes": 2000,
+      "sha256": "c8f8964802091de878cb26568ff945363e322d06f16347ab333f95a4193e2748",
+      "classification": "B_M8_ONLY_EXCLUDED_FROM_M7"
+    },
+    {
+      "original": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-02\\agent-loop-adaptive-skill-orchestration-work\\work\\discovery\\community\\plugins\\blender-agent-studio\\skills\\blender-modeling-workflow\\references\\procedural-patterns.md",
+      "snapshot": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-02\\agent-loop-adaptive-skill-orchestration-work\\work\\m8-preserved-before-m7-checkpoint\\discovery\\community\\plugins\\blender-agent-studio\\skills\\blender-modeling-workflow\\references\\procedural-patterns.md",
+      "bytes": 3357,
+      "sha256": "79fabfe07fc30647b4bf94966dd17523f2969b69a09e07c728139ceabe0704ff",
+      "classification": "B_M8_ONLY_EXCLUDED_FROM_M7"
+    },
+    {
+      "original": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-02\\agent-loop-adaptive-skill-orchestration-work\\work\\discovery\\community\\plugins\\blender-agent-studio\\skills\\blender-modeling-workflow\\references\\staged-quality-workflow.md",
+      "snapshot": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-02\\agent-loop-adaptive-skill-orchestration-work\\work\\m8-preserved-before-m7-checkpoint\\discovery\\community\\plugins\\blender-agent-studio\\skills\\blender-modeling-workflow\\references\\staged-quality-workflow.md",
+      "bytes": 4045,
+      "sha256": "d772f4c122c28de847ecc70b7e8784ae849ceb0535ddfae30c7666926fa8a747",
+      "classification": "B_M8_ONLY_EXCLUDED_FROM_M7"
+    },
+    {
+      "original": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-02\\agent-loop-adaptive-skill-orchestration-work\\work\\discovery\\community\\plugins\\blender-agent-studio\\skills\\blender-modeling-workflow\\SKILL.md",
+      "snapshot": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-02\\agent-loop-adaptive-skill-orchestration-work\\work\\m8-preserved-before-m7-checkpoint\\discovery\\community\\plugins\\blender-agent-studio\\skills\\blender-modeling-workflow\\SKILL.md",
+      "bytes": 11081,
+      "sha256": "9723930359d99f4c6755c6cff31de2dfcdda5df7854061dd3996ba1db9afb783",
+      "classification": "B_M8_ONLY_EXCLUDED_FROM_M7"
+    },
+    {
+      "original": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-02\\agent-loop-adaptive-skill-orchestration-work\\work\\discovery\\report.json",
+      "snapshot": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-02\\agent-loop-adaptive-skill-orchestration-work\\work\\m8-preserved-before-m7-checkpoint\\discovery\\report.json",
+      "bytes": 6318,
+      "sha256": "1872c593982419546bfb94557772671b9ee566bd8cc8db55e1f61b3a9d34d1de",
+      "classification": "B_M8_ONLY_EXCLUDED_FROM_M7"
+    }
+  ],
+  "B_repo_files": [],
+  "new_M8_source_changes_suspended": true,
+  "original_B_files_retained": true,
+  "history_rewrite_or_deletion": false,
+  "M7_payload": "A and M7 verification/report only; no B source or discovery contents",
+  "actual_production_effects": 0,
+  "same_Codex_development_Session": true
+}

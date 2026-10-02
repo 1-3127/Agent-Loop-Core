@@ -1,0 +1,23 @@
+{
+  "pass": true,
+  "module_contract_count": 18,
+  "core_to_scenario_imports": [],
+  "legacy_public_methods_ast_unchanged": [
+    "create_binding",
+    "internal_accept",
+    "prepare_delivery",
+    "record_submission",
+    "stop_for_ambiguity",
+    "stop"
+  ],
+  "local_handoff_requires_human_receipt": false,
+  "synthetic_proof_events": 27,
+  "stale_a_rejected": true,
+  "promotions": 0,
+  "model_lifecycle": "DEFERRED",
+  "generic_DAG_DSL": "NOT_IMPLEMENTED",
+  "recovery_resume": "NOT_IMPLEMENTED",
+  "cross_run_implicit_reuse": "NOT_IMPLEMENTED",
+  "i01_i02_refactor": "NOT_IMPLEMENTED",
+  "scope": "STRUCTURAL_AND_SYNTHETIC_NOT_ACTUAL_SEMANTIC_PROOF"
+}

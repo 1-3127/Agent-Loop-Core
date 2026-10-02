@@ -143,8 +143,12 @@ def create_skill(registry_root, metadata, files):
     return directory
 
 
-def record_validation(skill, actual_success_ref, output_path):
-    """Validate a caller's actual-success lineage attestation, never synthetic PASS."""
+def checked_actual_success(skill, actual_success_ref):
+    """Bind promotion to actual inference, current acceptance and closed handoff.
+
+    These are local evidence contracts, not a tamper-proof runtime attestation.
+    A caller's ACTUAL label alone never upgrades synthetic evidence.
+    """
     skill.validate()
     actual_success_ref.validate()
     evidence = json.loads(Path(actual_success_ref.path).read_text(encoding='utf-8'))
@@ -152,10 +156,69 @@ def record_validation(skill, actual_success_ref, output_path):
             or evidence.get('session_terminal') != 'CLOSED' or not evidence.get('session_id')
             or not evidence.get('production_run_id') or evidence.get('skill_refs') is None
             or asdict(skill) not in evidence['skill_refs'] or not evidence.get('review_refs')
-            or not evidence.get('frontier_invocation_refs') or evidence.get('known_limitations') is None):
+            or not evidence.get('frontier_invocation_refs') or evidence.get('known_limitations') is None
+            or not evidence.get('terminal_ref') or not evidence.get('acceptance_gate_ref')):
         raise ValueError('ACTUAL_SUCCESS_REQUIRED')
     for item in evidence['review_refs'] + evidence['frontier_invocation_refs']:
         FileIdentity(**item).validate()
+    terminal_ref, gate_ref = FileIdentity(**evidence['terminal_ref']), FileIdentity(**evidence['acceptance_gate_ref'])
+    terminal_ref.validate()
+    gate_ref.validate()
+    terminal = json.loads(Path(terminal_ref.path).read_text(encoding='utf-8'))
+    gate = json.loads(Path(gate_ref.path).read_text(encoding='utf-8'))
+    state = {k: evidence[k] for k in ('session_id', 'production_run_id')}
+    if (terminal.get('status') != 'CLOSED' or terminal.get('session_id') != state['session_id']
+            or gate.get('INTERNAL_ACCEPT') is not True or gate.get('mode') != 'ACTUAL'
+            or any(gate.get(k) != v for k, v in state.items())
+            or gate.get('current_review_refs') != evidence['review_refs']):
+        raise ValueError('ACTUAL_SUCCESS_REQUIRED: current acceptance/terminal lineage')
+    workflow_ref = FileIdentity(**gate['workflow_ref']['file'])
+    workflow_ref.validate()
+    workflow = json.loads(Path(workflow_ref.path).read_text(encoding='utf-8'))
+    if asdict(skill) not in workflow['skill_refs']:
+        raise ValueError('ACTUAL_SUCCESS_REQUIRED: Skill absent from accepted Workflow')
+    for item in evidence['frontier_invocation_refs']:
+        invocation = json.loads(Path(item['path']).read_text(encoding='utf-8'))
+        if invocation.get('mode') != 'ACTUAL' or invocation.get('status') != 'SUCCESS':
+            raise ValueError('ACTUAL_SUCCESS_REQUIRED: synthetic/failed Frontier')
+        FileIdentity(**invocation['request_ref']).validate()
+        FileIdentity(**invocation['result_ref']).validate()
+    covered = set()
+    for item in evidence['review_refs']:
+        review = json.loads(Path(item['path']).read_text(encoding='utf-8'))
+        if (review.get('inference_mode') != 'ACTUAL' or review.get('verdict') != 'PASS'
+                or any(review.get(k) != v for k, v in state.items())
+                or review.get('attempt_id') != gate['attempt_id'] or review.get('workflow_ref') != gate['workflow_ref']):
+            raise ValueError('ACTUAL_SUCCESS_REQUIRED: synthetic/stale/unmet Review')
+        invocation_ref = FileIdentity(**review['invocation_ref'])
+        invocation_ref.validate()
+        invocation = json.loads(Path(invocation_ref.path).read_text(encoding='utf-8'))
+        if (invocation.get('mode') != 'ACTUAL' or invocation.get('status') != 'SUCCESS'
+                or invocation['result_ref'] != review['result_ref'] or invocation['request_ref'] != review['request_ref']):
+            raise ValueError('ACTUAL_SUCCESS_REQUIRED: Review invocation mismatch')
+        for ref in (review['result_ref'], review['request_ref']):
+            FileIdentity(**ref).validate()
+        result = json.loads(Path(review['result_ref']['path']).read_text(encoding='utf-8'))
+        if result['criterion_results_json'] != review['criterion_results_json'] or result['verdict'] != 'PASS':
+            raise ValueError('ACTUAL_SUCCESS_REQUIRED: Review result mismatch')
+        outcomes = json.loads(review['criterion_results_json'])
+        if any(o['outcome'] != 'MET' for o in outcomes):
+            raise ValueError('ACTUAL_SUCCESS_REQUIRED: unmet criterion')
+        covered.update(o['criterion_id'] for o in outcomes)
+    if not set(gate['mandatory_criterion_ids']) <= covered:
+        raise ValueError('ACTUAL_SUCCESS_REQUIRED: mandatory coverage incomplete')
+    decision_ref = FileIdentity(**gate['decision_ref'])
+    decision_ref.validate()
+    decision = json.loads(Path(decision_ref.path).read_text(encoding='utf-8'))
+    if (decision['selected_action'] != 'ACCEPT' or decision['inference_mode'] != 'ACTUAL'
+            or decision['frontier_invocation_ref'] not in evidence['frontier_invocation_refs']):
+        raise ValueError('ACTUAL_SUCCESS_REQUIRED: accepted Frontier decision absent')
+    return evidence
+
+
+def record_validation(skill, actual_success_ref, output_path):
+    """Persist an immutable promotion after validating actual successful lineage."""
+    evidence = checked_actual_success(skill, actual_success_ref)
     record = {'status': 'VALIDATED', 'skill_ref': asdict(skill), 'actual_success': asdict(actual_success_ref),
         'session_id': evidence['session_id'], 'production_run_id': evidence['production_run_id'],
         'review_refs': evidence['review_refs'], 'known_limitations': evidence['known_limitations']}
@@ -171,5 +234,5 @@ def validation_status(skill, validation_ref=None):
     record = json.loads(Path(validation_ref.path).read_text(encoding='utf-8'))
     if record['status'] != 'VALIDATED' or record['skill_ref'] != asdict(skill):
         raise ValueError('Skill validation identity differs')
-    FileIdentity(**record['actual_success']).validate()
+    checked_actual_success(skill, FileIdentity(**record['actual_success']))
     return 'VALIDATED'
