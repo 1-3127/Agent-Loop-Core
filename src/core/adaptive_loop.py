@@ -77,6 +77,7 @@ class AdaptiveSession:
         self.run, self.attempt, self.run_count, self.attempt_count = None, None, 0, 0
         self.pending_workflow = None
         self.decisions_consumed = set()
+        self.current_reviews = {}
 
     def state(self):
         return {'session_id': self.frozen.reference.session_id,
@@ -103,6 +104,10 @@ class AdaptiveSession:
         request = FileIdentity(**data['frontier_request_ref'])
         InferenceResult(FileIdentity(**data['frontier_result_ref']), FileIdentity(**data['frontier_invocation_ref']),
             data['inference_mode'], data['frontier_model_identity']).validate(request)
+        observed = json.loads(Path(data['frontier_result_ref']['path']).read_text(encoding='utf-8'))
+        if any(data[k] != observed[k] for k in ('selected_action', 'reason_summary', 'workflow_proposal_json',
+                'action_parameters_json', 'new_skill_proposals_json')):
+            raise ValueError('DECISION_RESULT_MISMATCH')
         context = json.loads(Path(request.path).read_text(encoding='utf-8'))
         if context['state'] != self.state() or canonical_bytes(context['frozen_specification']) != canonical_bytes(asdict(self.frozen)):
             raise ValueError('DECISION_CONTEXT_MISMATCH')
@@ -111,7 +116,96 @@ class AdaptiveSession:
             raise ValueError('DECISION_WORKFLOW_MISMATCH')
         for item in data['evidence_refs'] + data['review_refs']:
             FileIdentity(**item).validate()
+        if context['artifact_refs'] != data['evidence_refs'] or context['review_refs'] != data['review_refs']:
+            raise ValueError('DECISION_CONTEXT_MISMATCH')
         return data
+
+    def checked_current_evidence(self, data):
+        required_reviews, required_artifacts = [], []
+        for artifact, review in self.current_reviews.values():
+            review.validate(self.frozen, self.scope, self.run['workflow'], artifact,
+                state=self.state(), mode=self.mode)
+            required_reviews.append(asdict(review.file))
+            required_artifacts.append(asdict(artifact.metadata))
+        if any(ref not in data['review_refs'] for ref in required_reviews) or any(ref not in data['evidence_refs'] for ref in required_artifacts):
+            raise ValueError('DECISION_MISSING_CURRENT_EVIDENCE')
+        if any(ref not in required_reviews for ref in data['review_refs']):
+            raise ValueError('STALE_REVIEW')
+
+    def register_review(self, artifact, review):
+        self.assert_execution_open()
+        if not self.run or not self.attempt:
+            raise ValueError('CURRENT_RUN_REQUIRED')
+        material = artifact.validate(self.frozen, self.scope, self.run['workflow'], state=self.state())
+        review.validate(self.frozen, self.scope, self.run['workflow'], artifact, state=self.state(), mode=self.mode)
+        stage_id = material['stage_id']
+        # Updated evidence remains append-only on disk; only current selection changes.
+        self.current_reviews[stage_id] = (artifact, review)
+
+    def revise_workflow(self, workflow, decision):
+        data = self.checked_decision(decision, {'REVISE_WORKFLOW'})
+        self.checked_current_evidence(data)
+        if not self.run or not self.attempt or not self.attempt['finished'] or not self.current_reviews:
+            raise ValueError('CURRENT_REVIEWED_ATTEMPT_REQUIRED')
+        configured = workflow.validate(self.frozen, self.scope)
+        if (data['selected_workflow_ref'] != asdict(workflow) or workflow.version != self.run['workflow'].version + 1
+                or workflow.strategy_hash == self.run['workflow'].strategy_hash
+                or configured['previous_workflow'] != asdict(self.run['workflow'])):
+            raise ValueError('WORKFLOW_REVISION_INVALID')
+        write_once(self.run['directory'] / ('revision-v%d.json' % workflow.version), {
+            'workflow_ref': asdict(workflow), 'decision_ref': asdict(decision),
+            'review_refs': data['review_refs'], 'restart_policy': 'EXPLICIT_FRONTIER_RESTART_REQUIRED'})
+        self.pending_workflow = workflow
+        self.decisions_consumed.add(decision.sha256)
+
+    def acquire_evidence(self, decision):
+        data = self.checked_decision(decision, {'ACQUIRE_EVIDENCE'})
+        self.checked_current_evidence(data)
+        if not self.current_reviews:
+            raise ValueError('CURRENT_REVIEW_REQUIRED')
+        reservation = self.resources.reserve('diagnostic_calls', self.state())
+        write_once(self.attempt['directory'] / ('evidence-' + data['decision_id'] + '.json'), {
+            'decision_ref': asdict(decision), 'reservation_ref': asdict(reservation),
+            'parameters_json': data['action_parameters_json'], 'policy': 'EVIDENCE_ONLY_NO_STRATEGY_CHANGE'})
+        self.decisions_consumed.add(decision.sha256)
+        return reservation
+
+    def accept(self, decision, final_artifact, final_review, *, initial_references=()):
+        from core.artifact_review import checked_outcomes
+        from core.workflow_artifact import checked_scope
+        data = self.checked_decision(decision, {'ACCEPT'})
+        self.checked_current_evidence(data)
+        if not self.run or self.pending_workflow is not None or not self.attempt or not self.attempt['finished']:
+            raise ValueError('CURRENT_REVIEWED_ATTEMPT_REQUIRED')
+        material = final_artifact.validate(self.frozen, self.scope, self.run['workflow'], state=self.state())
+        final_review.validate(self.frozen, self.scope, self.run['workflow'], final_artifact, state=self.state(), mode=self.mode)
+        scope = checked_scope(self.frozen, self.scope)
+        if (material['artifact_type'] != scope['deliverable_type']
+                or self.current_reviews.get(material['stage_id']) != (final_artifact, final_review)):
+            raise ValueError('STALE_REVIEW')
+        mandatory = {c.criterion_id for c in self.frozen.fields.acceptance_criteria if c.blocking_when_unmet}
+        covered = set()
+        for artifact, review in self.current_reviews.values():
+            artifact_data = artifact.validate(self.frozen, self.scope, self.run['workflow'], state=self.state())
+            reviewed = review.validate(self.frozen, self.scope, self.run['workflow'], artifact, state=self.state(), mode=self.mode)
+            outcomes = checked_outcomes(reviewed, scope['criterion_applicability'][artifact_data['artifact_type']])
+            if reviewed['verdict'] != 'PASS' or any(o['outcome'] != 'MET' for o in outcomes if o['criterion_id'] in mandatory):
+                raise ValueError('ACCEPT_WITH_UNMET_CRITERION')
+            covered.update(o['criterion_id'] for o in outcomes if o['outcome'] == 'MET')
+        if not mandatory <= covered:
+            raise ValueError('ACCEPT_WITH_UNMET_CRITERION')
+        from session.session_boundary import FileIdentity
+        final_file = FileIdentity(**material['files'][0])
+        gate = {'INTERNAL_ACCEPT': True, 'mode': self.mode, **self.state(),
+            'decision_ref': asdict(decision), 'final_artifact_ref': asdict(final_artifact),
+            'mandatory_criterion_ids': sorted(mandatory), 'current_review_refs': [asdict(r.file) for _, r in self.current_reviews.values()],
+            'workflow_ref': asdict(self.run['workflow'])}
+        write_once(self.directory / 'acceptance_gate.json', gate)
+        accepted = self.boundary.internal_accept(self.binding, final_file, final_review.file, initial_references)
+        write_once(self.run['directory'] / 'terminal.json', {'status': 'INTERNAL_ACCEPT', 'gate_ref':
+            asdict(file_identity(self.directory / 'acceptance_gate.json', 'acceptance-gate'))})
+        self.decisions_consumed.add(decision.sha256)
+        return accepted
 
     def start_run(self, workflow, decision):
         data = self.checked_decision(decision, {'PLAN_WORKFLOW', 'RESTART_PRODUCTION_RUN'})
@@ -120,6 +214,10 @@ class AdaptiveSession:
             raise ValueError('DECISION_WORKFLOW_MISMATCH')
         if self.run and self.attempt and not self.attempt['finished']:
             raise ValueError('UNRESOLVED_EXECUTION')
+        if self.run:
+            self.checked_current_evidence(data)
+            if self.pending_workflow is not None and workflow != self.pending_workflow:
+                raise ValueError('WORKFLOW_REVISION_INVALID')
         if self.run and self.run['workflow'] == workflow:
             raise ValueError('STRATEGY_UNCHANGED_USE_ATTEMPT')
         if self.run and workflow.version != self.run['workflow'].version + 1:
@@ -139,6 +237,7 @@ class AdaptiveSession:
         write_once(directory / 'run.json', record)
         self.run = {'production_run_id': run_id, 'workflow': workflow, 'directory': directory}
         self.run_count, self.attempt, self.attempt_count, self.pending_workflow = number, None, 0, None
+        self.current_reviews = {}
         self.decisions_consumed.add(decision.sha256)
         return file_identity(directory / 'run.json', run_id)
 
@@ -148,6 +247,8 @@ class AdaptiveSession:
             raise ValueError('CURRENT_RUN_REQUIRED')
         if self.attempt and not self.attempt['finished']:
             raise ValueError('UNRESOLVED_EXECUTION')
+        if self.attempt:
+            self.checked_current_evidence(data)
         if data['selected_workflow_ref'] != asdict(self.run['workflow']):
             raise ValueError('DECISION_WORKFLOW_MISMATCH')
         attempt_id = 'attempt-%03d' % (self.attempt_count + 1)
@@ -160,6 +261,7 @@ class AdaptiveSession:
             'reservation_ref': asdict(reservation), 'external_namespaces': [str(p) for p in external_namespaces]})
         self.attempt = {'attempt_id': attempt_id, 'directory': directory, 'finished': False}
         self.attempt_count += 1
+        self.current_reviews = {}
         self.decisions_consumed.add(decision.sha256)
         return file_identity(directory / 'attempt.json', attempt_id)
 

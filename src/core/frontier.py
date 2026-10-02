@@ -122,13 +122,17 @@ class FrontierSupervisor:
         self.adapter = inference_adapter
 
     def decide(self, frozen, scope_ref, *, state, workflow, artifacts, reviews, skills, capabilities,
-            envelope, directory, images=(), planner=None, workflow_output=None):
+            envelope, directory, images=(), planner=None, workflow_output=None, candidate_workflow=None):
         frozen.validate(require_ready=True)
         checked_scope(frozen, scope_ref)
         if state['session_id'] != frozen.reference.session_id:
             raise ValueError('DECISION_CONTEXT_MISMATCH')
         if workflow is not None:
             workflow.validate(frozen, scope_ref)
+        if candidate_workflow is not None:
+            candidate_workflow.validate(frozen, scope_ref)
+            if workflow is None or candidate_workflow.version != workflow.version + 1:
+                raise ValueError('WORKFLOW_REVISION_INVALID')
         for ref in artifacts + reviews + images:
             ref.validate()
         for ref in skills:
@@ -147,6 +151,7 @@ class FrontierSupervisor:
                 'Local correction keeps Workflow/Run, meaningful strategy change requires Workflow revision/new Run. '
                 'Never weaken mandatory criteria; human approval is outside Loop. New Skills are CANDIDATE.'}
         context['current_workflow'] = workflow.validate(frozen, scope_ref) if workflow else None
+        context['candidate_workflow'] = candidate_workflow.validate(frozen, scope_ref) if candidate_workflow else None
         context['current_reviews'] = [{'ref': asdict(r), 'result': json.loads(Path(r.path).read_text(encoding='utf-8'))} for r in reviews]
         context['current_artifacts'] = [{'ref': asdict(r), 'metadata': json.loads(Path(r.path).read_text(encoding='utf-8'))}
             for r in artifacts if Path(r.path).suffix == '.json']
@@ -189,6 +194,10 @@ class FrontierSupervisor:
             selected_skills = selected_workflow.validate(frozen, scope_ref)['skill_refs']
         elif data['selected_action'] in ('PLAN_WORKFLOW', 'REVISE_WORKFLOW'):
             raise ValueError('WORKFLOW_PROPOSAL_REQUIRED')
+        elif data['selected_action'] == 'RESTART_PRODUCTION_RUN' and candidate_workflow is not None:
+            candidate_workflow.validate(frozen, scope_ref)
+            selected_workflow = candidate_workflow
+            selected_skills = candidate_workflow.validate(frozen, scope_ref)['skill_refs']
         elif workflow is not None:
             selected_skills = workflow.validate(frozen, scope_ref)['skill_refs']
         decision = {'decision_id': directory.name, 'session_id': state['session_id'],

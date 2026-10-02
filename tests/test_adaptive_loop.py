@@ -43,7 +43,8 @@ class AdaptiveLoopTests(unittest.TestCase):
             state=self.session.state(), workflow=self.session.run['workflow'] if self.session.run else None,
             reviews=reviews, artifacts=artifacts, skills=(self.skill,), capabilities=['geometry'],
             envelope=self.session.resources.remaining(), directory=self.root / ('decision-%d' % self.decision_count),
-            planner=self.planner, workflow_output=self.root / ('workflow-%d.json' % self.decision_count))
+            planner=self.planner, workflow_output=self.root / ('workflow-%d.json' % self.decision_count),
+            candidate_workflow=self.session.pending_workflow)
 
     def begin(self):
         from core.workflow_artifact import WorkflowRef
