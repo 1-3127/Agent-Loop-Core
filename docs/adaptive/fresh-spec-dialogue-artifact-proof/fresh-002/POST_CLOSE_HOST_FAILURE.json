@@ -1,0 +1,23 @@
+{
+  "recorded_at_utc": "2026-10-02T06:56:54.124750+00:00",
+  "scope": "POST_CLOSE_OUTPUT_EVIDENCE_HOST_DEFECT",
+  "error": "AssertionError: OUTPUT_SNAPSHOT_CHANGED",
+  "internal_accept": true,
+  "terminal": "CLOSED",
+  "delivered": true,
+  "session_resumed": false,
+  "proof_package_integrity": "FAILED",
+  "differences": [
+    {
+      "path": "session/logs/event_index.jsonl",
+      "pre_close_snapshot_sha256": "dfa3a881da6138f5a6ca951e85e4844ec69eaa5f6585c5db10542ee79cec82fc",
+      "closed_source_sha256": "1d09ca2900669de1274bc162c4b6b437567b23e6ad945800f36aad8787d9ce10"
+    }
+  ],
+  "missing_from_incomplete_package": [
+    "skill-validation-blender-modeling-workflow.json",
+    "session/terminal.json"
+  ],
+  "cause": "Pre-close evidence snapshot copies append-only event_index; LOCAL_HANDOFF_CLOSED then changes source before final snapshot",
+  "required_next": "Preserve CLOSED Session and incomplete package exactly; minimal host fix, focused/related/full regression, checkpoint normal push, equality/clean, then fresh Original Request/Reference intake; do not auto reuse terminal-session clarification"
+}

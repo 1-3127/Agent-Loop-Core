@@ -1,0 +1,12 @@
+{
+  "pass": true,
+  "scope": "Development-only synthetic host snapshot ordering; no Core Session, model, Blender, ComfyUI or promotion",
+  "old_collision_reproduced": true,
+  "corrected_post_close_snapshot_exact": true,
+  "source_evidence_unchanged": true,
+  "fix": "Remove pre-close evidence snapshot; take exactly one evidence snapshot after handoff/CLOSED, actual-success record, validation record, result and counters",
+  "old_host_sha256": "6d3693fbef0561319683a14d88ee041e553c254303555f3f75500a2d9c1ba6b0",
+  "corrected_host_sha256": "ea8f7931fbec67a02f59624526bcc178834cab2a7ce7d5bccc9bb96ec3cbfcf9",
+  "production_effects": 0,
+  "new_core_sessions": 0
+}
