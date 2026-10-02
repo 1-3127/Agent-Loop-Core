@@ -1,0 +1,7 @@
+test_changed_deliverable_cannot_close (tests.test_local_handoff.LocalHandoffTests.test_changed_deliverable_cannot_close) ... ok
+test_local_export_closes_without_receipt_or_user_approval (tests.test_local_handoff.LocalHandoffTests.test_local_export_closes_without_receipt_or_user_approval) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 1.559s
+
+OK

@@ -1,0 +1,127 @@
+{
+  "source_glb": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-02\\codex-specification-dialogue-human-blocking-text\\work\\diagnostic-host-fix-fixture\\fixture.glb",
+  "source_sha256": "a39f3e067174668b8a55e9346f18ecb4edccf0219f4f6be23f66a2e0d0aae04c",
+  "outputs": [
+    {
+      "path": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-02\\codex-specification-dialogue-human-blocking-text\\work\\diagnostic-host-fix-fixture\\before\\material-front.png",
+      "view": "material-front",
+      "sha256": "335e61bfa6c5f80b4f86f9efe115f219016957164aecee2ae62f51ba52048913",
+      "camera": [
+        0.0,
+        -12.425397872924805,
+        2.7462759017944336
+      ],
+      "target": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "ortho_scale": 6.271999835968018,
+      "neutral_material": false
+    },
+    {
+      "path": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-02\\codex-specification-dialogue-human-blocking-text\\work\\diagnostic-host-fix-fixture\\before\\material-perspective.png",
+      "view": "material-perspective",
+      "sha256": "78a340b5dc765a3f9ea4095e14557fdfeb046003c03b645a981bc7e5bd9d3200",
+      "camera": [
+        3.6876204013824463,
+        -11.34932804107666,
+        4.87739372253418
+      ],
+      "target": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "ortho_scale": 6.607999801635742,
+      "neutral_material": false
+    },
+    {
+      "path": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-02\\codex-specification-dialogue-human-blocking-text\\work\\diagnostic-host-fix-fixture\\before\\requested-evidence.png",
+      "view": "requested-evidence",
+      "sha256": "b3f7ecda274538fd2958a3243dee631a6b72b787a6d71b3745dcdaa8fbeaf7e7",
+      "camera": [
+        0.0,
+        -12.425397872924805,
+        2.7462759017944336
+      ],
+      "target": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "ortho_scale": 6.440000057220459,
+      "neutral_material": false
+    },
+    {
+      "path": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-02\\codex-specification-dialogue-human-blocking-text\\work\\diagnostic-host-fix-fixture\\before\\neutral-front.png",
+      "view": "neutral-front",
+      "sha256": "8483daf3a987d15ddffed838d9e50884030623affea1530392032de22b3819f8",
+      "camera": [
+        0.0,
+        -12.54750919342041,
+        1.0
+      ],
+      "target": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "ortho_scale": 6.271999835968018,
+      "neutral_material": true
+    },
+    {
+      "path": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-02\\codex-specification-dialogue-human-blocking-text\\work\\diagnostic-host-fix-fixture\\before\\neutral-back.png",
+      "view": "neutral-back",
+      "sha256": "d6e0d31b1870724630d797f29807036a82ddadd54c769452a49f9a2f3ada9248",
+      "camera": [
+        1.5366267159321414e-15,
+        12.54750919342041,
+        1.0
+      ],
+      "target": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "ortho_scale": 6.271999835968018,
+      "neutral_material": true
+    },
+    {
+      "path": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-02\\codex-specification-dialogue-human-blocking-text\\work\\diagnostic-host-fix-fixture\\before\\neutral-side.png",
+      "view": "neutral-side",
+      "sha256": "661741901dfaace524d77f08425ad035a3ef545124414ca8d0ac6170817137b8",
+      "camera": [
+        12.54750919342041,
+        -7.683133579660707e-16,
+        1.0
+      ],
+      "target": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "ortho_scale": 6.271999835968018,
+      "neutral_material": true
+    },
+    {
+      "path": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-02\\codex-specification-dialogue-human-blocking-text\\work\\diagnostic-host-fix-fixture\\before\\neutral-elevated.png",
+      "view": "neutral-elevated",
+      "sha256": "d9efb99b465590d2036dc30cd1e66781bc26e5e5c5bd541a50ad32ad9172dd36",
+      "camera": [
+        3.381748676300049,
+        -9.291278839111328,
+        8.725018501281738
+      ],
+      "target": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "ortho_scale": 6.607999801635742,
+      "neutral_material": true
+    }
+  ],
+  "geometry_metrics": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-02\\codex-specification-dialogue-human-blocking-text\\work\\diagnostic-host-fix-fixture\\before\\imported-geometry-metrics.json",
+  "scope": "Independent fresh-import diagnostic evidence; source GLB unchanged"
+}

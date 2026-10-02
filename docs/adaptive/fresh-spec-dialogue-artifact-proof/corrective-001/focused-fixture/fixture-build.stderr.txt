@@ -1,0 +1,2 @@
+C:\Users\Worker\Documents\Codex\2026-10-02\codex-specification-dialogue-human-blocking-text\work\diagnostic-host-fix-fixture\fixture.py:4: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  mat=bpy.data.materials.new(name);mat.use_nodes=True

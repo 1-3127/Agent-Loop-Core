@@ -1,0 +1,127 @@
+{
+  "source_glb": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\adaptive\\fresh-spec-dialogue-artifact-proof\\session\\production_runs\\run-001\\attempts\\attempt-001\\execution-build-railing-and-base\\asset.glb",
+  "source_sha256": "7e3e79b3d17cf499a4c075762463bd6b35755e25916381b24f596a36b4710afd",
+  "outputs": [
+    {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\adaptive\\fresh-spec-dialogue-artifact-proof\\session\\production_runs\\run-001\\attempts\\attempt-001\\diagnostics-002\\views\\material-front.png",
+      "view": "material-front",
+      "sha256": "a541982f758c2172fc248d5cb83b32f9447ea4eefff5d80bd0541b592506287e",
+      "camera": [
+        0.0,
+        -12.6514253616333,
+        2.5780420303344727
+      ],
+      "target": [
+        0.0,
+        0.0,
+        0.800000011920929
+      ],
+      "ortho_scale": 6.888000011444092,
+      "neutral_material": false
+    },
+    {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\adaptive\\fresh-spec-dialogue-artifact-proof\\session\\production_runs\\run-001\\attempts\\attempt-001\\diagnostics-002\\views\\material-perspective.png",
+      "view": "material-perspective",
+      "sha256": "48b25d067b479584d9947addfac1d8fe86604003786f3d70f42422679d36e5d1",
+      "camera": [
+        3.7547011375427246,
+        -11.555782318115234,
+        4.747926712036133
+      ],
+      "target": [
+        0.0,
+        0.0,
+        0.800000011920929
+      ],
+      "ortho_scale": 7.256999969482422,
+      "neutral_material": false
+    },
+    {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\adaptive\\fresh-spec-dialogue-artifact-proof\\session\\production_runs\\run-001\\attempts\\attempt-001\\diagnostics-002\\views\\requested-evidence.png",
+      "view": "requested-evidence",
+      "sha256": "2b5cd1ea54e06562a42302420f94b619d492971173aafe9ea089b422d7b486b1",
+      "camera": [
+        0.0,
+        -12.6514253616333,
+        2.5780420303344727
+      ],
+      "target": [
+        0.0,
+        0.0,
+        0.800000011920929
+      ],
+      "ortho_scale": 7.072500228881836,
+      "neutral_material": false
+    },
+    {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\adaptive\\fresh-spec-dialogue-artifact-proof\\session\\production_runs\\run-001\\attempts\\attempt-001\\diagnostics-002\\views\\neutral-front.png",
+      "view": "neutral-front",
+      "sha256": "e9cc63055da8b01e3a78dcc61ca4c80ea882658e7c895142daa530669e4638ce",
+      "camera": [
+        0.0,
+        -12.775758743286133,
+        0.800000011920929
+      ],
+      "target": [
+        0.0,
+        0.0,
+        0.800000011920929
+      ],
+      "ortho_scale": 6.888000011444092,
+      "neutral_material": true
+    },
+    {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\adaptive\\fresh-spec-dialogue-artifact-proof\\session\\production_runs\\run-001\\attempts\\attempt-001\\diagnostics-002\\views\\neutral-back.png",
+      "view": "neutral-back",
+      "sha256": "b9ae8c5862960b8f529fb212fc1af030f8fbc6a1d882894528433ed7a4db0a2e",
+      "camera": [
+        1.564579226708007e-15,
+        12.775758743286133,
+        0.800000011920929
+      ],
+      "target": [
+        0.0,
+        0.0,
+        0.800000011920929
+      ],
+      "ortho_scale": 6.888000011444092,
+      "neutral_material": true
+    },
+    {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\adaptive\\fresh-spec-dialogue-artifact-proof\\session\\production_runs\\run-001\\attempts\\attempt-001\\diagnostics-002\\views\\neutral-side.png",
+      "view": "neutral-side",
+      "sha256": "77e1245c04ad5bc7aaed877526b5f70b0ad0eb099887f39658c65d0d9de78877",
+      "camera": [
+        12.775758743286133,
+        -7.822896133540035e-16,
+        0.800000011920929
+      ],
+      "target": [
+        0.0,
+        0.0,
+        0.800000011920929
+      ],
+      "ortho_scale": 6.888000011444092,
+      "neutral_material": true
+    },
+    {
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\adaptive\\fresh-spec-dialogue-artifact-proof\\session\\production_runs\\run-001\\attempts\\attempt-001\\diagnostics-002\\views\\neutral-elevated.png",
+      "view": "neutral-elevated",
+      "sha256": "20b5dbcb9c06c2eb237f9e19160507e0b9b24549b24187b702729f5c21d6bf44",
+      "camera": [
+        3.443265676498413,
+        -9.460294723510742,
+        8.665542602539062
+      ],
+      "target": [
+        0.0,
+        0.0,
+        0.800000011920929
+      ],
+      "ortho_scale": 7.256999969482422,
+      "neutral_material": true
+    }
+  ],
+  "geometry_metrics": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\adaptive\\fresh-spec-dialogue-artifact-proof\\session\\production_runs\\run-001\\attempts\\attempt-001\\diagnostics-002\\views\\imported-geometry-metrics.json",
+  "scope": "Independent fresh-import diagnostic evidence; source GLB unchanged"
+}

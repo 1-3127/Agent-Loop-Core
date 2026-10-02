@@ -1,0 +1,9 @@
+{
+  "private_reasoning_recorded": false,
+  "process_id": 13748,
+  "action": "Terminate only active proof inference child so caller seals FAILED through existing exception path",
+  "same_session_resume": false,
+  "parent_process_id": 28492,
+  "reason_code": "DIAGNOSTIC_HOST_EXPOSURE_DEFECT",
+  "defect": "Scale-squared area-light energy plus Standard view transform saturates exported-material evidence; bound renderer cannot enact requested exposure correction"
+}

@@ -1,0 +1,137 @@
+{
+  "source_glb": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\adaptive\\fresh-spec-dialogue-artifact-proof\\session\\production_runs\\run-001\\attempts\\attempt-001\\execution-build-railing-and-base\\asset.glb",
+  "source_sha256": "7e3e79b3d17cf499a4c075762463bd6b35755e25916381b24f596a36b4710afd",
+  "mesh_count": 16,
+  "polygon_count": 18964,
+  "bounds_min": [
+    -3.075000047683716,
+    -0.32499998807907104,
+    0.0
+  ],
+  "bounds_max": [
+    3.075000047683716,
+    0.32499998807907104,
+    1.600000023841858
+  ],
+  "extents": [
+    6.150000095367432,
+    0.6499999761581421,
+    1.600000023841858
+  ],
+  "objects": [
+    {
+      "name": "Concrete_base_two_open_passages",
+      "polygons": 572,
+      "materials": [
+        "Concrete_gray_white",
+        "Concrete_subtle_top_tone"
+      ]
+    },
+    {
+      "name": "Metal_bottom_horizontal_rail",
+      "polygons": 124,
+      "materials": [
+        "Metal_off_white_painted"
+      ]
+    },
+    {
+      "name": "Metal_center_Left_broad_sweeping_curve",
+      "polygons": 4668,
+      "materials": [
+        "Metal_off_white_painted"
+      ]
+    },
+    {
+      "name": "Metal_center_Left_inner_rising_branch",
+      "polygons": 3644,
+      "materials": [
+        "Metal_off_white_painted"
+      ]
+    },
+    {
+      "name": "Metal_center_Right_broad_sweeping_curve",
+      "polygons": 4668,
+      "materials": [
+        "Metal_off_white_painted"
+      ]
+    },
+    {
+      "name": "Metal_center_Right_inner_rising_branch",
+      "polygons": 3644,
+      "materials": [
+        "Metal_off_white_painted"
+      ]
+    },
+    {
+      "name": "Metal_center_rounded_apex_junction",
+      "polygons": 528,
+      "materials": [
+        "Metal_off_white_painted"
+      ]
+    },
+    {
+      "name": "Metal_center_slender_vertical_connection",
+      "polygons": 124,
+      "materials": [
+        "Metal_off_white_painted"
+      ]
+    },
+    {
+      "name": "Metal_Left_embedded_foot_collar",
+      "polygons": 124,
+      "materials": [
+        "Metal_off_white_painted"
+      ]
+    },
+    {
+      "name": "Metal_Left_inset_end_upright",
+      "polygons": 124,
+      "materials": [
+        "Metal_off_white_painted"
+      ]
+    },
+    {
+      "name": "Metal_Left_main_post",
+      "polygons": 124,
+      "materials": [
+        "Metal_off_white_painted"
+      ]
+    },
+    {
+      "name": "Metal_middle_horizontal_rail",
+      "polygons": 124,
+      "materials": [
+        "Metal_off_white_painted"
+      ]
+    },
+    {
+      "name": "Metal_Right_embedded_foot_collar",
+      "polygons": 124,
+      "materials": [
+        "Metal_off_white_painted"
+      ]
+    },
+    {
+      "name": "Metal_Right_inset_end_upright",
+      "polygons": 124,
+      "materials": [
+        "Metal_off_white_painted"
+      ]
+    },
+    {
+      "name": "Metal_Right_main_post",
+      "polygons": 124,
+      "materials": [
+        "Metal_off_white_painted"
+      ]
+    },
+    {
+      "name": "Metal_top_horizontal_rail",
+      "polygons": 124,
+      "materials": [
+        "Metal_off_white_painted"
+      ]
+    }
+  ],
+  "scope": "Fresh GLB import; bounds/material names do not certify contact, manifoldness, hidden-side accuracy or semantic acceptance"
+}

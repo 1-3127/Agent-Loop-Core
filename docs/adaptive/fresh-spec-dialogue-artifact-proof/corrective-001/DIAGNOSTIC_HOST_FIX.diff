@@ -1,0 +1,20 @@
+--- failed-host/fresh_mesh_diagnostics.py
++++ corrected-host/fresh_mesh_diagnostics.py
+@@ -32,7 +32,7 @@
+     scene=bpy.context.scene
+     scene.render.resolution_x=1024;scene.render.resolution_y=768;scene.render.resolution_percentage=100
+     scene.render.image_settings.file_format='PNG';scene.render.film_transparent=False
+-    scene.render.engine='BLENDER_EEVEE';scene.view_settings.view_transform='Standard'
++    scene.render.engine='BLENDER_EEVEE';scene.view_settings.view_transform='AgX'
+     world=scene.world;world.use_nodes=True
+     world.node_tree.nodes['Background'].inputs['Color'].default_value=(0.18,0.20,0.23,1)
+     world.node_tree.nodes['Background'].inputs['Strength'].default_value=0.8
+@@ -42,7 +42,7 @@
+     for name,position,energy in [('Key',(2,-3,4),1600),('Fill',(-3,-2,2),1000),('Rim',(2,3,4),1400)]:
+         lamp=bpy.data.objects.new(name,bpy.data.lights.new(name,'AREA'));scene.collection.objects.link(lamp)
+         lamp.location=center+Vector(position)*max(extents)
+-        lamp.data.energy=energy*max(extents)**2;lamp.data.size=max(extents)*2
++        lamp.data.energy=energy;lamp.data.size=max(extents)*2
+         lamp.rotation_euler=(center-lamp.location).to_track_quat('-Z','Y').to_euler()
+     params=request.get('parameters',{})
+     az=float(params.get('camera_azimuth',0));el=float(params.get('camera_elevation',8))
