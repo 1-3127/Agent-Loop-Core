@@ -1,0 +1,156 @@
+{
+  "scope": "ACTUAL immutable stopped proof; local hash witnesses, not public raw replay",
+  "session_id": "fresh-spec-dialogue-logo-006",
+  "baseline": {
+    "commit": "37ffd9d9ce90fe139e92a10ecfcf6f4133fd4db2",
+    "tree": "fd37773484a1c302a6fbeaa30d35f344269534f2",
+    "tracked_files": 1832,
+    "eol_only_files": 245,
+    "applied_content_filters": 0,
+    "git_object_gate_pass": true
+  },
+  "grant_id": "user-start-fresh-spec-dialogue-logo-006-r2",
+  "single_use": true,
+  "user_message": {
+    "bytes": 691,
+    "sha256": "d419ad47424c3c344cc23a5c15c1b45f8535bda55e38cb00ee65626958da6ea1"
+  },
+  "request": {
+    "bytes": 59,
+    "sha256": "afdbee848231d4d0f4f668f7ed40f2f7528008b889537fda94748674b086bc1e"
+  },
+  "reference": {
+    "bytes": 59357,
+    "sha256": "b0a78c9d18fd0b054c4321416c24bfd4a46d39e33c7497302cc15893f8055a51"
+  },
+  "request_authority": {
+    "bytes": 1420,
+    "sha256": "565b72d3edd7990cb5b8b33c6b1584c557447d869c51a7ebc8291848ef6ba504"
+  },
+  "user_origin_scope": "Runtime role=user event, exact input text and attached bytes locally checked; no signed account attestation",
+  "subject_and_start_authorities_separate": true,
+  "prior_subject_authority_reused": false,
+  "validation_checks": {
+    "outer": 1,
+    "core_creation": 1,
+    "unique_grants_validated": 1
+  },
+  "start_chronology": [
+    "USER_SESSION_START_AUTHORITY_RECEIVED",
+    "SESSION_START_GRANT_VALIDATED",
+    "SESSION_START_GRANT_CONSUMED",
+    "SESSION_BOUND"
+  ],
+  "specification_dialogue": {
+    "actual_intake_calls": 2,
+    "decisive_ambiguities": [],
+    "clarification_question": null,
+    "actual_user_wait": "NOT REQUIRED / NOT EXERCISED",
+    "actual_user_response": null
+  },
+  "frozen_identity": "ea88f04894eaf765cc6653f5bd02b6ff28513b40262ed89ef1328eee5d163ce5",
+  "same_live_owner_binding": true,
+  "same_logger": true,
+  "second_consumption": 0,
+  "resource_limits": {
+    "attempts": 6,
+    "diagnostic_calls": 12,
+    "frontier_calls": 24,
+    "production_runs": 3,
+    "reviewer_calls": 12,
+    "worker_calls": 12
+  },
+  "deadline_seconds": 5400,
+  "workflow": {
+    "workflow_id": "westworld-reference-extrusion",
+    "version": 1,
+    "selected_stage": "build-reference-logo",
+    "sha256": "cff5e97c0e49d3af0d8f2da0b0d3f3530b2ec55d6c5a1d04d15667b75d51f0ba"
+  },
+  "skill": {
+    "skill_id": "blender-modeling-workflow",
+    "version": "v1",
+    "content_hash": "25549eb5b5a12732ef298f7eac47e2de7b9848f32af530cef685100864527070",
+    "vcs_revision": "37ffd9d9ce90fe139e92a10ecfcf6f4133fd4db2",
+    "status": "CANDIDATE",
+    "promotion": false
+  },
+  "frontier_decisions": [
+    "PLAN_WORKFLOW",
+    "CONTINUE",
+    "ACQUIRE_EVIDENCE"
+  ],
+  "reviewer": {
+    "completed_verdict": "REVISE",
+    "MC_01": "MET",
+    "MC_02_through_MC_08": "UNCERTAIN",
+    "pending_second_invocation": "EXTERNALLY INTERRUPTED; no verdict"
+  },
+  "artifact": {
+    "status": "INTERMEDIATE_NOT_ACCEPTED",
+    "glb_sha256": "c40f9257f0a5ad97dae55ab65606fae0406c466e61e8c27bc8d44ff47b531e90",
+    "fresh_import_meshes": 15,
+    "nonmanifold_edges_after_local_welding": 0,
+    "semantic_acceptance": false
+  },
+  "counters": {
+    "SessionStartGrant_received": 1,
+    "SessionStartGrant_validated": 1,
+    "SessionStartGrant_consumed": 1,
+    "SessionStartGrant_reuse_attempts": 0,
+    "top_level_Sessions_created": 1,
+    "Frozen_bindings": 1,
+    "Frontier_intake_invocations": 2,
+    "Frontier_production_invocations": 3,
+    "Production_Runs": 1,
+    "Attempts": 1,
+    "Workflow_revisions": 0,
+    "Run_restarts": 0,
+    "Worker_invocations": 1,
+    "Reviewer_invocations": 2,
+    "Reviewer_completed": 1,
+    "Reviewer_unresolved": 1,
+    "Blender_production": 3,
+    "ComfyUI_production": 0,
+    "Artifacts_generated": 1,
+    "INTERNAL_ACCEPT_count": 0,
+    "CLOSED_count": 0
+  },
+  "defects": [
+    {
+      "id": "HOST-CONTOUR-TOLERANCE",
+      "requested_pixels": 0.25,
+      "observed_pixels": 0.55
+    },
+    {
+      "id": "HOST-DIAGNOSTIC-FRAMING",
+      "observation": "Height used as horizontal camera width; acquired evidence repeated clipped framing"
+    },
+    {
+      "id": "HOST-FIXED-RECIPE-MISMATCH",
+      "observation": "Later immutable source audit: Workflow asked for subpixel/midpoint and XY/Z-depth; fixed host used thresholded pixel-boundary XZ/Y-depth. New capability disclosure and pre-Worker rejection; original stop snapshot unchanged"
+    }
+  ],
+  "host_state": "EXTERNALLY_STOPPED_FOR_OBSERVED_HOST_DEFECT",
+  "core_derived_state": "LOOP_READY",
+  "core_terminal_present": false,
+  "live_owner_lost": true,
+  "current_authorization_retired": true,
+  "same_attempt_refinement": "NOT EXERCISED",
+  "workflow_revision": "NOT EXERCISED",
+  "multi_run": "NOT EXERCISED",
+  "internal_accept": false,
+  "closed": false,
+  "delivery": false,
+  "human_judge": "NOT PERFORMED; outside Session",
+  "source_core_changed": false,
+  "exact_provider_model_identity": "UNVERIFIED; actual CLI inference lineage retained locally",
+  "immutable_proof_manifest": {
+    "bytes": 29012,
+    "sha256": "f5ca3f534203c0baa11b4aa67ca29f06c7af28a3d30f800c75ca33053fb48df2"
+  },
+  "next_state": [
+    "SESSION_RESTART_AVAILABLE",
+    "WAITING_FOR_USER_SESSION_START"
+  ]
+}

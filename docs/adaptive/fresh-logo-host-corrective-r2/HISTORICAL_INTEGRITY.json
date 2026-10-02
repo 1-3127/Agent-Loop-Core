@@ -1,0 +1,25 @@
+{
+  "pass_result": true,
+  "actual_proof_files": 158,
+  "actual_proof_manifest_sha256": "f5ca3f534203c0baa11b4aa67ca29f06c7af28a3d30f800c75ca33053fb48df2",
+  "local_archive_matches": true,
+  "baseline_tracked_files_unchanged": 1832,
+  "historical_workspaces": {
+    "aborted006": {
+      "pass_result": true,
+      "files": 1832,
+      "head": "37ffd9d9ce90fe139e92a10ecfcf6f4133fd4db2"
+    },
+    "fresh005": {
+      "pass_result": true,
+      "files": 1068,
+      "head": "37ffd9d9ce90fe139e92a10ecfcf6f4133fd4db2"
+    }
+  },
+  "external_consumption_unchanged": true,
+  "grant_consumptions": 1,
+  "additional_core_terminal_written": false,
+  "retired_authorization_reused": false,
+  "private_raw_ancestry_excluded": true,
+  "inherited_public_history_unchanged": true
+}

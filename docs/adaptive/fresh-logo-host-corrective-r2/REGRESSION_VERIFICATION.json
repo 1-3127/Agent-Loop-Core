@@ -1,0 +1,161 @@
+{
+  "ordered_checks": [
+    {
+      "phase": "focused",
+      "scope": "SYNTHETIC",
+      "tests": 10,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "pass_result": true,
+      "tripwires": null,
+      "log_witness": {
+        "bytes": 1794,
+        "sha256": "8860b91c8a16632a091fafdba2078cda40bb4fc0887049577457b57eeb0a6036"
+      }
+    },
+    {
+      "phase": "related",
+      "scope": "SYNTHETIC",
+      "tests": 102,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "pass_result": true,
+      "tripwires": {
+        "network": 0,
+        "production_process": 0,
+        "allowed_local_fixture_process": 0,
+        "repository_write": 0,
+        "historical_locator_reads": 0
+      },
+      "log_witness": {
+        "bytes": 18637,
+        "sha256": "85e099279e48dab74a2d8ffba31d8197be746bd9e88efcba4a072fc7766d070f"
+      }
+    },
+    {
+      "phase": "full",
+      "scope": "SYNTHETIC",
+      "tests": 356,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "pass_result": true,
+      "tripwires": {
+        "network": 0,
+        "production_process": 0,
+        "allowed_local_fixture_process": 4,
+        "repository_write": 0,
+        "historical_locator_reads": 1021
+      },
+      "log_witness": {
+        "bytes": 58600,
+        "sha256": "14e537ce43383b0bd0245b1459d087fecf209658b589aeedeae454ef1ed595b5"
+      }
+    }
+  ],
+  "blender_synthetic_probe": {
+    "scope": "SYNTHETIC_ONLY",
+    "pass_result": true,
+    "all_views_in_frame": true,
+    "horizontal_camera_span": 12.779552459716797,
+    "vertical_camera_span": 6.389776229858398,
+    "source_unchanged": true,
+    "component_bounds_and_materials_observed": true,
+    "Session_starts": 0,
+    "actual_reference_reads": 0
+  },
+  "blender_probe_log": {
+    "bytes": 3396,
+    "sha256": "54d925f2b8f93c3dc3d901612f600441f802d007cb13d7580ae112e82b03de10"
+  },
+  "preserved_failed_checks": [
+    {
+      "scope": "SYNTHETIC fixture",
+      "reason": "Relative fixture output caused Blender save failure; resolved fixture output path before next synthetic probe",
+      "log_witness": {
+        "bytes": 3359,
+        "sha256": "2e6649dc48293f9be5942f8cc4dd803e57ea07d9618b9e0b485e1c6b7b0aa240"
+      }
+    },
+    {
+      "phase": "full",
+      "run_id": "full-001",
+      "status": "INTERRUPTED_AFTER_DIAGNOSED_LEGACY_FIXTURE_LOCATOR_ERRORS",
+      "pass_result": false,
+      "completed_test_statuses": 115,
+      "observed_ok": 101,
+      "observed_errors": 11,
+      "observed_failures": 3,
+      "final_tripwires": "NOT_CAPTURED_BEFORE_PROCESS_STOP",
+      "log_bytes": 18354,
+      "log_sha256": "a2aceb727587580aef1495bb190c324c34ce31ff707eb99fbb27a25fa54f382c",
+      "actual_production_effects": 0
+    }
+  ],
+  "historical_locator_tests": [
+    "tests.test_c2_review.C2ReviewTests.test_c1_lineage_and_changed_artifact_rejected",
+    "tests.test_c2_review.C2ReviewTests.test_changed_c1_execution_report_rejected",
+    "tests.test_c2_review.C2ReviewTests.test_existing_result_blocks_reviewer_process",
+    "tests.test_c3_revision.C3RevisionTests.test_artifact_b_is_distinct_and_hashed",
+    "tests.test_c3_revision.C3RevisionTests.test_challenge_configuration_has_fresh_identity",
+    "tests.test_c3_revision.C3RevisionTests.test_only_supported_revise_can_request_worker",
+    "tests.test_c3_revision.C3RevisionTests.test_review_hash_change_and_duplicate_block_worker",
+    "tests.test_c4_bounded.C4BoundedTests.test_initial_contract_precedes_worker",
+    "tests.test_c4_bounded.C4BoundedTests.test_semantic_terminal_branches",
+    "tests.test_c4_bounded.C4BoundedTests.test_terminal_reentry_has_no_effect",
+    "tests.test_c4_review_budget.ReviewBudgetTests.test_changed_review_identity_does_not_restore_run_budget",
+    "tests.test_c4_review_budget.ReviewBudgetTests.test_different_output_paths_dispatch_only_once",
+    "tests.test_c4_review_budget.ReviewBudgetTests.test_failed_process_does_not_restore_budget",
+    "tests.test_c4_review_budget.ReviewBudgetTests.test_launch_failure_does_not_restore_budget",
+    "tests.test_c4_review_budget.ReviewBudgetTests.test_malformed_result_does_not_restore_budget",
+    "tests.test_c4_review_budget.ReviewBudgetTests.test_pass_fixture_reservation_connects_to_terminal",
+    "tests.test_c4_review_budget.ReviewBudgetTests.test_reservation_collision_precedes_dispatch",
+    "tests.test_c4_review_budget.ReviewBudgetTests.test_resolver_rejects_reservation_output_mismatch",
+    "tests.test_c4_review_budget.ReviewBudgetTests.test_uncertain_process_does_not_restore_budget",
+    "tests.test_l7_feedback_controller.ActualSourcePreflightTests.test_actual_m1_static_preflight_effect_zero"
+  ],
+  "historical_locator_policy": "Test-only immutable original locator; no validator/verdict substitution; never actual authority",
+  "historical_locator_reads": 1021,
+  "cold_clone_portability_limitation": true,
+  "earlier_successful_checks": [
+    {
+      "phase": "focused",
+      "tests": 9,
+      "log_witness": {
+        "bytes": 1617,
+        "sha256": "3db0a03dc6a0446e7bd193be864967efc650b88af32833dd4b08632695a0a675"
+      }
+    },
+    {
+      "phase": "related",
+      "tests": 102,
+      "result_witness": {
+        "bytes": 484,
+        "sha256": "bba5963ad8603ae5ded8b5f54ee1e5355b7e337f30ee670a2e9d02e96f9aa000"
+      }
+    },
+    {
+      "phase": "full",
+      "tests": 356,
+      "result_witness": {
+        "bytes": 2574,
+        "sha256": "ff9ecc943e963f78df97eed170bb532919981fd2d5405e1d99c367bf8b45cbcb"
+      }
+    }
+  ],
+  "final_harness_policy": "No network/production processes; all mutations restricted to isolated scratch and exact harness log/result files; links denied",
+  "locator_context_witness": {
+    "bytes": 2814,
+    "sha256": "d35410f6f786dd95f4371df01282dc35c71c2e13c0fa2b075acb23fe2abc8496"
+  },
+  "prospective_private_host_witness": {
+    "bytes": 23156,
+    "sha256": "6f491b7e1f37ebf1e7a0e57f0ee5759b883653bd3284b2b9e6ea91514bd320c9"
+  },
+  "prospective_host": "Syntax checked only; not executed",
+  "actual_proof_resumed": false,
+  "actual_reference_used_in_synthetic_probes": false,
+  "corrected_actual_e2e_success": "NOT PROVEN"
+}
