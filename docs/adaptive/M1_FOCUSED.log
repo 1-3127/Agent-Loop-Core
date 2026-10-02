@@ -1,0 +1,17 @@
+test_cycle_precedes_effect_even_with_unresolvable_recursive_hash_pins (tests.test_skill_artifact.SkillArtifactTests.test_cycle_precedes_effect_even_with_unresolvable_recursive_hash_pins) ... ok
+test_dependency_capability_and_exact_hash_resolution (tests.test_skill_artifact.SkillArtifactTests.test_dependency_capability_and_exact_hash_resolution) ... ok
+test_duplicate_selection_still_validates_every_pin (tests.test_skill_artifact.SkillArtifactTests.test_duplicate_selection_still_validates_every_pin) ... ok
+test_exact_version_hash_and_mutation (tests.test_skill_artifact.SkillArtifactTests.test_exact_version_hash_and_mutation) ... ok
+test_extra_support_file_cannot_escape_manifest (tests.test_skill_artifact.SkillArtifactTests.test_extra_support_file_cannot_escape_manifest) ... ok
+test_guidance_and_path_preflight_before_writing (tests.test_skill_artifact.SkillArtifactTests.test_guidance_and_path_preflight_before_writing) ... ok
+test_reviewed_copy_pins_source_bytes_and_never_runs_script (tests.test_skill_artifact.SkillArtifactTests.test_reviewed_copy_pins_source_bytes_and_never_runs_script) ... ok
+test_synthetic_success_cannot_promote_skill (tests.test_skill_artifact.SkillArtifactTests.test_synthetic_success_cannot_promote_skill) ... ok
+test_unreviewed_or_wrong_license_copy_has_no_write (tests.test_skill_artifact.SkillArtifactTests.test_unreviewed_or_wrong_license_copy_has_no_write) ... ok
+test_version_cannot_overwrite_or_change_its_identity (tests.test_skill_artifact.SkillArtifactTests.test_version_cannot_overwrite_or_change_its_identity) ... ok
+test_core_has_no_scenario_import (tests.test_package_boundary.PackageBoundaryTests.test_core_has_no_scenario_import) ... ok
+test_single_src_root_imports_core_and_active_scenario (tests.test_package_boundary.PackageBoundaryTests.test_single_src_root_imports_core_and_active_scenario) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.399s
+
+OK
