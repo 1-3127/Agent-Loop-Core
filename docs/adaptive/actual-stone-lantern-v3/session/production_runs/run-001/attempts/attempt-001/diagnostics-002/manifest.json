@@ -1,0 +1,664 @@
+{
+  "version": "l7-m1.0",
+  "run_id": "run-001",
+  "source_l6_run_id": "ADAPTIVE_NOT_LEGACY_L6",
+  "source_glb": {
+    "bytes": 372516,
+    "identity": "output-0",
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\adaptive\\actual-stone-lantern-v3\\session\\production_runs\\run-001\\attempts\\attempt-001\\execution-construct-lantern\\asset.glb",
+    "sha256": "0f1136bc8045f2114a723a6c7a75437a966b93102faced4d29ad6f354369ff97"
+  },
+  "render_request": {
+    "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\adaptive\\actual-stone-lantern-v3\\session\\production_runs\\run-001\\attempts\\attempt-001\\diagnostics-002\\request.json",
+    "sha256": "d79852fd373b2eca607914ccb4899e08b159269489d482a719167119d0f6985a"
+  },
+  "blender_executable": "D:\\Blender_5.2\\blender.exe",
+  "blender_version": "5.2.0 LTS",
+  "config": {
+    "engine": "BLENDER_WORKBENCH",
+    "projection": "ORTHO",
+    "resolution": [
+      512,
+      512
+    ],
+    "margin": 1.2,
+    "up_axis": "+Z",
+    "color_mode": "SINGLE",
+    "neutral_color": [
+      0.7,
+      0.72,
+      0.75
+    ],
+    "background": "TRANSPARENT",
+    "scale_rule": "max(world XYZ extents) * 1.2",
+    "distance_rule": "2 * world bounds diagonal",
+    "azimuth_zero_direction": "-Y"
+  },
+  "bounding_box": {
+    "min": [
+      -1.0284640789031982,
+      -1.02860689163208,
+      0.0
+    ],
+    "max": [
+      1.0289254188537598,
+      1.0287827253341675,
+      2.0
+    ],
+    "center": [
+      0.00023066997528076172,
+      8.791685104370117e-05,
+      1.0
+    ],
+    "extents": [
+      2.057389497756958,
+      2.057389736175537,
+      2.0
+    ],
+    "maximum_dimension": 2.057389736175537
+  },
+  "object_count": 18,
+  "mesh_count": 17,
+  "import_transforms": [
+    {
+      "name": "Base_Four_Arched_Supports",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "Cap_Low_Stacked_Stone_Disc",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "Cap_Small_Rounded_Finial",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "Chamber_Ceiling_Roof_Bearing",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          1.406000018119812
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "Chamber_Corner_Pier_L_Front",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -0.3970000147819519
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -0.3970000147819519
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          1.1330000162124634
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "Chamber_Corner_Pier_L_Rear",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -0.3970000147819519
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.3970000147819519
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          1.1330000162124634
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "Chamber_Corner_Pier_R_Front",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.3970000147819519
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -0.3970000147819519
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          1.1330000162124634
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "Chamber_Corner_Pier_R_Rear",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.3970000147819519
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.3970000147819519
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          1.1330000162124634
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "Chamber_Front_Full_Depth_Aperture_Wall",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "Chamber_Interior_Floor",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.8859999775886536
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "Chamber_Left_Wall",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -0.36000001430511475
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.04749999940395355
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          1.1339999437332153
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "Chamber_Rear_Wall",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.36000001430511475
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          1.1339999437332153
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "Chamber_Right_Wall",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.36000001430511475
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.04749999940395355
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          1.1339999437332153
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "Chamber_Square_Aperture_Stone_Frame",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "Platform_Lower_Bearing",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.7310000061988831
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "Platform_Projecting_Slab",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.8059999942779541
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "Roof_Broad_Flared_Stone_Eaves",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    }
+  ],
+  "studio_light": "Default",
+  "outputs": [
+    {
+      "role": "geometry_azimuth_0",
+      "azimuth": 0,
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\adaptive\\actual-stone-lantern-v3\\session\\production_runs\\run-001\\attempts\\attempt-001\\diagnostics-002\\views\\geometry_azimuth_0.png",
+      "sha256": "3e23fe60dfabc6781da6c43ce558393b52dc8c2e971cfe50b9b23e496f5f9e4a",
+      "bytes": 156231,
+      "width": 512,
+      "height": 512,
+      "foreground_pixels": 78008,
+      "camera_location": [
+        0.00023066997528076172,
+        -7.061273097991943,
+        1.0
+      ],
+      "camera_rotation_euler": [
+        1.5707964897155762,
+        -0.0,
+        0.0
+      ],
+      "ortho_scale": 2.468867778778076,
+      "distance": 7.0613607652444434,
+      "clip": [
+        0.0035306804347783327,
+        14.122721672058105
+      ]
+    },
+    {
+      "role": "geometry_azimuth_90",
+      "azimuth": 90,
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\adaptive\\actual-stone-lantern-v3\\session\\production_runs\\run-001\\attempts\\attempt-001\\diagnostics-002\\views\\geometry_azimuth_90.png",
+      "sha256": "0057b9ec3ea30f91d03ff77da9960c1fa47ef5944148450753bfa4a8b2bf88f4",
+      "bytes": 156219,
+      "width": 512,
+      "height": 512,
+      "foreground_pixels": 77725,
+      "camera_location": [
+        7.061591625213623,
+        8.791685104370117e-05,
+        1.0
+      ],
+      "camera_rotation_euler": [
+        1.5707963705062866,
+        -0.0,
+        1.5707963705062866
+      ],
+      "ortho_scale": 2.468867778778076,
+      "distance": 7.0613607652444434,
+      "clip": [
+        0.0035306804347783327,
+        14.122721672058105
+      ]
+    },
+    {
+      "role": "geometry_azimuth_180",
+      "azimuth": 180,
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\adaptive\\actual-stone-lantern-v3\\session\\production_runs\\run-001\\attempts\\attempt-001\\diagnostics-002\\views\\geometry_azimuth_180.png",
+      "sha256": "e83bd4b06a724b0d2f16b99a03745bf481e99a49969c05a3c1ab58c06eb4c750",
+      "bytes": 153883,
+      "width": 512,
+      "height": 512,
+      "foreground_pixels": 78010,
+      "camera_location": [
+        0.00023066997528076172,
+        7.061448574066162,
+        1.0
+      ],
+      "camera_rotation_euler": [
+        -1.570796251296997,
+        -3.141592502593994,
+        -0.0
+      ],
+      "ortho_scale": 2.468867778778076,
+      "distance": 7.0613607652444434,
+      "clip": [
+        0.0035306804347783327,
+        14.122721672058105
+      ]
+    },
+    {
+      "role": "geometry_azimuth_270",
+      "azimuth": 270,
+      "path": "D:\\VSCODE-WorkSpace\\Others\\Agent-Loop-Core\\docs\\adaptive\\actual-stone-lantern-v3\\session\\production_runs\\run-001\\attempts\\attempt-001\\diagnostics-002\\views\\geometry_azimuth_270.png",
+      "sha256": "5f330a3e118840e9b34e5c0335b9ad8167932585cab72b1732c3d50b4d2c68f5",
+      "bytes": 153915,
+      "width": 512,
+      "height": 512,
+      "foreground_pixels": 77717,
+      "camera_location": [
+        -7.061130046844482,
+        8.791685104370117e-05,
+        1.0
+      ],
+      "camera_rotation_euler": [
+        1.5707963705062866,
+        -0.0,
+        -1.5707963705062866
+      ],
+      "ortho_scale": 2.468867778778076,
+      "distance": 7.0613607652444434,
+      "clip": [
+        0.0035306804347783327,
+        14.122721672058105
+      ]
+    }
+  ]
+}

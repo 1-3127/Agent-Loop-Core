@@ -1,0 +1,43 @@
+Info: Saved as "asset.blend"
+INFO Draco is available, use library at D:\Blender_5.2\5.2\scripts\addons_core\io_scene_gltf2\bf_intern_draco_bridge.dll
+INFO MeshOptimizer is available, use library at D:\Blender_5.2\5.2\scripts\addons_core\io_scene_gltf2\bf_intern_meshopt_bridge.dll
+12:41:26 | INFO: Starting glTF 2.0 export
+12:41:26 | INFO: Extracting primitive: Base_Four_Arched_Supports_Mesh
+12:41:26 | INFO: Primitives created: 3
+12:41:26 | INFO: Extracting primitive: Cap_Low_Stacked_Stone_Disc_Mesh
+12:41:26 | INFO: Primitives created: 3
+12:41:26 | INFO: Extracting primitive: Cap_Small_Rounded_Finial_Mesh
+12:41:26 | INFO: Primitives created: 3
+12:41:26 | INFO: Extracting primitive: Chamber_Ceiling_Roof_Bearing_Mesh
+12:41:26 | INFO: Primitives created: 1
+12:41:26 | INFO: Extracting primitive: Chamber_Corner_Pier_L_Front_Mesh
+12:41:26 | INFO: Primitives created: 1
+12:41:26 | INFO: Extracting primitive: Chamber_Corner_Pier_L_Rear_Mesh
+12:41:26 | INFO: Primitives created: 1
+12:41:26 | INFO: Extracting primitive: Chamber_Corner_Pier_R_Front_Mesh
+12:41:26 | INFO: Primitives created: 1
+12:41:26 | INFO: Extracting primitive: Chamber_Corner_Pier_R_Rear_Mesh
+12:41:26 | INFO: Primitives created: 1
+12:41:26 | INFO: Extracting primitive: Chamber_Front_Full_Depth_Aperture_Wall_Mesh
+12:41:26 | INFO: Primitives created: 2
+12:41:26 | INFO: Extracting primitive: Chamber_Interior_Floor_Mesh
+12:41:26 | INFO: Primitives created: 1
+12:41:26 | INFO: Extracting primitive: Chamber_Left_Wall_Mesh
+12:41:26 | INFO: Primitives created: 1
+12:41:26 | INFO: Extracting primitive: Chamber_Rear_Wall_Mesh
+12:41:26 | INFO: Primitives created: 1
+12:41:26 | INFO: Extracting primitive: Chamber_Right_Wall_Mesh
+12:41:26 | INFO: Primitives created: 1
+12:41:26 | INFO: Extracting primitive: Chamber_Square_Aperture_Stone_Frame_Mesh
+12:41:26 | INFO: Primitives created: 1
+12:41:26 | INFO: Extracting primitive: Platform_Lower_Bearing_Mesh
+12:41:26 | INFO: Primitives created: 1
+12:41:26 | INFO: Extracting primitive: Platform_Projecting_Slab_Mesh
+12:41:26 | INFO: Primitives created: 1
+12:41:26 | INFO: Extracting primitive: Roof_Broad_Flared_Stone_Eaves_Mesh
+12:41:26 | INFO: Primitives created: 3
+12:41:26 | INFO: Finished glTF 2.0 export in 0.17838644981384277 s
+
+Blender 5.2.0 LTS (hash fbe6228777e7 built 2026-07-14 01:35:40)
+
+Blender quit
