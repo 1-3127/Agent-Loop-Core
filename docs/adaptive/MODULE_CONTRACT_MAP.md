@@ -1,5 +1,11 @@
 # Adaptive Skill / Workflow Orchestration — Module Contract Map
 
+## Prospective Session-start authority amendment
+
+Future top-level starts also follow [SESSION_START_AUTHORITY_CONTRACT_v1.md](SESSION_START_AUTHORITY_CONTRACT_v1.md), superseding v1.2 §26.6/§32 and this map's historical corrective→new Specification/Session continuation meaning. Original adopted v1.2 bytes remain unchanged. User-only SessionStartGrant authorizes at most one ACTUAL Session; readiness/corrective/tests/push/`next` are not authority. After terminal/corrective publication, stop at WAITING_FOR_USER_SESSION_START.
+
+`session.session_start_authority` is the narrow pinned-receipt/outer-preflight/ledger gate, not a generic auth framework. Prospective initializer/intake calls its gate before namespace creation. SessionBoundary independently validates/consumes at new top-level creation and binds exact SID, Request and Frozen Spec. Historical handles are readable without consumption; synthetic fixtures cannot authorize ACTUAL. Frontier/Reviewer/Diagnosis vocabulary stays unchanged; Run/Attempt restarts retain Session and never consume grants. Request Bundle inheritance is deferred.
+
 M0 contract freeze. Current user-adopted Work Specification v1.2 is normative for this assigned scope; older Direction Gate remains preserved history wherever the current specification changes its scope. Baseline: `fresh-session-refresh-proof-final-3` / `001db7e1377c2b291632d2a80746860cb15d7dcd`.
 
 Authority source SHA-256: `7be871c5484da15c58f29d6866f8f8e5cb23d42b3fa7bd95c9831bb6a693e020`. No new generic DSL, arbitrary DAG, recovery/resume service, model lifecycle manager, or unrelated I-01/I-02 refactor.

@@ -204,7 +204,7 @@ class DimensionCorrectionPropagationTests(unittest.TestCase):
             session.AuthorityReference('REF',authority) if a.reference_id=='REF' else a
             for a in s.spec.fields.authority_references))
         s.spec=session.freeze_specification(s.doc,fields)
-        s.session=session.SessionBoundary('session-test',s.f.root/'normalized-session')
+        s.session=session.SessionBoundary('session-test',s.f.root/'normalized-session', mode='SYNTHETIC')
         s.binding=s.session.create_binding(s.spec,'logical-loop')
         current=bound.freeze_current_reference(s.binding,file,'REF')
         s.parent=s.prepare(current_reference=current,legacy_fixture=False)

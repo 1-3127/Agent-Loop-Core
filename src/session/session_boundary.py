@@ -311,17 +311,39 @@ class SessionBoundary:
     identity registry, concurrency lock, tamper-proof store or recovery service.
     """
 
-    def __init__(self, session_id, record_directory):
+    def __init__(self, session_id, record_directory, *, mode="ACTUAL", start_grant=None,
+                 start_authority=None, specification=None):
         _text(session_id, "session_id")
         self.session_id = session_id
         self.directory = Path(record_directory).resolve()
-        self.directory.mkdir(parents=True, exist_ok=True)
+        if mode not in ("ACTUAL", "SYNTHETIC"):
+            raise ValueError("EXECUTION_MODE_INVALID")
+        self.mode = mode
         owner = self.directory / "session.json"
         if owner.exists():
             if self._read("session")["session_id"] != session_id:
                 raise ValueError("Session directory identity mismatch")
+            # Historical handles are read-only at construction: no grant
+            # consumption, new binding, directory mutation or resume protocol.
         else:
+            consumption = None
+            if mode == "ACTUAL" or start_grant is not None or start_authority is not None:
+                from session.session_start_authority import SessionStartAuthority
+                if not isinstance(start_authority, SessionStartAuthority) or start_grant is None:
+                    raise ValueError("SESSION_START_GRANT_REQUIRED")
+                if specification is None:
+                    raise ValueError("SESSION_START_FROZEN_SPECIFICATION_REQUIRED")
+                if start_authority.ledger_directory.is_relative_to(self.directory):
+                    raise ValueError("SESSION_START_LEDGER_MUST_BE_EXTERNAL")
+                consumption = start_authority._consume(start_grant, session_id, specification, mode=mode)
+            # Missing/invalid ACTUAL grant is rejected before Session mkdir.
+            self.directory.mkdir(parents=True, exist_ok=True)
             _write_once(owner, {"session_id": session_id})
+            if consumption is not None:
+                _write_once(self.directory / "session_start_authority.json", {
+                    "event_type": "SESSION_START_GRANT_CONSUMED", "session_id": session_id,
+                    "grant_ref": asdict(start_grant), "consumption_ref": asdict(consumption),
+                    "specification_identity_sha256": specification.identity_sha256, "mode": mode})
 
     def _read(self, name):
         return json.loads((self.directory / (name + ".json")).read_text(encoding="utf-8"))
@@ -358,6 +380,21 @@ class SessionBoundary:
         binding.validate()
         if specification.reference.session_id != self.session_id:
             raise ValueError("binding Session mismatch")
+        authority_path = self.directory / "session_start_authority.json"
+        if self.mode == "ACTUAL" and not authority_path.exists():
+            raise ValueError("SESSION_START_GRANT_REQUIRED")
+        if authority_path.exists():
+            authority = self._read("session_start_authority")
+            FileIdentity(**authority["grant_ref"]).validate()
+            consumed_ref = FileIdentity(**authority["consumption_ref"])
+            consumed_ref.validate()
+            consumed = json.loads(Path(consumed_ref.path).read_text(encoding="utf-8"))
+            if (authority["session_id"] != self.session_id or consumed["session_id"] != self.session_id
+                    or authority["mode"] != self.mode or consumed["mode"] != self.mode
+                    or authority["grant_ref"] != consumed["grant_ref"]
+                    or any(record["specification_identity_sha256"] != specification.identity_sha256
+                           for record in (authority, consumed))):
+                raise ValueError("SESSION_START_BINDING_MISMATCH")
         self._record("binding", asdict(binding))
         return binding
 

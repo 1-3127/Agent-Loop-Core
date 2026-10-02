@@ -1,5 +1,7 @@
 # Agent-Loop-Core
 
+Prospective top-level Session creation follows [Session Start Authority Contract v1](docs/adaptive/SESSION_START_AUTHORITY_CONTRACT_v1.md). Each new ACTUAL Session requires an explicit User-originated, single-use grant; corrective/tests/publication readiness and same development chat do not authorize a fresh start. Historical v1.2/proof bytes remain intact. Initializer/intake hosts use `session.session_start_authority.prepare_session_namespace`; Core independently checks the grant.
+
 Compact workspace for proving a fixed Frontier Supervisor's bounded delegation to replaceable Local Workers. The Frontier issues work, reviews the resulting artifact, and decides whether to revise or deliver it. Scenario A (single image → multiview → 3D) is the first reference path, under `src/scenario_a/`.
 
 The C1–C5 technical proofs are complete: real delegation, semantic review, actual revision, bounded termination, and a Worker adapter swap through the same Core entry point. The C5 evidence is `runs/m5-c5-20260930-050343-eecc84cd_c5_boundary.json`. The compact refactor, F01/F03 audit repairs, and post-repair actual C1–C5 regression are complete. Core v1 is frozen at annotated tag `core-v1.0.0`; see [POST_REPAIR_REGRESSION.md](POST_REPAIR_REGRESSION.md) and [CORE_V1_FREEZE.md](CORE_V1_FREEZE.md). The [Agent-Loop Direction Gate v1](docs/Agent-Loop_Direction_Gate_v1.md) governs scope, with [verbatim provenance](docs/DIRECTION_GATE_PROVENANCE.md).

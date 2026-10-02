@@ -40,7 +40,7 @@ class CurrentReferenceTests(unittest.TestCase):
             (session.AuthorityReference('USER','current request'),
              session.AuthorityReference('REF',authority)), ('single PNG',))
         spec = session.freeze_specification(doc, fields)
-        boundary = session.SessionBoundary(label, self.f.root/(label+'-session'))
+        boundary = session.SessionBoundary(label, self.f.root/(label+'-session'), mode='SYNTHETIC')
         binding = boundary.create_binding(spec, label+'-loop')
         current = bound.freeze_current_reference(binding, file, 'REF')
         ids = dict(l6=label+'-l6', bridge=label+'-bridge', correction=label+'-correction')
@@ -261,7 +261,7 @@ class CurrentReferenceIntegrationTests(unittest.TestCase):
         fields=replace(self.s.spec.fields,authority_references=self.s.spec.fields.authority_references+
                        (session.AuthorityReference('REF',authority),))
         self.s.spec=session.freeze_specification(self.s.doc,fields)
-        self.s.session=session.SessionBoundary('session-test',self.s.f.root/'new-bound-session')
+        self.s.session=session.SessionBoundary('session-test',self.s.f.root/'new-bound-session', mode='SYNTHETIC')
         self.s.binding=self.s.session.create_binding(self.s.spec,'logical-loop')
         current=bound.freeze_current_reference(self.s.binding,file,'REF')
         self.s.parent=self.s.prepare(current_reference=current,legacy_fixture=False)

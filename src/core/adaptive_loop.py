@@ -54,7 +54,8 @@ class ResourceEnvelope:
 
 
 class AdaptiveSession:
-    def __init__(self, frozen, scope_ref, directory, limits, *, seconds=None, mode='ACTUAL', clock=time.monotonic):
+    def __init__(self, frozen, scope_ref, directory, limits, *, seconds=None, mode='ACTUAL',
+                 clock=time.monotonic, start_grant=None, start_authority=None):
         from core.workflow_artifact import checked_scope
         frozen.validate(require_ready=True)
         checked_scope(frozen, scope_ref)
@@ -71,7 +72,8 @@ class AdaptiveSession:
         if canonical_bytes(projection).decode() not in Path(frozen.reference.specification_path).read_text(encoding='utf-8'):
             raise ValueError('ENVELOPE_NOT_IN_FROZEN_SPECIFICATION')
         self.frozen, self.scope, self.directory, self.mode = frozen, scope_ref, directory, mode
-        self.boundary = SessionBoundary(frozen.reference.session_id, directory)
+        self.boundary = SessionBoundary(frozen.reference.session_id, directory, mode=mode,
+            start_grant=start_grant, start_authority=start_authority, specification=frozen)
         self.binding = self.boundary.create_binding(frozen, frozen.reference.session_id + '-adaptive-loop')
         self.resources = ResourceEnvelope(frozen, limits, directory / 'resources', seconds=seconds, clock=clock)
         from core.event_logging import EventLogger
@@ -80,6 +82,20 @@ class AdaptiveSession:
         self.pending_workflow = None
         self.decisions_consumed = set()
         self.current_reviews = {}
+        authority_path = directory / 'session_start_authority.json'
+        if authority_path.exists():
+            authority_ref = file_identity(authority_path, 'session-start-authority')
+            authority = json.loads(authority_path.read_text(encoding='utf-8'))
+            from session.session_boundary import FileIdentity
+            consumption_ref = FileIdentity(**authority['consumption_ref'])
+            consumption = json.loads(Path(consumption_ref.path).read_text(encoding='utf-8'))
+            parent = self.logger.emit('session', 'USER_SESSION_START_AUTHORITY_RECEIVED',
+                input_refs=(FileIdentity(**consumption['user_message_ref']), FileIdentity(**consumption['receipt_ref'])),
+                reason_code='PINNED_USER_INGRESS_RECEIPT')
+            parent = self.logger.emit('session', 'SESSION_START_GRANT_VALIDATED', parent_event_id=parent.identity,
+                input_refs=(start_grant,), reason_code='EXACT_SESSION_REQUEST_FROZEN_BINDING')
+            self.logger.emit('session', 'SESSION_START_GRANT_CONSUMED', parent_event_id=parent.identity,
+                input_refs=(consumption_ref,), output_refs=(authority_ref,), reason_code='AT_MOST_ONCE_NO_REFUND')
         self.logger.emit('session', 'SESSION_BOUND', input_refs=(scope_ref, self.resources.reference),
             reason_code='ONE_FROZEN_SPECIFICATION_ONE_SESSION')
 

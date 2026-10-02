@@ -29,7 +29,7 @@ class SessionBoundaryTests(unittest.TestCase):
              s.AcceptanceCriterion("AC2", "R1", False, "Optional polish")),
             (s.AuthorityReference("R1", "fixture://input-authority"),),
             ("Technical choices within fixed goal; criteria immutable",))
-        self.boundary = s.SessionBoundary("session-one", self.root / "session")
+        self.boundary = s.SessionBoundary("session-one", self.root / "session", mode='SYNTHETIC')
         self.artifact = self.make_file("output.txt", "artifact-A", b"fixture output")
         self.review = self.make_file("review.json", "review-A", b'{"fixture":true,"verdict":"PASS"}')
         self.initial = self.make_file("input.txt", "input-A", b"fixture reference")
@@ -199,7 +199,7 @@ class SessionBoundaryTests(unittest.TestCase):
         frozen, binding, _, package, receipt = self.package()
         terminal = self.boundary.record_submission(package, receipt)
         before = self.snapshot()
-        reopened_handle = s.SessionBoundary("session-one", self.boundary.directory)
+        reopened_handle = s.SessionBoundary("session-one", self.boundary.directory, mode='SYNTHETIC')
         operations = (
             lambda: reopened_handle.create_binding(frozen, "loop-two"),
             lambda: reopened_handle.register_child_evidence("child", self.review),
@@ -241,7 +241,7 @@ class SessionBoundaryTests(unittest.TestCase):
         frozen = s.freeze_specification(new_document, new_fields)
         with self.assertRaisesRegex(ValueError, "ALREADY_TERMINAL"):
             self.boundary.create_binding(frozen, "loop-two")
-        new_session = s.SessionBoundary("session-two", self.root / "new-session")
+        new_session = s.SessionBoundary("session-two", self.root / "new-session", mode='SYNTHETIC')
         new_binding = new_session.create_binding(frozen, "loop-two")
         self.assertEqual(new_binding.specification.reference.session_id, "session-two")
         self.assertEqual(Path(terminal.path).read_bytes(), before)
@@ -282,7 +282,7 @@ class SessionBoundaryTests(unittest.TestCase):
     def test_artifact_review_and_package_mutation_rejected(self):
         for target in ("artifact", "review", "package"):
             with self.subTest(target=target), tempfile.TemporaryDirectory() as directory:
-                boundary = s.SessionBoundary("session-one", directory)
+                boundary = s.SessionBoundary("session-one", directory, mode='SYNTHETIC')
                 frozen = self.freeze()
                 binding = boundary.create_binding(frozen, "loop-one")
                 artifact = self.make_file(target + "-output.txt", target, b"output")
@@ -303,7 +303,7 @@ class SessionBoundaryTests(unittest.TestCase):
             self.boundary.prepare_delivery()
         for status in ("FAILED", "ABORT"):
             with self.subTest(status=status), tempfile.TemporaryDirectory() as directory:
-                boundary = s.SessionBoundary("session-one", directory)
+                boundary = s.SessionBoundary("session-one", directory, mode='SYNTHETIC')
                 terminal = boundary.stop(status, "Caller-defined stop policy")
                 self.assertEqual(boundary.outcome.status, status)
                 self.assertTrue(boundary.outcome.terminal)
@@ -319,7 +319,7 @@ class SessionBoundaryTests(unittest.TestCase):
             with self.subTest(changes=changes), self.assertRaises(ValueError):
                 self.boundary.record_submission(package, replace(receipt, **changes))
         with self.assertRaisesRegex(ValueError, "directory identity"):
-            s.SessionBoundary("session-other", self.boundary.directory)
+            s.SessionBoundary("session-other", self.boundary.directory, mode='SYNTHETIC')
 
     def test_session_module_has_no_execution_transport_or_core_scenario_import(self):
         tree = ast.parse((ROOT / "src/session/session_boundary.py").read_text(encoding="utf-8"))

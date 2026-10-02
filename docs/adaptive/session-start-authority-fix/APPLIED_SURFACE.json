@@ -1,0 +1,67 @@
+{
+  "exact_paths": [
+    {
+      "path": "AGENTS.md",
+      "bytes": 1092,
+      "sha256": "301d42f62aaae8e9fd0fdbc7896495503ad7effbefe490f2122c882889867ad2"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2856,
+      "sha256": "ebeb448728552178dbdfe72960ebd3a2ff19341a34218fe1f23cde6508900a71"
+    },
+    {
+      "path": "docs/adaptive/MODULE_CONTRACT_MAP.md",
+      "bytes": 23100,
+      "sha256": "63a3646f4053c6a2f044a498dc7fb624d80c1789503752b798a96b9ad7604661"
+    },
+    {
+      "path": "docs/adaptive/SESSION_START_AUTHORITY_CONTRACT_v1.md",
+      "bytes": 7743,
+      "sha256": "7817050c58970471c0bee228d21d29154ee221d2dffb835a30c6aca1d2bb28ce"
+    },
+    {
+      "path": "src/core/adaptive_loop.py",
+      "bytes": 21966,
+      "sha256": "266557bb6951d73a83fb8351c825ed25978a1afbd95494166572e5322443c851"
+    },
+    {
+      "path": "src/session/session_boundary.py",
+      "bytes": 26247,
+      "sha256": "dd7011197baa02f95172521b720c64f51df6cc911155fb5581fee505f09a730a"
+    },
+    {
+      "path": "src/session/session_start_authority.py",
+      "bytes": 10093,
+      "sha256": "5e5bc1263a75bff89dac6eaae8c44eaef80098eb650da759a04759b12eb0d425"
+    },
+    {
+      "path": "tests/test_current_reference_binding.py",
+      "bytes": 16285,
+      "sha256": "7fef75be164aac2166ac4a347137dfe609e1b51b5554aac7eb7c802409f26b0f"
+    },
+    {
+      "path": "tests/test_reference_dimension_normalization.py",
+      "bytes": 13833,
+      "sha256": "08c0c0c2e25ca71d94f98b4948fdd28b4586c4666a3d3f59ff3e227a5097d040"
+    },
+    {
+      "path": "tests/test_session_boundary.py",
+      "bytes": 19552,
+      "sha256": "0523ce89a299c254f575dc807bcb1854f8c167f27a9f1ea03a7686eb622cc7d2"
+    },
+    {
+      "path": "tests/test_session_scenario_binding.py",
+      "bytes": 38272,
+      "sha256": "a1492202cbc49be663bb05b465b3f04d35f280ac390b4f3b6edd661c7a72b366"
+    },
+    {
+      "path": "tests/test_session_start_authority.py",
+      "bytes": 14286,
+      "sha256": "2fa47175770b890724caefecf37e2d8a56efaf62011e97fb7d69906f352833cc"
+    }
+  ],
+  "fresh_003_files_touched": 0,
+  "actual_grants_created": 0,
+  "actual_sessions_started": 0
+}

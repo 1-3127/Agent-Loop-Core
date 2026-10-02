@@ -1,0 +1,39 @@
+{
+  "phase": "related",
+  "run_id": "related-002",
+  "modules": [
+    "test_session_start_authority",
+    "test_adaptive_loop",
+    "test_adaptive_transitions",
+    "test_adaptive_end_to_end",
+    "test_session_boundary",
+    "test_frontier",
+    "test_artifact_review",
+    "test_adaptive_adapter",
+    "test_event_logging",
+    "test_local_handoff",
+    "test_workflow_artifact",
+    "test_skill_artifact",
+    "test_package_boundary",
+    "test_reviewer_failure_observability",
+    "test_l7_review_stream_contract",
+    "test_worker_port",
+    "test_execution"
+  ],
+  "total": 130,
+  "PASS": 130,
+  "FAIL": 0,
+  "ERROR": 0,
+  "SKIP": 0,
+  "pass": true,
+  "seconds": 194.28099999998813,
+  "tripwires": {
+    "network": 0,
+    "production_process": 0,
+    "repository_write": 0,
+    "allowed_local_fixture_process": 4
+  },
+  "runtime": "C:\\Users\\Worker\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+  "temporary_root": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-02\\codex-specification-dialogue-human-blocking-text\\work\\session-start-authority-fix\\related-002-temp",
+  "scope": "SYNTHETIC/LOCAL only; no actual grant, Session proof or production inference/effects"
+}

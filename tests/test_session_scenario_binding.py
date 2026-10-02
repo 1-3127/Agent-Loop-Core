@@ -29,7 +29,7 @@ class SessionScenarioTests(unittest.TestCase):
              sb.AcceptanceCriterion("AC2", "USER", False, "prefer smooth appearance")),
             (sb.AuthorityReference("USER", "current request"),), ("fixed Scenario A",))
         self.spec = sb.freeze_specification(self.doc, fields)
-        self.session = sb.SessionBoundary("session-test", self.f.root / "session")
+        self.session = sb.SessionBoundary("session-test", self.f.root / "session", mode='SYNTHETIC')
         self.binding = self.session.create_binding(self.spec, "logical-loop")
         self.ids = {"l6": self.f.run_id, "bridge": "bound-bridge", "correction": "bound-correction"}
         self.parent = self.prepare()
@@ -52,7 +52,7 @@ class SessionScenarioTests(unittest.TestCase):
         # New fixture binding, before any adapters run; original records stay intact.
         fields = replace(self.spec.fields, acceptance_criteria=self.spec.fields.acceptance_criteria + extra)
         self.spec = sb.freeze_specification(self.doc, fields)
-        self.session = sb.SessionBoundary("session-test", self.f.root / "criterion-session")
+        self.session = sb.SessionBoundary("session-test", self.f.root / "criterion-session", mode='SYNTHETIC')
         self.binding = self.session.create_binding(self.spec, "logical-loop")
         self.parent = self.prepare(stage_criteria=stages)
 
@@ -92,7 +92,7 @@ class SessionScenarioTests(unittest.TestCase):
         fields = replace(self.spec.fields, acceptance_criteria=self.spec.fields.acceptance_criteria +
             (sb.AcceptanceCriterion("PERFORMANCE", "USER", True, "runtime performance"),))
         spec = sb.freeze_specification(self.doc, fields)
-        boundary = sb.SessionBoundary("session-test", self.f.root / "unsupported-session")
+        boundary = sb.SessionBoundary("session-test", self.f.root / "unsupported-session", mode='SYNTHETIC')
         binding = boundary.create_binding(spec, "logical-loop")
         with self.assertRaisesRegex(ValueError, "UNSUPPORTED_ACCEPTANCE_CRITERION: PERFORMANCE"):
             self.prepare(boundary=boundary, binding=binding)
@@ -234,7 +234,7 @@ class SessionScenarioTests(unittest.TestCase):
         self.f.assert_calls(0, 0)
 
     def test_wrong_session_binding(self):
-        other = sb.SessionBoundary("other-session", self.f.root / "other")
+        other = sb.SessionBoundary("other-session", self.f.root / "other", mode='SYNTHETIC')
         with self.assertRaises(ValueError):
             other.create_binding(self.spec, "other-loop")
         self.f.assert_calls(0, 0)
@@ -327,7 +327,7 @@ class SessionScenarioTests(unittest.TestCase):
         self.geometry_fixture()
         alternate = self.f.root / "session-copy"
         alternate.mkdir()
-        other = sb.SessionBoundary("session-test", alternate)
+        other = sb.SessionBoundary("session-test", alternate, mode='SYNTHETIC')
         other_doc = self.f.root / "other_spec.md"
         other_doc.write_text(self.doc.read_text(encoding="utf-8") + "\nDistinct Spec bytes.", encoding="utf-8")
         other_spec = sb.freeze_specification(other_doc, self.spec.fields)
