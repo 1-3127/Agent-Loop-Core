@@ -1,0 +1,11 @@
+{
+  "pass": true,
+  "historical_bound_refs_verified": 113,
+  "protected_ref_count": 45,
+  "M7_sealed_proof_files_unchanged": 110,
+  "initial_tracked_source_changes": [
+    "src/session/session_boundary.py"
+  ],
+  "initial_source_change_scope": "Already published M6 additive local handoff only",
+  "original_reference_sha256": "9da5ed9e7f3490d058673122a7bd50b46635d4f0b5a36ca3199f0c1636cd17e5"
+}

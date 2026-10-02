@@ -1,0 +1,48 @@
+{
+  "pass": true,
+  "focused_related": {
+    "tests": 74,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "pass": true,
+    "seconds": 16.063000000009197,
+    "tripwires": {
+      "network": 0,
+      "production_process": 0,
+      "allowed_local_fixture_process": 1,
+      "repository_write": 0
+    },
+    "scope": "SYNTHETIC / no actual inference, Worker, ComfyUI or Blender"
+  },
+  "corrected_full": {
+    "tests": 326,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "pass": true,
+    "seconds": 1203.3280000000086,
+    "tripwires": {
+      "network": 0,
+      "production_process": 0,
+      "allowed_local_fixture_process": 4,
+      "repository_write": 0
+    },
+    "runtime": "C:\\Users\\Worker\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "temporary_root": "C:\\Users\\Worker\\Documents\\Codex\\2026-10-02\\agent-loop-adaptive-skill-orchestration-work\\work\\baseline-test-temp",
+    "scope": "Read-only synthetic baseline regression; no production proof"
+  },
+  "source_changes": [
+    "src/core/frontier.py",
+    "tests/test_frontier.py"
+  ],
+  "source_sha256": {
+    "src/core/frontier.py": "c771f0deeecfb5c13dcb0a1ea1815e041cccad03db66ce8bb3295dc16070250b",
+    "tests/test_frontier.py": "268262e8e2936ae1933cc1bca788ea48b09d2773267c6f0c2e90c5e20b7b48a9"
+  },
+  "failed_actual_v2": "SEALED_FAILED_BEFORE_PRODUCTION_NEVER_RESUMED",
+  "historical_evidence_and_M7_proof": "HASH_VERIFIED_PRESERVED",
+  "diagnostics": "Original failed focused and interrupted preliminary full retained; unfinished runner line byte preserved",
+  "next": "Normal checkpoint push, three-HEAD equality and clean tree, then original-authority-only fresh v3 intake in same Codex development Session"
+}

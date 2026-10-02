@@ -11,7 +11,7 @@ import time
 
 from core.reviewer_auth import auth_mode
 from core.skill_artifact import canonical_bytes, write_once
-from core.workflow_artifact import checked_scope
+from core.workflow_artifact import STAGE_FIELDS, checked_scope
 from session.session_boundary import FileIdentity, file_identity
 
 ACTIONS = frozenset({'PLAN_WORKFLOW', 'CONTINUE', 'REVISE_ARTIFACT', 'ACQUIRE_EVIDENCE',
@@ -124,7 +124,7 @@ class FrontierSupervisor:
     def decide(self, frozen, scope_ref, *, state, workflow, artifacts, reviews, skills, capabilities,
             envelope, directory, images=(), planner=None, workflow_output=None, candidate_workflow=None):
         frozen.validate(require_ready=True)
-        checked_scope(frozen, scope_ref)
+        scope = checked_scope(frozen, scope_ref)
         if state['session_id'] != frozen.reference.session_id:
             raise ValueError('DECISION_CONTEXT_MISMATCH')
         if workflow is not None:
@@ -157,6 +157,22 @@ class FrontierSupervisor:
             for r in artifacts if Path(r.path).suffix == '.json']
         context['available_skills'] = [{'ref': asdict(r), 'metadata': r.validate(),
             'guidance': Path(r.metadata.path).with_name('SKILL.md').read_text(encoding='utf-8')} for r in skills]
+        if planner is not None:
+            context['workflow_proposal_contract'] = {
+                'workflow_fields': ['workflow_id', 'version', 'selected_skills', 'stages'],
+                'stage_fields': sorted(STAGE_FIELDS),
+                'identifier_pattern': '[a-z0-9][a-z0-9-]{0,63}',
+                'identifier_rule': 'Workflow IDs and stage IDs use lowercase letters, digits and hyphens only; underscores are invalid.',
+                'skill_selection_fields': ['skill_id', 'version', 'content_hash'],
+                'criterion_ids_by_output_artifact_type': scope['criterion_applicability'],
+                'criterion_rule': 'Every stage criterion_ids must exactly equal the full frozen list for its output_artifact_type, including order. '
+                    'A partial list for the same artifact type is invalid, even at an intermediate stage. Never weaken the frozen mapping.',
+                'tool_model_rule': 'Use a capability available to the Planner and a tool/model admitted by the exact selected Skill metadata. '
+                    'A stage model may be null; parameters is an object.',
+                'input_rule': 'Initially reference is available. Later stage inputs may include only available preceding outputs '
+                    'and must also be admitted by the selected Skill input_artifact_types.',
+                'version_rule': 'Initial Workflow version is integer 1. A revision keeps workflow_id, increments version by one, '
+                    'and changes strategy; seed-only changes require an Attempt, not a Workflow revision.'}
         context = json.loads(canonical_bytes(context))
         write_once(directory / 'request.json', context)
         request_ref = file_identity(directory / 'request.json', 'frontier-request')

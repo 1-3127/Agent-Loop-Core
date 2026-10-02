@@ -1,5 +1,6 @@
 from dataclasses import asdict
 import json
+import re
 from pathlib import Path
 import unittest
 from unittest import mock
@@ -75,6 +76,39 @@ class FrontierTests(unittest.TestCase):
                 CodexInferenceAdapter(self.root)(file_identity(request, 'request'), DECISION_SCHEMA, self.root / 'invocation')
         process.assert_not_called()
         self.assertFalse((self.root / 'invocation').exists())
+
+    def test_model_can_plan_multiple_stages_from_advertised_frozen_contract(self):
+        def context_adapter(request_ref, schema, directory, images):
+            request = json.loads(Path(request_ref.path).read_text())
+            contract = request['workflow_proposal_contract']
+            self.assertIsNone(re.fullmatch(contract['identifier_pattern'], 'reference_geometry'))
+            self.assertIsNotNone(re.fullmatch(contract['identifier_pattern'], 'reference-geometry'))
+            self.proposal['stages'] = [dict(self.proposal['stages'][0], stage_id=name,
+                criterion_ids=contract['criterion_ids_by_output_artifact_type']['geometry'],
+                input_artifact_types=inputs) for name, inputs in (
+                    ('reference-geometry', ['reference']), ('stone-finish', ['reference']))]
+            self.assertEqual(set(self.proposal['stages'][0]), set(contract['stage_fields']))
+            return self.adapter(request_ref, schema, directory, images)
+        decision = FrontierSupervisor(context_adapter).decide(self.frozen, self.scope,
+            state={'session_id': 'session-one'}, workflow=None, artifacts=(), reviews=(), skills=(self.skill,),
+            capabilities=['geometry'], envelope={}, directory=self.root / 'decision-001',
+            planner=self.planner, workflow_output=self.root / 'workflow.json')
+        workflow = json.loads((self.root / 'workflow.json').read_text())
+        self.assertEqual([s['stage_id'] for s in workflow['stages']], ['reference-geometry', 'stone-finish'])
+        self.assertTrue(all(s['criterion_ids'] == ['form', 'opening'] for s in workflow['stages']))
+        self.assertEqual(json.loads(Path(decision.path).read_text())['source_specification_ref'], asdict(self.frozen.reference))
+
+    def test_advertised_contract_does_not_silently_repair_invalid_model_proposal(self):
+        self.proposal['stages'][0]['stage_id'] = 'reference_geometry'
+        with self.assertRaisesRegex(ValueError, 'invalid Skill identity/version'):
+            FrontierSupervisor(self.adapter).decide(self.frozen, self.scope,
+                state={'session_id': 'session-one'}, workflow=None, artifacts=(), reviews=(), skills=(self.skill,),
+                capabilities=['geometry'], envelope={}, directory=self.root / 'decision-001',
+                planner=self.planner, workflow_output=self.root / 'workflow.json')
+        result = json.loads((self.root / 'decision-001/invocation/result.json').read_text())
+        self.assertEqual(json.loads(result['workflow_proposal_json'])['stages'][0]['stage_id'], 'reference_geometry')
+        self.assertFalse((self.root / 'workflow.json').exists())
+        self.assertFalse((self.root / 'decision-001/decision.json').exists())
 
 
 if __name__ == '__main__':

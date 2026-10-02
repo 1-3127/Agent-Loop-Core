@@ -1,0 +1,1 @@
+{"architecture_failure":false,"automatic_runtime_start":false,"checked_at_utc":"2026-10-02T02:43:16.785042+00:00","checks":[{"json_response":true,"node_count":null,"status":200,"url":"http://127.0.0.1:8188/system_stats"},{"json_response":true,"node_count":1268,"status":200,"url":"http://127.0.0.1:8188/object_info"}],"ready":true,"scope":"READ_ONLY_API_NOT_GENERATION_PROOF"}
