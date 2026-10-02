@@ -1,0 +1,21 @@
+{
+  "pass": true,
+  "actual_interrupted_private_files_preserved": 18,
+  "execution_baseline_materialized_files_unchanged": 1059,
+  "archival_raw_tracked_files_unchanged": 1846,
+  "archival_untracked_files_unchanged": 65,
+  "protected_refs_unchanged": 45,
+  "corrected_helper_and_tests_sha256": {
+    "docs/adaptive/specification-dialogue-host-start-fix/host_start.py": "c40b818417104d9a47d6f62074cedbfa87c1e3bbf6e2a851fadda0220936b776",
+    "tests/test_specification_dialogue_host_start.py": "10596996b6c8bd974d3b1347b5b5368aee7b0e9ffe2f35e5429009ab96fe57bf"
+  },
+  "existing_core_and_contracts_changed": 0,
+  "host_correction_syntax_valid": true,
+  "actual_sessions_created": 1,
+  "actual_consumptions": 1,
+  "actual_intake_invocations": 0,
+  "frozen_bindings": 0,
+  "production_effects": 0,
+  "exact_interrupted_session_retained": true,
+  "no_session_resume_or_second_actual_start": true
+}

@@ -1,0 +1,46 @@
+{
+  "files": [
+    {
+      "path": "docs/adaptive/specification-dialogue-host-start-fix/.gitattributes",
+      "bytes": 8,
+      "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da"
+    },
+    {
+      "path": "docs/adaptive/specification-dialogue-host-start-fix/ACTUAL_OBSERVATION.json",
+      "bytes": 3088,
+      "sha256": "d7c2bed18b3294956310f67d6a4393142fadcbe48a267fb7a081c133bb087b35"
+    },
+    {
+      "path": "docs/adaptive/specification-dialogue-host-start-fix/CHECKPOINT_REPORT.md",
+      "bytes": 6381,
+      "sha256": "744e443cd7950e46c007bb2d4b31f5e418c7331fa600d3934995e96a3948bef9"
+    },
+    {
+      "path": "docs/adaptive/specification-dialogue-host-start-fix/HISTORICAL_INTEGRITY.json",
+      "bytes": 892,
+      "sha256": "50421d61c8b810fadc9b9360e0796d6d92b5d6bff8e564cd3f5a2786187c4cb1"
+    },
+    {
+      "path": "docs/adaptive/specification-dialogue-host-start-fix/PROOF_DIMENSIONS.json",
+      "bytes": 1650,
+      "sha256": "bd46c18a7bdc430db3cd4d1377724a5acc7d641c81942c8861c19e17cb87b2ae"
+    },
+    {
+      "path": "docs/adaptive/specification-dialogue-host-start-fix/REGRESSION_VERIFICATION.json",
+      "bytes": 9079,
+      "sha256": "b17e7c262d49001cf09ce3aa0ad12aaf0bd88e7d4cd3337a7ddb0f1f1387e5bd"
+    },
+    {
+      "path": "docs/adaptive/specification-dialogue-host-start-fix/host_start.py",
+      "bytes": 444,
+      "sha256": "c40b818417104d9a47d6f62074cedbfa87c1e3bbf6e2a851fadda0220936b776"
+    },
+    {
+      "path": "tests/test_specification_dialogue_host_start.py",
+      "bytes": 3695,
+      "sha256": "10596996b6c8bd974d3b1347b5b5368aee7b0e9ffe2f35e5429009ab96fe57bf"
+    }
+  ],
+  "raw_private_evidence_not_in_payload": true,
+  "existing_core_source_changed": false
+}

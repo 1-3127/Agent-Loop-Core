@@ -1,0 +1,230 @@
+{
+  "runs": [
+    {
+      "phase": "focused",
+      "run_id": "focused-001",
+      "modules": [
+        "test_specification_dialogue_host_start",
+        "test_specification_dialogue_start",
+        "test_session_start_authority"
+      ],
+      "total": 30,
+      "PASS": 30,
+      "FAIL": 0,
+      "ERROR": 0,
+      "SKIP": 0,
+      "pass": true,
+      "seconds": 4.937000000005355,
+      "tripwires": {
+        "network": 0,
+        "production_process": 0,
+        "repository_write": 0,
+        "allowed_local_fixture_process": 0
+      },
+      "scope": "SYNTHETIC/LOCAL only; no actual grant, Session proof or production inference/effects",
+      "result_witness": {
+        "kind": "original_private_regression_result",
+        "bytes": 844,
+        "sha256": "64aa8d3c52b43f82ed9c69f58a80e87d1932509678e8e84899f07f4bbefe5905"
+      },
+      "log_witness": {
+        "kind": "original_private_regression_log",
+        "bytes": 6299,
+        "sha256": "154cf19f25cb69a8db93992bfc7269dcff34590a205fcf939cf5fbcda824b51c"
+      },
+      "legacy_context_tests": [],
+      "legacy_context_policy": "No legacy fixture context selected"
+    },
+    {
+      "phase": "related",
+      "run_id": "related-001",
+      "modules": [
+        "test_specification_dialogue_host_start",
+        "test_specification_dialogue_start",
+        "test_session_start_authority",
+        "test_adaptive_loop",
+        "test_adaptive_transitions",
+        "test_adaptive_end_to_end",
+        "test_session_boundary",
+        "test_frontier",
+        "test_artifact_review",
+        "test_adaptive_adapter",
+        "test_event_logging",
+        "test_local_handoff",
+        "test_workflow_artifact",
+        "test_skill_artifact",
+        "test_package_boundary",
+        "test_reviewer_failure_observability",
+        "test_l7_review_stream_contract",
+        "test_worker_port",
+        "test_execution"
+      ],
+      "total": 143,
+      "PASS": 143,
+      "FAIL": 0,
+      "ERROR": 0,
+      "SKIP": 0,
+      "pass": true,
+      "seconds": 197.0470000000205,
+      "tripwires": {
+        "network": 0,
+        "production_process": 0,
+        "repository_write": 0,
+        "allowed_local_fixture_process": 4
+      },
+      "scope": "SYNTHETIC/LOCAL only; no actual grant, Session proof or production inference/effects",
+      "result_witness": {
+        "kind": "original_private_regression_result",
+        "bytes": 1325,
+        "sha256": "589bf29d83846d5363f00ee20b3fb46b0feb4ae34efd17efdc5e24246ebf8fff"
+      },
+      "log_witness": {
+        "kind": "original_private_regression_log",
+        "bytes": 25702,
+        "sha256": "974545c5c5aa51f44cda7863bba5e1fbca7504db032fc36e33c0d94d08a91b0d"
+      },
+      "legacy_context_tests": [],
+      "legacy_context_policy": "No legacy fixture context selected"
+    },
+    {
+      "phase": "full",
+      "run_id": "full-003",
+      "modules": "all test_*.py",
+      "total": 356,
+      "PASS": 356,
+      "FAIL": 0,
+      "ERROR": 0,
+      "SKIP": 0,
+      "pass": true,
+      "seconds": 1158.2189999999828,
+      "tripwires": {
+        "network": 0,
+        "production_process": 0,
+        "repository_write": 0,
+        "allowed_local_fixture_process": 4
+      },
+      "scope": "SYNTHETIC/LOCAL only; no actual grant, Session proof or production inference/effects",
+      "result_witness": {
+        "kind": "original_private_regression_result",
+        "bytes": 2743,
+        "sha256": "b41cc3afa7ac9aeef4ea36806cf8f928947f37806808720105d67d4ee5168299"
+      },
+      "log_witness": {
+        "kind": "original_private_regression_log",
+        "bytes": 56464,
+        "sha256": "f064c9f7f9363d2a0ed64dda80418836f0e7b3ed28d2e6614d9c3715fb1d90f9"
+      },
+      "legacy_context_tests": [
+        "test_c2_review.C2ReviewTests.test_c1_lineage_and_changed_artifact_rejected",
+        "test_c2_review.C2ReviewTests.test_changed_c1_execution_report_rejected",
+        "test_c2_review.C2ReviewTests.test_existing_result_blocks_reviewer_process",
+        "test_c3_revision.C3RevisionTests.test_artifact_b_is_distinct_and_hashed",
+        "test_c3_revision.C3RevisionTests.test_challenge_configuration_has_fresh_identity",
+        "test_c3_revision.C3RevisionTests.test_only_supported_revise_can_request_worker",
+        "test_c3_revision.C3RevisionTests.test_review_hash_change_and_duplicate_block_worker",
+        "test_c4_bounded.C4BoundedTests.test_initial_contract_precedes_worker",
+        "test_c4_bounded.C4BoundedTests.test_semantic_terminal_branches",
+        "test_c4_bounded.C4BoundedTests.test_terminal_reentry_has_no_effect",
+        "test_c4_review_budget.ReviewBudgetTests.test_changed_review_identity_does_not_restore_run_budget",
+        "test_c4_review_budget.ReviewBudgetTests.test_different_output_paths_dispatch_only_once",
+        "test_c4_review_budget.ReviewBudgetTests.test_failed_process_does_not_restore_budget",
+        "test_c4_review_budget.ReviewBudgetTests.test_launch_failure_does_not_restore_budget",
+        "test_c4_review_budget.ReviewBudgetTests.test_malformed_result_does_not_restore_budget",
+        "test_c4_review_budget.ReviewBudgetTests.test_pass_fixture_reservation_connects_to_terminal",
+        "test_c4_review_budget.ReviewBudgetTests.test_reservation_collision_precedes_dispatch",
+        "test_c4_review_budget.ReviewBudgetTests.test_resolver_rejects_reservation_output_mismatch",
+        "test_c4_review_budget.ReviewBudgetTests.test_uncertain_process_does_not_restore_budget",
+        "test_l7_feedback_controller.ActualSourcePreflightTests.test_actual_m1_static_preflight_effect_zero"
+      ],
+      "legacy_context_policy": "20 historical C2/C3/C4 and static preflight tests read immutable fixtures at their pinned original locations; no validator/verdict substitution; not actual task authority"
+    }
+  ],
+  "preserved_failed_or_interrupted_runs": [
+    {
+      "phase": "full",
+      "run_id": "full-001",
+      "pass": false,
+      "status": "INTERRUPTED_AFTER_DIAGNOSED_LEGACY_LOCATOR_ERROR",
+      "completed_test_statuses": 190,
+      "PASS_observed": 176,
+      "ERROR_observed": 11,
+      "FAIL_observed": 3,
+      "final_tripwire_counts": "NOT_CAPTURED_BEFORE_PROCESS_TERMINATION",
+      "log_sha256": "8d7e1d1e1b644ccd05c26a5936f14e6c3e780ff45c63ae0817df813e37044e82",
+      "log_bytes": 27990,
+      "source_or_tests_changed_for_location_context": false,
+      "result_witness": {
+        "kind": "interrupted_failed_regression_result",
+        "bytes": 476,
+        "sha256": "ebb9d9be83eb9d5d05d12f1c1f8bc0e069d5c0c0af3397c2054ffe8de0491530"
+      }
+    },
+    {
+      "phase": "full",
+      "run_id": "full-002",
+      "pass": false,
+      "status": "INTERRUPTED_AFTER_DIAGNOSED_PUBLISHED_FIXTURE_LOCATOR_ERRORS",
+      "completed_test_statuses": 139,
+      "PASS_observed": 126,
+      "ERROR_observed": 10,
+      "FAIL_observed": 3,
+      "final_tripwire_counts": "NOT_CAPTURED_BEFORE_PROCESS_TERMINATION",
+      "log_sha256": "7f973c3ed7c19368a6786da53bcc24e478f82a019581092ab6f0b5137c0140a0",
+      "log_bytes": 20959,
+      "source_or_tests_changed_for_location_context": false,
+      "result_witness": {
+        "kind": "interrupted_failed_regression_result",
+        "bytes": 488,
+        "sha256": "eb08b798959d01ea5a55c396a5c615b65130a648ff16b671aed5174057540371"
+      }
+    }
+  ],
+  "source_sha256": {
+    "docs/adaptive/specification-dialogue-host-start-fix/host_start.py": "c40b818417104d9a47d6f62074cedbfa87c1e3bbf6e2a851fadda0220936b776",
+    "tests/test_specification_dialogue_host_start.py": "10596996b6c8bd974d3b1347b5b5368aee7b0e9ffe2f35e5429009ab96fe57bf"
+  },
+  "harness_witness": {
+    "kind": "external_validation_driver",
+    "bytes": 6770,
+    "sha256": "1e3cf5f240180d5d6786dd2139b8dbdca652d89fe84f0b4b990849111c84d2a7"
+  },
+  "legacy_locator_context_witness": {
+    "kind": "external_test_only_locator_context",
+    "bytes": 2814,
+    "sha256": "d35410f6f786dd95f4371df01282dc35c71c2e13c0fa2b075acb23fe2abc8496"
+  },
+  "preserved_probe_witnesses": [
+    {
+      "kind": "private_targeted_probe_log",
+      "bytes": 2788,
+      "sha256": "29b78eb214ba72944f9f910d3c775d51fc79d858069189f345ba96e22c89f8a4"
+    },
+    {
+      "kind": "private_targeted_probe_log",
+      "bytes": 3690,
+      "sha256": "bbbc995ba9bb4460c199c63ed56dcb9ede23e9ea1210e9c60b66239ccc7a215f"
+    },
+    {
+      "kind": "private_targeted_probe_log",
+      "bytes": 1681,
+      "sha256": "8790d10693ead8f15a856336e3ba2b8005a420e2cfea80aea23ca10be23778c3"
+    },
+    {
+      "kind": "private_targeted_probe_log",
+      "bytes": 261,
+      "sha256": "e801146b135c383f148fc9728830c45672e5ab395299a89dff7a25ae862fd5d9"
+    },
+    {
+      "kind": "private_targeted_probe_log",
+      "bytes": 3118,
+      "sha256": "0dab8c9857566de2722bd6e0d60a1f58dcf504d1bbf1e4d1fb08116ade35efc1"
+    },
+    {
+      "kind": "private_targeted_probe_log",
+      "bytes": 1553,
+      "sha256": "1021e8ef39acaeb8c4d115ddfbec2be10c2aa082bf223995e0dd0ca62735b133"
+    }
+  ],
+  "actual_proof_restarted_after_correction": false,
+  "synthetic_validation_does_not_prove_successful_actual_intake_or_binding": true
+}
