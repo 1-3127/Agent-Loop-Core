@@ -452,6 +452,48 @@ class SessionBoundary:
             "verification_scope": "LOCAL_CALLER_SUPPLIED_EVIDENCE_CONTRACT_ONLY",
         })
 
+    def record_local_handoff(self, package, handoff_record):
+        """Close on hash-checked local deliverables; no human receipt prerequisite.
+
+        The caller performs the copy/export before supplying this record. This
+        method verifies local files only; UI rendering and human receipt remain
+        outside the observation scope. Legacy record_submission is unchanged.
+        """
+        self.assert_open()
+        package.validate()
+        handoff_record.validate()
+        expected = file_identity(self.directory / "delivery_package.json", self.session_id + ":delivery_package")
+        if package != expected:
+            raise ValueError("HANDOFF_PACKAGE_MISMATCH")
+        accepted = self._checked_accept()
+        data = self._read("delivery_package")
+        for name in ("session_id", "specification", "loop_run_id", "artifact", "initial_references", "final_review"):
+            if data[name] != accepted[name]:
+                raise ValueError("HANDOFF_PACKAGE_MISMATCH")
+        record = json.loads(Path(handoff_record.path).read_text(encoding="utf-8"))
+        required = {"session_id", "delivery_package", "boundary", "delivered_artifact", "delivered_references", "observation_scope"}
+        if (set(record) != required or record["session_id"] != self.session_id
+                or record["delivery_package"] != asdict(package)
+                or record["boundary"] != "LOCAL_DELIVERABLE_EXPORT"
+                or record["observation_scope"] != "LOCAL_FILES_VERIFIED_HUMAN_RECEIPT_NOT_OBSERVED"):
+            raise ValueError("HANDOFF_RECORD_INVALID")
+        delivered = FileIdentity(**record["delivered_artifact"])
+        delivered.validate()
+        if (delivered.sha256, delivered.bytes) != (data["artifact"]["sha256"], data["artifact"]["bytes"]):
+            raise ValueError("HANDOFF_PACKAGE_MISMATCH")
+        references = record["delivered_references"]
+        if len(references) != len(data["initial_references"]):
+            raise ValueError("HANDOFF_PACKAGE_MISMATCH")
+        for exported, original in zip(references, data["initial_references"]):
+            exported = FileIdentity(**exported)
+            exported.validate()
+            if (exported.sha256, exported.bytes) != (original["sha256"], original["bytes"]):
+                raise ValueError("HANDOFF_PACKAGE_MISMATCH")
+        return self._record("terminal", {"session_id": self.session_id, "status": "CLOSED",
+            "transitions": ["DELIVERED", "CLOSED"], "reason": "LOCAL_HANDOFF_VERIFIED",
+            "delivery_package": asdict(package), "handoff_record": asdict(handoff_record),
+            "verification_scope": record["observation_scope"]})
+
     def stop_for_ambiguity(self, specification, ambiguity):
         self.assert_open()
         specification.validate()

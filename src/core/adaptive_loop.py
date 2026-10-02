@@ -74,10 +74,14 @@ class AdaptiveSession:
         self.boundary = SessionBoundary(frozen.reference.session_id, directory)
         self.binding = self.boundary.create_binding(frozen, frozen.reference.session_id + '-adaptive-loop')
         self.resources = ResourceEnvelope(frozen, limits, directory / 'resources', seconds=seconds, clock=clock)
+        from core.event_logging import EventLogger
+        self.logger = EventLogger(directory / 'logs', frozen.reference.session_id)
         self.run, self.attempt, self.run_count, self.attempt_count = None, None, 0, 0
         self.pending_workflow = None
         self.decisions_consumed = set()
         self.current_reviews = {}
+        self.logger.emit('session', 'SESSION_BOUND', input_refs=(scope_ref, self.resources.reference),
+            reason_code='ONE_FROZEN_SPECIFICATION_ONE_SESSION')
 
     def state(self):
         return {'session_id': self.frozen.reference.session_id,
@@ -141,6 +145,9 @@ class AdaptiveSession:
         stage_id = material['stage_id']
         # Updated evidence remains append-only on disk; only current selection changes.
         self.current_reviews[stage_id] = (artifact, review)
+        self.logger.emit('production_runs/' + self.run['production_run_id'] + '/reviewer', 'REVIEW_SELECTED_CURRENT',
+            state=self.state(), input_refs=(artifact.metadata,), output_refs=(review.file,),
+            reason_code='CURRENT_STAGE_LINEAGE_VALIDATED')
 
     def revise_workflow(self, workflow, decision):
         data = self.checked_decision(decision, {'REVISE_WORKFLOW'})
@@ -157,6 +164,9 @@ class AdaptiveSession:
             'review_refs': data['review_refs'], 'restart_policy': 'EXPLICIT_FRONTIER_RESTART_REQUIRED'})
         self.pending_workflow = workflow
         self.decisions_consumed.add(decision.sha256)
+        self.logger.emit('workflow', 'WORKFLOW_REVISED', state=self.state(), input_refs=(decision,),
+            output_refs=(workflow.file,), decision=data['selected_action'], reason_code='EXPLICIT_RESTART_REQUIRED',
+            identities={'workflow_id': workflow.workflow_id, 'workflow_version': workflow.version})
 
     def acquire_evidence(self, decision):
         data = self.checked_decision(decision, {'ACQUIRE_EVIDENCE'})
@@ -168,6 +178,8 @@ class AdaptiveSession:
             'decision_ref': asdict(decision), 'reservation_ref': asdict(reservation),
             'parameters_json': data['action_parameters_json'], 'policy': 'EVIDENCE_ONLY_NO_STRATEGY_CHANGE'})
         self.decisions_consumed.add(decision.sha256)
+        self.logger.emit('production_runs/' + self.run['production_run_id'] + '/diagnosis', 'EVIDENCE_ACQUISITION_RESERVED',
+            state=self.state(), input_refs=(decision,), output_refs=(reservation,), decision='ACQUIRE_EVIDENCE')
         return reservation
 
     def accept(self, decision, final_artifact, final_review, *, initial_references=()):
@@ -205,6 +217,8 @@ class AdaptiveSession:
         write_once(self.run['directory'] / 'terminal.json', {'status': 'INTERNAL_ACCEPT', 'gate_ref':
             asdict(file_identity(self.directory / 'acceptance_gate.json', 'acceptance-gate'))})
         self.decisions_consumed.add(decision.sha256)
+        self.logger.emit('acceptance', 'INTERNAL_ACCEPT', state=self.state(), input_refs=(decision, final_review.file),
+            output_refs=(accepted,), reason_code='CURRENT_MANDATORY_CRITERIA_MET')
         return accepted
 
     def start_run(self, workflow, decision):
@@ -239,7 +253,10 @@ class AdaptiveSession:
         self.run_count, self.attempt, self.attempt_count, self.pending_workflow = number, None, 0, None
         self.current_reviews = {}
         self.decisions_consumed.add(decision.sha256)
-        return file_identity(directory / 'run.json', run_id)
+        reference = file_identity(directory / 'run.json', run_id)
+        self.logger.emit('production_runs/' + run_id + '/controller', 'PRODUCTION_RUN_STARTED', state=self.state(),
+            input_refs=(decision, workflow.file), output_refs=(reference,), decision=data['selected_action'])
+        return reference
 
     def start_attempt(self, decision, *, external_namespaces=()):
         data = self.checked_decision(decision, {'CONTINUE', 'REVISE_ARTIFACT'})
@@ -263,13 +280,18 @@ class AdaptiveSession:
         self.attempt_count += 1
         self.current_reviews = {}
         self.decisions_consumed.add(decision.sha256)
-        return file_identity(directory / 'attempt.json', attempt_id)
+        reference = file_identity(directory / 'attempt.json', attempt_id)
+        self.logger.emit('production_runs/' + self.run['production_run_id'] + '/attempts/' + attempt_id, 'ATTEMPT_STARTED',
+            state=self.state(), input_refs=(decision,), output_refs=(reference,), decision=data['selected_action'])
+        return reference
 
     def reserve_effect(self, kind):
         self.assert_execution_open()
         if self.attempt is None or self.attempt['finished']:
             raise ValueError('ACTIVE_ATTEMPT_REQUIRED')
-        return self.resources.reserve(kind, self.state())
+        reservation = self.resources.reserve(kind, self.state())
+        self.logger.emit('session/resources', 'EFFECT_RESERVED', state=self.state(), output_refs=(reservation,), reason_code=kind)
+        return reservation
 
     def finish_attempt(self, status, evidence_refs):
         self.assert_execution_open()
@@ -281,9 +303,14 @@ class AdaptiveSession:
             'evidence_refs': [asdict(r) for r in evidence_refs]})
         # Unresolved effects cannot authorize another attempt or Run.
         self.attempt['finished'] = status != 'UNRESOLVED'
+        self.logger.emit('production_runs/' + self.run['production_run_id'] + '/controller', 'ATTEMPT_OUTCOME',
+            state=self.state(), input_refs=evidence_refs,
+            output_refs=(file_identity(self.attempt['directory'] / 'outcome.json', 'attempt-outcome'),), reason_code=status)
 
     def stop(self, status, reason):
         self.assert_execution_open()
         if self.run and not (self.run['directory'] / 'terminal.json').exists():
             write_once(self.run['directory'] / 'terminal.json', {'status': status, 'reason': reason})
-        return self.boundary.stop(status, reason)
+        terminal = self.boundary.stop(status, reason)
+        self.logger.emit('session', 'SESSION_TERMINAL', state=self.state(), output_refs=(terminal,), reason_code=reason)
+        return terminal
