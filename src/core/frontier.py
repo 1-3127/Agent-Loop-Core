@@ -148,6 +148,8 @@ class FrontierSupervisor:
                 'Never weaken mandatory criteria; human approval is outside Loop. New Skills are CANDIDATE.'}
         context['current_workflow'] = workflow.validate(frozen, scope_ref) if workflow else None
         context['current_reviews'] = [{'ref': asdict(r), 'result': json.loads(Path(r.path).read_text(encoding='utf-8'))} for r in reviews]
+        context['current_artifacts'] = [{'ref': asdict(r), 'metadata': json.loads(Path(r.path).read_text(encoding='utf-8'))}
+            for r in artifacts if Path(r.path).suffix == '.json']
         context['available_skills'] = [{'ref': asdict(r), 'metadata': r.validate(),
             'guidance': Path(r.metadata.path).with_name('SKILL.md').read_text(encoding='utf-8')} for r in skills]
         context = json.loads(canonical_bytes(context))
