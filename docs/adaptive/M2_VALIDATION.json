@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "focused": 11,
+  "related": 12,
+  "total": 23,
+  "failures": 0,
+  "errors": 0,
+  "actual_model_invocations": 0,
+  "actual_worker_effects": 0,
+  "full_regression": "M7 pending; baseline 277/277",
+  "local_defect_preserved": true,
+  "exit_code": 0
+}

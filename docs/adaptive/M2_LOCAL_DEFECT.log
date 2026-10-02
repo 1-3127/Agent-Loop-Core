@@ -1,0 +1,41 @@
+test_criterion_weakening_and_unavailable_input_block_before_write (tests.test_workflow_artifact.WorkflowArtifactTests.test_criterion_weakening_and_unavailable_input_block_before_write) ... ok
+test_frozen_scope_version_pins_and_caller_mutation (tests.test_workflow_artifact.WorkflowArtifactTests.test_frozen_scope_version_pins_and_caller_mutation) ... ok
+test_model_tool_and_skill_selection_are_preflighted (tests.test_workflow_artifact.WorkflowArtifactTests.test_model_tool_and_skill_selection_are_preflighted) ... ok
+test_revision_requires_evidence_and_preserves_prior_version (tests.test_workflow_artifact.WorkflowArtifactTests.test_revision_requires_evidence_and_preserves_prior_version) ... ok
+test_scope_cannot_be_inferred_or_mutated_after_freeze (tests.test_workflow_artifact.WorkflowArtifactTests.test_scope_cannot_be_inferred_or_mutated_after_freeze) ... ok
+test_seed_only_change_is_local_attempt_not_strategy_revision (tests.test_workflow_artifact.WorkflowArtifactTests.test_seed_only_change_is_local_attempt_not_strategy_revision) ... FAIL
+test_context_session_mismatch_has_no_invocation (tests.test_frontier.FrontierTests.test_context_session_mismatch_has_no_invocation) ... ok
+test_current_review_and_skill_guidance_are_model_inputs (tests.test_frontier.FrontierTests.test_current_review_and_skill_guidance_are_model_inputs) ... ok
+test_mock_is_bound_to_context_and_not_claimed_actual_intelligence (tests.test_frontier.FrontierTests.test_mock_is_bound_to_context_and_not_claimed_actual_intelligence) ... ok
+test_state_change_during_inference_rejects_decision (tests.test_frontier.FrontierTests.test_state_change_during_inference_rejects_decision) ... ok
+test_wrong_auth_mode_blocks_before_invocation_namespace (tests.test_frontier.FrontierTests.test_wrong_auth_mode_blocks_before_invocation_namespace) ... ok
+test_cycle_precedes_effect_even_with_unresolvable_recursive_hash_pins (tests.test_skill_artifact.SkillArtifactTests.test_cycle_precedes_effect_even_with_unresolvable_recursive_hash_pins) ... ok
+test_dependency_capability_and_exact_hash_resolution (tests.test_skill_artifact.SkillArtifactTests.test_dependency_capability_and_exact_hash_resolution) ... ok
+test_duplicate_selection_still_validates_every_pin (tests.test_skill_artifact.SkillArtifactTests.test_duplicate_selection_still_validates_every_pin) ... ok
+test_exact_version_hash_and_mutation (tests.test_skill_artifact.SkillArtifactTests.test_exact_version_hash_and_mutation) ... ok
+test_extra_support_file_cannot_escape_manifest (tests.test_skill_artifact.SkillArtifactTests.test_extra_support_file_cannot_escape_manifest) ... ok
+test_guidance_and_path_preflight_before_writing (tests.test_skill_artifact.SkillArtifactTests.test_guidance_and_path_preflight_before_writing) ... ok
+test_reviewed_copy_pins_source_bytes_and_never_runs_script (tests.test_skill_artifact.SkillArtifactTests.test_reviewed_copy_pins_source_bytes_and_never_runs_script) ... ok
+test_synthetic_success_cannot_promote_skill (tests.test_skill_artifact.SkillArtifactTests.test_synthetic_success_cannot_promote_skill) ... ok
+test_unreviewed_or_wrong_license_copy_has_no_write (tests.test_skill_artifact.SkillArtifactTests.test_unreviewed_or_wrong_license_copy_has_no_write) ... ok
+test_version_cannot_overwrite_or_change_its_identity (tests.test_skill_artifact.SkillArtifactTests.test_version_cannot_overwrite_or_change_its_identity) ... ok
+test_core_has_no_scenario_import (tests.test_package_boundary.PackageBoundaryTests.test_core_has_no_scenario_import) ... ok
+test_single_src_root_imports_core_and_active_scenario (tests.test_package_boundary.PackageBoundaryTests.test_single_src_root_imports_core_and_active_scenario) ... ok
+
+======================================================================
+FAIL: test_seed_only_change_is_local_attempt_not_strategy_revision (tests.test_workflow_artifact.WorkflowArtifactTests.test_seed_only_change_is_local_attempt_not_strategy_revision)
+----------------------------------------------------------------------
+ValueError: previous Workflow required
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\VSCODE-WorkSpace\Others\Agent-Loop-Core\tests\test_workflow_artifact.py", line 97, in test_seed_only_change_is_local_attempt_not_strategy_revision
+    with self.assertRaisesRegex(ValueError, 'VERSION_UNRESOLVED'):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "VERSION_UNRESOLVED" does not match "previous Workflow required"
+
+----------------------------------------------------------------------
+Ran 23 tests in 0.899s
+
+FAILED (failures=1)
