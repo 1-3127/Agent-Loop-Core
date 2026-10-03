@@ -186,5 +186,35 @@
       "bytes": 17534
     },
     "authority": "Frontier chooses strategy and may request concrete Host capability support; frozen criteria remain unchanged. Do not infer color success or weaken criteria."
+  },
+  "geometry_reference_colors": {
+    "template_ref": {
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\workflows\\03_Multiview_to_3D\\Hunyuan3D_MV_ReferenceColors_api.json",
+      "sha256": "381c650bf63d520d4699390cc1e14a30ede8ca1c2c0dcda06cdd96f120ae9f4c",
+      "bytes": 3823
+    },
+    "loaders": {
+      "1": "isolated",
+      "2": "left",
+      "3": "back",
+      "4": "right"
+    },
+    "patches": {},
+    "selectors": {
+      "geometry": {
+        "node": "17",
+        "collection": "3d",
+        "index": 0
+      }
+    }
+  },
+  "reference_color_projection_contract": {
+    "classification": "CANDIDATE_SCHEMA_AND_SYNTHETIC_SMOKE_ONLY_ACTUAL_REVIEW_REQUIRED",
+    "native_node": "ReferenceImageMeshColors installed under native custom_nodes/loopcore_reference_mesh_colors. Server reload/live registration check required.",
+    "method": "Actual current source RGB projected on Hunyuan-generated vertices; vertices/faces preserved. No model download, procedural stripe assignment, calibrated reconstruction claim or quality attestation.",
+    "inputs": "White-background isolated and generated views. X horizontal/Y vertical defaults in Comfy native Y-up coordinates; left_angle=45, right_angle=-45, back=180. Frontier may choose strategy/axis/view patches.",
+    "limitations": "Reference projection approximates perspective, occlusion and hidden surfaces; new independent review must judge C1-C3.",
+    "diagnostic": "Fresh GLB import now renders existing image textures or vertex colors (neutral studio lighting), otherwise material color; metrics declare mode and color-data presence.",
+    "host_support": "Support 04 resolves requested local Comfy mesh-color strategy with native current RGB projection and material-aware diagnostics. Previous shape-only graph remains immutable. Frontier must revise Workflow; exact hashes and original checkpoints matter."
   }
 }

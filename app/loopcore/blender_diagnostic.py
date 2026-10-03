@@ -27,7 +27,11 @@ def render(request):
     scene = bpy.context.scene
     scene.render.engine = "BLENDER_WORKBENCH"
     scene.display.shading.light = "STUDIO"
-    scene.display.shading.color_type = "SINGLE"
+    has_vertex_colors = any(obj.data.color_attributes.active_color is not None for obj in meshes)
+    has_textures = any(node.type == "TEX_IMAGE" and node.image is not None
+                       for obj in meshes for material in obj.data.materials if material and material.use_nodes
+                       for node in material.node_tree.nodes)
+    scene.display.shading.color_type = "TEXTURE" if has_textures else ("VERTEX" if has_vertex_colors else "MATERIAL")
     scene.display.shading.single_color = (0.7, 0.72, 0.75)
     scene.render.film_transparent = True
     scene.render.resolution_x, scene.render.resolution_y = request["size"]
@@ -55,6 +59,9 @@ def render(request):
         outputs[slot] = str(file)
     metrics = directory / "metrics.json"
     metrics.write_text(json.dumps({"blender": bpy.app.version_string, "input_sha256": request["source"]["sha256"],
+        "surface_color_mode": scene.display.shading.color_type,
+        "has_vertex_colors": has_vertex_colors, "has_image_textures": has_textures,
+        "view_azimuths": dict(zip(view_slots, request["azimuths"])),
         "mesh_count": len(meshes), "vertices": sum(len(o.data.vertices) for o in meshes),
         "polygons": sum(len(o.data.polygons) for o in meshes), "bounds_min": list(low), "bounds_max": list(high),
         "semantic_acceptance": None}, indent=2), encoding="utf-8")
