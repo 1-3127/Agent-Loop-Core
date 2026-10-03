@@ -115,5 +115,52 @@
       270
     ]
   },
-  "segmentation_blueprint": "D:\\VSCODE-WorkSpace\\Comfy-UI\\runtime\\ComfyUI_windows_portable\\ComfyUI\\blueprints\\Image Segmentation (SAM3).json"
+  "segmentation_blueprint": "D:\\VSCODE-WorkSpace\\Comfy-UI\\runtime\\ComfyUI_windows_portable\\ComfyUI\\blueprints\\Image Segmentation (SAM3).json",
+  "segmentation": {
+    "template_ref": {
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\workflows\\05_3DGS_Masking\\SAM3_Image_Isolation_api.json",
+      "sha256": "f55f97fae878bb07177f67207e7ba1f34ff68f0b8822e0cf14f2e762a90dde58",
+      "bytes": 2407
+    },
+    "loaders": {
+      "1": "reference-0"
+    },
+    "patches": {
+      "3": {
+        "text": "road barrier"
+      }
+    },
+    "selectors": {
+      "segmented": {
+        "node": "10",
+        "collection": "images",
+        "index": 0
+      },
+      "mask": {
+        "node": "12",
+        "collection": "images",
+        "index": 0
+      },
+      "cutout": {
+        "node": "13",
+        "collection": "images",
+        "index": 0
+      }
+    },
+    "local_parameters": []
+  },
+  "segmentation_contract": {
+    "classification": "INSTALLED_NATIVE_SCHEMA_CHECKED_NOT_YET_EXECUTION_OR_SEMANTIC_PROOF",
+    "foreground_mask": "SAM3_Detect masks output 0; one foreground, zero background. Saved mask is PNG image artifact.",
+    "cutout_alpha": "InvertMask before JoinImageWithAlpha, whose implementation applies 1-mask. Final opacity equals SAM foreground mask.",
+    "segmented_image": "Source composited over dynamically sized white image using direct foreground mask; suitable opaque input for native multiview/geometry.",
+    "strategy": "Frontier chooses placement, target text, detection parameters, outputs and subsequent Workflow; this is capability metadata only.",
+    "output_types": {
+      "segmented": "image",
+      "mask": "image",
+      "cutout": "image"
+    },
+    "native_validation": "All required inputs, link types, nodes and checkpoint choice checked against live /object_info. No POST or inference performed by observer.",
+    "source": "Installed SAM3 image schema and image/mask compositing implementations."
+  }
 }
