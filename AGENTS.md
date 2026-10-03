@@ -4,6 +4,8 @@ Follow the declared global Root's `AGENTS.md`, `Agents/workflow.md`, and `Others
 Only project instructions below `D:\VSCODE-WorkSpace\Others\Ponytail-Proof` apply.
 
 `RECONSTRUCTION_SPECIFICATION.md` and the current direct User decisions define this branch's scope.
+The accepted B-01–B-04 addendum is `RECONSTRUCTION_PROOF_REPAIR_SPECIFICATION.md`.
+It supersedes the old bulk VALIDATED promotion policy; preserve the original specification/audit as historical records.
 The old Direction Gate and old proof Work Orders are historical authority for their own attempts,
 not execution commands for this independent reconstruction. Their exact bytes remain in Git at
 `12366d9f2e377cfda898790f65c5033306905a99` and the original refs; see `HISTORY.md`.

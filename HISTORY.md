@@ -36,3 +36,20 @@ actual Session/grant/모델/ComfyUI/Blender 효과 0. 정식 및 semantic 검증
 실패/redirect 교훈: 처음 두 자동 승인 심사는 광범위 삭제 및 지침 덮어쓰기의 명시적 승인 부족으로 거절했다.
 기존 파일을 보존한 독립 package 추가와 review diff/manifest 준비를 먼저 마쳤고, 직접 User 승인 후 cleanup을 적용했다.
 후속: 실제 Scenario A·recovery·quality·delivery 및 다른 Host/Domain/모델 교체 검증. cleanup은 production proof가 아니다.
+
+## 2026-10-04 — B-01–B-04 repair implementation COMPLETE
+
+목표: User가 모두 수용한 native 관측, durable application Rule, typed evidence binding 및 compact Promotion을 기존 구조에 반영한다.
+결과: native phase/receipt/terminal 오류와 unknown 결과 분류, SQLite PREPARED/APPLYING/APPLIED/REJECTED,
+dispatch 전 Decision-effect 연결, criterion별 frozen 슬롯과 hash/dependency/lineage 기반 Review coverage,
+Session/run/attempt JSON projection, promotion.py/SQLite table 하나 및 Host 전달/원문 평가 기록을 추가했다.
+일괄 VALIDATED 승격을 제거하고 업무별 Frontier 판단으로 대체했다. export와 실제 User 전달을 구분하여 미전달 안내를 유지한다.
+결정/authority: 직접 User의 ‘모두 수용한다’. 최신 addendum은 RECONSTRUCTION_PROOF_REPAIR_SPECIFICATION.md.
+Scope: syntax/import/config/catalog/MCP bootstrap Smoke만 수행한다. 실제 Session/grant/모델/ComfyUI/Blender effects와 정식 검증은 0.
+Smoke 결과: Python modules 10개 parse/import, candidate catalog bootstrap 및 MCP stdio tools 9개 확인.
+Session/grant 소비/Promotion event count는 모두 0이다. history/b01-b04-bootstrap-smoke.json에 증거를 보존한다.
+기존 Specification audit는 반복하지 않았다. original specification/audit 및 클라우드 미사용/과거 실패 판단을 보존했다.
+Source boundary: parent 6b8dd5ee75050e51d68e019c21958a2cc2ee6871 → 이 history entry를 포함한 commit.
+후속: 사용자 공동 actual Scenario A, 중단 구간 복구, Reviewer 의미/coverage, native 부분 효과와 실제 전달/평가 검증.
+Smoke는 위 실행 의미를 증명하지 않는다. 해당 미검증 범위를 실제 성공으로 승격하지 않는다.
+기록 교훈: JSON의 -text byte 보존 규칙 때문에 CRLF가 staged whitespace 점검에 걸렸다. 내용 변경 없이 LF로 저장하여 해결했다.

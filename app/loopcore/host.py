@@ -63,6 +63,20 @@ class LocalHost:
         self.path(item["response"]["path"])
         return item["response"]
 
+    def assessment(self, receipt_id, sid):
+        """Trusted Host presentation facts or verbatim User feedback, scoped exactly."""
+        ref = file_ref(self.inbox / "assessments" / (identity(receipt_id) + ".json"))
+        item = json.loads(check_ref(ref).read_text(encoding="utf-8"))
+        require(item["session_id"] == sid and item["owner"] == "HOST", "ASSESSMENT_HOST_BINDING")
+        if item["kind"] == "USER_FEEDBACK":
+            require(item["text"] == self.user_evidence(item["user_evidence"]), "VERBATIM_USER_FEEDBACK_REQUIRED")
+        elif item["kind"] == "DELIVERY":
+            check_ref(item["presentation"])
+            self.path(item["presentation"]["path"])
+        else:
+            require(False, "ASSESSMENT_KIND")
+        return item, ref
+
     def deliver(self, state, target):
         require(state["status"] == "ACCEPTED", "DELIVERY_REQUIRES_ACCEPTANCE")
         directory = self.path(target, write=True)

@@ -5,6 +5,9 @@ Python Core와 local stdio MCP로 구성한 독립 active tree다. Specification
 현재 branch는 `ponytail-reconstruction-codex`, 비클라우드 출발 commit은
 `12366d9f2e377cfda898790f65c5033306905a99`다. 과거 proof와 실패 판단은 `HISTORY.md`의 immutable refs에 보존한다.
 
+수용된 B-01–B-04 보완 계약은 `RECONSTRUCTION_PROOF_REPAIR_SPECIFICATION.md`에 있다.
+Specification v1과 기존 audit는 당시 기록으로 보존하며 전체 audit를 반복하지 않는다.
+
 ## 구조
 
 - `app/loopcore/core.py`: Session/grant ledger, frozen authority, Artifact/Skill/Workflow, budget/lineage/acceptance/terminal guards.
@@ -12,6 +15,7 @@ Python Core와 local stdio MCP로 구성한 독립 active tree다. Specification
 - `models.py`: 독립 Frontier/Reviewer inference. 요청 model과 실제 관측 identity를 구분.
 - `tools.py`, `blender_diagnostic.py`: Tool-native ComfyUI 경로, current Reference, fresh-import diagnostics 및 read-only source discovery.
 - `runtime.py`: Host가 concrete ports를 조합하는 bounded loop. Core에는 Domain/model/transport 분기 없음.
+- `promotion.py`: 기존 SQLite 안의 compact Skill 사용/업무/전달/평가 이력. Frontier가 업무 적합성을 판단한다.
 - `mcp_server.py`, `__main__.py`: MCP와 local CLI entry.
 - `knowledge/`: candidate Skills 및 native binding 예시. 실제 성공 attestation이 아니다.
 
@@ -37,7 +41,7 @@ Frontier/Reviewer는 각각 `gpt-6.1-sol` / `low`를 명시한다. `.codex/confi
 .venv\Scripts\python.exe -m loopcore --config config/local.json mcp
 ```
 
-MCP tools: `loop_start`, `loop_advance`, `loop_status`, `loop_clarify`, `loop_recover`, `loop_deliver`, `loop_retention`.
+MCP tools: `loop_start`, `loop_advance`, `loop_status`, `loop_clarify`, `loop_recover`, `loop_deliver`, `loop_retention`, `loop_assess`, `loop_promotion`.
 grant 발급은 MCP와 모델 port 밖의 trusted Host 동작이다. 표준 protocol 자료는 [공식 MCP SDK](https://py.sdk.modelcontextprotocol.io/run/)를 참고한다.
 긴 Tool 수행에는 Host timeout 설정이 필요하다. 한 advance는 하나의 Frontier 판단과 선택한 하위 동작을 수행한다.
 
@@ -53,16 +57,32 @@ grant 발급은 MCP와 모델 port 밖의 trusted Host 동작이다. 표준 prot
 5. `loop_start`로 기존 grant를 소비한다. `loop_advance`를 반복하며 필요한 dialogue 질문은 Host가 User에게 전달한다.
    응답은 `.local/host/clarifications/<receipt-id>.json`의 검증된 User evidence와 response ref로 연결한다.
 6. freeze 후 Frontier가 Skill/Workflow를 구성하고 Worker/Reviewer를 호출한다. ComfyUI segmentation도 Core Workflow 내부 Tool/Skill이다.
+   criterion의 `evidence_slots:{slot:type}`는 freeze 때 정하고 Workflow/diagnostics가 그 슬롯을 생산한다.
+   Review는 필수 슬롯 전체, 현재 refs/dependencies, spec/Workflow/Run/Attempt 및 실제 invocation에 연결한다.
 7. `ACCEPTED` 후 Host가 허용된 새 delivery directory로 export하고 원본과 최종 산출물을 User에게 제시한다.
-   local hash 확인은 User 실제 수신/품질 승인과 다르다. 전달 실패 terminal에는 미전달 refs 안내가 필요하다.
+   local hash 확인은 User 실제 수신/품질 승인과 다르다. export 후에도 전달 미확인 refs를 안내한다.
+   실제 제시는 trusted Host의 DELIVERY assessment로 기록한다. User 호평은 원문과 정확한 평가 범위를 USER_FEEDBACK으로 기록한다.
 
 ## 복구와 종료 정리
 
 비종료 상태의 중단만 같은 Session에서 복구한다. 하위 Tool의 receipt/history를 Frontier가 관측할 수 있고,
 Frontier 또는 그 위 중단은 Host가 판단한다. `loop_status`의 pending/unresolved를 확인한 후
 trusted inbox `.local/host/recovery/<id>.json`에 `{session_id,owner:"HOST",reason,action,ticket_id}`를 기록한다.
-action은 `OBSERVE_TOOL`, `OBSERVE_MODEL`, `CLEAR_HOST_REQUEST`, `STOP` 중 하나다. 정확한 원래 effect 결과만 관측하며 재호출하지 않는다.
+action은 `OBSERVE_TOOL`, `OBSERVE_MODEL`, `APPLY_DECISION`, `REJECT_DECISION`, `CLEAR_HOST_REQUEST`, `STOP` 중 하나다.
+status의 `application`/`recovery`도 확인한다. APPLY_DECISION은 원래 PREPARED 판단만 적용한다.
+이미 reservation을 commit한 effect는 정확한 원래 결과만 관측하며 재호출하지 않는다.
 같은 Session에서 Goal 변경/새 grant 발급/terminal 재실행은 허용하지 않는다.
+
+SQLite가 실행 상태의 정본이다. Session별 `state.json`, `specification.json`, run/attempt별
+`workflow.json`, `evidence.json`, `reviews/<ticket>.json`, `promotion.json` 및 `summary.md`를 사람이 읽을 수 있게 만든다.
+view는 revision-bound projection이며 별도 실행 권한이 아니다. 파일 오류는 `projection_error`로 노출한다.
+native 결과에는 dispatch phase, 원래 prompt/process/terminal evidence 및 부분 효과 가능성을 기록한다.
+관측된 실패는 FAILED, 제출 후 결과 미관측은 UNRESOLVED이며 둘 다 자동 재시도를 허용하지 않는다.
+
+Promotion은 한 module/한 table이다. 선택과 실제 사용, 업무와 final dependency 기여를 구분하고
+전역 점수/ranking이나 모든 참여 Skill의 자동 VALIDATED 승격은 하지 않는다.
+`loop_promotion`으로 조회하고 Frontier의 `PROMOTION`으로 업무별 판단을 남긴다.
+Host assessment 형식은 repair Specification을 따른다. 종료 뒤 평가도 실행 상태를 다시 열지 않고 기록한다.
 
 Session 끝의 Core 기본 보존 목록을 Frontier의 정리 제안과 함께 `loop_retention`으로 결정한다.
 active authority, 현재/최종 산출물, Review/Decision 및 dependency는 보호한다. 정리 대상은 소유된 불필요한 TRANSIENT만 허용하며

@@ -7,12 +7,14 @@ from .core import ContractError, Sessions, TERMINAL, check_ref, digest, file_ref
 from .host import LocalHost
 from .models import CodexModel, safe_text
 from .tools import Tools
+from .promotion import Promotion
 
 
 FRONTIER_INSTRUCTIONS = """Choose exactly one action; payload_json encodes its object.
 Before freeze: ASK_USER {question}, or FREEZE {specification}. Interpret Request and original References.
 Frozen specification fields: goal, deliverable_type, must_haves, should_haves, non_goals, constraints,
-criteria [{id, description, mandatory:boolean, artifact_types:[type]}],
+criteria [{id, description, mandatory:boolean, artifact_types:[type], evidence_slots:{slot:type}}],
+Declare all required evidence slots, including diagnostics, before freeze. A multi-view criterion needs every view slot.
 budget {frontier, reviewer, worker, diagnostic, runs, attempts, seconds}: positive finite integers.
 Match User intent; do not invent extra deliverables or weaken mandatory criteria.
 Never substitute a historical/demo Reference for a missing current User input; ask when required.
@@ -25,10 +27,13 @@ Initial inputs reference-0 etc have type reference. Stage outputs use new slots.
 Revised version is run+1 with exact prior workflow hash. restart_from must name a stage and preceding stages must
 remain identical with real checkpoints. A Workflow revision means new Run. Tool graphs are native Tool details.
 EXECUTE {}: execute next current stage. RETRY {restart_from, local_parameters}: same strategy/new Attempt.
-REVIEW {slots:[slot]}: independent Reviewer on current artifacts with matching applicable criteria.
+REVIEW {slots:[slot]}: supply every required slot of each applicable frozen criterion; partial coverage is rejected.
 DIAGNOSE {tool, inputs:[slot], outputs:{slot:type}, parameters}: obtain more evidence, no strategy replacement.
 RECONCILE {ticket_id}: observe an unresolved subordinate Tool; never blindly resubmit.
 ACCEPT {}: only if all frozen mandatory criteria are MET in current independent reviews and final artifact reviewed.
+PROMOTION {skill:{id,version,hash}, judgment}: record your task-specific reuse/promotion judgment with reason.
+Consult compact promotion_history. No global ranking, frequency bias, unused penalty or automatic bulk promotion.
+User praise of a Workflow or Artifact group does not endorse every participating Skill.
 STOP {status:FAILED|ABORT|BLOCKED_SPECIFICATION_AMBIGUITY}: terminal; describe why. User ambiguity after freeze ends Session.
 ESCALATE_HOST {request}: request Host policy/recovery/capability decision, not per-step User approval.
 Always use reason for a concise evidence-backed rationale. Quality first, then resources. Only current lineage counts.
@@ -46,6 +51,7 @@ class Runtime:
         config = self.config
         self.host = LocalHost(config["host_inbox"], config["allowed_reads"], config["allowed_writes"])
         self.sessions = Sessions(config["state_root"], self.host.grant)
+        self.promotion = Promotion(self.sessions.db)
         self.frontier = CodexModel("frontier", **config["frontier"])
         self.reviewer = CodexModel("reviewer", **config["reviewer"])
         self.tools = Tools(self.host, config["tools"])
@@ -57,10 +63,33 @@ class Runtime:
 
     def status(self, sid):
         state = self.sessions.get(sid)
+        if state["notice"]:
+            notice = dict(state["notice"])
+            delivered = self.promotion.delivered(sid)
+            notice["undelivered_artifacts"] = [a for a in notice["undelivered_artifacts"] if a["id"] not in delivered]
+            notice["user_delivery_observed"] = not notice["undelivered_artifacts"] and bool(delivered)
+            if not notice["undelivered_artifacts"]:
+                notice["required_host_action"] = None
+                if state["status"] == "CLOSED" and notice["user_delivery_observed"]:
+                    notice["abnormal_termination"] = False
+            state["notice"] = notice
+        application = state.get("application")
+        recovery = None
+        if state["status"] not in TERMINAL:
+            if state["pending"]:
+                recovery = {"owner": "HOST" if state["pending"]["role"] == "frontier" else "FRONTIER",
+                            "reason": "Observe the original reserved invocation; never redispatch.", "host_escalation_allowed": True}
+            elif application and application["phase"] in {"PREPARED", "APPLYING"}:
+                recovery = {"owner": "HOST", "reason": "Frontier decision application interrupted.", "ticket_id": application["ticket_id"]}
+            elif state["unresolved"]:
+                recovery = {"owner": "FRONTIER", "reason": "Observe unresolved subordinate effects; upper model failures belong to Host.",
+                            "host_escalation_allowed": True}
         return {"session_id": sid, "status": state["status"], "run": state["run"], "attempt": state["attempt"],
                 "used": state["used"], "question": state.get("question"), "host_request": state.get("host_request"),
                 "pending": state["pending"], "unresolved": state["unresolved"], "notice": state["notice"],
-                "acceptance": state["acceptance"], "delivery": state["delivery"], "retention": state["retention"]}
+                "acceptance": state["acceptance"], "delivery": state["delivery"], "retention": state["retention"],
+                "application": application, "recovery": recovery, "revision": state.get("revision", 0),
+                "projection_error": state.get("projection_error")}
 
     def images(self, artifacts):
         # Media selection is Host-port detail, not Core type-specific dispatch.
@@ -87,9 +116,10 @@ class Runtime:
             "frozen": state["spec"], "workflow": state["workflow"], "workflow_hash": digest(state["workflow"]),
             "run": state["run"], "attempt": state["attempt"], "cursor": state.get("cursor"),
             "used": state["used"], "artifacts": self.visible(current), "slots": state["slots"],
-            "latest_reviews": state["reviews"], "latest_decisions": state["decisions"][-3:],
+            "latest_reviews": self.sessions.current_reviews(state), "latest_decisions": state["decisions"][-3:],
             "current_failure": state.get("failure"), "unresolved": state["unresolved"],
-            "skills": self.sessions.skills(), "capabilities": self.tools.capabilities(), "tool_templates": templates}
+            "skills": self.sessions.skills(), "promotion_history": self.promotion.catalog(self.sessions.skills()),
+            "capabilities": self.tools.capabilities(), "tool_templates": templates}
 
     def advance(self, sid):
         with self.operation_lock:
@@ -99,7 +129,8 @@ class Runtime:
         state = self.sessions.get(sid)
         if state["status"] in TERMINAL or state["status"] == "ACCEPTED":
             return self.status(sid)
-        if state["pending"] or state.get("question") or state.get("host_request"):
+        if state["pending"] or state.get("question") or state.get("host_request") or (
+                state.get("application") and state["application"]["phase"] in {"PREPARED", "APPLYING"}):
             return self.status(sid)
         context = self.context(state)
         try:
@@ -115,22 +146,38 @@ class Runtime:
         outcome = self.frontier(ticket, context, images)
         self.sessions.settle(sid, ticket, outcome)
         if outcome["status"] != "SUCCESS":
-            with self.sessions.edit(sid, "HOST_RECOVERY_REQUESTED") as state:
-                state["host_request"] = {"reason": "Frontier inference failed. Host owns this layer.", "ticket_id": ticket["id"]}
             return self.status(sid)
         decision = outcome["value"]
-        self.sessions.decision(sid, ticket, decision)
         try:
             self.apply(sid, decision)
-        except ContractError as exc:
-            # Invalid strategy is observable feedback, not an invented new goal.
-            with self.sessions.edit(sid, "DECISION_REJECTED") as state:
-                state["failure"] = {"kind": "CONTRACT", "reason": str(exc), "decision": decision}
+        except (ContractError, KeyError, TypeError) as exc:
+            # Once a reservation committed, only observation can resolve it.
+            if self.sessions.get(sid)["application"]["phase"] != "PREPARED":
+                raise
+            self.sessions.reject(sid, str(exc))
             if "BUDGET" in str(exc):
                 self.sessions.close(sid, "ABORT", str(exc))
         return self.status(sid)
 
     def apply(self, sid, decision):
+        state = self.sessions.get(sid)
+        require(state.get("application") and state["application"]["value"] == decision, "ORIGINAL_PREPARED_DECISION_REQUIRED")
+        with self.sessions.application(sid, state["application"]["ticket_id"]):
+            job = self.prepare_action(sid, decision)
+        # Only now is the decision + effect ticket durable. No native effect
+        # or model inference is allowed inside the Core application transaction.
+        if job:
+            kind, ticket, context, images = job
+            if kind == "tool":
+                outcome = self.tools.execute(ticket, context)
+            else:
+                outcome = self.reviewer(ticket, context, images)
+                if outcome["status"] == "SUCCESS":
+                    value = outcome["value"]
+                    outcome["value"] = value["payload"] if value["action"] == "REVIEW" else {"invalid_action": value["action"]}
+            self.sessions.settle(sid, ticket, outcome)
+
+    def prepare_action(self, sid, decision):
         action, payload = decision["action"], decision["payload"]
         state = self.sessions.get(sid)
         if action == "ASK_USER":
@@ -148,9 +195,9 @@ class Runtime:
         elif action == "RETRY":
             self.sessions.workflow(sid, state["workflow"], payload["restart_from"], local=payload["local_parameters"])
         elif action in {"EXECUTE", "DIAGNOSE"}:
-            self.execute(sid, payload if action == "DIAGNOSE" else None)
+            return self.prepare_execute(sid, payload if action == "DIAGNOSE" else None)
         elif action == "REVIEW":
-            self.review(sid, payload["slots"])
+            return self.prepare_review(sid, payload["slots"])
         elif action == "RECONCILE":
             observed = state["unresolved"].get(payload["ticket_id"])
             require(observed and observed["ticket"]["role"] in {"worker", "diagnostic"}, "FRONTIER_RECOVERY_LAYER")
@@ -158,7 +205,8 @@ class Runtime:
             self.sessions.recover(sid, payload["ticket_id"], result)
         elif action == "ACCEPT":
             self.sessions.accept(sid)
-            self.sessions.promote(sid)
+        elif action == "PROMOTION":
+            self.sessions.promotion_decision(sid, payload, decision["reason"])
         elif action == "STOP":
             require(payload["status"] in {"FAILED", "ABORT", "BLOCKED_SPECIFICATION_AMBIGUITY"}, "FRONTIER_STOP_STATUS")
             self.sessions.close(sid, payload["status"], decision["reason"])
@@ -168,7 +216,7 @@ class Runtime:
         else:
             raise ContractError("UNKNOWN_FRONTIER_ACTION")
 
-    def execute(self, sid, diagnostic=None):
+    def prepare_execute(self, sid, diagnostic=None):
         state = self.sessions.get(sid)
         require(state["status"] == "ACTIVE" and state["workflow"], "EXECUTION_REQUIRES_WORKFLOW")
         if diagnostic is None:
@@ -184,6 +232,7 @@ class Runtime:
                     target = target.setdefault(part, {})
                 target[parts[-1]] = value
             request = {"stage_id": stage["id"], "tool": stage["tool"], "parameters": parameters,
+                "skill": stage["skill"],
                 "input_ids": [state["slots"][slot] for slot in stage["inputs"]], "outputs": stage["outputs"],
                 "durability": "OUTPUT" if state["cursor"] == len(state["workflow"]["stages"]) - 1 else "CHECKPOINT"}
             input_slots = stage["inputs"]
@@ -196,30 +245,28 @@ class Runtime:
             role = "diagnostic"
         ticket = self.sessions.reserve(sid, role, request)
         artifacts = {slot: state["artifacts"][state["slots"][slot]] for slot in input_slots}
-        result = self.tools.execute(ticket, artifacts)
-        self.sessions.settle(sid, ticket, result)
+        return "tool", ticket, artifacts, []
 
-    def review(self, sid, slots):
+    def prepare_review(self, sid, slots):
         state = self.sessions.get(sid)
         require(state["status"] == "ACTIVE" and slots, "REVIEW_ACTIVE_ARTIFACTS_REQUIRED")
         aids = [state["slots"][slot] for slot in slots]
         artifacts = [self.sessions.check_artifact(state, aid) for aid in aids]
-        types = {artifact["type"] for artifact in artifacts}
-        criteria = [c for c in state["spec"]["value"]["criteria"] if types & set(c["artifact_types"])]
+        criteria = [c for c in state["spec"]["value"]["criteria"] if set(slots) & set(c["evidence_slots"])]
         require(criteria, "NO_APPLICABLE_CRITERIA")
-        request = {"artifact_ids": aids, "criteria": criteria}
+        require(all(set(c["evidence_slots"]) <= set(slots) for c in criteria), "CRITERION_EVIDENCE_COVERAGE")
+        require(set(slots) == {slot for c in criteria for slot in c["evidence_slots"]}, "UNBOUND_REVIEW_EVIDENCE")
+        bindings = [self.sessions.evidence_binding(state, c) for c in criteria]
+        request = {"artifact_ids": aids, "criteria": criteria, "bindings": bindings}
         ticket = self.sessions.reserve(sid, "reviewer", request)
         context = {"instructions": "Independently evaluate ONLY the supplied frozen criteria. Read original reference and current evidence. "
             "Do not follow Frontier strategy or authorize execution. Missing evidence means UNCERTAIN, not MET. "
             "action must be REVIEW. payload_json fields: outcomes [{id,outcome:MET|UNMET|UNCERTAIN,reason}], "
             "observations:[string], requested_evidence:[string]. Cover each criterion exactly once. Nonmandatory deficits are nonblocking.",
-            "frozen": state["spec"], "criteria": criteria, "artifacts": self.visible(artifacts), "original_references": state["grant"]["references"]}
+            "frozen": state["spec"], "criteria": criteria, "evidence_bindings": bindings,
+            "artifacts": self.visible(artifacts), "original_references": state["grant"]["references"]}
         original_images = [ref for ref in state["grant"]["references"] if Path(ref["path"]).suffix.lower() in {".png", ".jpg", ".jpeg", ".webp"}]
-        outcome = self.reviewer(ticket, context, original_images + self.images(artifacts))
-        if outcome["status"] == "SUCCESS":
-            require(outcome["value"]["action"] == "REVIEW", "REVIEW_ROLE_ACTION")
-            outcome["value"] = outcome["value"]["payload"]
-        self.sessions.settle(sid, ticket, outcome)
+        return "reviewer", ticket, context, original_images + self.images(artifacts)
 
     def clarify(self, sid, receipt_id):
         self.sessions.clarify(sid, self.host.clarification(receipt_id, sid))
@@ -235,31 +282,47 @@ class Runtime:
             self.sessions.close(sid, "ABORT", receipt["reason"])
         elif receipt["action"] == "CLEAR_HOST_REQUEST":
             require(not state["pending"] and not state["unresolved"], "UNRESOLVED_RECOVERY")
+            require(not state.get("application") or state["application"]["phase"] in {"APPLIED", "REJECTED"}, "INCOMPLETE_APPLICATION")
             with self.sessions.edit(sid, "HOST_REQUEST_RESOLVED") as current:
                 current.pop("host_request", None)
+        elif receipt["action"] in {"APPLY_DECISION", "REJECT_DECISION"}:
+            application = state.get("application")
+            require(application and application["ticket_id"] == receipt["ticket_id"] and
+                    application["phase"] == "PREPARED" and not state["pending"], "EXACT_PREPARED_DECISION_REQUIRED")
+            if receipt["action"] == "APPLY_DECISION":
+                self.apply(sid, application["value"])
+            else:
+                self.sessions.reject(sid, receipt["reason"])
         elif receipt["action"] == "OBSERVE_TOOL":
             ticket = state["pending"] or state["unresolved"][receipt["ticket_id"]]["ticket"]
+            require(ticket["id"] == receipt["ticket_id"], "EXACT_RECOVERY_TICKET_REQUIRED")
             ticket["directory"] = str(self.sessions.root / sid / "calls" / ticket["id"])
             require(ticket["role"] in {"worker", "diagnostic"}, "TOOL_RECOVERY_ROLE")
             self.sessions.recover(sid, ticket["id"], self.tools.reconcile(ticket))
         elif receipt["action"] == "OBSERVE_MODEL":
             ticket = state["pending"] or state["unresolved"][receipt["ticket_id"]]["ticket"]
+            require(ticket["id"] == receipt["ticket_id"], "EXACT_RECOVERY_TICKET_REQUIRED")
             directory = self.sessions.root / sid / "calls" / ticket["id"]
             report_ref = file_ref(directory / "invocation.json")
             report = json.loads(check_ref(report_ref).read_text(encoding="utf-8"))
             require(report["ticket_id"] == ticket["id"] and report["role"] == ticket["role"] and report["status"] == "SUCCESS", "EXACT_MODEL_RESULT_REQUIRED")
             raw = json.loads(check_ref(report["result"]).read_text(encoding="utf-8"))
             value = {"action": raw["action"], "payload": json.loads(raw["payload_json"]), "reason": raw["reason"]}
+            require(ticket["role"] != "reviewer" or value["action"] == "REVIEW", "REVIEW_ROLE_ACTION")
             result = {"status": "SUCCESS", "value": value["payload"] if ticket["role"] == "reviewer" else value, "report": report_ref}
             self.sessions.recover(sid, ticket["id"], result)
             with self.sessions.edit(sid, "HOST_RECOVERY_COMPLETE") as current:
                 current.pop("host_request", None)
             if ticket["role"] == "frontier":
-                self.sessions.decision(sid, ticket, value)
                 self.apply(sid, value)
         else:
             raise ContractError("UNKNOWN_HOST_RECOVERY_ACTION")
         return self.status(sid)
+
+    def assess(self, sid, receipt_id):
+        item, ref = self.host.assessment(receipt_id, sid)
+        self.sessions.assessment(sid, receipt_id, item, ref)
+        return {"session": self.status(sid), "promotion": self.promotion.catalog(self.sessions.skills())}
 
     def deliver(self, sid, target):
         state = self.sessions.get(sid)

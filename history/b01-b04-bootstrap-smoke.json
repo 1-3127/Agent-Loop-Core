@@ -1,0 +1,69 @@
+{
+  "scope": "SYNTAX_IMPORT_CONFIG_CATALOG_MCP_BOOTSTRAP_SMOKE_ONLY",
+  "source_sha256": {
+    "app/loopcore/__init__.py": "52203757d2cce18346c548d63a9d83894dfa49dba5c1ce987291fb4e6750f3e0",
+    "app/loopcore/__main__.py": "d1d716b0487b0f993dcd7d36548f03e573e735d083cde622f30d2d8b6f1119f1",
+    "app/loopcore/blender_diagnostic.py": "2e213005bfa0f7fd41a19bbac6a60817439d357422bf31797e68916f9a084b36",
+    "app/loopcore/core.py": "47a75930671f02b15777906329a2d13458f889f191b74e2694fe71800be4f08d",
+    "app/loopcore/host.py": "6f155a893e9f5c5f2144eda06a04fc770e9b80b27ed3db9d4ed90fb8266d1b35",
+    "app/loopcore/mcp_server.py": "b3f691d9cc1e73b0fc2c95e2eaf54ec5a446d47875b96c33bf435d615b908e1e",
+    "app/loopcore/models.py": "475d6a715986895039b07c8bca0f7e9de653404e93363a6ba24753c7ec1b78ce",
+    "app/loopcore/promotion.py": "2c9ad770c8a486e86002ade6fddc531ead72e932bd741afc87416f1917b754eb",
+    "app/loopcore/runtime.py": "0bd00c491ce1bc8d2e17682629b1a3f9250a34186bae57790fc9274c716bdb6e",
+    "app/loopcore/tools.py": "a398aacf16d2633a3accce55a961bf1acf99d54789de32d8bb5fb9dac29c1601"
+  },
+  "catalog": {
+    "scope": "BOOTSTRAP_ONLY_NO_PRODUCTION_SESSION_NO_INFERENCE_NO_TOOL_EFFECT",
+    "capabilities": {
+      "image-normalize": "Contain-pad current image; size is stage policy.",
+      "comfy": "Run a bound native API graph. Parameters: template_ref, loaders {node: input_slot}, patches {node: inputs}, selectors {output_slot: {node, collection, index}}. Local tuning uses /patches/<KSampler node>/<sampler input> JSON-pointer names; model/graph/loaders are strategy.",
+      "blender-diagnose": "Fresh import of current GLB, neutral multi-angle views and metrics. Parameters: source_slot, size, azimuths. Outputs slots: configured view names + metrics.",
+      "read-source": "Read a Host-allowed public primary source into sandbox. Parameters: url. No execute/install."
+    },
+    "skills": [
+      "blender-geometry-diagnosis",
+      "comfy-geometry",
+      "comfy-multiview",
+      "comfy-segmentation",
+      "current-reference-normalization",
+      "primary-source-discovery"
+    ]
+  },
+  "mcp": {
+    "scope": "MCP_STDIO_BOOTSTRAP_ONLY",
+    "protocol": "2026-07-28",
+    "tools": [
+      "loop_advance",
+      "loop_assess",
+      "loop_clarify",
+      "loop_deliver",
+      "loop_promotion",
+      "loop_recover",
+      "loop_retention",
+      "loop_start",
+      "loop_status"
+    ],
+    "sessions_started": 0,
+    "grants_consumed": 0,
+    "promotion_events": 0,
+    "model_calls": 0,
+    "comfy_prompts": 0,
+    "blender_calls": 0
+  },
+  "ledger_counts": {
+    "sessions": 0,
+    "grants": 0,
+    "promotion": 0
+  },
+  "promotion_table_columns": [
+    "id",
+    "session_id",
+    "kind",
+    "data"
+  ],
+  "actual_model_identity": "UNOBSERVED",
+  "actual_sessions": 0,
+  "formal_verification": "NOT_RUN",
+  "semantic_or_interruption_proof": "NOT_RUN",
+  "production_tool_effects": 0
+}

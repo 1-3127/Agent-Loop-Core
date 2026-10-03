@@ -42,6 +42,16 @@ def server(config_path):
         return runtime.deliver(session_id, output_directory)
 
     @mcp.tool()
+    def loop_assess(session_id: str, host_receipt_id: str) -> dict:
+        """Record scoped Host delivery or original User feedback; terminal execution stays closed."""
+        return runtime.assess(session_id, host_receipt_id)
+
+    @mcp.tool()
+    def loop_promotion() -> dict:
+        """Read factual Skill usage/task/feedback history. No global score or automatic preference."""
+        return runtime.promotion.catalog(runtime.sessions.skills())
+
+    @mcp.tool()
     def loop_retention(session_id: str, reason: str, prune_artifact_ids: list[str], apply: bool = False) -> dict:
         """At Session end, record conservative Core/Frontier cleanup; optional recoverable quarantine."""
         return runtime.retention(session_id, {"reason": reason, "prune": prune_artifact_ids}, apply)
