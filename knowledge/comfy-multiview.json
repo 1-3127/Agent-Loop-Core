@@ -1,0 +1,24 @@
+{
+  "id": "comfy-multiview",
+  "version": 1,
+  "purpose": "Generate alternate views using ComfyUI's bound native API graph",
+  "inputs": [
+    "image"
+  ],
+  "outputs": [
+    "image"
+  ],
+  "capabilities": [
+    "comfy"
+  ],
+  "dependencies": [],
+  "subskills": [],
+  "known_failures": [
+    "Candidate knowledge; actual runtime/semantic validation deferred.",
+    "Unavailable native model/node or stale reference must block effects/acceptance."
+  ],
+  "provenance": [
+    "User reconstruction handoff + current non-cloud source/Tool metadata inspection, 2026-10-04; no inherited success attestation."
+  ],
+  "instructions": "Use the current normalized input, not the demo LoadImage filename. Use right/left/back templates as strategy examples. All outputs belong to this ticket's Tool namespace. Review view consistency when required."
+}

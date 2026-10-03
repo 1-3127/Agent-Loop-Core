@@ -1,9 +1,0 @@
-test_adequate_inferred_envelope_is_admitted (__main__.AdaptiveIntakeEligibilityTests.test_adequate_inferred_envelope_is_admitted) ... ok
-test_boolean_or_missing_resource_is_not_a_budget (__main__.AdaptiveIntakeEligibilityTests.test_boolean_or_missing_resource_is_not_a_budget) ... ok
-test_bound_v1_intake_has_no_started_production_session (__main__.AdaptiveIntakeEligibilityTests.test_bound_v1_intake_has_no_started_production_session) ... ok
-test_initial_optimistic_envelope_cannot_enter_adaptive_loop (__main__.AdaptiveIntakeEligibilityTests.test_initial_optimistic_envelope_cannot_enter_adaptive_loop) ... ok
-
-----------------------------------------------------------------------
-Ran 4 tests in 0.000s
-
-OK

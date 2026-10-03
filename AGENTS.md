@@ -1,9 +1,19 @@
-# Agent-Loop-Core working rules
+# Agent-Loop-Core reconstruction working rules
 
-For a User-started Session that requires Specification Dialogue before freeze, also follow `docs/adaptive/SESSION_SPECIFICATION_DIALOGUE_START_CONTRACT_v1.md`: create one grant-bound dialogue owner, then bind the ready Frozen Specification to that same live owner. Correction publication never retries a rejected proof entry or supplies another start grant.
+Follow the declared global Root's `AGENTS.md`, `Agents/workflow.md`, and `Others/AGENTS.md`.
+Only project instructions below `D:\VSCODE-WorkSpace\Others\Ponytail-Proof` apply.
 
-For prospective top-level Session starts, follow `docs/adaptive/SESSION_START_AUTHORITY_CONTRACT_v1.md`, superseding older corrective→fresh/no-reapproval wording. Correction/tests/commit/push/equality end at `WAITING_FOR_USER_SESSION_START`; do not invoke initializer/intake/host without a separate explicit User SessionStartGrant. Clarification, host `next`, and same Codex chat are not grants. Preserve historical host/proof scripts as evidence; new hosts use the outer gate before namespace/intake and pass the grant to Core. Never resume or mutate interrupted fresh-003 evidence.
+`RECONSTRUCTION_SPECIFICATION.md` and the current direct User decisions define this branch's scope.
+The old Direction Gate and old proof Work Orders are historical authority for their own attempts,
+not execution commands for this independent reconstruction. Their exact bytes remain in Git at
+`12366d9f2e377cfda898790f65c5033306905a99` and the original refs; see `HISTORY.md`.
 
-Follow the workspace root `AGENTS.md`, `Others/AGENTS.md`, and `Agents/workflow.md`. The Agent-Loop Direction Gate v1 is the project scope authority. Keep M0 source provenance intact; do not treat copied research code or imported historical evidence as a C1–C5 proof. Change only the explicitly assigned milestone.
-
-When requesting a user's verdict on a DELIVERED visual artifact, show both the original input and final output; keep that verdict outside Core Run state.
+- Active implementation is `app/loopcore`; no imports/hooks into old runtime or cloud rebuild code.
+- Python Core + MCP; current Host is this Codex conversation.
+- Frontier and Reviewer are independent Codex CLI calls, each `gpt-6.1-sol` / `low`.
+- No ACTUAL production Session without a new explicit User start grant and trusted Host provenance.
+- During reconstruction only Smoke checks are allowed. Actual proof, semantic/regression validation
+  and user quality judgment happen with the User after the complete reconstruction.
+- Never execute a terminal Session again. Report existing undelivered artifacts to the User.
+- Preserve original inputs and show both original and final output for visual User judgment outside Core.
+- Preserve useful active failures; compact finished development boundaries without rewriting old judgments.

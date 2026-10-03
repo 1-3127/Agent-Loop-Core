@@ -1,0 +1,24 @@
+{
+  "id": "current-reference-normalization",
+  "version": 1,
+  "purpose": "Preserve current input identity and produce contain-pad derivative",
+  "inputs": [
+    "reference"
+  ],
+  "outputs": [
+    "image"
+  ],
+  "capabilities": [
+    "image-normalize"
+  ],
+  "dependencies": [],
+  "subskills": [],
+  "known_failures": [
+    "Candidate knowledge; actual runtime/semantic validation deferred.",
+    "Unavailable native model/node or stale reference must block effects/acceptance."
+  ],
+  "provenance": [
+    "User reconstruction handoff + current non-cloud source/Tool metadata inspection, 2026-10-04; no inherited success attestation."
+  ],
+  "instructions": "Use current reference-0; select size from the native graph contract. Preserve originals; no crop or upscale. Derivative is evidence, not a new User authority."
+}

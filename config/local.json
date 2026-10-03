@@ -1,0 +1,60 @@
+{
+  "state_root": "D:\\VSCODE-WorkSpace\\Others\\Ponytail-Proof\\Others\\Agent-Loop-Core\\.local\\sessions",
+  "host_inbox": "D:\\VSCODE-WorkSpace\\Others\\Ponytail-Proof\\Others\\Agent-Loop-Core\\.local\\host",
+  "allowed_reads": [
+    "D:\\VSCODE-WorkSpace\\Others\\Ponytail-Proof\\Others\\Agent-Loop-Core",
+    "D:\\VSCODE-WorkSpace\\Comfy-UI",
+    "D:\\Blender_5.2"
+  ],
+  "allowed_writes": [
+    "D:\\VSCODE-WorkSpace\\Others\\Ponytail-Proof\\Others\\Agent-Loop-Core\\.local",
+    "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\input",
+    "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output"
+  ],
+  "frontier": {
+    "executable": "C:\\Users\\Worker\\AppData\\Local\\OpenAI\\Codex\\bin\\be3fd7e5c1969ff6\\codex.exe",
+    "workspace": "D:\\VSCODE-WorkSpace\\Others\\Ponytail-Proof\\Others\\Agent-Loop-Core",
+    "model": "gpt-6.1-sol",
+    "effort": "low",
+    "timeout": 600
+  },
+  "reviewer": {
+    "executable": "C:\\Users\\Worker\\AppData\\Local\\OpenAI\\Codex\\bin\\be3fd7e5c1969ff6\\codex.exe",
+    "workspace": "D:\\VSCODE-WorkSpace\\Others\\Ponytail-Proof\\Others\\Agent-Loop-Core",
+    "model": "gpt-6.1-sol",
+    "effort": "low",
+    "timeout": 600
+  },
+  "skill_files": [
+    "D:\\VSCODE-WorkSpace\\Others\\Ponytail-Proof\\Others\\Agent-Loop-Core\\knowledge\\current-reference-normalization.json",
+    "D:\\VSCODE-WorkSpace\\Others\\Ponytail-Proof\\Others\\Agent-Loop-Core\\knowledge\\comfy-multiview.json",
+    "D:\\VSCODE-WorkSpace\\Others\\Ponytail-Proof\\Others\\Agent-Loop-Core\\knowledge\\comfy-geometry.json",
+    "D:\\VSCODE-WorkSpace\\Others\\Ponytail-Proof\\Others\\Agent-Loop-Core\\knowledge\\blender-geometry-diagnosis.json",
+    "D:\\VSCODE-WorkSpace\\Others\\Ponytail-Proof\\Others\\Agent-Loop-Core\\knowledge\\comfy-segmentation.json",
+    "D:\\VSCODE-WorkSpace\\Others\\Ponytail-Proof\\Others\\Agent-Loop-Core\\knowledge\\primary-source-discovery.json"
+  ],
+  "workflow_templates": [
+    "D:\\VSCODE-WorkSpace\\Others\\Ponytail-Proof\\Others\\Agent-Loop-Core\\knowledge\\scenario-a-bindings.json"
+  ],
+  "tools": {
+    "comfy": {
+      "url": "http://127.0.0.1:8188",
+      "input": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\input",
+      "output": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output",
+      "timeout": 1200
+    },
+    "blender": {
+      "executable": "D:\\Blender_5.2\\blender.exe",
+      "timeout": 600
+    },
+    "research_domains": [
+      "docs.comfy.org",
+      "docs.blender.org",
+      "raw.githubusercontent.com",
+      "github.com",
+      "pypi.org",
+      "developers.openai.com",
+      "modelcontextprotocol.io"
+    ]
+  }
+}

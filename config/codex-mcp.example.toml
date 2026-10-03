@@ -1,0 +1,6 @@
+# Host registration example; not installed into the current Host automatically.
+[mcp_servers.agent_loop_core]
+command = 'D:\VSCODE-WorkSpace\Others\Ponytail-Proof\Others\Agent-Loop-Core\.venv\Scripts\python.exe'
+args = ['-m', 'loopcore', '--config', 'D:\VSCODE-WorkSpace\Others\Ponytail-Proof\Others\Agent-Loop-Core\config\local.json', 'mcp']
+startup_timeout_sec = 30
+tool_timeout_sec = 1800

@@ -1,0 +1,32 @@
+{
+  "date": "2026-10-04",
+  "branch": "ponytail-reconstruction-codex",
+  "authorization": "User explicitly approved all reconstruction Cleanup, broad old-version removal and instruction overwrites in this Codex conversation.",
+  "status": "APPLIED",
+  "legacy_tracked_files_removed": 1841,
+  "instruction_files_replaced": [
+    "AGENTS.md",
+    "README.md"
+  ],
+  "metadata_cleaned": [
+    ".gitattributes",
+    ".gitignore"
+  ],
+  "new_duplicate_files_removed": [
+    "RECONSTRUCTION_README.md",
+    "app/.gitignore"
+  ],
+  "recovery_commit": "12366d9f2e377cfda898790f65c5033306905a99",
+  "recovery_manifest": "history/legacy-tree-manifest.json",
+  "refs_or_history_deleted": false,
+  "global_instructions_changed": false,
+  "host_config_changed": false,
+  "external_tool_files_changed": false,
+  "post_cleanup_smoke": "CLI_CONFIG_CATALOG_BOOTSTRAP_PASS",
+  "actual_sessions": 0,
+  "grants_consumed": 0,
+  "model_calls": 0,
+  "comfy_prompts": 0,
+  "blender_calls": 0,
+  "formal_verification": "DEFERRED_UNTIL_USER_JOINT_PHASE"
+}

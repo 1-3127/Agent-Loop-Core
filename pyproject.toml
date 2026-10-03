@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=80"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agent-loop-core"
+version = "0.1.0"
+description = "Host-independent bounded adaptive Workflow Core"
+requires-python = ">=3.10"
+dependencies = ["mcp==2.3.0", "Pillow==12.3.0"]
+
+[project.scripts]
+agent-loop-core = "loopcore.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["app"]

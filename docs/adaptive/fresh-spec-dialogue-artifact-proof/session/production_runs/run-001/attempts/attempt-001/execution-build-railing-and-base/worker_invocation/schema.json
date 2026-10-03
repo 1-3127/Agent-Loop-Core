@@ -1,1 +1,0 @@
-{"additionalProperties":false,"properties":{"code":{"type":"string"},"observations_json":{"type":"string"},"reason_summary":{"type":"string"}},"required":["reason_summary","code","observations_json"],"type":"object"}

@@ -1,8 +1,0 @@
-test_single_src_root_imports_core_and_active_scenario (test_package_boundary.PackageBoundaryTests.test_single_src_root_imports_core_and_active_scenario) ... ok
-test_real_local_subprocess_pipe_bytes_and_stdin (test_reviewer_failure_observability.ReviewerFailureObservabilityTests.test_real_local_subprocess_pipe_bytes_and_stdin) ... ok
-test_real_stdin_bytes_equal_previous_text_mode_policy (test_reviewer_failure_observability.ReviewerFailureObservabilityTests.test_real_stdin_bytes_equal_previous_text_mode_policy) ... ok
-
-----------------------------------------------------------------------
-Ran 3 tests in 0.295s
-
-OK

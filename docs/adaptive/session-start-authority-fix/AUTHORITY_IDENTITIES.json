@@ -1,9 +1,0 @@
-{
-  "work_order_source": "C:\\Users\\Worker\\.codex\\attachments\\7171d5a6-6d5d-41c2-a7c8-dcf52770eb50\\붙여넣은 텍스트.txt",
-  "work_order_sha256": "e0fed679a158351cdb91b4b3eabd451161247f775bc95f2c3136aa9239a89b4f",
-  "work_order_is_session_start_grant": false,
-  "incident_report_sha256": "b21a67728a0c744762a861d0db054c55d479b13ea4955f717093105a047d6dc5",
-  "incident_evidence_scope": "External incident package, 569 files, immutable; old source snapshot 1950 files verified at baseline",
-  "baseline_incident_head": "1d13df7a12a19e72e36a653197c8c477f6be5a52",
-  "authority": "Current User Work Order authorizes this fix, regression, checkpoint commit and normal push only"
-}

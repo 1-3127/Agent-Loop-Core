@@ -1,1 +1,0 @@
-{"deadline_seconds":5400,"resource_limits":{"attempts":6,"diagnostic_calls":24,"frontier_calls":10,"production_runs":3,"reviewer_calls":6,"worker_calls":6},"specification_identity_sha256":"96d1eaf88a116850bef2d06b2b7821fdf24f0bf335c10ecad343f80f9b37cf14"}
