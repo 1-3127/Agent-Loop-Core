@@ -1,2 +1,10 @@
 model = "gpt-6.1-sol"
-model_reasoning_effort = "high"
+model_reasoning_effort = "low"
+
+# CLI is the top-level Host for the explicitly authorized current Proof.
+[mcp_servers.agent_loop_core]
+command = 'D:\VSCODE-WorkSpace\Others\Ponytail-Proof\Others\Agent-Loop-Core\.venv\Scripts\python.exe'
+args = ['-m', 'loopcore', '--config', 'D:\VSCODE-WorkSpace\Others\Ponytail-Proof\Others\Agent-Loop-Core\config\local.json', 'mcp']
+startup_timeout_sec = 30
+tool_timeout_sec = 2400
+required = true
