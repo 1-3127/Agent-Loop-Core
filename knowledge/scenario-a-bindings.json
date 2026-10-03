@@ -356,5 +356,11 @@
     "limitations": "Planar-frame homography is justified only approximately by this barrier; depth/hidden faces inherit source projection. Original shape/vertex indices unchanged, source colors unmodified except native linear RGB encoding. Frontier may choose/adjust actual correspondences from supplied images/metrics. Current independent Review must judge C3.",
     "workflow": "Use supported typed current geometry loader and same explicit final_bindings contract. Retain identical original prefix through generate-geometry, restart at revised recolor stage; Core restores original_geometry checkpoint after prior final alias. Recolor output new typed slot; diagnose consumes that slot; final geometry frozen evidence aliases it only at end. Do not use failed last recolor as shape checkpoint accidentally.",
     "host_support": "Support07 resolves exact revision92 alignment request. Read-only geometric/mask candidate inventory and native graph/node supplied; no task dispatch or Core state mutation. Server reload/new-node live check required; original two C3 UNMET reviews remain authoritative history."
+  },
+  "host_aligned_support": {
+    "host_response": "Host verified clean144f797 and support07 graph/source/binding/landmark file hashes. Same ACTIVE revision92 no pending/unresolved, queue empty. Exactly one guarded normal-user reload PID25292->30496 same argv. HTTP ready, AlignedReferenceMeshColors required landmark JSON string inputs and all graph classes registered. Native correspondence capability ready; empty graph landmark defaults must not be dispatched. Candidate points are read-only observations, Frontier chooses actual calibration/Skill/Workflow. Preserve original geometry, two C3 UNMET reviews and original budget; no quality certification or synthetic task artifacts.",
+    "resolved_escalation_ticket": "ca747cd20aa9432e975e0f912bec1157",
+    "classification": "FACTUAL_AVAILABILITY_NOT_PLAN_OR_PASS",
+    "session_id": "barrier-cli-20261004-01"
   }
 }
