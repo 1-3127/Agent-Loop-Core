@@ -172,5 +172,19 @@
     "session_id": "barrier-cli-20261004-01",
     "classification": "HOST_CONTRACT_CLARIFICATION_NOT_WORKFLOW_NOT_USER_INTENT_NOT_SUCCESS",
     "host_response": "Host가 PLAN 거절 원인을 확인했다. 이전 core.py:325는 마지막 stage의 outputs에 deliverable_type이 있어야 한다고 검사했으며 실제 파일 존재 검사가 아니었다. commit 2908b20에서 어느 stage든 deliverable_type을 생산하면 허용하도록 수정했고 이후 diagnostic stage를 허용한다. frozen criteria/Review/acceptance/lineage는 유지된다. 기존 PLAN을 Host가 적용하지 않았으며 Workflow는 아직 없다. Frontier가 현재 계약에 따라 자신의 PLAN을 새로 판단할 수 있다. 기존 거절과 원본은 보존되었고 Tool dispatch는 없었다."
+  },
+  "geometry_color_contract": {
+    "classification": "INSTALLED_NATIVE_SOURCE_FACT_NOT_RUNTIME_REVIEW",
+    "graph": "Hunyuan3D_MV_RTX4060_api.json contains shape conditioning, VoxelToMesh and SaveGLB only.",
+    "mesh_constructor": "VoxelToMesh builds Types.MESH(vertices, faces) without vertex colors, UVs or texture.",
+    "limitation": "Colored conditioning images alone do not give this native graph a painted mesh. A separate coloring strategy is needed for painted deliverable criteria.",
+    "diagnostic_limitation": "Current blender-diagnose uses neutral SINGLE Workbench color, which does not prove original material/paint colors.",
+    "inventory": "Installed PaintMesh requires colored VOXEL input. Current Hunyuan graph does not produce that color field. Registered Trellis2 nodes alone are not model availability or success attestation.",
+    "source": {
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\runtime\\ComfyUI_windows_portable\\ComfyUI\\comfy_extras\\nodes_hunyuan3d.py",
+      "sha256": "b04f7802c5036bcda02486f481e29301d6ca4a72a48a6d57e6a062e66da96f99",
+      "bytes": 17534
+    },
+    "authority": "Frontier chooses strategy and may request concrete Host capability support; frozen criteria remain unchanged. Do not infer color success or weaken criteria."
   }
 }
