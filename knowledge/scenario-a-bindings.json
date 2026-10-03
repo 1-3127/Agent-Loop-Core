@@ -216,5 +216,11 @@
     "limitations": "Reference projection approximates perspective, occlusion and hidden surfaces; new independent review must judge C1-C3.",
     "diagnostic": "Fresh GLB import now renders existing image textures or vertex colors (neutral studio lighting), otherwise material color; metrics declare mode and color-data presence.",
     "host_support": "Support 04 resolves requested local Comfy mesh-color strategy with native current RGB projection and material-aware diagnostics. Previous shape-only graph remains immutable. Frontier must revise Workflow; exact hashes and original checkpoints matter."
+  },
+  "host_color_support": {
+    "classification": "ACTUAL_HOST_AVAILABILITY_OBSERVATION_NOT_SEMANTIC_PROOF",
+    "session_id": "barrier-cli-20261004-01",
+    "resolved_escalation_ticket": "145d1958342b447592c89dc2a3aaaa40",
+    "host_response": "Host가 원래 native 큐 비어 있음과 Session pending/unresolved 없음을 확인하고 검증된 원래 PID 11092를 동일 argv로 한 번 reload했다. 새 PID 5204가 HTTP 준비됐고 ReferenceImageMeshColors 및 graph의 모든 class와 원래 checkpoint를 live object_info에서 확인했다. 설치 source/graph/diagnostic 해시 일치. 채색 graph와 실제 surface 진단 capability가 사용 가능하다. synthetic 자료는 task artifact가 아니다. 실제 투영 품질과 기준 C1-C3 충족은 미확인이다. Frontier가 자신의 Workflow revision/restart/checkpoint 채택을 판단한다."
   }
 }
