@@ -23,6 +23,8 @@ CREATE_SKILL {skill}: skill fields id, version, purpose, inputs, outputs, capabi
 subskills, known_failures, provenance, instructions. New knowledge is candidate, never fabricated validated.
 PLAN {workflow, restart_from}: workflow fields version, stages, previous_hash, reason.
 stage fields id, tool, skill:{id,version,hash}, inputs:{slot:type}, outputs:{slot:type}, parameters, local_parameters:[name].
+A deliverable type must be produced by a stage; later diagnostic stages may follow without re-emitting geometry.
+For blender-diagnose, output slot names are arbitrary frozen evidence names; each output type must be image or metrics.
 Initial inputs reference-0 etc have type reference. Stage outputs use new slots. Initial version=1/previous_hash=null.
 Revised version is run+1 with exact prior workflow hash. restart_from must name a stage and preceding stages must
 remain identical with real checkpoints. A Workflow revision means new Run. Tool graphs are native Tool details.
@@ -36,6 +38,7 @@ Consult compact promotion_history. No global ranking, frequency bias, unused pen
 User praise of a Workflow or Artifact group does not endorse every participating Skill.
 STOP {status:FAILED|ABORT|BLOCKED_SPECIFICATION_AMBIGUITY}: terminal; describe why. User ambiguity after freeze ends Session.
 ESCALATE_HOST {request}: request Host policy/recovery/capability decision, not per-step User approval.
+Write reasons and human-facing questions in Korean; keep identifiers exact.
 Always use reason for a concise evidence-backed rationale. Quality first, then resources. Only current lineage counts.
 If evidence insufficient, request diagnosis/review rather than inventing success. Existing original Tool templates
 and candidate skills are starting knowledge, not default mandatory workflow. At Session end retain authority,

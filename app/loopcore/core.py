@@ -322,7 +322,7 @@ class Sessions:
                 identity(slot)
                 require(isinstance(kind, str) and kind.strip(), "WORKFLOW_OUTPUT_TYPE")
             available.update(stage["outputs"])
-        require(state["spec"]["value"]["deliverable_type"] in stages[-1]["outputs"].values(), "DELIVERABLE_NOT_PRODUCED")
+        require(any(state["spec"]["value"]["deliverable_type"] in stage["outputs"].values() for stage in stages), "DELIVERABLE_NOT_PRODUCED")
 
     def workflow(self, sid, workflow, restart_from, *, local=None):
         with self.edit(sid, "WORKFLOW_RESTART" if local is None else "LOCAL_RETRY") as state:

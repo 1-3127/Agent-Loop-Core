@@ -38,7 +38,10 @@ def render(request):
     camera.data.type = "ORTHO"
     camera.data.ortho_scale = max(extent) * 1.3
     scene.camera = camera
-    view_slots = [s for s in request["slots"] if s != "metrics"]
+    slot_types = request["slot_types"]
+    if set(slot_types) != set(request["slots"]) or not set(slot_types.values()) <= {"image", "metrics"}:
+        raise ValueError("DIAGNOSTIC_OUTPUT_TYPES")
+    view_slots = [s for s in request["slots"] if slot_types[s] == "image"]
     if len(view_slots) != len(request["azimuths"]) or max(extent) <= 0:
         raise ValueError("DIAGNOSTIC_OUTPUT_CONTRACT")
     outputs = {}
@@ -55,8 +58,9 @@ def render(request):
         "mesh_count": len(meshes), "vertices": sum(len(o.data.vertices) for o in meshes),
         "polygons": sum(len(o.data.polygons) for o in meshes), "bounds_min": list(low), "bounds_max": list(high),
         "semantic_acceptance": None}, indent=2), encoding="utf-8")
-    if "metrics" in request["slots"]:
-        outputs["metrics"] = str(metrics)
+    for slot in request["slots"]:
+        if slot_types[slot] == "metrics":
+            outputs[slot] = str(metrics)
     (directory / "outputs.json").write_text(json.dumps(outputs), encoding="utf-8")
 
 

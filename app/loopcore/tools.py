@@ -251,7 +251,8 @@ class Tools:
         source = artifacts[parameters["source_slot"]]["file"]
         script = Path(__file__).with_name("blender_diagnostic.py")
         request = write_once(directory / "blender-request.json", {"source": source, "directory": str(directory / "diagnostics"),
-            "size": parameters["size"], "azimuths": parameters["azimuths"], "slots": list(ticket["request"]["outputs"])})
+            "size": parameters["size"], "azimuths": parameters["azimuths"], "slots": list(ticket["request"]["outputs"]),
+            "slot_types": dict(ticket["request"]["outputs"])})
         executable = self.host.path(self.config["blender"]["executable"])
         self.phase(ticket, "SUBMITTING", None, executable=str(executable))
         try:
