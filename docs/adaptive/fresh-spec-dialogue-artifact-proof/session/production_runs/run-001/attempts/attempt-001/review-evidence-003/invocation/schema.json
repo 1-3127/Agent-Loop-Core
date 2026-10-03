@@ -1,1 +1,0 @@
-{"additionalProperties":false,"properties":{"criterion_results_json":{"type":"string"},"reason_summary":{"type":"string"},"requested_evidence_json":{"type":"string"},"verdict":{"enum":["PASS","REVISE","HUMAN_REQUIRED"],"type":"string"}},"required":["verdict","reason_summary","criterion_results_json","requested_evidence_json"],"type":"object"}

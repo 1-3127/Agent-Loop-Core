@@ -1,6 +1,0 @@
-{
-  "observed_at": "2026-10-01T03:15:28.681038+00:00",
-  "refs": "7eee393801f4d8c14278b43ebcbaabaec7ccc9df\trefs/heads/main\n840b138cc023c623108c44c3944948b065300f99\trefs/heads/scenario-a-l6\n1da2bef094d2cc3f4bd70bbc266d99dc955460bb\trefs/heads/scenario-a-l7\n89201d2511985a054cfc3045768e6b29ef62e5cf\trefs/heads/session-bound-scenario-s3b\na651e38d3435c661185862692e5e69fe9f501ec6\trefs/heads/session-boundary-s3a\nba04e8c127c92163f686cd07695ae3e16d8c11cc\trefs/heads/session-contract-s1\n422f82687ffb96f8c92a5cabb869383b2ca98b80\trefs/heads/session-e2e-s3c\nacf69d8cff633e046bfb364aed8d101dc620c1b5\trefs/heads/session-integration-s2\n31bb8dae8bd4e21c685aa70c77dd7283f80c3442\trefs/heads/stabilization-c01-criterion-applicability\nf212bcdc3749edf96e9e0b68b5cb4e458f9c6770\trefs/heads/stabilization-i03-namespace-preflight\n8b962c5d94828af852d020237554606c305ef01e\trefs/tags/core-v1.0.0\n7eee393801f4d8c14278b43ebcbaabaec7ccc9df\trefs/tags/core-v1.0.0^{}",
-  "starting_local_head": "f212bcdc3749edf96e9e0b68b5cb4e458f9c6770",
-  "starting_tracking_head": "f212bcdc3749edf96e9e0b68b5cb4e458f9c6770"
-}

@@ -1,16 +1,24 @@
-# Agent-Loop-Core
+# Agent-Loop — host-independent reconstruction
 
-Prospective top-level Session creation follows [Session Start Authority Contract v1](docs/adaptive/SESSION_START_AUTHORITY_CONTRACT_v1.md) and its [dialogue-before-freeze timing amendment](docs/adaptive/SESSION_SPECIFICATION_DIALOGUE_START_CONTRACT_v1.md). Each new ACTUAL Session requires an explicit User-originated, single-use grant; corrective/tests/publication readiness and same development chat do not authorize a fresh start. Historical v1.2/proof bytes remain intact. Initializer/intake hosts use `session.session_start_authority.prepare_session_namespace`; Core independently checks the grant. `SpecificationDialogueSession` retains one live Session until its clarified ready Specification binds the production loop.
+This branch is a new implementation based on the verified invariants of `Agent-Loop-Core` v1. The historical source and actual C1–C5 evidence remain at `core-v1.0.0` and in the parent history. This branch does not claim a new live ComfyUI/Frontier run.
 
-Compact workspace for proving a fixed Frontier Supervisor's bounded delegation to replaceable Local Workers. The Frontier issues work, reviews the resulting artifact, and decides whether to revise or deliver it. Scenario A (single image → multiview → 3D) is the first reference path, under `src/scenario_a/`.
+## Contract
 
-The C1–C5 technical proofs are complete: real delegation, semantic review, actual revision, bounded termination, and a Worker adapter swap through the same Core entry point. The C5 evidence is `runs/m5-c5-20260930-050343-eecc84cd_c5_boundary.json`. The compact refactor, F01/F03 audit repairs, and post-repair actual C1–C5 regression are complete. Core v1 is frozen at annotated tag `core-v1.0.0`; see [POST_REPAIR_REGRESSION.md](POST_REPAIR_REGRESSION.md) and [CORE_V1_FREEZE.md](CORE_V1_FREEZE.md). The [Agent-Loop Direction Gate v1](docs/Agent-Loop_Direction_Gate_v1.md) governs scope, with [verbatim provenance](docs/DIRECTION_GATE_PROVENANCE.md).
+The Host verifies an explicit User start and owns side-effect policy. Core consumes one verified ingress once, then owns one Session with a frozen specification, bounded Runs and Attempts. A Frontier selects or composes a sequential Workflow of Skills and chooses the next transition after an independent Reviewer examines the exact Worker Artifact. Worker, Frontier, Reviewer, and Host implementations are replaceable. Core contains no media or tool names.
 
-`src/core/` contains `worker_port.py`, `result_review_adapter.py`, and `reviewer_auth.py`; it does not import Scenario A. The active `src/scenario_a/` path is `c1_delegate.py`, `c2_review.py`, `c3_review.py`, `c3_revision.py`, `c4_bounded.py`, `c5_worker_swap.py`, `codex_to_comfy.py`, and `comfy_worker_adapter.py`. `tests/fixtures/deterministic_worker.py` is test-only. From the repository root, set `PYTHONPATH=src` and run a CLI as `python -m scenario_a.c1_delegate --help` (or another active module); tests run with `python -m unittest discover -s tests -p 'test_*.py'`. The active ComfyUI workflows are referenced from `../../Comfy-UI`; no workflow or model is stored here.
+Durable state consists of the original request, frozen specification, current workflow, selected checkpoints with hashes and lineage, current Review and Frontier Decision, and a compact event index. Transport data and routine logs are transient. An interrupted in-flight call is `BLOCKED_UNCERTAIN` until the Host resolves it explicitly; Core does not duplicate an expensive call.
 
-Source decisions and exact identities are in [SOURCE_MANIFEST.md](SOURCE_MANIFEST.md) and [PROVENANCE.md](PROVENANCE.md).
-The post-COMPLETE cleanup and its validation limits are in [REFACTOR_REPORT.md](REFACTOR_REPORT.md).
+The public Python entry points are `SessionEngine.start`, `provide_user_input`, `run`, `inspect`, and `deliver`. `run` stops at `INTERNAL_ACCEPT` for a final PASS; the Host calls `deliver` with the accepted Artifact hash and a receipt after actually presenting it. `VerifiedStartGrant` is an attestation made by a trusted Host, not a text token that Core can issue. A Host must verify its own User ingress before constructing it; see `agent_loop/host.py`. Core persists single-use consumption in a stable ledger outside individual session directories. The ledger must remain stable across all Sessions of one Host. Production needs a real Host ingress implementation and live Worker/Frontier/Reviewer adapters.
 
-PNG validation requires the Pillow version declared in [requirements.txt](requirements.txt); use a Python runtime that provides it. Audit reproductions and local repair validation are in [AUDIT_REPAIR_REPORT.md](AUDIT_REPAIR_REPORT.md).
+## Quick check
 
-Deferred: Hypothesis Benchmark (not started), F2B comprehensive resume, production hardening, F05 generic integration, and F07 arbitrary failure/uncertain lifecycle hardening. F04 actual Frontier model/effort identity remains UNKNOWN.
+```bash
+python -m unittest discover -s tests -v
+python -m examples.demo
+```
+
+The example uses deterministic local adapters and demonstrates revision and checkpoint restart. The tests cover workflow reuse and sandbox denial. This is not an actual 3D production regression.
+
+## Scope and provenance
+
+See [CONTRACT.md](CONTRACT.md) for lifecycle and [PROVENANCE.md](PROVENANCE.md) for the historical reference. The previous implementation's code, proof and raw evidence are intentionally absent from this branch's tree. This rebuild does not preserve its internal API or file layout.

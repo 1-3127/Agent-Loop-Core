@@ -1,6 +1,0 @@
-test_single_src_root_imports_core_and_active_scenario (tests.test_package_boundary.PackageBoundaryTests.test_single_src_root_imports_core_and_active_scenario) ... ok
-
-----------------------------------------------------------------------
-Ran 1 test in 0.151s
-
-OK

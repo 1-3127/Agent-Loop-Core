@@ -1,2 +1,0 @@
-# PNG integrity/decode validator; already available in the bundled runtime.
-Pillow==12.3.0

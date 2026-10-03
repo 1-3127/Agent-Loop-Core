@@ -1,1 +1,0 @@
-{"observed_target":"A weathered stone lantern with a broad pagoda-style roof, central chamber, and arched legs.","square_opening_visible":true}

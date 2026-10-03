@@ -1,9 +1,0 @@
-{
-  "status": "PASS",
-  "module_count": 18,
-  "all_contract_fields_present": true,
-  "unique_owned_modules": true,
-  "model_lifecycle": "DEFERRED",
-  "normative_authority_sha256": "7be871c5484da15c58f29d6866f8f8e5cb23d42b3fa7bd95c9831bb6a693e020",
-  "scope": "M0 document/contract validation; no runtime implementation proof"
-}
