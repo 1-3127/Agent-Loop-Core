@@ -1,0 +1,161 @@
+{
+  "normalization": {
+    "source_slot": "reference-0",
+    "size": [
+      768,
+      768
+    ]
+  },
+  "segmentation": {
+    "template_ref": {
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\workflows\\05_3DGS_Masking\\SAM3_Image_Isolation_api.json",
+      "sha256": "f55f97fae878bb07177f67207e7ba1f34ff68f0b8822e0cf14f2e762a90dde58",
+      "bytes": 2407
+    },
+    "loaders": {
+      "1": "reference-0"
+    },
+    "patches": {
+      "3": {
+        "text": "road barrier"
+      }
+    },
+    "selectors": {
+      "segmented": {
+        "node": "10",
+        "collection": "images",
+        "index": 0
+      },
+      "mask": {
+        "node": "12",
+        "collection": "images",
+        "index": 0
+      },
+      "cutout": {
+        "node": "13",
+        "collection": "images",
+        "index": 0
+      }
+    },
+    "local_parameters": []
+  },
+  "multiview": {
+    "right": {
+      "template_ref": {
+        "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\workflows\\02_Image_to_Multiview\\Qwen2509_Multiangle_RTX4060_api.json",
+        "sha256": "bb16c26a0aa599f3eee35f206940f1e6ab40bd39c9569025fa8a4f80de67311a",
+        "bytes": 2881
+      },
+      "loaders": {
+        "1": "normalized"
+      },
+      "patches": {
+        "8": {
+          "prompt": "Rotate the camera 45 degrees to the right. Keep the entire object visible, centered and at the same scale. Do not zoom in."
+        }
+      },
+      "selectors": {
+        "right": {
+          "node": "13",
+          "collection": "images",
+          "index": 0
+        }
+      },
+      "local_parameters": [],
+      "notes": "Sampler tweaks are native patches; changing strategy requires a revised Workflow."
+    },
+    "left": {
+      "template_ref": {
+        "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\workflows\\02_Image_to_Multiview\\Qwen2509_Left_api.json",
+        "sha256": "65e97b19b89736cf6431c3803c8cecbdee2466067a63aa8eeb3e11d1e7d30f28",
+        "bytes": 2879
+      },
+      "loaders": {
+        "1": "normalized"
+      },
+      "patches": {
+        "8": {
+          "prompt": "Rotate the camera 45 degrees to the left. Keep the entire object visible, centered and at the same scale. Do not zoom in."
+        }
+      },
+      "selectors": {
+        "left": {
+          "node": "13",
+          "collection": "images",
+          "index": 0
+        }
+      },
+      "local_parameters": [],
+      "notes": "Sampler tweaks are native patches; changing strategy requires a revised Workflow."
+    },
+    "back": {
+      "template_ref": {
+        "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\workflows\\02_Image_to_Multiview\\Qwen2509_Back_api.json",
+        "sha256": "ac80748728f98d7ad1e08806778f91a42fce026e7a35cdf0d52e46b4e18eacfb",
+        "bytes": 2903
+      },
+      "loaders": {
+        "1": "normalized"
+      },
+      "patches": {
+        "8": {
+          "prompt": "Rotate the camera 180 degrees around the object to show its rear. Keep the entire object visible, centered and at the same scale. Do not zoom in."
+        }
+      },
+      "selectors": {
+        "back": {
+          "node": "13",
+          "collection": "images",
+          "index": 0
+        }
+      },
+      "local_parameters": [],
+      "notes": "Sampler tweaks are native patches; changing strategy requires a revised Workflow."
+    }
+  },
+  "diagnostic": {
+    "source_slot": "geometry",
+    "size": [
+      512,
+      512
+    ],
+    "azimuths": [
+      180,
+      0,
+      90,
+      270
+    ]
+  },
+  "geometry_frame_reference_colors": {
+    "template_ref": {
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\workflows\\03_Multiview_to_3D\\Hunyuan3D_MV_FrameReferenceColors_api.json",
+      "sha256": "723cd4b4785bfe7f1acbd704cdd78341258907ab68776acd408537d9940b4494",
+      "bytes": 3841
+    },
+    "loaders": {
+      "1": "isolated",
+      "2": "left",
+      "3": "back",
+      "4": "right",
+      "18": "foreground_mask"
+    },
+    "patches": {},
+    "selectors": {
+      "geometry": {
+        "node": "17",
+        "collection": "3d",
+        "index": 0
+      }
+    }
+  },
+  "frame_reference_contract": {
+    "purpose": "Candidate ONLY for horizontal top-bar/two-foot open frames such as the CURRENT user barrier. Frontier must choose based on actual fresh Request/Reference; not a universal geometry workflow.",
+    "native_inputs": "New full graph uses current isolated/left/back/right/mask images, existing Hunyuan model and sampler. VoxelToMesh16 generates NEW native geometry in this fresh Session; FrameReferenceMeshColors19 derives paired extrema from that CURRENT mesh and CURRENT mask, then projects actual source RGB; SaveGLB17 emits current colored geometry. No old output/checkpoint/correspondences are imported.",
+    "alignment": "Automatic CURRENT end caps at extreme2% mesh X and extreme2.5% mask columns; support feet at bottom2% mesh Y per half and bottom5px source mask per half. Planar homography from these 4 corresponding observed points. Rejects non-frame geometry (capY normalized>.6,feetY<.2), empty masks or degenerate fit; positions/faces unchanged by coloring. Native log records actual current anchors.",
+    "color": "Mask>.97 and real RGB min<.20 default exclude bright boundary/glare candidates. Nearest valid SOURCE RGB samples; no invented palette/stripes, manual colors or shape replacement. Hidden/depth surfaces approximate; fresh independent current Review required.",
+    "schema": "Node19 required inputs include horizontal_axis X,vertical_axis Y,view_angle0,mask_threshold.97,white_threshold.20,flip_horizontal false. All fields exist in graph and live schema; no mesh_points/image_points manual patch on this node. AlignedReferenceMeshColors installed dependency required.",
+    "diagnostic": "Fresh import renders actual vertex color under STUDIO; image/metrics outputs use typed names. Actual canonical slot order view_back,view_front,view_left,view_right: angles[180,0,90,270] align native +Z front/Blender-Y. metrics.view_azimuths is authoritative. Non-empty GLB/import/geometry/color need independent Review, not exitcode-only acceptance.",
+    "ownership": "Actual Frontier chooses Specification/Skill/Workflow/parameters/checkpoints/Review/ACCEPT. Capability metadata is not a prefilled PLAN. Host owns trusted new single-use grant and delivery. Desktop supplies capabilities and observes.",
+    "history": "Prior Session barrier-cli-20261004-01 was unsuccessful and is terminal; preserve its two C3 UNMET Reviews and native-before-submit patch failure. Never resume/replay or reuse its grant/outputs as fresh task evidence. This compact metadata intentionally excludes prior artifact paths and numerical calibration."
+  }
+}
