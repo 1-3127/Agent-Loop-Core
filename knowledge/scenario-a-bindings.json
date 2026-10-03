@@ -362,5 +362,12 @@
     "resolved_escalation_ticket": "ca747cd20aa9432e975e0f912bec1157",
     "classification": "FACTUAL_AVAILABILITY_NOT_PLAN_OR_PASS",
     "session_id": "barrier-cli-20261004-01"
+  },
+  "host_bounded_recovery_judgment": {
+    "host_response": "Host confirmed original execution.json: PREPARING FAILED COMFY_PATCH_CONTRACT, execution_observed=false, outputs empty; no native prompt submitted. Actual node4 PLAN patch flip_horizontal:false is absent from immutable graph and live schema. Original staging/failure/checkpoints/two C3 UNMET reviews preserved. No pending/unresolved and native queue empty. Unsupported patch remains unresolved for this immutable Workflow. Frozen frontier budget29/32 leaves3 calls and runs4/4 leaves0 revisions; valid correction/execution, fresh diagnosis, Review selection and ACCEPT selection need at least4 Frontier calls. Therefore completion is not possible within current unchanged finite envelope. No supported native redispatch/completion path; do not expand budgets, ignore keys, edit PLAN, resubmit original ticket or ask human to enlarge frozen budget. This is factual Host recovery judgment, not a model decision; Frontier independently chooses appropriate terminal disposition. Continuing authorization covers necessary future NEW starts after terminal, not budget rewrite; Host will not create replacement this turn.",
+    "request_ticket": "7acccc4ec1b044d189b6b82855a211f0",
+    "session_id": "barrier-cli-20261004-01",
+    "failed_ticket": "fdc21aa8b7704d55a2077ca426ec57a1",
+    "classification": "FACTUAL_RECOVERY_CAPABILITY_AND_BUDGET_JUDGMENT_NOT_INJECTED_DECISION"
   }
 }
