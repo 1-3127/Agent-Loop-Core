@@ -272,5 +272,89 @@
     "session_id": "barrier-cli-20261004-01",
     "classification": "VERIFIED_CONTRACT_SUPPORT_NOT_PLAN_OR_QUALITY_PROOF",
     "host_response": "Host verified clean fc0c3ac and support-06 core/runtime/binding hashes. Same ACTIVE revision73 pending/unresolved none; original failure evidence retained. Explicit optional final_bindings contract now available as documented, applied only at final Worker success, with old Artifact/dependencies preserved and new current Review required. Native masked recolor nodes remain registered; no service reload. Frontier decides actual PLAN/checkpoints/final binding; Host does not inject Workflow. Synthetic checks excluded. Original finite time/call/run budgets unchanged."
+  },
+  "geometry_aligned_recolor": {
+    "template_ref": {
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\workflows\\03_Multiview_to_3D\\ReferenceAligned_RecolorOnly_api.json",
+      "sha256": "f8d7e6f1704b7961da612e0339a470eef7549ad5dffe5366715ccbb70cc660a1",
+      "bytes": 937
+    },
+    "loaders": {
+      "1": "geometry",
+      "2": "isolated",
+      "3": "foreground_mask"
+    },
+    "patches": {},
+    "selectors": {
+      "geometry": {
+        "node": "5",
+        "collection": "3d",
+        "index": 0
+      }
+    }
+  },
+  "aligned_recolor_contract": {
+    "classification": "READ_ONLY_LANDMARK_CANDIDATES_AND_CAPABILITY_SUPPORT_NOT_WORKFLOW_OR_QUALITY_APPROVAL",
+    "node": "AlignedReferenceMeshColors. Native node4 inputs mesh_points/image_points are REQUIRED JSON strings of paired 4+ planar anchors. Empty [] defaults deliberately cannot execute; Frontier selects and patches real anchors in actual PLAN.",
+    "coordinates": "Native projection horizontal X/vertical Y/view_angle0 by default. mesh_points are normalized [u=(x-xmin)/xspan,v=(y-ymin)/yspan] with v UP. image_points are actual [column,row] pixels of isolated/mask aligned source (row DOWN). Least-squares 8-parameter homography maps native planar points to source; rejects degenerate fit/residual>2px/out-of-bounds anchors.",
+    "source_filter": "Explicit aligned SAM3 mask>.97 and actual RGB min<.20 defaults exclude bright border/glare samples. Nearest valid SOURCE RGB samples projected holes; no fabricated palette/stripe assignment or color quantization.",
+    "read_only_candidate_anchors": {
+      "names": [
+        "top-left-end",
+        "top-right-end",
+        "left-support-foot",
+        "right-support-foot"
+      ],
+      "mesh_points": [
+        [
+          0.0039397720247507095,
+          0.9238943457603455
+        ],
+        [
+          0.9953672885894775,
+          0.9184194803237915
+        ],
+        [
+          0.1994440257549286,
+          0.011774638667702675
+        ],
+        [
+          0.8572746515274048,
+          0.00976215023547411
+        ]
+      ],
+      "image_points": [
+        [
+          189.0,
+          315.0
+        ],
+        [
+          590.5,
+          342.0
+        ],
+        [
+          239.0,
+          445.0
+        ],
+        [
+          504.0,
+          468.0
+        ]
+      ],
+      "geometry_ref": {
+        "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\loopcore\\45e85f78e9a242a2b2d5c3d8fe788a2b\\17_00001_.glb",
+        "sha256": "a4e4a7d5fd401d60941b25f89189eb4c6111cccbd467dbee5c7e7daf4dfba7c1",
+        "bytes": 229356
+      },
+      "mask_ref": {
+        "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\work\\output\\loopcore\\ee968256712b4d4d9db63b6fb06b545f\\12_00001_.png",
+        "sha256": "f98faaaef828a9a52892bc0d27e6a282e0179afcdcc4ef4450cf84da341864be",
+        "bytes": 5221
+      },
+      "method": "Median mesh cap vertices at extreme2% X; median support vertices bottom2% Y per half; median source mask cap pixels extreme2.5% X; median foot mask pixels bottom5px per half. These are observed candidates; Frontier chooses calibration."
+    },
+    "limitations": "Planar-frame homography is justified only approximately by this barrier; depth/hidden faces inherit source projection. Original shape/vertex indices unchanged, source colors unmodified except native linear RGB encoding. Frontier may choose/adjust actual correspondences from supplied images/metrics. Current independent Review must judge C3.",
+    "workflow": "Use supported typed current geometry loader and same explicit final_bindings contract. Retain identical original prefix through generate-geometry, restart at revised recolor stage; Core restores original_geometry checkpoint after prior final alias. Recolor output new typed slot; diagnose consumes that slot; final geometry frozen evidence aliases it only at end. Do not use failed last recolor as shape checkpoint accidentally.",
+    "host_support": "Support07 resolves exact revision92 alignment request. Read-only geometric/mask candidate inventory and native graph/node supplied; no task dispatch or Core state mutation. Server reload/new-node live check required; original two C3 UNMET reviews remain authoritative history."
   }
 }
