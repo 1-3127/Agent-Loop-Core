@@ -222,5 +222,35 @@
     "session_id": "barrier-cli-20261004-01",
     "resolved_escalation_ticket": "145d1958342b447592c89dc2a3aaaa40",
     "host_response": "Host가 원래 native 큐 비어 있음과 Session pending/unresolved 없음을 확인하고 검증된 원래 PID 11092를 동일 argv로 한 번 reload했다. 새 PID 5204가 HTTP 준비됐고 ReferenceImageMeshColors 및 graph의 모든 class와 원래 checkpoint를 live object_info에서 확인했다. 설치 source/graph/diagnostic 해시 일치. 채색 graph와 실제 surface 진단 capability가 사용 가능하다. synthetic 자료는 task artifact가 아니다. 실제 투영 품질과 기준 C1-C3 충족은 미확인이다. Frontier가 자신의 Workflow revision/restart/checkpoint 채택을 판단한다."
+  },
+  "geometry_masked_recolor": {
+    "template_ref": {
+      "path": "D:\\VSCODE-WorkSpace\\Comfy-UI\\workflows\\03_Multiview_to_3D\\ReferenceMask_RecolorOnly_api.json",
+      "sha256": "dff60a254a10e55388678b90905e5bd7fbf9d02d97dd5abb820adf2f64931186",
+      "bytes": 912
+    },
+    "loaders": {
+      "1": "geometry",
+      "2": "isolated",
+      "3": "foreground_mask"
+    },
+    "patches": {},
+    "selectors": {
+      "geometry": {
+        "node": "5",
+        "collection": "3d",
+        "index": 0
+      }
+    }
+  },
+  "masked_recolor_contract": {
+    "classification": "CAPABILITY_SUPPORT_ONLY_ACTUAL_REVIEW_REQUIRED",
+    "nodes": "LoopCoreLoadMesh imports the single untransformed native SaveGLB checkpoint; MaskedReferenceMeshColors preserves its vertex positions/face indices and replaces COLOR_0 only. All loaders are staged current, hash checked inputs; geometry_file is a forbidden path patch.",
+    "inputs": "geometry GLB checkpoint; isolated RGB image; SAM3 foreground_mask image aligned to isolated. Mask white=foreground, black=background, threshold>.8. Source RGB min<.65 excludes white antialias contamination. Bounds come from mask; nearest valid masked source RGB samples projected gaps.",
+    "projection": "Native GLB Y-up; X horizontal, Y vertical, remaining Z depth. u=(X cos(angle)-Z sin(angle)-min)/span, v=1-(Y-min)/span, then map into mask bbox. Default angle0, flip_horizontal false. Uses one actual reference view for all surface vertices, avoiding cross-view silhouette mismatch. Perspective/hidden colors are approximation; no manual color stripes or shape replacement.",
+    "patches": "node4 horizontal_axis,vertical_axis,view_angle,mask_threshold,white_threshold,flip_horizontal are strategy inputs. Node1 geometry_file cannot be patched. Select geometry at node5 / collection3d / index0. Output slot may be a new typed geometry slot chosen by Frontier.",
+    "evidence": "Existing failure Run2/Attempt1 preserved. Independent Reviewer C1/C2 MET C3 UNMET. Background contamination is plausible from .97-only foreground and nearest pixel projection; mask-filtering fixes that candidate source, not pre-certified task quality.",
+    "diagnostic_views": "Current runtime canonicalizes outputs by logical slot name. Request azimuth list is paired in actual order view_back,view_front,view_left,view_right; existing request[0,90,180,270] actually maps those angles respectively. For original front at camera native +Z (Blender -Y), choose angles [180,0,90,270] in that actual order. Fresh metric view_azimuths is authoritative; do not infer angle from slot name.",
+    "host_support": "Support05 is an exact requested color-only capability. Server reload and new MCP process required before availability; no Core state/task dispatch by observer. Frontier selects Skill/Workflow/restart and adopts original geometry/isolated/mask checkpoints explicitly. Original Review remains UNMET."
   }
 }

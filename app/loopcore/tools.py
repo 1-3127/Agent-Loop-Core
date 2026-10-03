@@ -30,7 +30,7 @@ class Tools:
 
     def capabilities(self):
         return {"image-normalize": "Contain-pad current image; size is stage policy.",
-            "comfy": "Run a bound native API graph. Parameters: template_ref, loaders {node: input_slot}, patches {node: inputs}, selectors {output_slot: {node, collection, index}}. Local tuning uses /patches/<KSampler node>/<sampler input> JSON-pointer names; model/graph/loaders are strategy.",
+            "comfy": "Run a bound native API graph. Parameters: template_ref, loaders {node: input_slot} for LoadImage/image or LoopCoreLoadMesh/geometry, patches {node: inputs}, selectors {output_slot: {node, collection, index}}. Local tuning uses /patches/<KSampler node>/<sampler input> JSON-pointer names; model/graph/loaders are strategy.",
             "blender-diagnose": "Fresh import of current GLB, neutral multi-angle views and metrics. Parameters: source_slot, size, azimuths. Outputs slots: configured view names + metrics.",
             "read-source": "Read a Host-allowed public primary source into sandbox. Parameters: url. No execute/install."}
 
@@ -123,7 +123,10 @@ class Tools:
         graph = json.loads(check_ref(graph_ref).read_text(encoding="utf-8"))
         self.host.path(graph_ref["path"])
         require(graph and all(isinstance(node, dict) and "class_type" in node and "inputs" in node for node in graph.values()), "API_GRAPH_REQUIRED")
-        require(set(parameters.get("loaders", {})) == {node_id for node_id, node in graph.items() if node["class_type"] == "LoadImage"}, "ALL_CURRENT_IMAGE_INPUTS_REQUIRED")
+        loader_ports = {"LoadImage": ("image", {"image", "reference"}), "LoopCoreLoadMesh": ("geometry_file", {"geometry"})}
+        require(set(parameters.get("loaders", {})) == {node_id for node_id, node in graph.items() if node["class_type"] in loader_ports}, "ALL_CURRENT_BOUND_INPUTS_REQUIRED")
+        for node_id, slot in parameters.get("loaders", {}).items():
+            require(artifacts[slot]["type"] in loader_ports[graph[node_id]["class_type"]][1], "COMFY_BOUND_INPUT_TYPE")
         require(set(parameters["selectors"]) == set(ticket["request"]["outputs"]), "COMFY_SELECTOR_COVERAGE")
         for selector in parameters["selectors"].values():
             require(selector["node"] in graph and isinstance(selector["collection"], str) and selector["collection"]
@@ -138,16 +141,16 @@ class Tools:
         ticket["operation"].update(staged_input_directory=str(staged), output_namespace=str(output_root / namespace))
         for node_id, slot in parameters.get("loaders", {}).items():
             identity(slot)
-            require(graph[node_id]["class_type"] == "LoadImage", "LOAD_IMAGE_BINDING")
+            field, _ = loader_ports[graph[node_id]["class_type"]]
             ref = artifacts[slot]["file"]
             source = check_ref(ref)
             destination = staged / (slot + source.suffix)
             shutil.copyfile(source, destination)
             require(file_ref(destination)["sha256"] == ref["sha256"], "STAGED_INPUT_CHANGED")
-            graph[node_id]["inputs"]["image"] = destination.relative_to(input_root).as_posix()
+            graph[node_id]["inputs"][field] = destination.relative_to(input_root).as_posix()
         for node_id, patch in parameters.get("patches", {}).items():
             require(node_id in graph and set(patch) <= set(graph[node_id]["inputs"]), "COMFY_PATCH_CONTRACT")
-            require(not set(patch) & {"image", "filename_prefix"}, "PATH_PATCH_FORBIDDEN")
+            require(not set(patch) & {"image", "geometry_file", "filename_prefix"}, "PATH_PATCH_FORBIDDEN")
             graph[node_id]["inputs"].update(patch)
         for node_id, node in graph.items():
             if "filename_prefix" in node["inputs"]:
