@@ -266,5 +266,11 @@
     "guards": "Only same deliverable-type frozen evidence target; both target/source produced in typed Workflow; preserve_as fresh/nonreference; chains/namespace collisions rejected. No frozen Spec changes. Old reviews become stale and cannot accept new result.",
     "acceptance": "When final_bindings declared only their targets are final deliverables; all mandatory frozen criteria and those final artifacts still require current independent MET Review. Original shape checkpoint remains lineage, not an additional final deliverable.",
     "host_support": "Support06 resolves exact Frontier revision73 request. Observer changed source only, not state/Workflow/Review/effects. New MCP process must load source; no native service reload needed."
+  },
+  "host_final_binding_support": {
+    "resolved_escalation_ticket": "ccbb7fac55124c56bd4354f50a437b30",
+    "session_id": "barrier-cli-20261004-01",
+    "classification": "VERIFIED_CONTRACT_SUPPORT_NOT_PLAN_OR_QUALITY_PROOF",
+    "host_response": "Host verified clean fc0c3ac and support-06 core/runtime/binding hashes. Same ACTIVE revision73 pending/unresolved none; original failure evidence retained. Explicit optional final_bindings contract now available as documented, applied only at final Worker success, with old Artifact/dependencies preserved and new current Review required. Native masked recolor nodes remain registered; no service reload. Frontier decides actual PLAN/checkpoints/final binding; Host does not inject Workflow. Synthetic checks excluded. Original finite time/call/run budgets unchanged."
   }
 }
