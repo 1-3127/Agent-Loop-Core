@@ -252,5 +252,12 @@
     "evidence": "Existing failure Run2/Attempt1 preserved. Independent Reviewer C1/C2 MET C3 UNMET. Background contamination is plausible from .97-only foreground and nearest pixel projection; mask-filtering fixes that candidate source, not pre-certified task quality.",
     "diagnostic_views": "Current runtime canonicalizes outputs by logical slot name. Request azimuth list is paired in actual order view_back,view_front,view_left,view_right; existing request[0,90,180,270] actually maps those angles respectively. For original front at camera native +Z (Blender -Y), choose angles [180,0,90,270] in that actual order. Fresh metric view_azimuths is authoritative; do not infer angle from slot name.",
     "host_support": "Support05 is an exact requested color-only capability. Server reload and new MCP process required before availability; no Core state/task dispatch by observer. Frontier selects Skill/Workflow/restart and adopts original geometry/isolated/mask checkpoints explicitly. Original Review remains UNMET."
+  },
+  "host_masked_recolor_support": {
+    "diagnostic_order": "Canonical view_back,view_front,view_left,view_right paired with requested azimuths. Prior [0,90,180,270] labels front end-on but all views valid. [180,0,90,270] aligns conventional +Z native front / Blender -Y; metrics.view_azimuths authoritative.",
+    "session_id": "barrier-cli-20261004-01",
+    "classification": "FACTUAL_HOST_CAPABILITY_RECOVERY_NOT_PLAN_OR_SUCCESS",
+    "resolved_escalation_ticket": "9e1d8c15aa444dbcb55b11e6b1997aa0",
+    "host_response": "Host verified clean f71baeb and support-05 graph/source/tools/binding hashes. Queue empty and original Session ACTIVE revision66 pending/unresolved none. Exactly one normal-user reload verified PID5204->25292 same argv; HTTP ready and LoopCoreLoadMesh/MaskedReferenceMeshColors/all graph classes registered. Existing geometry + aligned isolated/mask recolor-only capability is available; no shape regeneration required. Previous C3 UNMET review and original geometry/checkpoints preserved. Synthetic checks excluded from task. Frontier decides Skill/Workflow/restart/slots/axes/thresholds and fresh independent Review; quality not certified."
   }
 }
