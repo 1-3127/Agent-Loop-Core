@@ -50,7 +50,7 @@ def strategy_hash(workflow):
             for key in parts[:-1]:
                 target = target.get(key, {})
             target.pop(parts[-1], None)
-    return digest(stages)
+    return digest({"stages": stages, "final_bindings": workflow["final_bindings"]}) if workflow.get("final_bindings") else digest(stages)
 
 
 def file_ref(path):
@@ -303,7 +303,7 @@ class Sessions:
             return [json.loads(row[0]) for row in connection.execute("SELECT data FROM skills ORDER BY id,version")]
 
     def check_workflow(self, state, workflow):
-        require(set(workflow) == {"version", "stages", "previous_hash", "reason"}, "WORKFLOW_FIELDS")
+        require({"version", "stages", "previous_hash", "reason"} <= set(workflow) <= {"version", "stages", "previous_hash", "reason", "final_bindings"}, "WORKFLOW_FIELDS")
         stages = workflow["stages"]
         require(stages and len({s["id"] for s in stages}) == len(stages), "STAGES_REQUIRED")
         available = {key: state["artifacts"][aid]["type"] for key, aid in state["slots"].items() if key.startswith("reference-")}
@@ -323,6 +323,19 @@ class Sessions:
                 require(isinstance(kind, str) and kind.strip(), "WORKFLOW_OUTPUT_TYPE")
             available.update(stage["outputs"])
         require(any(state["spec"]["value"]["deliverable_type"] in stage["outputs"].values() for stage in stages), "DELIVERABLE_NOT_PRODUCED")
+        bindings = workflow.get("final_bindings", {})
+        require(isinstance(bindings, dict), "FINAL_BINDINGS_FIELDS")
+        evidence = {slot: kind for criterion in state["spec"]["value"]["criteria"] for slot, kind in criterion["evidence_slots"].items()}
+        preserved = set()
+        for target, binding in bindings.items():
+            identity(target)
+            require(isinstance(binding, dict) and set(binding) == {"source", "preserve_as"}, "FINAL_BINDING_FIELDS")
+            source, prior = identity(binding["source"]), identity(binding["preserve_as"])
+            kind = state["spec"]["value"]["deliverable_type"]
+            require(evidence.get(target) == kind and available.get(target) == kind and available.get(source) == kind and source != target, "FINAL_BINDING_TYPE")
+            require(prior not in available and prior not in preserved and not prior.startswith("reference-"), "FINAL_BINDING_PRESERVE_COLLISION")
+            require(source not in bindings, "FINAL_BINDING_CHAIN_FORBIDDEN")
+            preserved.add(prior)
 
     def workflow(self, sid, workflow, restart_from, *, local=None):
         with self.edit(sid, "WORKFLOW_RESTART" if local is None else "LOCAL_RETRY") as state:
@@ -344,10 +357,15 @@ class Sessions:
             budget = state["spec"]["value"]["budget"]
             require(state["run"] <= budget["runs"] and state["attempt"] <= budget["attempts"], "RUN_ATTEMPT_BUDGET")
             retained = {k: v for k, v in state["slots"].items() if k.startswith("reference-")}
+            previous_slots = dict(state["slots"])
+            if old and state["cursor"] == len(old["stages"]):
+                for target, binding in old.get("final_bindings", {}).items():
+                    require(binding["preserve_as"] in previous_slots, "FINAL_BINDING_ORIGIN_MISSING")
+                    previous_slots[target] = previous_slots[binding["preserve_as"]]
             for i in range(index):
                 require(old is not None and i < len(old["stages"]) and old["stages"][i] == workflow["stages"][i], "CHECKPOINT_STRATEGY_CHANGED")
                 for slot in workflow["stages"][i]["outputs"]:
-                    aid = state["slots"].get(slot)
+                    aid = previous_slots.get(slot)
                     require(aid and state["artifacts"][aid]["durability"] in {"CHECKPOINT", "OUTPUT"}, "CHECKPOINT_MISSING")
                     self.check_artifact(state, aid)
                     require(all(dep in retained.values() for dep in state["artifacts"][aid]["dependencies"]), "CHECKPOINT_DEPENDENCY_CHANGED")
@@ -494,6 +512,15 @@ class Sessions:
         if ticket["role"] == "worker":
             state["cursor"] += 1
             state["local"] = {}
+            if state["cursor"] == len(state["workflow"]["stages"]):
+                for target, binding in state["workflow"].get("final_bindings", {}).items():
+                    source, prior = binding["source"], binding["preserve_as"]
+                    require(prior not in state["slots"], "FINAL_BINDING_PRESERVE_COLLISION")
+                    before, after = state["slots"][target], state["slots"][source]
+                    require(state["artifacts"][before]["type"] == state["artifacts"][after]["type"] == state["spec"]["value"]["deliverable_type"], "FINAL_BINDING_TYPE")
+                    self.check_artifact(state, before)
+                    self.check_artifact(state, after)
+                    state["slots"][prior], state["slots"][target] = before, after
 
     def register_review(self, state, ticket, review, invocation):
         request = ticket["request"]
@@ -519,7 +546,7 @@ class Sessions:
             require(state["status"] == "ACTIVE" and not state["pending"] and not state["unresolved"], "ACCEPT_UNRESOLVED")
             require(state["decisions"] and state["decisions"][-1]["value"]["action"] == "ACCEPT", "ACCEPT_DECISION_REQUIRED")
             require(state["cursor"] == len(state["workflow"]["stages"]), "WORKFLOW_INCOMPLETE")
-            final = [aid for aid in state["slots"].values() if state["artifacts"][aid]["type"] == state["spec"]["value"]["deliverable_type"]]
+            final = list(dict.fromkeys(state["slots"][slot] for slot in state["workflow"]["final_bindings"])) if state["workflow"].get("final_bindings") else [aid for aid in state["slots"].values() if state["artifacts"][aid]["type"] == state["spec"]["value"]["deliverable_type"]]
             require(final, "FINAL_ARTIFACT_MISSING")
             for aid in final:
                 self.check_artifact(state, aid)

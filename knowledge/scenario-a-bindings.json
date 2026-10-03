@@ -259,5 +259,12 @@
     "classification": "FACTUAL_HOST_CAPABILITY_RECOVERY_NOT_PLAN_OR_SUCCESS",
     "resolved_escalation_ticket": "9e1d8c15aa444dbcb55b11e6b1997aa0",
     "host_response": "Host verified clean f71baeb and support-05 graph/source/tools/binding hashes. Queue empty and original Session ACTIVE revision66 pending/unresolved none. Exactly one normal-user reload verified PID5204->25292 same argv; HTTP ready and LoopCoreLoadMesh/MaskedReferenceMeshColors/all graph classes registered. Existing geometry + aligned isolated/mask recolor-only capability is available; no shape regeneration required. Previous C3 UNMET review and original geometry/checkpoints preserved. Synthetic checks excluded from task. Frontier decides Skill/Workflow/restart/slots/axes/thresholds and fresh independent Review; quality not certified."
+  },
+  "final_geometry_binding_contract": {
+    "workflow_field": "Optional final_bindings mapping frozen geometry target to {source:recolored_geometry,preserve_as:original_geometry}; Frontier chooses logical names in real PLAN.",
+    "application": "Only after final Workflow Worker success; old artifact kept as a current immutable dependency; final target points at new same-type source. Diagnostics consume recolored_geometry before end binding. Previous stages unchanged + real checkpoints required.",
+    "guards": "Only same deliverable-type frozen evidence target; both target/source produced in typed Workflow; preserve_as fresh/nonreference; chains/namespace collisions rejected. No frozen Spec changes. Old reviews become stale and cannot accept new result.",
+    "acceptance": "When final_bindings declared only their targets are final deliverables; all mandatory frozen criteria and those final artifacts still require current independent MET Review. Original shape checkpoint remains lineage, not an additional final deliverable.",
+    "host_support": "Support06 resolves exact Frontier revision73 request. Observer changed source only, not state/Workflow/Review/effects. New MCP process must load source; no native service reload needed."
   }
 }

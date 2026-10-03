@@ -21,7 +21,15 @@ Never substitute a historical/demo Reference for a missing current User input; a
 After freeze:
 CREATE_SKILL {skill}: skill fields id, version, purpose, inputs, outputs, capabilities, dependencies,
 subskills, known_failures, provenance, instructions. New knowledge is candidate, never fabricated validated.
-PLAN {workflow, restart_from}: workflow fields version, stages, previous_hash, reason.
+PLAN {workflow, restart_from}: workflow fields version, stages, previous_hash, reason; optional final_bindings.
+final_bindings is an explicit final deliverable alias, e.g. {"geometry":{"source":"recolored_geometry","preserve_as":"original_geometry"}}.
+Both target/source must be same deliverable type produced in this Workflow; target is a frozen evidence slot.
+preserve_as must be new. Stage output collisions remain forbidden. At successful Workflow end only, Core preserves
+the old target artifact under preserve_as and binds target to source; Artifact IDs/files/dependencies/reviews stay immutable.
+Diagnostics must consume recolored_geometry before the alias takes effect. Review all frozen slots afterward.
+Acceptance/delivery select declared final targets and require fresh current independent Review; prior Review cannot certify them.
+For a revision retain identical preceding stages and restart at the new recolor stage; Core restores original prefix checkpoint
+bindings on later restart. The Frontier, never Host, selects these aliases in an actual PLAN.
 stage fields id, tool, skill:{id,version,hash}, inputs:{slot:type}, outputs:{slot:type}, parameters, local_parameters:[name].
 A deliverable type must be produced by a stage; later diagnostic stages may follow without re-emitting geometry.
 For blender-diagnose, output slot names are arbitrary frozen evidence names; each output type must be image or metrics.
